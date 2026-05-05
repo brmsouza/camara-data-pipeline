@@ -1,86 +1,119 @@
 # Databricks notebook source
+# ------------------------------------------------------------------------------
+# Module: pagination
+# Layer: Core
+# Author: Bruno Souza
+#
+# Description:
+# Provides reusable functions to handle API pagination.
+#
+# Context:
+# Centralizes logic to iterate through paginated endpoints of the
+# Câmara dos Deputados API, ensuring complete data retrieval.
+#
+# Notes:
+# - Supports page-based pagination (pagina / itens)
+# - Handles loop termination based on API response size
+# - Designed to be used with or without retry logic
+# - Used across ingestion pipelines for large datasets
+# ------------------------------------------------------------------------------
 
-from __future__ import annotations
-
-from collections.abc import Iterator
-from typing import Any
-from urllib.parse import parse_qs, urlparse
-
-
-def get_next_link(payload: dict[str, Any]) -> str | None:
-    """Retorna o link da próxima página, quando existir."""
-    for link in payload.get("links", []):
-        if link.get("rel") == "next":
-            return link.get("href")
-
-    return None
-
-
-def extract_endpoint_and_params(url: str) -> tuple[str, dict[str, Any]]:
-    """Converte uma URL completa da API em endpoint e parâmetros."""
-    parsed = urlparse(url)
-
-    endpoint = parsed.path.replace("/api/v2", "")
-    query_params = parse_qs(parsed.query)
-
-    params = {
-        key: values[0] if len(values) == 1 else values
-        for key, values in query_params.items()
-    }
-
-    return endpoint, params
-
+# COMMAND ----------
 
 def paginate(
     endpoint: str,
-    params: dict[str, Any] | None = None,
-    max_pages: int | None = None,
-) -> Iterator[dict[str, Any]]:
-    """
-    Itera sobre as páginas disponíveis da API.
-    Mantém baixo uso de memória ao retornar uma página por vez.
-    """
-    current_endpoint = endpoint
-    current_params = params or {}
+    params: dict | None = None,
+    limit: int | None = None,
+    page_size: int = 100,
+    timeout: int = 20,
+):
+    records = []
     page = 1
 
-    logger.info(
-        "pagination_started | endpoint=%s | params=%s | max_pages=%s",
-        endpoint,
-        current_params,
-        max_pages,
-    )
-
     while True:
-        payload = get_data(current_endpoint, current_params)
-        records = len(payload.get("dados", []))
+        current_params = dict(params or {})
+        current_params["pagina"] = page
+        current_params["itens"] = page_size
 
-        logger.info(
-            "page_loaded | endpoint=%s | page=%s | records=%s",
-            endpoint,
-            page,
-            records,
+        payload = get_data(
+            endpoint=endpoint,
+            params=current_params,
+            timeout=timeout,
         )
 
-        yield payload
+        page_records = payload.get("dados", [])
 
-        if max_pages is not None and page >= max_pages:
-            logger.info(
-                "pagination_stopped_by_limit | endpoint=%s | pages=%s",
-                endpoint,
-                page,
-            )
+        if not page_records:
             break
 
-        next_link = get_next_link(payload)
+        records.extend(page_records)
 
-        if not next_link:
-            logger.info(
-                "pagination_completed | endpoint=%s | total_pages=%s",
-                endpoint,
-                page,
-            )
+        if len(page_records) < page_size:
             break
 
-        current_endpoint, current_params = extract_endpoint_and_params(next_link)
+        if limit and len(records) >= limit:
+            break
+
         page += 1
+
+    return records if limit is None else records[:limit]
+
+    
+import time
+
+
+def paginate_with_retry(
+    endpoint: str,
+    params: dict | None = None,
+    limit: int | None = None,
+    page_size: int = 100,
+    timeout: int = 120,
+    retries: int = 3,
+    sleep_seconds: float = 0.5,
+) -> list[dict]:
+
+    records = []
+    page = 1
+
+    while True:
+        current_params = dict(params or {})
+        current_params["pagina"] = page
+        current_params["itens"] = page_size
+
+        last_error = None
+
+        for attempt in range(1, retries + 1):
+            try:
+                payload = get_data(
+                    endpoint=endpoint,
+                    params=current_params,
+                    timeout=timeout,
+                )
+                break
+
+            except Exception as e:
+                last_error = e
+
+                if attempt == retries:
+                    raise last_error
+
+                time.sleep(sleep_seconds * attempt)
+
+        page_records = payload.get("dados", [])
+
+        if not page_records:
+            break
+
+        records.extend(page_records)
+
+        if len(page_records) < page_size:
+            break
+
+        if limit is not None and len(records) >= limit:
+            break
+
+        page += 1
+
+        time.sleep(sleep_seconds)
+
+    return records if limit is None else records[:limit]    
