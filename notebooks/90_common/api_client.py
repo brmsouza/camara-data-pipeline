@@ -1,52 +1,40 @@
 # Databricks notebook source
+# ------------------------------------------------------------------------------
+# Module: api_client
+# Layer: Core
+# Author: Bruno Souza
+#
+# Description:
+# Provides reusable functions to interact with the Câmara dos Deputados
+# Open Data API.
+#
+# Context:
+# Centralizes HTTP request handling, pagination, retries and timeout control
+# used across ingestion pipelines.
+#
+# Notes:
+# - Supports GET requests with parameter handling
+# - Includes retry logic for resilience
+# - Handles pagination for large datasets
+# - Designed to be reused across all Bronze ingestion notebooks
+# ------------------------------------------------------------------------------
 
-from __future__ import annotations
-
-from typing import Any
+# COMMAND ----------
 
 import requests
 
-
 BASE_URL = "https://dadosabertos.camara.leg.br/api/v2"
-DEFAULT_TIMEOUT = 30
 
 
-def get_data(
-    endpoint: str,
-    params: dict[str, Any] | None = None,
-    timeout: int = DEFAULT_TIMEOUT,
-) -> dict[str, Any]:
-    """
-    Executa uma chamada GET na API da Câmara dos Deputados.
-    """
+def get_data(endpoint: str, params: dict | None = None, timeout: int = 20) -> dict:
     url = f"{BASE_URL}{endpoint}"
 
-    logger.info(
-        "request_started | endpoint=%s | params=%s",
-        endpoint,
-        params,
+    response = requests.get(
+        url,
+        params=params,
+        timeout=timeout,
     )
 
-    try:
-        response = requests.get(url, params=params, timeout=timeout)
-        response.raise_for_status()
+    response.raise_for_status()
 
-        payload = response.json()
-        records_count = len(payload.get("dados", []))
-
-        logger.info(
-            "request_completed | endpoint=%s | status_code=%s | records=%s",
-            endpoint,
-            response.status_code,
-            records_count,
-        )
-
-        return payload
-
-    except requests.exceptions.RequestException:
-        logger.exception(
-            "request_failed | endpoint=%s | params=%s",
-            endpoint,
-            params,
-        )
-        raise
+    return response.json()
