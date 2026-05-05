@@ -1,14 +1,29 @@
 # Databricks notebook source
+# ------------------------------------------------------------------------------
+# Module: logger
+# Layer: Core
+# Author: Bruno Souza
+#
+# Description:
+# Provides standardized logging utilities for the data pipeline.
+#
+# Context:
+# Centralizes logging behavior across notebooks and modules, ensuring
+# consistent log formatting and integration with monitoring.pipeline_log.
+#
+# Notes:
+# - Supports structured logging (INFO, ERROR, WARNING)
+# - Integrates with pipeline_log for observability
+# - Used across all ingestion and admin notebooks
+# - Does not persist data directly (delegates to log_pipeline_event)
+# ------------------------------------------------------------------------------
 
-from __future__ import annotations
+# COMMAND ----------
 
 import logging
 
 
 def get_logger(name: str, layer: str = "pipeline") -> logging.Logger:
-    """
-    Cria um logger padronizado para os notebooks do pipeline.
-    """
     layer_norm = layer.strip().lower()
     logger_name = f"{layer_norm}.{name}"
 
