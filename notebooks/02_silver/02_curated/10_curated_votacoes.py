@@ -306,6 +306,51 @@ df_dedup = df_curated
 
 # COMMAND ----------
 
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("vot_id_votacao").isNull()
+        |
+        col("vot_nr_ano_referencia").isNull()
+    )
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("vot_id_votacao").isNull(),
+            lit("vot_id_votacao_is_null")
+        )
+        .when(
+            col("vot_nr_ano_referencia").isNull(),
+            lit("vot_nr_ano_referencia_is_null")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
+df_valid = (
+    df_dedup
+    .filter(col("vot_id_votacao").isNotNull())
+    .filter(col("vot_nr_ano_referencia").isNotNull())
+)
+
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
+
+records_written = df_valid.count()
+
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
 df_valid = (
     df_dedup
     .filter(col("vot_id_votacao").isNotNull())
@@ -319,6 +364,16 @@ records_discarded = records_read - records_written
 # COMMAND ----------
 
 (
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
+
+# COMMAND ----------
+
+(
     df_valid.write
     .format("delta")
     .mode("overwrite")
@@ -326,10 +381,6 @@ records_discarded = records_read - records_written
     .partitionBy("vot_nr_ano_referencia")
     .saveAsTable(TARGET_TABLE)
 )
-
-# COMMAND ----------
-
-display(spark.table(TARGET_TABLE).limit(50))
 
 # COMMAND ----------
 

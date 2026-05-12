@@ -56,8 +56,6 @@ from pyspark.sql.functions import (
     current_timestamp,
     row_number,
     from_json,
-    from_csv,
-    expr,
     initcap,
     count,
     when,
@@ -111,210 +109,168 @@ df_map = (
         "payload_map",
         from_json(col("raw_payload"), MapType(StringType(), StringType()))
     )
-    .withColumn(
-        "payload_data",
-        expr("""
-            element_at(
-                map_values(
-                    map_filter(
-                        payload_map,
-                        (k, v) -> k NOT IN ('_source_file', 'ano_referencia')
-                    )
-                ),
-                1
-            )
-        """)
-    )
 )
 
 # COMMAND ----------
 
-proposicoes_csv_schema = """
-id STRING,
-uri STRING,
-siglaTipo STRING,
-numero STRING,
-ano STRING,
-codTipo STRING,
-descricaoTipo STRING,
-ementa STRING,
-ementaDetalhada STRING,
-keywords STRING,
-dataApresentacao STRING,
-uriOrgaoNumerador STRING,
-uriPropAnterior STRING,
-uriPropPrincipal STRING,
-uriPropPosterior STRING,
-urlInteiroTeor STRING,
-urnFinal STRING,
-ultimoStatus_dataHora STRING,
-ultimoStatus_sequencia STRING,
-ultimoStatus_uriRelator STRING,
-ultimoStatus_idOrgao STRING,
-ultimoStatus_siglaOrgao STRING,
-ultimoStatus_uriOrgao STRING,
-ultimoStatus_regime STRING,
-ultimoStatus_descricaoTramitacao STRING,
-ultimoStatus_idTipoTramitacao STRING,
-ultimoStatus_descricaoSituacao STRING,
-ultimoStatus_idSituacao STRING,
-ultimoStatus_despacho STRING,
-ultimoStatus_apreciacao STRING,
-ultimoStatus_url STRING
-"""
+from pyspark.sql.functions import year
 
-df_parsed = (
-    df_map
-    .withColumn(
-        "csv_data",
-        from_csv(
-            col("payload_data"),
-            proposicoes_csv_schema,
-            {
-                "sep": ";",
-                "quote": '"',
-                "escape": '"',
-                "header": "false"
-            }
-        )
-    )
+status_ts_data_hora = (
+    col("payload_map.ultimoStatus_dataHora")
+    .try_cast("timestamp")
 )
 
-# COMMAND ----------
+prop_ts_apresentacao = (
+    col("payload_map.dataApresentacao")
+    .try_cast("timestamp")
+)
 
 df_standardized = (
-    df_parsed
+    df_map
     .select(
-        col("csv_data.id")
+        col("payload_map.id")
             .try_cast("long")
             .alias("prop_id_proposicao"),
 
-        trim(col("csv_data.uri"))
+        trim(col("payload_map.uri"))
             .alias("prop_tx_uri"),
 
-        upper(trim(col("csv_data.siglaTipo")))
+        upper(trim(col("payload_map.siglaTipo")))
             .alias("prop_sg_tipo"),
 
-        col("csv_data.numero")
+        col("payload_map.numero")
             .try_cast("long")
             .alias("prop_nr_numero"),
 
-        col("csv_data.ano")
+        # ---------------------------------------------------
+        # Official proposition year from Câmara API
+        # ---------------------------------------------------
+
+        col("payload_map.ano")
             .try_cast("int")
             .alias("prop_nr_ano"),
 
-        col("csv_data.codTipo")
+        # ---------------------------------------------------
+        # Technical/analytical year derived from
+        # presentation timestamp
+        # ---------------------------------------------------
+
+        year(prop_ts_apresentacao)
+            .alias("prop_nr_ano_apresentacao"),
+
+        col("payload_map.codTipo")
             .try_cast("int")
             .alias("prop_cd_tipo"),
 
-        initcap(trim(col("csv_data.descricaoTipo")))
+        initcap(trim(col("payload_map.descricaoTipo")))
             .alias("prop_tx_descricao_tipo"),
 
-        initcap(trim(col("csv_data.ementa")))
+        initcap(trim(col("payload_map.ementa")))
             .alias("prop_tx_ementa"),
 
-        initcap(trim(col("csv_data.ementaDetalhada")))
+        initcap(trim(col("payload_map.ementaDetalhada")))
             .alias("prop_tx_ementa_detalhada"),
 
-        trim(col("csv_data.keywords"))
+        trim(col("payload_map.keywords"))
             .alias("prop_tx_keywords"),
 
-        col("csv_data.dataApresentacao")
-            .try_cast("timestamp")
+        prop_ts_apresentacao
             .alias("prop_ts_apresentacao"),
+
         when(
-            col("csv_data.dataApresentacao")
-                .try_cast("timestamp")
-                .isNotNull(),
+            prop_ts_apresentacao.isNotNull(),
             lit(1)
         )
         .otherwise(lit(0))
-        .alias("prop_fl_data_apresentacao_valida"),            
+        .alias("prop_fl_data_apresentacao_valida"),
 
-        trim(col("csv_data.uriOrgaoNumerador"))
+        trim(col("payload_map.uriOrgaoNumerador"))
             .alias("org_tx_uri_numerador"),
 
-        trim(col("csv_data.uriPropAnterior"))
+        trim(col("payload_map.uriPropAnterior"))
             .alias("prop_tx_uri_anterior"),
 
-        trim(col("csv_data.uriPropPrincipal"))
+        trim(col("payload_map.uriPropPrincipal"))
             .alias("prop_tx_uri_principal"),
 
-        trim(col("csv_data.uriPropPosterior"))
+        trim(col("payload_map.uriPropPosterior"))
             .alias("prop_tx_uri_posterior"),
 
-        trim(col("csv_data.urlInteiroTeor"))
+        trim(col("payload_map.urlInteiroTeor"))
             .alias("prop_tx_url_inteiro_teor"),
 
-        trim(col("csv_data.urnFinal"))
+        trim(col("payload_map.urnFinal"))
             .alias("prop_tx_urn_final"),
 
-        col("csv_data.ultimoStatus_dataHora")
-            .try_cast("timestamp")
+        status_ts_data_hora
             .alias("status_ts_data_hora"),
+
         when(
-            col("csv_data.ultimoStatus_dataHora")
-                .try_cast("timestamp")
-                .isNotNull(),
+            status_ts_data_hora.isNotNull(),
             lit(1)
         )
         .otherwise(lit(0))
-        .alias("status_fl_data_hora_valida"),  
-                  
+        .alias("status_fl_data_hora_valida"),
+
+        # ---------------------------------------------------
+        # Compare only dates to avoid false negatives caused
+        # by different timestamp granularities
+        # ---------------------------------------------------
+
         when(
+            status_ts_data_hora.isNull()
+            |
             (
-                col("csv_data.ultimoStatus_dataHora")
-                    .try_cast("timestamp")
+                status_ts_data_hora.cast("date")
                 >=
-                col("csv_data.dataApresentacao")
-                    .try_cast("timestamp")
+                prop_ts_apresentacao.cast("date")
             ),
             lit(1)
         )
         .otherwise(lit(0))
         .alias("status_fl_periodo_valido"),
 
-        col("csv_data.ultimoStatus_sequencia")
+        col("payload_map.ultimoStatus_sequencia")
             .try_cast("int")
             .alias("status_nr_sequencia"),
 
-        trim(col("csv_data.ultimoStatus_uriRelator"))
+        trim(col("payload_map.ultimoStatus_uriRelator"))
             .alias("status_tx_uri_relator"),
 
-        col("csv_data.ultimoStatus_idOrgao")
+        col("payload_map.ultimoStatus_idOrgao")
             .try_cast("long")
             .alias("status_id_orgao"),
 
-        upper(trim(col("csv_data.ultimoStatus_siglaOrgao")))
+        upper(trim(col("payload_map.ultimoStatus_siglaOrgao")))
             .alias("status_sg_orgao"),
 
-        trim(col("csv_data.ultimoStatus_uriOrgao"))
+        trim(col("payload_map.ultimoStatus_uriOrgao"))
             .alias("status_tx_uri_orgao"),
 
-        initcap(trim(col("csv_data.ultimoStatus_regime")))
+        initcap(trim(col("payload_map.ultimoStatus_regime")))
             .alias("status_tx_regime"),
 
-        initcap(trim(col("csv_data.ultimoStatus_descricaoTramitacao")))
+        initcap(trim(col("payload_map.ultimoStatus_descricaoTramitacao")))
             .alias("status_tx_descricao_tramitacao"),
 
-        col("csv_data.ultimoStatus_idTipoTramitacao")
+        col("payload_map.ultimoStatus_idTipoTramitacao")
             .try_cast("int")
             .alias("status_id_tipo_tramitacao"),
 
-        initcap(trim(col("csv_data.ultimoStatus_descricaoSituacao")))
+        initcap(trim(col("payload_map.ultimoStatus_descricaoSituacao")))
             .alias("status_tx_descricao_situacao"),
 
-        col("csv_data.ultimoStatus_idSituacao")
+        col("payload_map.ultimoStatus_idSituacao")
             .try_cast("int")
             .alias("status_id_situacao"),
 
-        trim(col("csv_data.ultimoStatus_despacho"))
+        trim(col("payload_map.ultimoStatus_despacho"))
             .alias("status_tx_despacho"),
 
-        initcap(trim(col("csv_data.ultimoStatus_apreciacao")))
+        initcap(trim(col("payload_map.ultimoStatus_apreciacao")))
             .alias("status_tx_apreciacao"),
 
-        trim(col("csv_data.ultimoStatus_url"))
+        trim(col("payload_map.ultimoStatus_url"))
             .alias("status_tx_url"),
 
         # ---------------------------------------------------
@@ -374,35 +330,64 @@ df_dedup = (
 
 # COMMAND ----------
 
-invalid_null_id = (
+df_discarded = (
     df_dedup
-    .filter(col("prop_id_proposicao").isNull())
-    .count()
-)
-
-duplicated_ids = (
-    df_dedup
-    .groupBy("prop_id_proposicao")
-    .agg(count("*").alias("qt_registros"))
-    .filter(col("qt_registros") > 1)
-    .count()
-)
-
-if duplicated_ids > 0:
-    raise Exception(
-        f"Data quality error: {duplicated_ids} duplicated proposition IDs."
+    .filter(
+        col("prop_id_proposicao").isNull()
+        |
+        col("prop_nr_ano_apresentacao").isNull()
+        |
+        (col("prop_fl_data_apresentacao_valida") != 1)
+        |
+        (col("status_fl_periodo_valido") != 1)
     )
-    
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("prop_id_proposicao").isNull(),
+            lit("prop_id_proposicao_is_null")
+        )
+        .when(
+            col("prop_nr_ano_apresentacao").isNull(),
+            lit("prop_nr_ano_apresentacao_is_null")
+        )
+        .when(
+            col("prop_fl_data_apresentacao_valida") != 1,
+            lit("prop_ts_apresentacao_invalid")
+        )
+        .when(
+            col("status_fl_periodo_valido") != 1,
+            lit("status_period_invalid")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
 df_valid = (
     df_dedup
     .filter(col("prop_id_proposicao").isNotNull())
-    .filter(col("prop_nr_ano").isNotNull())
+    .filter(col("prop_nr_ano_apresentacao").isNotNull())
     .filter(col("prop_fl_data_apresentacao_valida") == 1)
+    .filter(col("status_fl_periodo_valido") == 1)
 )
+
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
 
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 
@@ -411,7 +396,7 @@ records_discarded = records_read - records_written
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .partitionBy("prop_nr_ano")
+    .partitionBy("prop_nr_ano_apresentacao")
     .saveAsTable(TARGET_TABLE)
 )
 

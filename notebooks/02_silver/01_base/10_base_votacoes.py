@@ -103,65 +103,55 @@ records_read = df_bronze.count()
 
 # COMMAND ----------
 
+vot_dt_votacao_expr = (
+    get_json_object(col("raw_payload"), "$.data")
+    .try_cast("date")
+)
+
+vot_ts_registro_expr = (
+    get_json_object(col("raw_payload"), "$.dataHoraRegistro")
+    .try_cast("timestamp")
+)
+
 df_standardized = (
     df_bronze
     .select(
-        # ---------------------------------------------------
-        # Voting identifiers
-        # ---------------------------------------------------
-
-        col("source_id")
-            .alias("vot_id_votacao"),
+        col("source_id").alias("vot_id_votacao"),
 
         get_json_object(col("raw_payload"), "$.uri")
             .alias("vot_tx_uri"),
 
-        # ---------------------------------------------------
-        # Voting dates / timestamps
-        # ---------------------------------------------------
-
-        get_json_object(col("raw_payload"), "$.data")
-            .try_cast("date")
+        vot_dt_votacao_expr
             .alias("vot_dt_votacao"),
 
         when(
-            get_json_object(col("raw_payload"), "$.data")
-                .try_cast("date")
-                .isNotNull(),
+            vot_dt_votacao_expr.isNotNull(),
             lit(1)
         )
         .otherwise(lit(0))
-        .alias("vot_fl_data_valida"),     
-        get_json_object(col("raw_payload"), "$.dataHoraRegistro")
-            .try_cast("timestamp")
+        .alias("vot_fl_data_valida"),
+
+        vot_ts_registro_expr
             .alias("vot_ts_registro"),
-       
+
         when(
-            get_json_object(col("raw_payload"), "$.dataHoraRegistro")
-                .try_cast("timestamp")
-                .isNotNull(),
+            vot_ts_registro_expr.isNotNull(),
             lit(1)
         )
         .otherwise(lit(0))
         .alias("vot_fl_timestamp_registro_valido"),
 
         when(
+            vot_ts_registro_expr.isNull()
+            |
             (
-                get_json_object(col("raw_payload"), "$.dataHoraRegistro")
-                    .try_cast("timestamp")
-                    .cast("date")
-                >=
-                get_json_object(col("raw_payload"), "$.data")
-                    .try_cast("date")
+                vot_ts_registro_expr.cast("date")
+                >= vot_dt_votacao_expr
             ),
             lit(1)
         )
         .otherwise(lit(0))
         .alias("vot_fl_periodo_valido"),
-
-        # ---------------------------------------------------
-        # Voting attributes
-        # ---------------------------------------------------
 
         initcap(get_json_object(col("raw_payload"), "$.descricao"))
             .alias("vot_tx_descricao"),
@@ -174,20 +164,12 @@ df_standardized = (
             .try_cast("int")
             .alias("vot_nr_ano_referencia"),
 
-        # ---------------------------------------------------
-        # Event relationship
-        # ---------------------------------------------------
-
         get_json_object(col("raw_payload"), "$.idEvento")
             .try_cast("long")
             .alias("evt_id_evento"),
 
         get_json_object(col("raw_payload"), "$.uriEvento")
             .alias("evt_tx_uri"),
-
-        # ---------------------------------------------------
-        # Organization relationship
-        # ---------------------------------------------------
 
         get_json_object(col("raw_payload"), "$.idOrgao")
             .try_cast("long")
@@ -198,10 +180,6 @@ df_standardized = (
 
         get_json_object(col("raw_payload"), "$.uriOrgao")
             .alias("org_tx_uri"),
-
-        # ---------------------------------------------------
-        # Voting results
-        # ---------------------------------------------------
 
         get_json_object(col("raw_payload"), "$.votosSim")
             .try_cast("int")
@@ -214,10 +192,6 @@ df_standardized = (
         get_json_object(col("raw_payload"), "$.votosOutros")
             .try_cast("int")
             .alias("vot_qt_outros"),
-
-        # ---------------------------------------------------
-        # Proposition relationship
-        # ---------------------------------------------------
 
         get_json_object(
             col("raw_payload"),
@@ -232,41 +206,22 @@ df_standardized = (
         )
         .alias("prop_tx_uri"),
 
-        initcap(get_json_object(
-            col("raw_payload"),
-            "$.ultimaApresentacaoProposicao_descricao"
-        ))
+        initcap(
+            get_json_object(
+                col("raw_payload"),
+                "$.ultimaApresentacaoProposicao_descricao"
+            )
+        )
         .alias("prop_tx_descricao"),
 
-        # ---------------------------------------------------
-        # Bronze lineage / traceability
-        # ---------------------------------------------------
+        col("source_endpoint").alias("bronze_tx_endpoint"),
+        col("source_id").alias("bronze_id_origem"),
+        col("batch_id").alias("bronze_id_batch"),
+        col("record_hash").alias("bronze_tx_record_hash"),
+        col("ingestion_timestamp").alias("bronze_ts_ingestao"),
+        col("ingestion_date").alias("bronze_dt_ingestao"),
 
-        col("source_endpoint")
-            .alias("bronze_tx_endpoint"),
-
-        col("source_id")
-            .alias("bronze_id_origem"),
-
-        col("batch_id")
-            .alias("bronze_id_batch"),
-
-        col("record_hash")
-            .alias("bronze_tx_record_hash"),
-
-        col("ingestion_timestamp")
-            .alias("bronze_ts_ingestao"),
-
-        col("ingestion_date")
-            .alias("bronze_dt_ingestao"),
-
-        # ---------------------------------------------------
-        # Silver metadata
-        # ---------------------------------------------------
-
-        current_timestamp()
-            .alias("silver_ts_processamento"),
-
+        current_timestamp().alias("silver_ts_processamento")
     )
 )
 
@@ -309,16 +264,79 @@ if duplicated_ids > 0:
         f"Data quality error: {duplicated_ids} duplicated voting IDs."
     )
 
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("vot_id_votacao").isNull()
+        |
+        (~col("vot_id_votacao").rlike("^[0-9]+-[0-9]+$"))
+        |
+        (col("vot_fl_data_valida") != 1)
+        |
+        (col("vot_fl_periodo_valido") != 1)
+    )
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("vot_id_votacao").isNull(),
+            lit("vot_id_votacao_is_null")
+        )
+        .when(
+            ~col("vot_id_votacao").rlike("^[0-9]+-[0-9]+$"),
+            lit("vot_id_votacao_invalid_format")
+        )
+        .when(
+            col("vot_fl_data_valida") != 1,
+            lit("vot_dt_votacao_invalid")
+        )
+        .when(
+            col("vot_fl_periodo_valido") != 1,
+            lit("vot_period_invalid")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
 df_valid = (
     df_dedup
     .filter(col("vot_id_votacao").isNotNull())
     .filter(col("vot_id_votacao").rlike("^[0-9]+-[0-9]+$"))
     .filter(col("vot_fl_data_valida") == 1)
+    .filter(col("vot_fl_periodo_valido") == 1)
 )
+
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
 
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+
+records_deduplicated = records_read - df_dedup.count()
+
+print(f"Records deduplicated: {records_deduplicated}")
+
+
+# COMMAND ----------
+
+(
+    df_discarded
+    .write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 
@@ -330,6 +348,25 @@ records_discarded = records_read - records_written
     .partitionBy("vot_nr_ano_referencia")
     .saveAsTable(TARGET_TABLE)
 )
+
+# COMMAND ----------
+
+rejection_summary = (
+    df_discarded
+    .groupBy("rejection_reason")
+    .count()
+    .orderBy(col("count").desc())
+)
+
+rejection_summary.show(truncate=False)
+
+rejection_message = ", ".join([
+    f"{row['rejection_reason']}={row['count']}"
+    for row in rejection_summary.collect()
+])
+
+if rejection_message == "":
+    rejection_message = "no_rejections"
 
 # COMMAND ----------
 

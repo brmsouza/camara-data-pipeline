@@ -120,8 +120,11 @@ df_curated = (
         col("part_sg_partido")
             .alias("part_sg_partido"),
 
-        coalesce(col("leg_nr_legislatura"), col("leg_cd_legislatura"))
-            .alias("leg_id_legislatura"),
+        col("leg_id_legislatura")
+             .alias("leg_id_legislatura"),
+
+         col("leg_nr_ano_inicio")
+             .alias("leg_nr_ano_inicio"),
 
         # ---------------------------------------------------
         # Expense classification
@@ -293,6 +296,62 @@ df_curated = (
 
 # COMMAND ----------
 
+df_deputados_ref = (
+    spark.table("silver_curated.deputados")
+    .select(
+        col("dept_id_deputado").alias("ref_dept_id_deputado"),
+        col("dept_nr_cpf").alias("ref_dept_nr_cpf")
+    )
+    .filter(col("ref_dept_nr_cpf").isNotNull())
+    .dropDuplicates(["ref_dept_nr_cpf"])
+)
+
+df_curated = (
+    df_curated.alias("desp")
+    .join(
+        df_deputados_ref.alias("dept"),
+        col("desp.dept_nr_cpf") == col("dept.ref_dept_nr_cpf"),
+        "left"
+    )
+    .withColumn(
+        "dept_id_deputado_resolvido",
+        when(
+            col("desp.dept_id_cadastro").isNotNull(),
+            col("desp.dept_id_cadastro")
+        )
+        .when(
+            col("dept.ref_dept_id_deputado").isNotNull(),
+            col("dept.ref_dept_id_deputado")
+        )
+        .otherwise(lit(None))
+    )
+    .withColumn(
+        "dept_tx_origem_id_deputado",
+        when(
+            col("desp.dept_id_cadastro").isNotNull(),
+            lit("ideCadastro_despesas")
+        )
+        .when(
+            col("dept.ref_dept_id_deputado").isNotNull(),
+            lit("cpf_deputados")
+        )
+        .otherwise(lit("nao_resolvido"))
+    )
+    .withColumn(
+        "dept_tx_origem_id_deputado",
+        when(col("desp.dept_id_deputado").isNotNull(), lit("origem_despesas"))
+        .when(
+            col("dept.ref_dept_id_deputado").isNotNull() &
+            (col("dept.ref_dept_id_deputado") != col("desp.dept_id_cadastro")),
+            lit("cpf_deputados")
+        )
+        .otherwise(lit("nao_resolvido"))
+    )
+    .drop("ref_dept_id_deputado", "ref_dept_nr_cpf")
+)
+
+# COMMAND ----------
+
 duplicated_keys = (
     df_curated
     .groupBy("desp_tx_dedup_key")
@@ -310,6 +369,36 @@ df_dedup = df_curated
 
 # COMMAND ----------
 
+df_discarded = (
+    df_dedup
+    .filter(
+        col("desp_tx_dedup_key").isNull()
+        |
+        col("desp_nr_ano").isNull()
+        |
+        col("desp_vl_liquido").isNull()
+    )
+    .withColumn(
+        "rejection_reason",
+        when(col("desp_tx_dedup_key").isNull(), lit("desp_tx_dedup_key_is_null"))
+        .when(col("desp_nr_ano").isNull(), lit("desp_nr_ano_is_null"))
+        .when(col("desp_vl_liquido").isNull(), lit("desp_vl_liquido_is_null"))
+        .otherwise(lit("unknown"))
+    )
+)
+
+df_valid = (
+    df_dedup
+    .filter(col("desp_tx_dedup_key").isNotNull())
+    .filter(col("desp_nr_ano").isNotNull())
+    .filter(col("desp_vl_liquido").isNotNull())
+)
+
+records_written = df_valid.count()
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
 df_valid = (
     df_dedup
     .filter(col("desp_tx_dedup_key").isNotNull())
@@ -319,7 +408,17 @@ df_valid = (
 
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

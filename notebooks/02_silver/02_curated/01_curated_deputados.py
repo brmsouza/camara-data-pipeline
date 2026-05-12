@@ -1,28 +1,42 @@
 # Databricks notebook source
 # ------------------------------------------------------------------------------
-# Notebook: 01_02_curated_deputados
+# Notebook: 01_curated_deputados
 # Layer: Silver Curated
 # Author: Bruno Souza
 #
 # Description:
-# Consolidates, enriches and validates deputy data from Silver Base.
+# Consolidates, enriches and validates parliamentary deputy data for the
+# Silver Curated layer.
 #
 # Context:
-# This notebook joins silver_base.deputados with silver_base.deputados_detalhes
-# to create a curated and analytics-ready deputy dataset. The resulting table
-# centralizes parliamentary identity, party, federation, personal profile,
-# contact, office and status information.
+# This notebook integrates standardized datasets from:
+# - 01_base_deputados
+# - 02_base_deputados_detalhes
+#
+# The objective is to create a consolidated and analytics-ready deputy entity
+# containing parliamentary identity, political affiliation, federation,
+# personal profile, contact, office and status information.
+#
+# The resulting dataset becomes the trusted deputy reference entity for:
+# - Gold dimension modeling
+# - parliamentary analytics
+# - CEAP analysis
+# - voting analysis
+# - engagement and transparency indicators
+#
+# Grain:
+# One row per deputy.
 #
 # Responsibilities:
-# - Join base deputy and deputy detail datasets
-# - Consolidate standardized deputy attributes from Silver Base
-# - Resolve fallback attributes between deputados and deputados_detalhes
+# - Read and integrate Silver Base deputy datasets
+# - Consolidate standardized deputy attributes
+# - Resolve fallback attributes between source datasets
 # - Preserve deputy, party and legislature relationships
 # - Create business-friendly descriptive attributes
-# - Preserve technical validation flags from Silver Base
-# - Preserve lineage and processing metadata
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
+# - Preserve technical validation and quality flags from Silver Base
+# - Preserve lineage, audit and processing metadata
+# - Validate curated-level uniqueness and consistency
+# - Persist a curated Delta table for Gold consumption
 #
 # Sources:
 # silver_base.deputados
@@ -34,7 +48,8 @@
 # Notes:
 # - Idempotent execution
 # - Delta Lake format
-# - Ready for Gold dimension modeling
+# - Supports Gold dimensional modeling
+# - Preserves Bronze lineage metadata through Silver layers
 # ------------------------------------------------------------------------------
 
 # COMMAND ----------
@@ -303,15 +318,58 @@ df_dedup = df_curated
 
 # COMMAND ----------
 
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("dept_id_deputado").isNull()
+        |
+        col("dept_tx_nome_parlamentar").isNull()
+    )
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("dept_id_deputado").isNull(),
+            lit("dept_id_deputado_is_null")
+        )
+        .when(
+            col("dept_tx_nome_parlamentar").isNull(),
+            lit("dept_tx_nome_parlamentar_is_null")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
 df_valid = (
     df_dedup
     .filter(col("dept_id_deputado").isNotNull())
     .filter(col("dept_tx_nome_parlamentar").isNotNull())
 )
 
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
+
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

@@ -331,6 +331,40 @@ df_dedup = df_curated
 
 # COMMAND ----------
 
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("evt_id_evento").isNull()
+    )
+    .withColumn(
+        "rejection_reason",
+        lit("evt_id_evento_is_null")
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
+df_valid = (
+    df_dedup
+    .filter(col("evt_id_evento").isNotNull())
+)
+
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
+
+records_written = df_valid.count()
+
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
 df_valid = (
     df_dedup
     .filter(col("evt_id_evento").isNotNull())
@@ -339,6 +373,16 @@ df_valid = (
 records_written = df_valid.count()
 
 records_discarded = records_read - records_written
+
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

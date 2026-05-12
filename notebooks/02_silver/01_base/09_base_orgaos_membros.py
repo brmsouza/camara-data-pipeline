@@ -56,8 +56,6 @@ from pyspark.sql.functions import (
     current_timestamp,
     row_number,
     from_json,
-    from_csv,
-    expr,
     sha2,
     concat_ws,
     regexp_extract,
@@ -111,53 +109,9 @@ df_map = (
     df_bronze
     .withColumn(
         "payload_map",
-        from_json(col("raw_payload"), MapType(StringType(), StringType()))
-    )
-    .withColumn(
-        "payload_data",
-        expr("""
-            element_at(
-                map_values(
-                    map_filter(
-                        payload_map,
-                        (k, v) -> k NOT IN ('_source_file', 'ano_referencia')
-                    )
-                ),
-                1
-            )
-        """)
-    )
-)
-
-# COMMAND ----------
-
-orgaos_membros_csv_schema = """
-uriOrgao STRING,
-siglaOrgao STRING,
-nomeOrgao STRING,
-nomePublicacaoOrgao STRING,
-uriDeputado STRING,
-nomeDeputado STRING,
-siglaPartido STRING,
-siglaUF STRING,
-cargo STRING,
-dataInicio STRING,
-dataFim STRING
-"""
-
-df_parsed = (
-    df_map
-    .withColumn(
-        "csv_data",
-        from_csv(
-            col("payload_data"),
-            orgaos_membros_csv_schema,
-            {
-                "sep": ";",
-                "quote": '"',
-                "escape": '"',
-                "header": "false"
-            }
+        from_json(
+            col("raw_payload"),
+            MapType(StringType(), StringType())
         )
     )
 )
@@ -165,53 +119,53 @@ df_parsed = (
 # COMMAND ----------
 
 df_standardized = (
-    df_parsed
+    df_map
     .select(
         regexp_extract(
-            trim(col("csv_data.uriOrgao")),
+            trim(col("payload_map.uriOrgao")),
             r"/orgaos/([0-9]+)",
             1
         ).try_cast("long").alias("org_id_orgao"),
 
-        trim(col("csv_data.uriOrgao"))
+        trim(col("payload_map.uriOrgao"))
             .alias("org_tx_uri"),
 
-        upper(trim(col("csv_data.siglaOrgao")))
+        upper(trim(col("payload_map.siglaOrgao")))
             .alias("org_sg_orgao"),
 
-        initcap(trim(col("csv_data.nomeOrgao")))
+        initcap(trim(col("payload_map.nomeOrgao")))
             .alias("org_tx_nome"),
 
-        initcap(trim(col("csv_data.nomePublicacaoOrgao")))
+        initcap(trim(col("payload_map.nomePublicacaoOrgao")))
             .alias("org_tx_nome_publicacao"),
 
         regexp_extract(
-            trim(col("csv_data.uriDeputado")),
+            trim(col("payload_map.uriDeputado")),
             r"/deputados/([0-9]+)",
             1
         ).try_cast("long").alias("dept_id_deputado"),
 
-        trim(col("csv_data.uriDeputado"))
+        trim(col("payload_map.uriDeputado"))
             .alias("dept_tx_uri"),
 
-        initcap(trim(col("csv_data.nomeDeputado")))
+        initcap(trim(col("payload_map.nomeDeputado")))
             .alias("dept_tx_nome"),
 
-        upper(trim(col("csv_data.siglaPartido")))
+        upper(trim(col("payload_map.siglaPartido")))
             .alias("part_sg_partido"),
 
-        upper(trim(col("csv_data.siglaUF")))
+        upper(trim(col("payload_map.siglaUF")))
             .alias("uf_sg_uf"),
 
-        initcap(trim(col("csv_data.cargo")))
+        initcap(trim(col("payload_map.cargo")))
             .alias("memb_tx_cargo"),
 
-        col("csv_data.dataInicio")
+        col("payload_map.dataInicio")
             .try_cast("date")
             .alias("memb_dt_inicio"),
-            
+
         when(
-            col("csv_data.dataInicio")
+            col("payload_map.dataInicio")
                 .try_cast("date")
                 .isNotNull(),
             lit(1)
@@ -219,13 +173,14 @@ df_standardized = (
         .otherwise(lit(0))
         .alias("memb_fl_data_inicio_valida"),
 
-        col("csv_data.dataFim")
+        col("payload_map.dataFim")
             .try_cast("date")
             .alias("memb_dt_fim"),
+
         when(
-            col("csv_data.dataFim").isNull()
+            col("payload_map.dataFim").isNull()
             |
-            col("csv_data.dataFim")
+            col("payload_map.dataFim")
                 .try_cast("date")
                 .isNotNull(),
             lit(1)
@@ -235,26 +190,27 @@ df_standardized = (
 
         when(
             (
-                col("csv_data.dataFim").isNull()
+                col("payload_map.dataFim").isNull()
             )
             |
             (
-                col("csv_data.dataFim").try_cast("date")
+                col("payload_map.dataFim").try_cast("date")
                 >=
-                col("csv_data.dataInicio").try_cast("date")
+                col("payload_map.dataInicio").try_cast("date")
             ),
             lit(1)
         )
         .otherwise(lit(0))
         .alias("memb_fl_periodo_valido"),
+
         sha2(
             concat_ws(
                 "||",
-                trim(col("csv_data.uriOrgao")),
-                trim(col("csv_data.uriDeputado")),
-                initcap(trim(col("csv_data.cargo"))),
-                trim(col("csv_data.dataInicio")),
-                trim(col("csv_data.dataFim"))
+                trim(col("payload_map.uriOrgao")),
+                trim(col("payload_map.uriDeputado")),
+                initcap(trim(col("payload_map.cargo"))),
+                trim(col("payload_map.dataInicio")),
+                trim(col("payload_map.dataFim"))
             ),
             256
         ).alias("memb_tx_dedup_key"),
@@ -274,11 +230,6 @@ df_standardized = (
         col("payload_map")
             .getItem("_source_file")
             .alias("bronze_tx_source_file"),
-
-        col("payload_map")
-            .getItem("ano_referencia")
-            .cast("int")
-            .alias("bronze_nr_ano_referencia"),
 
         col("batch_id")
             .alias("bronze_id_batch"),
@@ -320,6 +271,24 @@ invalid_null_deputado = (
     .count()
 )
 
+invalid_data_inicio = (
+    df_dedup
+    .filter(col("memb_fl_data_inicio_valida") != 1)
+    .count()
+)
+
+invalid_data_fim = (
+    df_dedup
+    .filter(col("memb_fl_data_fim_valida") != 1)
+    .count()
+)
+
+invalid_periodo = (
+    df_dedup
+    .filter(col("memb_fl_periodo_valido") != 1)
+    .count()
+)
+
 duplicated_members = (
     df_dedup
     .groupBy("memb_tx_dedup_key")
@@ -333,17 +302,79 @@ if duplicated_members > 0:
         f"Data quality error: {duplicated_members} duplicated organization members."
     )
 
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("org_id_orgao").isNull()
+        |
+        col("dept_id_deputado").isNull()
+        |
+        (col("memb_fl_data_inicio_valida") != 1)
+        |
+        (col("memb_fl_data_fim_valida") != 1)
+        |
+        (col("memb_fl_periodo_valido") != 1)
+    )
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("org_id_orgao").isNull(),
+            lit("org_id_orgao_is_null")
+        )
+        .when(
+            col("dept_id_deputado").isNull(),
+            lit("dept_id_deputado_is_null")
+        )
+        .when(
+            col("memb_fl_data_inicio_valida") != 1,
+            lit("memb_dt_inicio_invalid")
+        )
+        .when(
+            col("memb_fl_data_fim_valida") != 1,
+            lit("memb_dt_fim_invalid")
+        )
+        .when(
+            col("memb_fl_periodo_valido") != 1,
+            lit("memb_period_invalid")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
 df_valid = (
     df_dedup
     .filter(col("org_id_orgao").isNotNull())
     .filter(col("dept_id_deputado").isNotNull())
     .filter(col("memb_fl_data_inicio_valida") == 1)
+    .filter(col("memb_fl_data_fim_valida") == 1)
+    .filter(col("memb_fl_periodo_valido") == 1)
 )
 
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
+
 records_written = df_valid.count()
+records_discarded = df_discarded.count()
 
-records_discarded = records_read - records_written
 
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 
@@ -352,7 +383,7 @@ records_discarded = records_read - records_written
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .partitionBy("bronze_nr_ano_referencia")
+    .partitionBy("bronze_dt_ingestao")
     .saveAsTable(TARGET_TABLE)
 )
 

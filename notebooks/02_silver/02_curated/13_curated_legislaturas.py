@@ -75,34 +75,45 @@ df_curated = (
     .select(
         F.col("leg_id_legislatura"),
         F.col("leg_tx_uri"),
+
         F.col("leg_dt_inicio"),
         F.col("leg_dt_fim"),
 
-        (F.year("leg_dt_inicio") - 1)
+        (F.year(F.col("leg_dt_inicio")) - 1)
             .alias("leg_nr_ano_eleicao"),
 
-        F.year("leg_dt_inicio")
+        F.year(F.col("leg_dt_inicio"))
             .alias("leg_nr_ano_inicio"),
 
-        F.year("leg_dt_fim")
+        F.year(F.col("leg_dt_fim"))
             .alias("leg_nr_ano_fim"),
 
-        F.months_between(
-            F.col("leg_dt_fim"),
-            F.col("leg_dt_inicio")
-        ).cast("int").alias("leg_qt_meses_duracao"),
+        F.when(
+            F.col("leg_dt_fim") >= F.col("leg_dt_inicio"),
+            F.months_between(
+                F.col("leg_dt_fim"),
+                F.col("leg_dt_inicio")
+            ).cast("int")
+        )
+        .otherwise(F.lit(None))
+        .alias("leg_qt_meses_duracao"),
 
         F.when(
             (F.current_date() >= F.col("leg_dt_inicio")) &
             (F.current_date() <= F.col("leg_dt_fim")),
             F.lit(1)
-        ).otherwise(F.lit(0)).alias("leg_fl_legislatura_atual"),
+        )
+        .otherwise(F.lit(0))
+        .alias("leg_fl_legislatura_atual"),
 
         F.concat(
             F.lit("Legislatura "),
             F.col("leg_id_legislatura").cast("string"),
-            F.lit(" - Eleição "),
-            (F.year("leg_dt_inicio") - 1).cast("string")
+            F.lit(" ("),
+            F.year(F.col("leg_dt_inicio")).cast("string"),
+            F.lit(" - "),
+            F.year(F.col("leg_dt_fim")).cast("string"),
+            F.lit(")")
         ).alias("leg_tx_descricao"),
 
         F.col("leg_fl_data_inicio_valida"),
@@ -116,14 +127,55 @@ df_curated = (
         F.col("bronze_id_batch"),
         F.col("bronze_tx_record_hash"),
 
-        F.current_timestamp().alias("silver_curated_ts_processamento")
+        F.current_timestamp()
+            .alias("silver_curated_ts_processamento")
     )
 )
 
+
 # COMMAND ----------
 
-records_written = df_curated.count()
-records_discarded = records_read - records_written
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_curated
+    .filter(
+        F.col("leg_id_legislatura").isNull()
+        |
+        (F.col("leg_fl_periodo_valido") != 1)
+    )
+    .withColumn(
+        "rejection_reason",
+        F.when(
+            F.col("leg_id_legislatura").isNull(),
+            F.lit("leg_id_legislatura_is_null")
+        )
+        .when(
+            F.col("leg_fl_periodo_valido") != 1,
+            F.lit("leg_period_invalid")
+        )
+        .otherwise(F.lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
+df_valid = (
+    df_curated
+    .filter(F.col("leg_id_legislatura").isNotNull())
+    .filter(F.col("leg_fl_periodo_valido") == 1)
+)
+
+# ---------------------------------------------------
+# Metrics and validations
+# ---------------------------------------------------
+
+records_written = df_valid.count()
+records_discarded = df_discarded.count()
 
 if records_read == 0:
     raise Exception(
@@ -136,7 +188,7 @@ if records_written == 0:
     )
 
 duplicated_keys = (
-    df_curated
+    df_valid
     .groupBy("leg_id_legislatura")
     .count()
     .filter(F.col("count") > 1)
@@ -147,6 +199,19 @@ if duplicated_keys > 0:
     raise Exception(
         f"Silver Curated validation failed: duplicated leg_id_legislatura found = {duplicated_keys}"
     )
+
+
+# COMMAND ----------
+
+(
+    df_discarded
+    .write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
+
 
 # COMMAND ----------
 
@@ -177,3 +242,13 @@ log_pipeline_event(
     started_at=started_at,
     finished_at=datetime.now(),
 )
+
+# COMMAND ----------
+
+print(f"Pipeline: {PIPELINE_NAME}")
+print(f"Layer: {LAYER}")
+print(f"Source: {SOURCE_TABLE}")
+print(f"Target: {TARGET_TABLE}")
+print(f"Records read: {records_read}")
+print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

@@ -147,6 +147,47 @@ df_validated = (
 
 # COMMAND ----------
 
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_deduplicated
+    .filter(
+        F.col("leg_id_legislatura").isNull()
+        |
+        (F.col("leg_fl_data_inicio_valida") != 1)
+        |
+        (F.col("leg_fl_data_fim_valida") != 1)
+        |
+        (F.col("leg_fl_periodo_valido") != 1)
+    )
+    .withColumn(
+        "rejection_reason",
+        F.when(
+            F.col("leg_id_legislatura").isNull(),
+            F.lit("leg_id_legislatura_is_null")
+        )
+        .when(
+            F.col("leg_fl_data_inicio_valida") != 1,
+            F.lit("leg_dt_inicio_invalid")
+        )
+        .when(
+            F.col("leg_fl_data_fim_valida") != 1,
+            F.lit("leg_dt_fim_invalid")
+        )
+        .when(
+            F.col("leg_fl_periodo_valido") != 1,
+            F.lit("leg_period_invalid")
+        )
+        .otherwise(F.lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
 df_validated = (
     df_deduplicated
     .filter(F.col("leg_id_legislatura").isNotNull())
@@ -155,11 +196,12 @@ df_validated = (
     .filter(F.col("leg_fl_periodo_valido") == 1)
 )
 
-# COMMAND ----------
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
 
 records_written = df_validated.count()
-
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
 
 if records_read == 0:
     raise Exception(
@@ -183,6 +225,17 @@ if duplicated_keys > 0:
     raise Exception(
         f"Silver Base validation failed: duplicated leg_id_legislatura found = {duplicated_keys}"
     )
+
+# COMMAND ----------
+
+(
+    df_discarded
+    .write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 
@@ -216,5 +269,10 @@ log_pipeline_event(
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC select * from silver_base.legislaturas
+print(f"Pipeline: {PIPELINE_NAME}")
+print(f"Layer: {LAYER}")
+print(f"Source: {SOURCE_TABLE}")
+print(f"Target: {TARGET_TABLE}")
+print(f"Records read: {records_read}")
+print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

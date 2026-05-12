@@ -193,15 +193,58 @@ df_dedup = df_curated
 
 # COMMAND ----------
 
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("prop_id_proposicao").isNull()
+        |
+        col("prop_nr_ano_apresentacao").isNull()
+    )
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("prop_id_proposicao").isNull(),
+            lit("prop_id_proposicao_is_null")
+        )
+        .when(
+            col("prop_nr_ano_apresentacao").isNull(),
+            lit("prop_nr_ano_apresentacao_is_null")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
 df_valid = (
     df_dedup
     .filter(col("prop_id_proposicao").isNotNull())
-    .filter(col("prop_nr_ano").isNotNull())
+    .filter(col("prop_nr_ano_apresentacao").isNotNull())
 )
+
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
 
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 
@@ -210,7 +253,7 @@ records_discarded = records_read - records_written
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .partitionBy("prop_nr_ano")
+    .partitionBy("prop_nr_ano_apresentacao")
     .saveAsTable(TARGET_TABLE)
 )
 

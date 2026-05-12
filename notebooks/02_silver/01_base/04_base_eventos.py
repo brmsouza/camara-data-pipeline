@@ -265,15 +265,58 @@ if duplicated_ids > 0:
 
 # COMMAND ----------
 
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        (col("evt_id_evento").isNull())
+        |
+        (col("evt_fl_inicio_valido") != 1)
+    )
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("evt_id_evento").isNull(),
+            lit("evt_id_evento_is_null")
+        )
+        .when(
+            col("evt_fl_inicio_valido") != 1,
+            lit("evt_ts_inicio_invalid")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
 df_valid = (
     df_dedup
     .filter(col("evt_id_evento").isNotNull())
     .filter(col("evt_fl_inicio_valido") == 1)
 )
 
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
+
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

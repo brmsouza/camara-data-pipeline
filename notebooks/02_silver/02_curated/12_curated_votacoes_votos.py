@@ -239,6 +239,89 @@ df_dedup = df_curated
 
 # COMMAND ----------
 
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("vot_tx_dedup_key").isNull()
+        |
+        col("vot_id_votacao").isNull()
+        |
+        col("dept_id_deputado").isNull()
+    )
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("vot_tx_dedup_key").isNull(),
+            lit("vot_tx_dedup_key_is_null")
+        )
+        .when(
+            col("vot_id_votacao").isNull(),
+            lit("vot_id_votacao_is_null")
+        )
+        .when(
+            col("dept_id_deputado").isNull(),
+            lit("dept_id_deputado_is_null")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
+df_valid = (
+    df_dedup
+    .filter(col("vot_tx_dedup_key").isNotNull())
+    .filter(col("vot_id_votacao").isNotNull())
+    .filter(col("dept_id_deputado").isNotNull())
+)
+
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
+
+records_written = df_valid.count()
+
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
+duplicated_votes = (
+    df_curated
+    .groupBy("vot_tx_dedup_key")
+    .count()
+    .filter(col("count") > 1)
+    .count()
+)
+
+if duplicated_votes > 0:
+    raise Exception(
+        f"Data quality error: {duplicated_votes} duplicated voting records in curated layer."
+    )
+
+df_dedup = df_curated
+
+# COMMAND ----------
+
+
+
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
+
+# COMMAND ----------
+
 df_valid = (
     df_dedup
     .filter(col("vot_tx_dedup_key").isNotNull())

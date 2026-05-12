@@ -1,40 +1,37 @@
 # Databricks notebook source
 # ------------------------------------------------------------------------------
-# Notebook: 12_curated_frentes_membros
+# Notebook: 11_curated_frentes
 # Layer: Silver Curated
 # Author: Bruno Souza
 #
 # Description:
-# Consolidates, enriches and validates parliamentary front
-# membership data from Silver Base.
+# Consolidates, enriches and validates parliamentary front data
+# from Silver Base.
 #
 # Context:
-# This notebook transforms silver_base.frentes_membros into a curated and
-# analytics-ready dataset representing the relationship between deputies and
-# parliamentary fronts. The resulting table supports downstream analysis of
-# thematic participation, political grouping, parliamentary coalitions and
-# correlation with votes and expenses.
+# This notebook transforms silver_base.frentes into a curated and analytics-ready
+# parliamentary front dataset. The resulting table supports downstream analysis
+# of thematic political groups, parliamentary coalitions and relationships
+# between fronts, deputies, expenses and voting behavior.
 #
 # Responsibilities:
-# - Consolidate standardized parliamentary front membership attributes from Silver Base
-# - Curate membership role and status indicators
-# - Create analytical membership flags
-# - Preserve deputy, party, UF, legislature and front relationships
-# - Preserve membership temporal attributes and technical validation flags
+# - Consolidate standardized parliamentary front attributes from Silver Base
+# - Preserve legislature relationships
+# - Create analytical thematic classification flags
 # - Preserve complete lineage and traceability columns
 # - Validate curated-level uniqueness
 # - Persist Delta table for Gold consumption
 #
 # Source:
-# silver_base.frentes_membros
+# silver_base.frentes
 #
 # Target:
-# silver_curated.frentes_membros
+# silver_curated.frentes
 #
 # Notes:
 # - Idempotent execution
 # - Delta Lake format
-# - Source for parliamentary front participation and coalition analytics
+# - Ready for parliamentary front dimension modeling
 # ------------------------------------------------------------------------------
 
 # COMMAND ----------
@@ -52,15 +49,15 @@ from pyspark.sql.functions import (
     current_timestamp,
     when,
     lit,
-    current_date,
+    count,
 )
 
 # COMMAND ----------
 
-SOURCE_TABLE = "silver_base.frentes_membros"
-TARGET_TABLE = "silver_curated.frentes_membros"
+SOURCE_TABLE = "silver_base.frentes"
+TARGET_TABLE = "silver_curated.frentes"
 
-PIPELINE_NAME = "silver_curated_frentes_membros"
+PIPELINE_NAME = "silver_curated_frentes"
 LAYER = "silver_curated"
 
 batch_id = str(uuid.uuid4())
@@ -97,131 +94,69 @@ df_curated = (
     df_base
     .select(
         # ---------------------------------------------------
-        # Parliamentary front relationship
+        # Parliamentary front identity
         # ---------------------------------------------------
 
         col("frente_id_frente")
             .alias("frente_id_frente"),
 
-        # ---------------------------------------------------
-        # Deputy relationship
-        # ---------------------------------------------------
+        col("frente_tx_uri")
+            .alias("frente_tx_uri"),
 
-        col("dept_id_deputado")
-            .alias("dept_id_deputado"),
-
-        col("dept_tx_uri")
-            .alias("dept_tx_uri"),
-
-        col("dept_tx_nome")
-            .alias("dept_tx_nome_parlamentar"),
-
-        col("dept_tx_email")
-            .alias("dept_tx_email"),
-
-        col("dept_fl_email_valido")
-            .alias("dept_fl_email_valido"),
-
-        col("dept_tx_url_foto")
-            .alias("dept_tx_url_foto"),
-
-        # ---------------------------------------------------
-        # Party / UF / legislature
-        # ---------------------------------------------------
-
-        col("part_sg_partido")
-            .alias("part_sg_partido"),
-
-        col("part_tx_uri")
-            .alias("part_tx_uri"),
-
-        col("uf_sg_uf")
-            .alias("uf_sg_uf"),
+        col("frente_tx_titulo")
+            .alias("frente_tx_titulo"),
 
         col("leg_id_legislatura")
             .alias("leg_id_legislatura"),
 
         # ---------------------------------------------------
-        # Membership information
+        # Analytical classification
         # ---------------------------------------------------
 
-        col("memb_cd_titulo")
-            .alias("memb_cd_titulo"),
-
-        col("memb_tx_titulo")
-            .alias("memb_tx_titulo"),
-
-        col("memb_dt_inicio")
-            .alias("memb_dt_inicio"),
-
-        col("memb_fl_data_inicio_valida")
-            .alias("memb_fl_data_inicio_valida"),
-
-        col("memb_dt_fim")
-            .alias("memb_dt_fim"),
-
-        col("memb_fl_data_fim_valida")
-            .alias("memb_fl_data_fim_valida"),
-
-        col("memb_fl_periodo_valido")
-            .alias("memb_fl_periodo_valido"),
-
         when(
-            col("memb_dt_fim").isNull(),
-            lit(1)
-        )
-        .when(
-            col("memb_dt_fim") >= current_date(),
+            upper(col("frente_tx_titulo")).contains("SAÚDE") |
+            upper(col("frente_tx_titulo")).contains("SAUDE"),
             lit(1)
         )
         .otherwise(lit(0))
-        .alias("memb_fl_ativo"),
+        .alias("frente_fl_tema_saude"),
 
         when(
-            col("memb_dt_fim").isNull(),
-            lit("Ativo")
-        )
-        .when(
-            col("memb_dt_fim") >= current_date(),
-            lit("Ativo")
-        )
-        .otherwise(lit("Encerrado"))
-        .alias("memb_tx_status"),
-
-        when(
-            upper(col("memb_tx_titulo")).contains("COORDENADOR"),
+            upper(col("frente_tx_titulo")).contains("EDUCA"),
             lit(1)
         )
         .otherwise(lit(0))
-        .alias("memb_fl_coordenador"),
+        .alias("frente_fl_tema_educacao"),
 
         when(
-            upper(col("memb_tx_titulo")).contains("PRESIDENTE"),
+            upper(col("frente_tx_titulo")).contains("SEGURAN"),
             lit(1)
         )
         .otherwise(lit(0))
-        .alias("memb_fl_presidente"),
+        .alias("frente_fl_tema_seguranca"),
 
         when(
-            upper(col("memb_tx_titulo")).contains("VICE"),
+            upper(col("frente_tx_titulo")).contains("AGRO") |
+            upper(col("frente_tx_titulo")).contains("RURAL"),
             lit(1)
         )
         .otherwise(lit(0))
-        .alias("memb_fl_vice"),
+        .alias("frente_fl_tema_agro"),
 
         when(
-            upper(col("memb_tx_titulo")).contains("MEMBRO"),
+            upper(col("frente_tx_titulo")).contains("MULHER"),
             lit(1)
         )
         .otherwise(lit(0))
-        .alias("memb_fl_membro"),
+        .alias("frente_fl_tema_mulher"),
 
-        # ---------------------------------------------------
-        # Technical key
-        # ---------------------------------------------------
-
-        col("memb_tx_dedup_key")
-            .alias("memb_tx_dedup_key"),
+        when(
+            upper(col("frente_tx_titulo")).contains("AMBIENT") |
+            upper(col("frente_tx_titulo")).contains("SUSTENT"),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("frente_fl_tema_meio_ambiente"),
 
         # ---------------------------------------------------
         # Bronze lineage / traceability
@@ -263,33 +198,62 @@ df_curated = (
 
 # COMMAND ----------
 
-duplicated_members = (
-    df_curated
-    .groupBy("memb_tx_dedup_key")
-    .count()
-    .filter(col("count") > 1)
+df_dedup = df_curated
+
+duplicated_frentes = (
+    df_dedup
+    .groupBy("frente_id_frente")
+    .agg(count("*").alias("qt_registros"))
+    .filter(col("qt_registros") > 1)
     .count()
 )
 
-if duplicated_members > 0:
+if duplicated_frentes > 0:
     raise Exception(
-        f"Data quality error: {duplicated_members} duplicated front members in curated layer."
+        f"Data quality error: {duplicated_frentes} duplicated parliamentary fronts."
     )
 
-df_dedup = df_curated
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
 
-# COMMAND ----------
+df_discarded = (
+    df_dedup
+    .filter(
+        col("frente_id_frente").isNull()
+    )
+    .withColumn(
+        "rejection_reason",
+        lit("frente_id_frente_is_null")
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
 
 df_valid = (
     df_dedup
-    .filter(col("memb_tx_dedup_key").isNotNull())
     .filter(col("frente_id_frente").isNotNull())
-    .filter(col("dept_id_deputado").isNotNull())
 )
+
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
 
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

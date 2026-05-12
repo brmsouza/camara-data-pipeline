@@ -41,9 +41,6 @@
 
 # COMMAND ----------
 
-import uuid
-from datetime import datetime
-
 from pyspark.sql.functions import (
     col,
     trim,
@@ -53,17 +50,9 @@ from pyspark.sql.functions import (
     from_json,
     initcap,
     count,
+    when,
+    lit,
 )
-
-from pyspark.sql.types import (
-    StructType,
-    StructField,
-    StringType,
-    LongType,
-    IntegerType,
-)
-
-from pyspark.sql.window import Window
 
 # COMMAND ----------
 
@@ -212,15 +201,52 @@ if duplicated_orgaos > 0:
     raise Exception(
         f"Data quality error: {duplicated_orgaos} duplicated organizations."
     )
+
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("org_id_orgao").isNull()
+    )
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("org_id_orgao").isNull(),
+            lit("org_id_orgao_is_null")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
 df_valid = (
     df_dedup
     .filter(col("org_id_orgao").isNotNull())
 )
 
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
+
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
 
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

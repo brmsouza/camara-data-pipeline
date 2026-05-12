@@ -147,6 +147,10 @@ df_standardized = (
             .try_cast("long")
             .alias("frente_id_frente"),
 
+        # ---------------------------------------------------
+        # Deputy ID from API
+        # ---------------------------------------------------
+
         col("json_data.id")
             .alias("dept_id_deputado"),
 
@@ -158,6 +162,7 @@ df_standardized = (
 
         lower(trim(col("json_data.email")))
             .alias("dept_tx_email"),
+
         when(
             lower(trim(col("json_data.email"))).rlike(
                 "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
@@ -165,7 +170,7 @@ df_standardized = (
             lit(1)
         )
         .otherwise(lit(0))
-        .alias("dept_fl_email_valido"),         
+        .alias("dept_fl_email_valido"),
 
         upper(trim(col("json_data.siglaPartido")))
             .alias("part_sg_partido"),
@@ -188,14 +193,15 @@ df_standardized = (
         col("json_data.dataInicio")
             .try_cast("date")
             .alias("memb_dt_inicio"),
+
         when(
-        col("json_data.dataInicio").isNull()
-        |
-        col("json_data.dataInicio").try_cast("date").isNotNull(),
-        lit(1)
-    )
-    .otherwise(lit(0))
-    .alias("memb_fl_data_inicio_valida"),
+            col("json_data.dataInicio").isNull()
+            |
+            col("json_data.dataInicio").try_cast("date").isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("memb_fl_data_inicio_valida"),
 
         col("json_data.dataFim")
             .try_cast("date")
@@ -203,6 +209,7 @@ df_standardized = (
 
         trim(col("json_data.urlFoto"))
             .alias("dept_tx_url_foto"),
+
         when(
             col("json_data.dataFim").isNull()
             |
@@ -228,6 +235,7 @@ df_standardized = (
         )
         .otherwise(lit(0))
         .alias("memb_fl_periodo_valido"),
+
         sha2(
             concat_ws(
                 "||",
@@ -287,28 +295,74 @@ df_dedup = (
 
 # COMMAND ----------
 
-duplicated_members = (
-    df_dedup
-    .groupBy("memb_tx_dedup_key")
-    .agg(count("*").alias("qt_registros"))
-    .filter(col("qt_registros") > 1)
-    .count()
-)
-
-if duplicated_members > 0:
-    raise Exception(
-        f"Data quality error: {duplicated_members} duplicated front members."
+df_deputados_lookup = (
+    spark.table("silver_base.deputados")
+    .select(
+        col("dept_id_deputado").alias("lookup_dept_id_deputado"),
+        upper(trim(col("dept_tx_nome"))).alias("lookup_dept_tx_nome")
     )
-
-df_valid = (
-    df_dedup
-    .filter(col("frente_id_frente").isNotNull())
-    .filter(col("dept_id_deputado").isNotNull())
+    .dropDuplicates(["lookup_dept_tx_nome"])
 )
 
-records_written = df_valid.count()
+df_enriched = (
+    df_dedup.alias("fm")
+    .join(
+        df_deputados_lookup.alias("dp"),
+        upper(trim(col("fm.dept_tx_nome"))) == col("dp.lookup_dept_tx_nome"),
+        "left"
+    )
+    .withColumn(
+        "dept_id_deputado",
+        when(col("fm.dept_id_deputado").isNull(), col("dp.lookup_dept_id_deputado"))
+        .otherwise(col("fm.dept_id_deputado"))
+    )
+    .drop("lookup_dept_id_deputado", "lookup_dept_tx_nome")
+)
 
-records_discarded = records_read - records_written
+# COMMAND ----------
+
+ 
+df_discarded = (
+    df_enriched
+    .filter(
+        (col("frente_id_frente").isNull()) |
+        (col("memb_fl_data_inicio_valida") != 1) |
+        (col("memb_fl_data_fim_valida") != 1) |
+        (col("memb_fl_periodo_valido") != 1) |
+        (col("dept_id_deputado").isNull())   
+    )
+)
+
+# Filtra os válidos
+df_valid = (
+    df_enriched
+    .filter(col("frente_id_frente").isNotNull())
+    .filter(col("memb_fl_data_inicio_valida") == 1)
+    .filter(col("memb_fl_data_fim_valida") == 1)
+    .filter(col("memb_fl_periodo_valido") == 1)
+    .filter(col("dept_id_deputado").isNotNull())  
+    .withColumn(
+        "memb_fl_deputado_identificado",
+        when(col("dept_id_deputado").isNotNull(), lit(1)).otherwise(lit(0))
+    )
+)
+
+# Persistimos os descartados em uma tabela
+df_discarded.write.mode("overwrite").format("delta").saveAsTable("silver_base.frentes_membros_rejeitadas")
+
+# Métricas
+records_written = df_valid.count()
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

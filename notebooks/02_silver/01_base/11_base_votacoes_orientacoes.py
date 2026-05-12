@@ -52,16 +52,14 @@ from pyspark.sql.functions import (
     upper,
     current_timestamp,
     row_number,
-    from_json,
-    from_csv,
-    expr,
     sha2,
     concat_ws,
     initcap,
     count,
+    when,
+    lit,
 )
 
-from pyspark.sql.types import MapType, StringType
 from pyspark.sql.window import Window
 
 # COMMAND ----------
@@ -102,123 +100,59 @@ records_read = df_bronze.count()
 
 # COMMAND ----------
 
-df_map = (
-    df_bronze
-    .withColumn(
-        "payload_map",
-        from_json(col("raw_payload"), MapType(StringType(), StringType()))
-    )
-    .withColumn(
-        "payload_data",
-        expr("""
-            element_at(
-                map_values(
-                    map_filter(
-                        payload_map,
-                        (k, v) -> k NOT IN ('_source_file', 'ano_referencia')
-                    )
-                ),
-                1
-            )
-        """)
-    )
-)
-
-# COMMAND ----------
-
-votacoes_orientacoes_csv_schema = """
-idVotacao STRING,
-uriVotacao STRING,
-siglaOrgao STRING,
-descricao STRING,
-siglaBancada STRING,
-uriBancada STRING,
-orientacao STRING
-"""
-
-df_parsed = (
-    df_map
-    .withColumn(
-        "csv_data",
-        from_csv(
-            col("payload_data"),
-            votacoes_orientacoes_csv_schema,
-            {
-                "sep": ";",
-                "quote": '"',
-                "escape": '"',
-                "header": "false"
-            }
-        )
-    )
-)
-
-# COMMAND ----------
+from pyspark.sql.functions import get_json_object
 
 df_standardized = (
-    df_parsed
+    df_bronze
     .select(
-        trim(col("csv_data.idVotacao"))
+        trim(get_json_object(col("raw_payload"), "$.idVotacao"))
             .alias("vot_id_votacao"),
 
-        trim(col("csv_data.uriVotacao"))
+        trim(get_json_object(col("raw_payload"), "$.uriVotacao"))
             .alias("vot_tx_uri"),
 
-        upper(trim(col("csv_data.siglaOrgao")))
+        upper(trim(get_json_object(col("raw_payload"), "$.siglaOrgao")))
             .alias("org_sg_orgao"),
 
-        initcap(trim(col("csv_data.descricao")))
+        initcap(trim(get_json_object(col("raw_payload"), "$.descricao")))
             .alias("vot_tx_descricao_resultado"),
 
-        upper(trim(col("csv_data.siglaBancada")))
+        upper(trim(get_json_object(col("raw_payload"), "$.siglaBancada")))
             .alias("banc_tx_sigla_bancada"),
 
-        trim(col("csv_data.uriBancada"))
+        trim(get_json_object(col("raw_payload"), "$.uriBancada"))
             .alias("banc_tx_uri"),
 
-        initcap(trim(col("csv_data.orientacao")))
+        initcap(trim(get_json_object(col("raw_payload"), "$.orientacao")))
             .alias("vot_tx_orientacao"),
 
         sha2(
             concat_ws(
                 "||",
-                trim(col("csv_data.idVotacao")),
-                upper(trim(col("csv_data.siglaOrgao"))),
-                upper(trim(col("csv_data.siglaBancada"))),
-                initcap(trim(col("csv_data.orientacao")))
+                trim(get_json_object(col("raw_payload"), "$.idVotacao")),
+                upper(trim(get_json_object(col("raw_payload"), "$.siglaOrgao"))),
+                upper(trim(get_json_object(col("raw_payload"), "$.siglaBancada"))),
+                initcap(trim(get_json_object(col("raw_payload"), "$.orientacao")))
             ),
             256
         ).alias("vot_tx_dedup_key"),
 
-        col("ingestion_timestamp")
-            .alias("bronze_ts_ingestao"),
+        col("ingestion_timestamp").alias("bronze_ts_ingestao"),
+        col("ingestion_date").alias("bronze_dt_ingestao"),
+        col("source_endpoint").alias("bronze_tx_endpoint"),
+        col("source_id").alias("bronze_id_origem"),
 
-        col("ingestion_date")
-            .alias("bronze_dt_ingestao"),
-
-        col("source_endpoint")
-            .alias("bronze_tx_endpoint"),
-
-        col("source_id")
-            .alias("bronze_id_origem"),
-
-        col("payload_map")
-            .getItem("_source_file")
+        get_json_object(col("raw_payload"), "$._source_file")
             .alias("bronze_tx_source_file"),
 
-        col("payload_map")
-            .getItem("ano_referencia")
+        get_json_object(col("raw_payload"), "$.ano_referencia")
             .cast("int")
             .alias("bronze_nr_ano_referencia"),
 
-        col("batch_id")
-            .alias("bronze_id_batch"),
+        col("batch_id").alias("bronze_id_batch"),
+        col("record_hash").alias("bronze_tx_record_hash"),
 
-        col("record_hash")
-            .alias("bronze_tx_record_hash"),
-
-        current_timestamp()
-            .alias("silver_ts_processamento")
+        current_timestamp().alias("silver_ts_processamento")
     )
 )
 
@@ -239,18 +173,6 @@ df_dedup = (
 
 # COMMAND ----------
 
-invalid_null_votacao = (
-    df_dedup
-    .filter(col("vot_id_votacao").isNull())
-    .count()
-)
-
-invalid_null_bancada = (
-    df_dedup
-    .filter(col("banc_tx_sigla_bancada").isNull())
-    .count()
-)
-
 duplicated_orientations = (
     df_dedup
     .groupBy("vot_tx_dedup_key")
@@ -259,21 +181,83 @@ duplicated_orientations = (
     .count()
 )
 
-
 if duplicated_orientations > 0:
     raise Exception(
         f"Data quality error: {duplicated_orientations} duplicated orientation records."
     )
-    
+
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("vot_id_votacao").isNull()
+        |
+        col("vot_tx_dedup_key").isNull()
+        |
+        (
+            col("banc_tx_sigla_bancada").isNull()
+            &
+            col("vot_tx_orientacao").isNull()
+        )
+    )
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("vot_id_votacao").isNull(),
+            lit("vot_id_votacao_is_null")
+        )
+        .when(
+            col("vot_tx_dedup_key").isNull(),
+            lit("vot_tx_dedup_key_is_null")
+        )
+        .when(
+            col("banc_tx_sigla_bancada").isNull()
+            &
+            col("vot_tx_orientacao").isNull(),
+            lit("empty_orientation_record")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
 df_valid = (
     df_dedup
     .filter(col("vot_id_votacao").isNotNull())
-    .filter(col("banc_tx_sigla_bancada").isNotNull())
+    .filter(col("vot_tx_dedup_key").isNotNull())
+    .filter(
+        ~(
+            col("banc_tx_sigla_bancada").isNull()
+            &
+            col("vot_tx_orientacao").isNull()
+        )
+    )
 )
+
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
 
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
+(
+    df_discarded
+    .write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

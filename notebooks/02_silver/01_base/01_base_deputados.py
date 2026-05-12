@@ -169,30 +169,49 @@ df_dedup = (
 
 # COMMAND ----------
 
-invalid_null_id = df_dedup.filter(col("dept_id_deputado").isNull()).count()
-
 duplicated_ids = (
     df_dedup
     .groupBy("dept_id_deputado")
     .agg(count("*").alias("qt_registros"))
     .filter(col("qt_registros") > 1)
-    .count()
 )
 
-if invalid_null_id > 0:
-    raise Exception(f"Data quality error: {invalid_null_id} records without deputy ID.")
+duplicated_ids_count = duplicated_ids.count()
 
-if duplicated_ids > 0:
-    raise Exception(f"Data quality error: {duplicated_ids} duplicated deputy IDs.")
+df_duplicated = (
+    df_dedup.alias("base")
+    .join(
+        duplicated_ids.select("dept_id_deputado").alias("dup"),
+        "dept_id_deputado",
+        "inner"
+    )
+)
+
+df_valid = (
+    df_dedup
+    .filter(col("dept_id_deputado").isNotNull())
+    .dropDuplicates(["dept_id_deputado"])
+)
+
+df_discarded = (
+    df_dedup
+    .filter(col("dept_id_deputado").isNull())
+    .unionByName(df_duplicated, allowMissingColumns=True)
+)
+
+records_written = df_valid.count()
+records_discarded = df_discarded.count()
+
 
 # COMMAND ----------
 
-df_valid = df_dedup.filter(col("dept_id_deputado").isNotNull())
-
-records_written = df_valid.count()
-
-records_discarded = records_read - records_written
-
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

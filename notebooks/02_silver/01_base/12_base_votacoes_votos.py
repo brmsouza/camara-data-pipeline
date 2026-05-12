@@ -54,14 +54,19 @@ from pyspark.sql.functions import (
     current_timestamp,
     row_number,
     from_json,
-    from_csv,
-    expr,
     initcap,
     count,
+    sha2,
+    concat_ws,
+    when,
+    lit,
 )
 
-from pyspark.sql.types import MapType, StringType
 from pyspark.sql.window import Window
+from pyspark.sql.types import (
+    MapType,
+    StringType,
+)
 
 # COMMAND ----------
 
@@ -104,54 +109,9 @@ df_map = (
     df_bronze
     .withColumn(
         "payload_map",
-        from_json(col("raw_payload"), MapType(StringType(), StringType()))
-    )
-    .withColumn(
-        "payload_data",
-        expr("""
-            element_at(
-                map_values(
-                    map_filter(
-                        payload_map,
-                        (k, v) -> k NOT IN ('_source_file', 'ano_referencia')
-                    )
-                ),
-                1
-            )
-        """)
-    )
-)
-
-# COMMAND ----------
-
-votacoes_votos_csv_schema = """
-idVotacao STRING,
-uriVotacao STRING,
-dataHoraVoto STRING,
-voto STRING,
-deputado_id STRING,
-deputado_uri STRING,
-deputado_nome STRING,
-deputado_siglaPartido STRING,
-deputado_uriPartido STRING,
-deputado_siglaUf STRING,
-deputado_idLegislatura STRING,
-deputado_urlFoto STRING
-"""
-
-df_parsed = (
-    df_map
-    .withColumn(
-        "csv_data",
-        from_csv(
-            col("payload_data"),
-            votacoes_votos_csv_schema,
-            {
-                "sep": ";",
-                "quote": '"',
-                "escape": '"',
-                "header": "false"
-            }
+        from_json(
+            col("raw_payload"),
+            MapType(StringType(), StringType())
         )
     )
 )
@@ -159,70 +119,68 @@ df_parsed = (
 # COMMAND ----------
 
 df_standardized = (
-    df_parsed
+    df_map
     .select(
         # ---------------------------------------------------
         # Voting relationship
         # ---------------------------------------------------
 
-        trim(col("csv_data.idVotacao"))
+        trim(col("payload_map.idVotacao"))
             .alias("vot_id_votacao"),
 
-        trim(col("csv_data.uriVotacao"))
+        trim(col("payload_map.uriVotacao"))
             .alias("vot_tx_uri"),
 
-        col("csv_data.dataHoraVoto")
+        col("payload_map.dataHoraVoto")
             .try_cast("timestamp")
             .alias("vot_ts_voto"),
 
-        initcap(trim(col("csv_data.voto")))
+        initcap(trim(col("payload_map.voto")))
             .alias("vot_tx_voto"),
 
         # ---------------------------------------------------
         # Deputy relationship
         # ---------------------------------------------------
 
-        col("csv_data.deputado_id")
+        col("payload_map.deputado_id")
             .try_cast("long")
             .alias("dept_id_deputado"),
 
-        trim(col("csv_data.deputado_uri"))
+        trim(col("payload_map.deputado_uri"))
             .alias("dept_tx_uri"),
 
-        initcap(trim(col("csv_data.deputado_nome")))
+        initcap(trim(col("payload_map.deputado_nome")))
             .alias("dept_tx_nome"),
 
-        upper(trim(col("csv_data.deputado_siglaPartido")))
+        upper(trim(col("payload_map.deputado_siglaPartido")))
             .alias("part_sg_partido"),
 
-        trim(col("csv_data.deputado_uriPartido"))
+        trim(col("payload_map.deputado_uriPartido"))
             .alias("part_tx_uri"),
 
-        upper(trim(col("csv_data.deputado_siglaUf")))
+        upper(trim(col("payload_map.deputado_siglaUf")))
             .alias("uf_sg_uf"),
 
-        col("csv_data.deputado_idLegislatura")
+        col("payload_map.deputado_idLegislatura")
             .try_cast("int")
             .alias("leg_id_legislatura"),
 
-        trim(col("csv_data.deputado_urlFoto"))
+        trim(col("payload_map.deputado_urlFoto"))
             .alias("dept_tx_url_foto"),
 
         # ---------------------------------------------------
         # Technical dedup key
         # ---------------------------------------------------
 
-        expr("""
-            sha2(
-                concat_ws(
-                    '||',
-                    csv_data.idVotacao,
-                    csv_data.deputado_id,
-                    csv_data.voto
-                ),
-                256
-            )
-        """).alias("vot_tx_dedup_key"),
+        sha2(
+            concat_ws(
+                "||",
+                trim(col("payload_map.idVotacao")),
+                trim(col("payload_map.deputado_id")),
+                trim(col("payload_map.voto"))
+            ),
+            256
+        ).alias("vot_tx_dedup_key"),
 
         # ---------------------------------------------------
         # Bronze lineage / traceability
@@ -247,9 +205,13 @@ df_standardized = (
             .alias("bronze_dt_ingestao"),
 
         col("payload_map")
+            .getItem("_source_file")
+            .alias("bronze_tx_source_file"),
+
+        col("payload_map")
             .getItem("ano_referencia")
             .cast("int")
-            .alias("bronze_nr_ano_referencia"),            
+            .alias("bronze_nr_ano_referencia"),
 
         # ---------------------------------------------------
         # Silver metadata
@@ -297,30 +259,79 @@ duplicated_votes = (
     .count()
 )
 
-if invalid_null_votacao > 0:
-    raise Exception(
-        f"Data quality error: {invalid_null_votacao} records without voting ID."
-    )
-
-if invalid_null_deputado > 0:
-    raise Exception(
-        f"Data quality error: {invalid_null_deputado} records without deputy ID."
-    )
-
 if duplicated_votes > 0:
     raise Exception(
         f"Data quality error: {duplicated_votes} duplicated voting records."
     )
 
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("vot_id_votacao").isNull()
+        |
+        col("dept_id_deputado").isNull()
+        |
+        col("vot_tx_dedup_key").isNull()
+        |
+        col("vot_ts_voto").isNull()
+    )
+    .withColumn(
+        "rejection_reason",
+        when(
+            col("vot_id_votacao").isNull(),
+            lit("vot_id_votacao_is_null")
+        )
+        .when(
+            col("dept_id_deputado").isNull(),
+            lit("dept_id_deputado_is_null")
+        )
+        .when(
+            col("vot_tx_dedup_key").isNull(),
+            lit("vot_tx_dedup_key_is_null")
+        )
+        .when(
+            col("vot_ts_voto").isNull(),
+            lit("vot_ts_voto_is_null")
+        )
+        .otherwise(lit("unknown"))
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
 df_valid = (
     df_dedup
     .filter(col("vot_id_votacao").isNotNull())
     .filter(col("dept_id_deputado").isNotNull())
+    .filter(col("vot_tx_dedup_key").isNotNull())
+    .filter(col("vot_ts_voto").isNotNull())
 )
+
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
 
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+
+# COMMAND ----------
+
+(
+    df_discarded
+    .write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

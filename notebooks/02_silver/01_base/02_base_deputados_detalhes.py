@@ -389,11 +389,47 @@ if duplicated_ids > 0:
 
 # COMMAND ----------
 
-df_valid = df_dedup.filter(col("dept_id_deputado").isNotNull())
+# ---------------------------------------------------
+# Discarded records
+# ---------------------------------------------------
+
+df_discarded = (
+    df_dedup
+    .filter(
+        col("dept_id_deputado").isNull()
+    )
+    .withColumn(
+        "rejection_reason",
+        lit("dept_id_deputado_is_null")
+    )
+)
+
+# ---------------------------------------------------
+# Valid records
+# ---------------------------------------------------
+
+df_valid = (
+    df_dedup
+    .filter(col("dept_id_deputado").isNotNull())
+)
+
+# ---------------------------------------------------
+# Metrics
+# ---------------------------------------------------
 
 records_written = df_valid.count()
 
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 

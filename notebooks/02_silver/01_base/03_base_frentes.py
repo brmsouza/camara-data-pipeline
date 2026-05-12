@@ -187,22 +187,44 @@ duplicated_frentes = (
     .groupBy("frente_id_frente")
     .agg(count("*").alias("qt_registros"))
     .filter(col("qt_registros") > 1)
-    .count()
 )
-if duplicated_frentes > 0:
-    raise Exception(
-        f"Data quality error: {duplicated_frentes} duplicated parliamentary fronts."
+
+duplicated_frentes_count = duplicated_frentes.count()
+
+df_duplicated = (
+    df_dedup.alias("base")
+    .join(
+        duplicated_frentes.select("frente_id_frente").alias("dup"),
+        "frente_id_frente",
+        "inner"
     )
-    
+)
+
 df_valid = (
     df_dedup
     .filter(col("frente_id_frente").isNotNull())
+    .dropDuplicates(["frente_id_frente"])
+)
+
+df_discarded = (
+    df_dedup
+    .filter(col("frente_id_frente").isNull())
+    .unionByName(df_duplicated, allowMissingColumns=True)
 )
 
 records_written = df_valid.count()
+records_discarded = df_discarded.count()
 
-records_discarded = records_read - records_written
 
+# COMMAND ----------
+
+(
+    df_discarded.write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 
