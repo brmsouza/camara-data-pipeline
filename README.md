@@ -1,4 +1,5 @@
 # camara-data-pipeline
+<<<<<<< HEAD
 <img src="https://img.sh
 ields.io/badge/python-3.12+-3776AB?style=flat-square&logo=python&logoColor=white" />
 <img src="https://img.shields.io/badge/PySpark-Data%20Engineering-E25A1C?style=flat-square&logo=apachespark&logoColor=white" />
@@ -7,6 +8,18 @@ ields.io/badge/python-3.12+-3776AB?style=flat-square&logo=python&logoColor=white
 <img src="https://img.shields.io/badge/architecture-medallion-6A1B9A?style=flat-square" />
 <img src="https://img.shields.io/badge/analytics-parliamentary-2E7D32?style=flat-square" />
 <img src="https://img.shields.io/badge/release-v1.0.0-1976D2?style=flat-square" />
+=======
+
+<p align="left">
+  <img src="https://img.shields.io/badge/python-3.12+-3776AB?style=flat-square&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/PySpark-Data%20Engineering-E25A1C?style=flat-square&logo=apachespark&logoColor=white" />
+  <img src="https://img.shields.io/badge/Databricks-Lakehouse%20Platform-FF3621?style=flat-square&logo=databricks&logoColor=white" />
+  <img src="https://img.shields.io/badge/Delta%20Lake-ACID%20Tables-00ADD8?style=flat-square" />
+  <img src="https://img.shields.io/badge/architecture-medallion-6A1B9A?style=flat-square" />
+  <img src="https://img.shields.io/badge/analytics-parliamentary-2E7D32?style=flat-square" />
+  <img src="https://img.shields.io/badge/release-v1.0.0-1976D2?style=flat-square" />
+</p>
+>>>>>>> 6052eed60ce789e7b67a0221dd39bc513014dea1
 
 End-to-end lakehouse data engineering project built on Databricks using PySpark and Delta Lake for parliamentary analytics, governance, resiliency and dimensional modeling.
 
