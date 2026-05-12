@@ -22,6 +22,17 @@
 
 from pyspark.sql.functions import col, count, max as spark_max
 
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    StringType,
+    LongType,
+    TimestampType,
+)
+
+# COMMAND ----------
+
+
 schema = "bronze"
 tables = spark.sql(f"SHOW TABLES IN {schema}").collect()
 
@@ -94,7 +105,19 @@ for table in tables:
             "error_message": str(e),
         })
 
-df_validation = spark.createDataFrame(results)
+validation_schema = StructType([
+    StructField("table_name", StringType(), True),
+    StructField("total_rows", LongType(), True),
+    StructField("null_source_id", LongType(), True),
+    StructField("distinct_source_id", LongType(), True),
+    StructField("distinct_record_hash", LongType(), True),
+    StructField("duplicate_hash_count", LongType(), True),
+    StructField("latest_ingestion_timestamp", TimestampType(), True),
+    StructField("status", StringType(), True),
+    StructField("error_message", StringType(), True),
+])
+
+df_validation = spark.createDataFrame(results, schema=validation_schema)
 
 display(df_validation.orderBy("table_name"))
 

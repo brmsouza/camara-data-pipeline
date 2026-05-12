@@ -66,17 +66,19 @@ try:
         target_table=TARGET_TABLE,
         started_at=started_at,
     )
-
-    # Read source CSV files from Unity Catalog volume
+# Read source CSV files from Unity Catalog volume
     df_raw = (
         spark.read
         .option("header", True)
         .option("inferSchema", False)
-        .option("sep", ",")
+        .option("sep", ";")
         .option("encoding", "UTF-8")
+        .option("quote", "\"")
+        .option("escape", "\"")
+        .option("multiLine", True)
+        .option("mode", "PERMISSIVE")
         .csv(SOURCE_PATH)
     )
-
     # Add source file metadata for lineage
     df_raw = df_raw.withColumn(
         "_source_file",
@@ -114,7 +116,7 @@ try:
                 df = build_bronze_dataframe_from_df(
                     df_raw=df_ano,
                     source_endpoint=SOURCE_ENDPOINT,
-                    source_id_field="codDocumento",
+                    source_id_field="ideDocumento",
                     batch_id=batch_id,
                     source_system="camara_file",
                 )
@@ -122,14 +124,12 @@ try:
                 rows_written = df.count()
                 records_written += rows_written
 
-                # Persist each year independently into Bronze Delta table
                 write_bronze_delta(
                     df=df,
                     table_name=TARGET_TABLE,
                     mode="append",
                 )
 
-            # Register year-level completion
             log_pipeline_event(
                 batch_id=batch_id,
                 pipeline_name=PIPELINE_NAME,
@@ -139,7 +139,7 @@ try:
                 status="success",
                 message=f"ano={ano}",
                 records_read=records_ano_read,
-                records_written=rows_written if records_ano_read > 0 else 0,
+                records_written=records_ano_read,
                 started_at=started_at,
                 finished_at=datetime.now(),
                 endpoint=SOURCE_ENDPOINT,
@@ -147,7 +147,6 @@ try:
             )
 
         except Exception as e:
-            # Track failed years without interrupting the remaining execution
             failed_anos.append(ano)
 
             log_pipeline_event(

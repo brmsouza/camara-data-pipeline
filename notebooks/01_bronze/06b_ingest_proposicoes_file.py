@@ -37,7 +37,8 @@
 
 import uuid
 from datetime import datetime
-from pyspark.sql.functions import regexp_extract, col
+
+from pyspark.sql.functions import regexp_extract, col, when
 
 # Pipeline configuration
 SOURCE_PATH = f"{VOLUME_RAW_CAMARA}/proposicoes/*.csv"
@@ -71,21 +72,30 @@ try:
         spark.read
         .option("header", True)
         .option("inferSchema", False)
-        .option("sep", ",")
+        .option("sep", ";")
         .option("encoding", "UTF-8")
+        .option("quote", "\"")
+        .option("escape", "\"")
+        .option("multiLine", True)
+        .option("mode", "PERMISSIVE")
         .csv(SOURCE_PATH)
     )
-
+    
     # Add source file metadata for lineage
     df_raw = df_raw.withColumn(
         "_source_file",
         col("_metadata.file_path")
     )
-
-    # Extract reference year from file path
+    # Add source file metadata for lineage
     df_raw = df_raw.withColumn(
         "ano_referencia",
-        regexp_extract(col("_source_file"), r"(\d{4})", 1)
+        regexp_extract(col("_source_file"), r"(?i)proposicoes-(\d{4})", 1)
+    )
+
+    df_raw = df_raw.withColumn(
+        "ano_referencia",
+        when(col("ano_referencia") == "", None)
+        .otherwise(col("ano_referencia"))
     )
 
     records_read = df_raw.count()

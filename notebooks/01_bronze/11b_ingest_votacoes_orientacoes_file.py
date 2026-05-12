@@ -67,12 +67,14 @@ try:
     )
 
     # Read source CSV files from Unity Catalog volume
+
     df_raw = (
         spark.read
         .option("header", True)
         .option("inferSchema", False)
-        .option("sep", ",")
+        .option("sep", ";")
         .option("encoding", "UTF-8")
+        .option("multiLine", True)
         .csv(SOURCE_PATH)
     )
 
@@ -102,7 +104,7 @@ try:
         df = build_bronze_dataframe_from_df(
             df_raw=df_raw,
             source_endpoint=SOURCE_ENDPOINT,
-            source_id_field="id",
+            source_id_field="idVotacao",
             batch_id=batch_id,
             source_system="camara_file",
         )

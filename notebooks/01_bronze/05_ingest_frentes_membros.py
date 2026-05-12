@@ -91,6 +91,33 @@ try:
             # Preserve front identifier for downstream relationships
             for record in records:
                 record["id_frente"] = frente_id
+
+                # ---------------------------------------------------
+                # Preserve original deputy ID from API
+                # ---------------------------------------------------
+                record["id_deputado_api"] = record.get("id")
+
+                # ---------------------------------------------------
+                # Fallback technical identifier
+                # Some historical members do not contain deputy ID
+                # in the Câmara API response.
+                #
+                # This fallback is used only to avoid null source_id
+                # in the Bronze layer.
+                # ---------------------------------------------------
+                if record.get("id") is None:
+                    record["id"] = (
+                        f"{frente_id}_"
+                        f"{record.get('nome')}_"
+                        f"{record.get('siglaPartido')}_"
+                        f"{record.get('siglaUf')}_"
+                        f"{record.get('titulo')}_"
+                        f"{record.get('idLegislatura')}"
+                    )
+                    record["id_deputado_original_ausente"] = True
+                else:
+                    record["id_deputado_original_ausente"] = False
+
                 all_records.append(record)
 
             # Throttle requests to avoid API rate limiting

@@ -43,11 +43,6 @@
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC TRUNCATE TABLE bronze.orgaos;
-
-# COMMAND ----------
-
 import uuid
 from datetime import datetime
 

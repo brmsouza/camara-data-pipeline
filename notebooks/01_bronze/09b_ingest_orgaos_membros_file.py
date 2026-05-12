@@ -37,23 +37,30 @@
 
 import uuid
 from datetime import datetime
-from pyspark.sql.functions import col
 
-# Pipeline configuration
+from pyspark.sql.functions import (
+    col,
+    regexp_extract,
+    when,
+    concat_ws,
+)
+
+# COMMAND ----------
+
 SOURCE_PATH = f"{VOLUME_RAW_CAMARA}/orgaos_membros/*.csv"
 TARGET_TABLE = "bronze.orgaos_membros"
 PIPELINE_NAME = "bronze_ingest_orgaos_membros_file"
 SOURCE_ENDPOINT = "file://orgaos_membros"
 
-# Execution metadata
 batch_id = str(uuid.uuid4())
 started_at = datetime.now()
 
 records_read = 0
 records_written = 0
 
+# COMMAND ----------
+
 try:
-    # Register pipeline start
     log_pipeline_event(
         batch_id=batch_id,
         pipeline_name=PIPELINE_NAME,
@@ -66,37 +73,70 @@ try:
         started_at=started_at,
     )
 
-    # Read source CSV files from Unity Catalog volume
     df_raw = (
         spark.read
         .option("header", True)
         .option("inferSchema", False)
-        .option("sep", ",")
+        .option("sep", ";")
         .option("encoding", "UTF-8")
+        .option("quote", "\"")
+        .option("escape", "\"")
+        .option("multiLine", True)
+        .option("mode", "PERMISSIVE")
         .csv(SOURCE_PATH)
     )
 
-    # Add source file metadata for lineage
     df_raw = df_raw.withColumn(
         "_source_file",
         col("_metadata.file_path")
     )
 
+    df_raw = df_raw.withColumn(
+        "legislatura_referencia",
+        regexp_extract(
+            col("_source_file"),
+            r"(?i)L(\d+)",
+            1
+        )
+    )
+
+    df_raw = df_raw.withColumn(
+        "legislatura_referencia",
+        when(col("legislatura_referencia") == "", None)
+        .otherwise(col("legislatura_referencia"))
+    )
+
+    df_raw = df_raw.withColumn(
+        "id_membro_orgao",
+        concat_ws(
+            "_",
+            col("uriOrgao"),
+            col("siglaOrgao"),
+            col("uriDeputado"),
+            col("nomeDeputado"),
+            col("siglaPartido"),
+            col("siglaUF"),
+            col("cargo"),
+            col("dataInicio"),
+            col("dataFim"),
+            col("legislatura_referencia"),
+            col("_source_file")
+        )
+    )
+
     records_read = df_raw.count()
 
     if records_read > 0:
-
         df = build_bronze_dataframe_from_df(
             df_raw=df_raw,
             source_endpoint=SOURCE_ENDPOINT,
-            source_id_field="id",
+            source_id_field="id_membro_orgao",
             batch_id=batch_id,
             source_system="camara_file",
         )
 
         records_written = df.count()
 
-        # Persist data into Bronze Delta table
         write_bronze_delta(
             df=df,
             table_name=TARGET_TABLE,
@@ -104,13 +144,12 @@ try:
         )
 
     else:
-        # Ensure target table creation when source files contain no data
-        empty_records = [{"id": None}]
+        empty_records = [{"id_membro_orgao": None}]
 
         df_empty = build_bronze_dataframe(
             records=empty_records,
             source_endpoint=SOURCE_ENDPOINT,
-            source_id_field="id",
+            source_id_field="id_membro_orgao",
             batch_id=batch_id,
             source_system="camara_file",
         ).limit(0)
@@ -123,7 +162,6 @@ try:
 
     finished_at = datetime.now()
 
-    # Register successful completion
     log_pipeline_event(
         batch_id=batch_id,
         pipeline_name=PIPELINE_NAME,
@@ -143,7 +181,6 @@ try:
 except Exception as e:
     finished_at = datetime.now()
 
-    # Register failure details for troubleshooting and replay
     log_pipeline_event(
         batch_id=batch_id,
         pipeline_name=PIPELINE_NAME,

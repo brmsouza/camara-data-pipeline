@@ -71,11 +71,14 @@ try:
         spark.read
         .option("header", True)
         .option("inferSchema", False)
-        .option("sep", ",")
+        .option("sep", ";")
         .option("encoding", "UTF-8")
+        .option("quote", "\"")
+        .option("escape", "\"")
+        .option("multiLine", True)
+        .option("mode", "PERMISSIVE")
         .csv(SOURCE_PATH)
     )
-
     # Add source file metadata for lineage
     df_raw = df_raw.withColumn(
         "_source_file",
