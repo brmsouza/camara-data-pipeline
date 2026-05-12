@@ -21,7 +21,7 @@
 # - Preserve organization classification fields
 # - Preserve lineage and traceability columns
 # - Apply technical deduplication
-# - Persist Delta table for curated consumption
+# - Persist Silver Base Delta table
 #
 # Source:
 # bronze.orgaos
@@ -51,6 +51,8 @@ from pyspark.sql.functions import (
     current_timestamp,
     row_number,
     from_json,
+    initcap,
+    count,
 )
 
 from pyspark.sql.types import (
@@ -69,19 +71,21 @@ SOURCE_TABLE = "bronze.orgaos"
 TARGET_TABLE = "silver_base.orgaos"
 
 PIPELINE_NAME = "silver_base_orgaos"
+LAYER = "silver_base"
 
 batch_id = str(uuid.uuid4())
 started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -95,8 +99,6 @@ log_pipeline_event(
 df_bronze = spark.table(SOURCE_TABLE)
 
 records_read = df_bronze.count()
-
-#print(f"Records read from Bronze: {records_read}")
 
 # COMMAND ----------
 
@@ -122,7 +124,7 @@ df_parsed = (
 
 # COMMAND ----------
 
-df = (
+df_standardized = (
     df_parsed
     .select(
         col("json_data.id")
@@ -134,22 +136,22 @@ df = (
         upper(trim(col("json_data.sigla")))
             .alias("org_sg_orgao"),
 
-        trim(col("json_data.nome"))
+        initcap(trim(col("json_data.nome")))
             .alias("org_tx_nome"),
 
-        trim(col("json_data.apelido"))
+        initcap(trim(col("json_data.apelido")))
             .alias("org_tx_apelido"),
 
-        trim(col("json_data.nomePublicacao"))
+        initcap(trim(col("json_data.nomePublicacao")))
             .alias("org_tx_nome_publicacao"),
 
-        trim(col("json_data.nomeResumido"))
+        initcap(trim(col("json_data.nomeResumido")))
             .alias("org_tx_nome_resumido"),
 
         col("json_data.codTipoOrgao")
             .alias("org_cd_tipo_orgao"),
 
-        trim(col("json_data.tipoOrgao"))
+        initcap(trim(col("json_data.tipoOrgao")))
             .alias("org_tx_tipo_orgao"),
 
         col("ingestion_timestamp")
@@ -184,7 +186,7 @@ window_spec = (
 )
 
 df_dedup = (
-    df
+    df_standardized
     .withColumn("rn", row_number().over(window_spec))
     .filter(col("rn") == 1)
     .drop("rn")
@@ -192,6 +194,24 @@ df_dedup = (
 
 # COMMAND ----------
 
+invalid_null_orgao = (
+    df_dedup
+    .filter(col("org_id_orgao").isNull())
+    .count()
+)
+
+duplicated_orgaos = (
+    df_dedup
+    .groupBy("org_id_orgao")
+    .agg(count("*").alias("qt_registros"))
+    .filter(col("qt_registros") > 1)
+    .count()
+)
+
+if duplicated_orgaos > 0:
+    raise Exception(
+        f"Data quality error: {duplicated_orgaos} duplicated organizations."
+    )
 df_valid = (
     df_dedup
     .filter(col("org_id_orgao").isNotNull())
@@ -199,7 +219,8 @@ df_valid = (
 
 records_written = df_valid.count()
 
-#print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
+
 
 # COMMAND ----------
 
@@ -213,25 +234,26 @@ records_written = df_valid.count()
 
 # COMMAND ----------
 
-#display(spark.table(TARGET_TABLE).limit(50))
-
-# COMMAND ----------
-
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
     finished_at=datetime.now(),
 )
 
+
+# COMMAND ----------
+
 print(f"Pipeline: {PIPELINE_NAME}")
+print(f"Layer: {LAYER}")
 print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

@@ -20,7 +20,9 @@
 # - Preserve event location and related bodies
 # - Preserve lineage and traceability columns
 # - Apply technical deduplication
-# - Persist Delta table for curated consumption
+# - Persist Silver Base Delta table
+# - Validate technical date quality
+# - Validate event period consistency
 #
 # Source:
 # bronze.eventos
@@ -53,6 +55,10 @@ from pyspark.sql.functions import (
     from_json,
     to_date,
     to_timestamp,
+    initcap,
+    when,
+    lit,
+    regexp_replace,
 )
 
 from pyspark.sql.window import Window
@@ -79,13 +85,14 @@ started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -100,12 +107,6 @@ df_bronze = spark.table(SOURCE_TABLE)
 
 records_read = df_bronze.count()
 
-#print(f"Records read from Bronze: {records_read}")
-
-# COMMAND ----------
-
-#display(df_bronze.limit(10))
-#df_bronze.printSchema()
 
 # COMMAND ----------
 
@@ -155,7 +156,7 @@ df_parsed = (
     )
 )
 
-df = (
+df_standardized = (
     df_parsed
     .select(
         col("json_data.id").alias("evt_id_evento"),
@@ -163,20 +164,56 @@ df = (
         col("json_data.ano_referencia").cast("int").alias("evt_nr_ano_referencia"),
 
         to_timestamp(col("json_data.dataHoraInicio")).alias("evt_ts_inicio"),
+        when(
+            to_timestamp(col("json_data.dataHoraInicio")).isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("evt_fl_inicio_valido"),
         to_timestamp(col("json_data.dataHoraFim")).alias("evt_ts_fim"),
+        when(
+            col("json_data.dataHoraFim").isNull()
+            | to_timestamp(col("json_data.dataHoraFim")).isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("evt_fl_fim_valido"),        
         to_date(col("json_data.data_inicio_janela")).alias("evt_dt_inicio_janela"),
         to_date(col("json_data.data_fim_janela")).alias("evt_dt_fim_janela"),
+        when(
+            (
+                to_timestamp(col("json_data.dataHoraFim")).isNull()
+            )
+            |
+            (
+                to_timestamp(col("json_data.dataHoraFim"))
+                >= to_timestamp(col("json_data.dataHoraInicio"))
+            ),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("evt_fl_periodo_valido"),        
 
-        trim(col("json_data.descricao")).alias("evt_tx_descricao"),
-        trim(col("json_data.descricaoTipo")).alias("evt_tx_tipo"),
-        trim(col("json_data.situacao")).alias("evt_tx_situacao"),
+        initcap(
+            regexp_replace(
+                regexp_replace(
+                    trim(col("json_data.descricao")),
+                    r"[\r\n\t]+",
+                    " "
+                ),
+                r"^(.+?)\s+\1$",
+                "$1"
+            )
+        ).alias("evt_tx_descricao"),
+        initcap(trim(col("json_data.descricaoTipo"))).alias("evt_tx_tipo"),
+        initcap(trim(col("json_data.situacao"))).alias("evt_tx_situacao"),
         trim(col("json_data.urlRegistro")).alias("evt_tx_url_registro"),
 
-        trim(col("json_data.localCamara.nome")).alias("evt_tx_local_camara"),
-        trim(col("json_data.localCamara.predio")).alias("evt_tx_predio"),
+        initcap(trim(col("json_data.localCamara.nome"))).alias("evt_tx_local_camara"),
+        upper(trim(col("json_data.localCamara.predio"))).alias("evt_tx_predio"),
         trim(col("json_data.localCamara.sala")).alias("evt_tx_sala"),
         trim(col("json_data.localCamara.andar")).alias("evt_tx_andar"),
-        trim(col("json_data.localExterno")).alias("evt_tx_local_externo"),
+        initcap(trim(col("json_data.localExterno"))).alias("evt_tx_local_externo"),
 
         col("json_data.orgaos").alias("evt_arr_orgaos"),
 
@@ -200,7 +237,7 @@ window_spec = (
 )
 
 df_dedup = (
-    df
+    df_standardized
     .withColumn("rn", row_number().over(window_spec))
     .filter(col("rn") == 1)
     .drop("rn")
@@ -225,18 +262,18 @@ if invalid_null_id > 0:
 if duplicated_ids > 0:
     raise Exception(f"Data quality error: {duplicated_ids} duplicated event IDs.")
 
-#print(f"Data quality warning: {invalid_null_inicio} records without event start timestamp.")
 
 # COMMAND ----------
 
 df_valid = (
     df_dedup
     .filter(col("evt_id_evento").isNotNull())
+    .filter(col("evt_fl_inicio_valido") == 1)
 )
 
 records_written = df_valid.count()
 
-#print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
 
 # COMMAND ----------
 
@@ -251,17 +288,13 @@ records_written = df_valid.count()
 
 # COMMAND ----------
 
-#display(spark.table(TARGET_TABLE).limit(50))
-
-# COMMAND ----------
-
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
@@ -276,3 +309,4 @@ print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

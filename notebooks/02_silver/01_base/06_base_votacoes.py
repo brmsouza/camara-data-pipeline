@@ -21,7 +21,9 @@
 # - Preserve voting-event and proposition relationships
 # - Preserve lineage and traceability columns
 # - Apply technical deduplication
-# - Persist Delta table for curated consumption
+# - Persist Silver Base Delta table
+# - Validate technical date quality
+# - Validate voting period consistency
 #
 # Source:
 # bronze.votacoes
@@ -50,12 +52,14 @@ from pyspark.sql.functions import (
     current_timestamp,
     row_number,
     get_json_object,
+    upper,
+    initcap,
+    count,
+    when,
 )
 
 from pyspark.sql.window import Window
 
-import uuid
-from datetime import datetime
 
 # COMMAND ----------
 
@@ -70,13 +74,14 @@ started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -95,15 +100,10 @@ df_bronze = (
 
 records_read = df_bronze.count()
 
-#print(f"Valid Bronze records read: {records_read}")
 
 # COMMAND ----------
 
-#display(df_bronze.limit(10))
-
-# COMMAND ----------
-
-df_transformed = (
+df_standardized = (
     df_bronze
     .select(
         # ---------------------------------------------------
@@ -124,15 +124,46 @@ df_transformed = (
             .try_cast("date")
             .alias("vot_dt_votacao"),
 
+        when(
+            get_json_object(col("raw_payload"), "$.data")
+                .try_cast("date")
+                .isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("vot_fl_data_valida"),     
         get_json_object(col("raw_payload"), "$.dataHoraRegistro")
             .try_cast("timestamp")
             .alias("vot_ts_registro"),
+       
+        when(
+            get_json_object(col("raw_payload"), "$.dataHoraRegistro")
+                .try_cast("timestamp")
+                .isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("vot_fl_timestamp_registro_valido"),
+
+        when(
+            (
+                get_json_object(col("raw_payload"), "$.dataHoraRegistro")
+                    .try_cast("timestamp")
+                    .cast("date")
+                >=
+                get_json_object(col("raw_payload"), "$.data")
+                    .try_cast("date")
+            ),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("vot_fl_periodo_valido"),
 
         # ---------------------------------------------------
         # Voting attributes
         # ---------------------------------------------------
 
-        get_json_object(col("raw_payload"), "$.descricao")
+        initcap(get_json_object(col("raw_payload"), "$.descricao"))
             .alias("vot_tx_descricao"),
 
         get_json_object(col("raw_payload"), "$.aprovacao")
@@ -162,7 +193,7 @@ df_transformed = (
             .try_cast("long")
             .alias("org_id_orgao"),
 
-        get_json_object(col("raw_payload"), "$.siglaOrgao")
+        upper(get_json_object(col("raw_payload"), "$.siglaOrgao"))
             .alias("org_sg_orgao"),
 
         get_json_object(col("raw_payload"), "$.uriOrgao")
@@ -201,10 +232,10 @@ df_transformed = (
         )
         .alias("prop_tx_uri"),
 
-        get_json_object(
+        initcap(get_json_object(
             col("raw_payload"),
             "$.ultimaApresentacaoProposicao_descricao"
-        )
+        ))
         .alias("prop_tx_descricao"),
 
         # ---------------------------------------------------
@@ -236,14 +267,8 @@ df_transformed = (
         current_timestamp()
             .alias("silver_ts_processamento"),
 
-        lit(batch_id)
-            .alias("silver_id_batch"),
     )
 )
-
-# COMMAND ----------
-
-#display(df_transformed.limit(500))
 
 # COMMAND ----------
 
@@ -254,7 +279,7 @@ window_spec = (
 )
 
 df_dedup = (
-    df_transformed
+    df_standardized
     .withColumn(
         "row_num",
         row_number().over(window_spec)
@@ -265,15 +290,35 @@ df_dedup = (
 
 # COMMAND ----------
 
+invalid_null_id = (
+    df_dedup
+    .filter(col("vot_id_votacao").isNull())
+    .count()
+)
+
+duplicated_ids = (
+    df_dedup
+    .groupBy("vot_id_votacao")
+    .agg(count("*").alias("qt_registros"))
+    .filter(col("qt_registros") > 1)
+    .count()
+)
+
+if duplicated_ids > 0:
+    raise Exception(
+        f"Data quality error: {duplicated_ids} duplicated voting IDs."
+    )
+
 df_valid = (
     df_dedup
     .filter(col("vot_id_votacao").isNotNull())
     .filter(col("vot_id_votacao").rlike("^[0-9]+-[0-9]+$"))
+    .filter(col("vot_fl_data_valida") == 1)
 )
 
 records_written = df_valid.count()
 
-#print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
 
 # COMMAND ----------
 
@@ -282,22 +327,19 @@ records_written = df_valid.count()
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
+    .partitionBy("vot_nr_ano_referencia")
     .saveAsTable(TARGET_TABLE)
 )
-
-# COMMAND ----------
-
-#display(spark.table(TARGET_TABLE).limit(50))
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
@@ -312,3 +354,4 @@ print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

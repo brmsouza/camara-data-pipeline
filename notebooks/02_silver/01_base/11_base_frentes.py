@@ -22,7 +22,7 @@
 # - Preserve legislature relationship
 # - Preserve lineage and traceability columns
 # - Apply technical deduplication
-# - Persist Delta table for curated consumption
+# - Persist Silver Base Delta table
 #
 # Source:
 # bronze.frentes
@@ -51,6 +51,8 @@ from pyspark.sql.functions import (
     current_timestamp,
     row_number,
     from_json,
+    initcap,
+    count,
 )
 
 from pyspark.sql.types import (
@@ -69,19 +71,21 @@ SOURCE_TABLE = "bronze.frentes"
 TARGET_TABLE = "silver_base.frentes"
 
 PIPELINE_NAME = "silver_base_frentes"
+LAYER = "silver_base"
 
 batch_id = str(uuid.uuid4())
 started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -95,8 +99,6 @@ log_pipeline_event(
 df_bronze = spark.table(SOURCE_TABLE)
 
 records_read = df_bronze.count()
-
-#print(f"Records read from Bronze: {records_read}")
 
 # COMMAND ----------
 
@@ -117,7 +119,7 @@ df_parsed = (
 
 # COMMAND ----------
 
-df = (
+df_standardized = (
     df_parsed
     .select(
         col("json_data.id")
@@ -126,11 +128,15 @@ df = (
         col("json_data.idLegislatura")
             .alias("leg_id_legislatura"),
 
-        trim(col("json_data.titulo"))
+        initcap(trim(col("json_data.titulo")))
             .alias("frente_tx_titulo"),
 
         trim(col("json_data.uri"))
             .alias("frente_tx_uri"),
+
+        # ---------------------------------------------------
+        # Bronze lineage / traceability
+        # ---------------------------------------------------
 
         col("ingestion_timestamp")
             .alias("bronze_ts_ingestao"),
@@ -150,6 +156,10 @@ df = (
         col("record_hash")
             .alias("bronze_tx_record_hash"),
 
+        # ---------------------------------------------------
+        # Silver metadata
+        # ---------------------------------------------------
+
         current_timestamp()
             .alias("silver_ts_processamento")
     )
@@ -164,7 +174,7 @@ window_spec = (
 )
 
 df_dedup = (
-    df
+    df_standardized
     .withColumn("rn", row_number().over(window_spec))
     .filter(col("rn") == 1)
     .drop("rn")
@@ -172,6 +182,18 @@ df_dedup = (
 
 # COMMAND ----------
 
+duplicated_frentes = (
+    df_dedup
+    .groupBy("frente_id_frente")
+    .agg(count("*").alias("qt_registros"))
+    .filter(col("qt_registros") > 1)
+    .count()
+)
+if duplicated_frentes > 0:
+    raise Exception(
+        f"Data quality error: {duplicated_frentes} duplicated parliamentary fronts."
+    )
+    
 df_valid = (
     df_dedup
     .filter(col("frente_id_frente").isNotNull())
@@ -179,7 +201,8 @@ df_valid = (
 
 records_written = df_valid.count()
 
-#print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
+
 
 # COMMAND ----------
 
@@ -193,25 +216,25 @@ records_written = df_valid.count()
 
 # COMMAND ----------
 
-#display(spark.table(TARGET_TABLE).limit(50))
-
-# COMMAND ----------
-
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
     finished_at=datetime.now(),
 )
 
+# COMMAND ----------
+
 print(f"Pipeline: {PIPELINE_NAME}")
+print(f"Layer: {LAYER}")
 print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

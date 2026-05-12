@@ -23,7 +23,9 @@
 # - Preserve role and membership period information
 # - Preserve lineage and traceability columns
 # - Apply technical deduplication
-# - Persist Delta table for curated consumption
+# - Persist Silver Base Delta table
+# - Validate technical date quality
+# - Validate membership period consistency
 #
 # Source:
 # bronze.orgaos_membros
@@ -59,6 +61,10 @@ from pyspark.sql.functions import (
     sha2,
     concat_ws,
     regexp_extract,
+    initcap,
+    count,
+    when,
+    lit,
 )
 
 from pyspark.sql.types import MapType, StringType
@@ -70,19 +76,21 @@ SOURCE_TABLE = "bronze.orgaos_membros"
 TARGET_TABLE = "silver_base.orgaos_membros"
 
 PIPELINE_NAME = "silver_base_orgaos_membros"
+LAYER = "silver_base"
 
 batch_id = str(uuid.uuid4())
 started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -96,8 +104,6 @@ log_pipeline_event(
 df_bronze = spark.table(SOURCE_TABLE)
 
 records_read = df_bronze.count()
-
-#print(f"Records read from Bronze: {records_read}")
 
 # COMMAND ----------
 
@@ -158,7 +164,7 @@ df_parsed = (
 
 # COMMAND ----------
 
-df = (
+df_standardized = (
     df_parsed
     .select(
         regexp_extract(
@@ -173,10 +179,10 @@ df = (
         upper(trim(col("csv_data.siglaOrgao")))
             .alias("org_sg_orgao"),
 
-        trim(col("csv_data.nomeOrgao"))
+        initcap(trim(col("csv_data.nomeOrgao")))
             .alias("org_tx_nome"),
 
-        trim(col("csv_data.nomePublicacaoOrgao"))
+        initcap(trim(col("csv_data.nomePublicacaoOrgao")))
             .alias("org_tx_nome_publicacao"),
 
         regexp_extract(
@@ -188,7 +194,7 @@ df = (
         trim(col("csv_data.uriDeputado"))
             .alias("dept_tx_uri"),
 
-        trim(col("csv_data.nomeDeputado"))
+        initcap(trim(col("csv_data.nomeDeputado")))
             .alias("dept_tx_nome"),
 
         upper(trim(col("csv_data.siglaPartido")))
@@ -197,23 +203,56 @@ df = (
         upper(trim(col("csv_data.siglaUF")))
             .alias("uf_sg_uf"),
 
-        trim(col("csv_data.cargo"))
+        initcap(trim(col("csv_data.cargo")))
             .alias("memb_tx_cargo"),
 
         col("csv_data.dataInicio")
             .try_cast("date")
             .alias("memb_dt_inicio"),
+            
+        when(
+            col("csv_data.dataInicio")
+                .try_cast("date")
+                .isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("memb_fl_data_inicio_valida"),
 
         col("csv_data.dataFim")
             .try_cast("date")
             .alias("memb_dt_fim"),
+        when(
+            col("csv_data.dataFim").isNull()
+            |
+            col("csv_data.dataFim")
+                .try_cast("date")
+                .isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("memb_fl_data_fim_valida"),
 
+        when(
+            (
+                col("csv_data.dataFim").isNull()
+            )
+            |
+            (
+                col("csv_data.dataFim").try_cast("date")
+                >=
+                col("csv_data.dataInicio").try_cast("date")
+            ),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("memb_fl_periodo_valido"),
         sha2(
             concat_ws(
                 "||",
                 trim(col("csv_data.uriOrgao")),
                 trim(col("csv_data.uriDeputado")),
-                trim(col("csv_data.cargo")),
+                initcap(trim(col("csv_data.cargo"))),
                 trim(col("csv_data.dataInicio")),
                 trim(col("csv_data.dataFim"))
             ),
@@ -229,13 +268,17 @@ df = (
         col("source_endpoint")
             .alias("bronze_tx_endpoint"),
 
-        col("payload_map")
-            .getItem("_source_file")
+        col("source_id")
             .alias("bronze_id_origem"),
 
         col("payload_map")
             .getItem("_source_file")
             .alias("bronze_tx_source_file"),
+
+        col("payload_map")
+            .getItem("ano_referencia")
+            .cast("int")
+            .alias("bronze_nr_ano_referencia"),
 
         col("batch_id")
             .alias("bronze_id_batch"),
@@ -257,7 +300,7 @@ window_spec = (
 )
 
 df_dedup = (
-    df
+    df_standardized
     .withColumn("rn", row_number().over(window_spec))
     .filter(col("rn") == 1)
     .drop("rn")
@@ -265,15 +308,42 @@ df_dedup = (
 
 # COMMAND ----------
 
+invalid_null_orgao = (
+    df_dedup
+    .filter(col("org_id_orgao").isNull())
+    .count()
+)
+
+invalid_null_deputado = (
+    df_dedup
+    .filter(col("dept_id_deputado").isNull())
+    .count()
+)
+
+duplicated_members = (
+    df_dedup
+    .groupBy("memb_tx_dedup_key")
+    .agg(count("*").alias("qt_registros"))
+    .filter(col("qt_registros") > 1)
+    .count()
+)
+
+if duplicated_members > 0:
+    raise Exception(
+        f"Data quality error: {duplicated_members} duplicated organization members."
+    )
+
 df_valid = (
     df_dedup
     .filter(col("org_id_orgao").isNotNull())
     .filter(col("dept_id_deputado").isNotNull())
+    .filter(col("memb_fl_data_inicio_valida") == 1)
 )
 
 records_written = df_valid.count()
 
-#print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
+
 
 # COMMAND ----------
 
@@ -282,31 +352,32 @@ records_written = df_valid.count()
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .partitionBy("bronze_dt_ingestao")
+    .partitionBy("bronze_nr_ano_referencia")
     .saveAsTable(TARGET_TABLE)
 )
-
-# COMMAND ----------
-
-#display(spark.table(TARGET_TABLE).limit(50))
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
     finished_at=datetime.now(),
 )
 
+
+# COMMAND ----------
+
 print(f"Pipeline: {PIPELINE_NAME}")
+print(f"Layer: {LAYER}")
 print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

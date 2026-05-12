@@ -19,7 +19,8 @@
 # - Remove invalid records
 # - Perform technical deduplication
 # - Add traceability columns
-# - Persist curated Delta table
+# - Persist Silver Base Delta table
+# - Validate technical email quality
 #
 # Source:
 # bronze.deputados
@@ -46,10 +47,14 @@ from pyspark.sql.functions import (
     col,
     trim,
     upper,
+    lower,
+    initcap,
     current_timestamp,
     row_number,
     count,
     from_json,
+    when,
+    lit,
 )
 
 from pyspark.sql.window import Window
@@ -74,13 +79,14 @@ started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -115,17 +121,28 @@ df_parsed = (
     )
 )
 
-df = (
+df_standardized = (
     df_parsed
     .select(
         col("json_data.id").alias("dept_id_deputado"),
-        trim(col("json_data.nome")).alias("dept_tx_nome"),
-        trim(col("json_data.siglaPartido")).alias("part_sg_partido"),
+        initcap(trim(col("json_data.nome"))).alias("dept_tx_nome"),
+        upper(trim(col("json_data.siglaPartido"))).alias("part_sg_partido"),
         upper(trim(col("json_data.siglaUf"))).alias("uf_sg_uf"),
-        trim(col("json_data.email")).alias("dept_tx_email"),
+
+        lower(trim(col("json_data.email"))).alias("dept_tx_email"),
+        when(
+            lower(trim(col("json_data.email"))).rlike(
+                "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+            ),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("dept_fl_email_valido"),
+
         trim(col("json_data.urlFoto")).alias("dept_tx_url_foto"),
 
         col("ingestion_timestamp").alias("bronze_ts_ingestao"),
+        col("ingestion_date").alias("bronze_dt_ingestao"),
         col("source_endpoint").alias("bronze_tx_endpoint"),
         col("source_id").alias("bronze_id_origem"),
         col("batch_id").alias("bronze_id_batch"),
@@ -144,15 +161,11 @@ window_spec = (
 )
 
 df_dedup = (
-    df
+    df_standardized
     .withColumn("rn", row_number().over(window_spec))
     .filter(col("rn") == 1)
     .drop("rn")
 )
-
-# COMMAND ----------
-
-#display(df_bronze)
 
 # COMMAND ----------
 
@@ -178,7 +191,8 @@ df_valid = df_dedup.filter(col("dept_id_deputado").isNotNull())
 
 records_written = df_valid.count()
 
-#print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
+
 
 # COMMAND ----------
 
@@ -192,17 +206,13 @@ records_written = df_valid.count()
 
 # COMMAND ----------
 
-#display(spark.table(TARGET_TABLE))
-
-# COMMAND ----------
-
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
@@ -217,3 +227,4 @@ print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

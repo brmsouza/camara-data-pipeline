@@ -23,7 +23,10 @@
 # - Preserve membership role information
 # - Preserve lineage and traceability columns
 # - Apply technical deduplication
-# - Persist Delta table for curated consumption
+# - Persist Silver Base Delta table
+# - Validate technical email quality
+# - Validate technical date quality
+# - Validate membership period consistency
 #
 # Source:
 # bronze.frentes_membros
@@ -55,6 +58,11 @@ from pyspark.sql.functions import (
     from_json,
     sha2,
     concat_ws,
+    initcap,
+    lower,
+    count,
+    when,
+    lit,
 )
 
 from pyspark.sql.types import (
@@ -73,19 +81,21 @@ SOURCE_TABLE = "bronze.frentes_membros"
 TARGET_TABLE = "silver_base.frentes_membros"
 
 PIPELINE_NAME = "silver_base_frentes_membros"
+LAYER = "silver_base"
 
 batch_id = str(uuid.uuid4())
 started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -100,7 +110,6 @@ df_bronze = spark.table(SOURCE_TABLE)
 
 records_read = df_bronze.count()
 
-#print(f"Records read from Bronze: {records_read}")
 
 # COMMAND ----------
 
@@ -131,7 +140,7 @@ df_parsed = (
 
 # COMMAND ----------
 
-df = (
+df_standardized = (
     df_parsed
     .select(
         col("json_data.id_frente")
@@ -144,11 +153,19 @@ df = (
         trim(col("json_data.uri"))
             .alias("dept_tx_uri"),
 
-        trim(col("json_data.nome"))
+        initcap(trim(col("json_data.nome")))
             .alias("dept_tx_nome"),
 
-        trim(col("json_data.email"))
+        lower(trim(col("json_data.email")))
             .alias("dept_tx_email"),
+        when(
+            lower(trim(col("json_data.email"))).rlike(
+                "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+            ),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("dept_fl_email_valido"),         
 
         upper(trim(col("json_data.siglaPartido")))
             .alias("part_sg_partido"),
@@ -165,12 +182,20 @@ df = (
         col("json_data.codTitulo")
             .alias("memb_cd_titulo"),
 
-        trim(col("json_data.titulo"))
+        initcap(trim(col("json_data.titulo")))
             .alias("memb_tx_titulo"),
 
         col("json_data.dataInicio")
             .try_cast("date")
             .alias("memb_dt_inicio"),
+        when(
+        col("json_data.dataInicio").isNull()
+        |
+        col("json_data.dataInicio").try_cast("date").isNotNull(),
+        lit(1)
+    )
+    .otherwise(lit(0))
+    .alias("memb_fl_data_inicio_valida"),
 
         col("json_data.dataFim")
             .try_cast("date")
@@ -178,17 +203,45 @@ df = (
 
         trim(col("json_data.urlFoto"))
             .alias("dept_tx_url_foto"),
+        when(
+            col("json_data.dataFim").isNull()
+            |
+            col("json_data.dataFim")
+                .try_cast("date")
+                .isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("memb_fl_data_fim_valida"),
 
+        when(
+            (
+                col("json_data.dataFim").isNull()
+            )
+            |
+            (
+                col("json_data.dataFim").try_cast("date")
+                >=
+                col("json_data.dataInicio").try_cast("date")
+            ),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("memb_fl_periodo_valido"),
         sha2(
             concat_ws(
                 "||",
                 col("json_data.id_frente"),
                 col("json_data.id"),
                 col("json_data.codTitulo"),
-                col("json_data.titulo")
+                initcap(trim(col("json_data.titulo")))
             ),
             256
         ).alias("memb_tx_dedup_key"),
+
+        # ---------------------------------------------------
+        # Bronze lineage / traceability
+        # ---------------------------------------------------
 
         col("ingestion_timestamp")
             .alias("bronze_ts_ingestao"),
@@ -208,6 +261,10 @@ df = (
         col("record_hash")
             .alias("bronze_tx_record_hash"),
 
+        # ---------------------------------------------------
+        # Silver metadata
+        # ---------------------------------------------------
+
         current_timestamp()
             .alias("silver_ts_processamento")
     )
@@ -222,13 +279,26 @@ window_spec = (
 )
 
 df_dedup = (
-    df
+    df_standardized
     .withColumn("rn", row_number().over(window_spec))
     .filter(col("rn") == 1)
     .drop("rn")
 )
 
 # COMMAND ----------
+
+duplicated_members = (
+    df_dedup
+    .groupBy("memb_tx_dedup_key")
+    .agg(count("*").alias("qt_registros"))
+    .filter(col("qt_registros") > 1)
+    .count()
+)
+
+if duplicated_members > 0:
+    raise Exception(
+        f"Data quality error: {duplicated_members} duplicated front members."
+    )
 
 df_valid = (
     df_dedup
@@ -238,7 +308,7 @@ df_valid = (
 
 records_written = df_valid.count()
 
-##print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
 
 # COMMAND ----------
 
@@ -252,25 +322,25 @@ records_written = df_valid.count()
 
 # COMMAND ----------
 
-display(spark.table(TARGET_TABLE).limit(50))
-
-# COMMAND ----------
-
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
     finished_at=datetime.now(),
 )
 
+# COMMAND ----------
+
 print(f"Pipeline: {PIPELINE_NAME}")
+print(f"Layer: {LAYER}")
 print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

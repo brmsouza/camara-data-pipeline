@@ -23,7 +23,9 @@
 # - Preserve legislative organization references
 # - Preserve lineage and traceability columns
 # - Apply technical deduplication
-# - Persist Delta table for curated consumption
+# - Persist Silver Base Delta table
+# - Validate technical date quality
+# - Validate proposition lifecycle consistency
 #
 # Source:
 # bronze.proposicoes
@@ -55,8 +57,11 @@ from pyspark.sql.functions import (
     row_number,
     from_json,
     from_csv,
-    regexp_replace,
     expr,
+    initcap,
+    count,
+    when,
+    lit,
 )
 
 from pyspark.sql.types import MapType, StringType
@@ -68,19 +73,21 @@ SOURCE_TABLE = "bronze.proposicoes"
 TARGET_TABLE = "silver_base.proposicoes"
 
 PIPELINE_NAME = "silver_base_proposicoes"
+LAYER = "silver_base"
 
 batch_id = str(uuid.uuid4())
 started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -95,7 +102,6 @@ df_bronze = spark.table(SOURCE_TABLE)
 
 records_read = df_bronze.count()
 
-#print(f"Records read from Bronze: {records_read}")
 
 # COMMAND ----------
 
@@ -176,32 +182,54 @@ df_parsed = (
 
 # COMMAND ----------
 
-df = (
+df_standardized = (
     df_parsed
     .select(
-        col("csv_data.id").try_cast("long").alias("prop_id_proposicao"),
+        col("csv_data.id")
+            .try_cast("long")
+            .alias("prop_id_proposicao"),
 
-        trim(col("csv_data.uri")).alias("prop_tx_uri"),
+        trim(col("csv_data.uri"))
+            .alias("prop_tx_uri"),
 
-        upper(trim(col("csv_data.siglaTipo"))).alias("prop_sg_tipo"),
+        upper(trim(col("csv_data.siglaTipo")))
+            .alias("prop_sg_tipo"),
 
-        col("csv_data.numero").try_cast("long").alias("prop_nr_numero"),
+        col("csv_data.numero")
+            .try_cast("long")
+            .alias("prop_nr_numero"),
 
-        col("csv_data.ano").try_cast("int").alias("prop_nr_ano"),
+        col("csv_data.ano")
+            .try_cast("int")
+            .alias("prop_nr_ano"),
 
-        col("csv_data.codTipo").try_cast("int").alias("prop_cd_tipo"),
+        col("csv_data.codTipo")
+            .try_cast("int")
+            .alias("prop_cd_tipo"),
 
-        trim(col("csv_data.descricaoTipo")).alias("prop_tx_descricao_tipo"),
+        initcap(trim(col("csv_data.descricaoTipo")))
+            .alias("prop_tx_descricao_tipo"),
 
-        trim(col("csv_data.ementa")).alias("prop_tx_ementa"),
+        initcap(trim(col("csv_data.ementa")))
+            .alias("prop_tx_ementa"),
 
-        trim(col("csv_data.ementaDetalhada")).alias("prop_tx_ementa_detalhada"),
+        initcap(trim(col("csv_data.ementaDetalhada")))
+            .alias("prop_tx_ementa_detalhada"),
 
-        trim(col("csv_data.keywords")).alias("prop_tx_keywords"),
+        trim(col("csv_data.keywords"))
+            .alias("prop_tx_keywords"),
 
         col("csv_data.dataApresentacao")
             .try_cast("timestamp")
             .alias("prop_ts_apresentacao"),
+        when(
+            col("csv_data.dataApresentacao")
+                .try_cast("timestamp")
+                .isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("prop_fl_data_apresentacao_valida"),            
 
         trim(col("csv_data.uriOrgaoNumerador"))
             .alias("org_tx_uri_numerador"),
@@ -224,6 +252,27 @@ df = (
         col("csv_data.ultimoStatus_dataHora")
             .try_cast("timestamp")
             .alias("status_ts_data_hora"),
+        when(
+            col("csv_data.ultimoStatus_dataHora")
+                .try_cast("timestamp")
+                .isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("status_fl_data_hora_valida"),  
+                  
+        when(
+            (
+                col("csv_data.ultimoStatus_dataHora")
+                    .try_cast("timestamp")
+                >=
+                col("csv_data.dataApresentacao")
+                    .try_cast("timestamp")
+            ),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("status_fl_periodo_valido"),
 
         col("csv_data.ultimoStatus_sequencia")
             .try_cast("int")
@@ -242,17 +291,17 @@ df = (
         trim(col("csv_data.ultimoStatus_uriOrgao"))
             .alias("status_tx_uri_orgao"),
 
-        trim(col("csv_data.ultimoStatus_regime"))
+        initcap(trim(col("csv_data.ultimoStatus_regime")))
             .alias("status_tx_regime"),
 
-        trim(col("csv_data.ultimoStatus_descricaoTramitacao"))
+        initcap(trim(col("csv_data.ultimoStatus_descricaoTramitacao")))
             .alias("status_tx_descricao_tramitacao"),
 
         col("csv_data.ultimoStatus_idTipoTramitacao")
             .try_cast("int")
             .alias("status_id_tipo_tramitacao"),
 
-        trim(col("csv_data.ultimoStatus_descricaoSituacao"))
+        initcap(trim(col("csv_data.ultimoStatus_descricaoSituacao")))
             .alias("status_tx_descricao_situacao"),
 
         col("csv_data.ultimoStatus_idSituacao")
@@ -262,7 +311,7 @@ df = (
         trim(col("csv_data.ultimoStatus_despacho"))
             .alias("status_tx_despacho"),
 
-        trim(col("csv_data.ultimoStatus_apreciacao"))
+        initcap(trim(col("csv_data.ultimoStatus_apreciacao")))
             .alias("status_tx_apreciacao"),
 
         trim(col("csv_data.ultimoStatus_url"))
@@ -281,13 +330,17 @@ df = (
         col("source_endpoint")
             .alias("bronze_tx_endpoint"),
 
-        col("payload_map")
-            .getItem("_source_file")
+        col("source_id")
             .alias("bronze_id_origem"),
 
         col("payload_map")
             .getItem("_source_file")
             .alias("bronze_tx_source_file"),
+
+        col("payload_map")
+            .getItem("ano_referencia")
+            .cast("int")
+            .alias("bronze_nr_ano_referencia"),
 
         col("batch_id")
             .alias("bronze_id_batch"),
@@ -313,7 +366,7 @@ window_spec = (
 )
 
 df_dedup = (
-    df
+    df_standardized
     .withColumn("rn", row_number().over(window_spec))
     .filter(col("rn") == 1)
     .drop("rn")
@@ -321,15 +374,35 @@ df_dedup = (
 
 # COMMAND ----------
 
+invalid_null_id = (
+    df_dedup
+    .filter(col("prop_id_proposicao").isNull())
+    .count()
+)
+
+duplicated_ids = (
+    df_dedup
+    .groupBy("prop_id_proposicao")
+    .agg(count("*").alias("qt_registros"))
+    .filter(col("qt_registros") > 1)
+    .count()
+)
+
+if duplicated_ids > 0:
+    raise Exception(
+        f"Data quality error: {duplicated_ids} duplicated proposition IDs."
+    )
+    
 df_valid = (
     df_dedup
     .filter(col("prop_id_proposicao").isNotNull())
     .filter(col("prop_nr_ano").isNotNull())
+    .filter(col("prop_fl_data_apresentacao_valida") == 1)
 )
 
 records_written = df_valid.count()
 
-#print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
 
 # COMMAND ----------
 
@@ -344,25 +417,25 @@ records_written = df_valid.count()
 
 # COMMAND ----------
 
-#display(spark.table(TARGET_TABLE).limit(50))
-
-# COMMAND ----------
-
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
     finished_at=datetime.now(),
 )
 
+# COMMAND ----------
+
 print(f"Pipeline: {PIPELINE_NAME}")
+print(f"Layer: {LAYER}")
 print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

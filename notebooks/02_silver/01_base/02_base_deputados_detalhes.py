@@ -20,7 +20,11 @@
 # - Remove invalid records
 # - Perform technical deduplication
 # - Preserve lineage and traceability columns
-# - Persist Delta table for curated consumption
+# - Persist Silver Base Delta table
+# - Validate technical CPF quality
+# - Validate technical email quality
+# - Validate technical telephone quality
+# - Validate technical date quality
 #
 # Source:
 # bronze.deputados_detalhes
@@ -52,6 +56,12 @@ from pyspark.sql.functions import (
     count,
     from_json,
     to_date,
+    lower,
+    initcap,
+    regexp_replace,
+    length,
+    when,
+    lit,
 )
 
 from pyspark.sql.window import Window
@@ -77,13 +87,14 @@ started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -98,12 +109,6 @@ df_bronze = spark.table(SOURCE_TABLE)
 
 records_read = df_bronze.count()
 
-#print(f"Records read from Bronze: {records_read}")
-
-# COMMAND ----------
-
-#display(df_bronze.limit(10))
-#df_bronze.printSchema()
 
 # COMMAND ----------
 
@@ -156,46 +161,196 @@ df_parsed = (
     )
 )
 
-df = (
+df_standardized = (
     df_parsed
     .select(
-        col("json_data.id").alias("dept_id_deputado"),
-        trim(col("json_data.nomeCivil")).alias("dept_tx_nome_civil"),
-        upper(trim(col("json_data.sexo"))).alias("dept_sg_sexo"),
-        trim(col("json_data.urlWebsite")).alias("dept_tx_url_website"),
-        col("json_data.redeSocial").alias("dept_arr_rede_social"),
-        to_date(col("json_data.dataNascimento")).alias("dept_dt_nascimento"),
-        to_date(col("json_data.dataFalecimento")).alias("dept_dt_falecimento"),
-        upper(trim(col("json_data.ufNascimento"))).alias("uf_sg_nascimento"),
-        trim(col("json_data.municipioNascimento")).alias("dept_tx_municipio_nascimento"),
-        trim(col("json_data.escolaridade")).alias("dept_tx_escolaridade"),
+        col("json_data.id")
+            .alias("dept_id_deputado"),
 
-        col("json_data.ultimoStatus.id").alias("dept_id_ultimo_status"),
-        trim(col("json_data.ultimoStatus.nome")).alias("dept_tx_nome_parlamentar"),
-        trim(col("json_data.ultimoStatus.nomeEleitoral")).alias("dept_tx_nome_eleitoral"),
-        trim(col("json_data.ultimoStatus.siglaPartido")).alias("part_sg_partido"),
-        upper(trim(col("json_data.ultimoStatus.siglaUf"))).alias("uf_sg_uf"),
-        col("json_data.ultimoStatus.idLegislatura").alias("leg_id_legislatura"),
-        trim(col("json_data.ultimoStatus.email")).alias("dept_tx_email"),
-        to_date(col("json_data.ultimoStatus.data")).alias("dept_dt_ultimo_status"),
-        trim(col("json_data.ultimoStatus.situacao")).alias("dept_tx_situacao"),
-        trim(col("json_data.ultimoStatus.condicaoEleitoral")).alias("dept_tx_condicao_eleitoral"),
-        trim(col("json_data.ultimoStatus.descricaoStatus")).alias("dept_tx_descricao_status"),
+        initcap(trim(col("json_data.nomeCivil")))
+            .alias("dept_tx_nome_civil"),
 
-        trim(col("json_data.ultimoStatus.gabinete.nome")).alias("gab_tx_nome"),
-        trim(col("json_data.ultimoStatus.gabinete.predio")).alias("gab_tx_predio"),
-        trim(col("json_data.ultimoStatus.gabinete.sala")).alias("gab_tx_sala"),
-        trim(col("json_data.ultimoStatus.gabinete.andar")).alias("gab_tx_andar"),
-        trim(col("json_data.ultimoStatus.gabinete.telefone")).alias("gab_tx_telefone"),
-        trim(col("json_data.ultimoStatus.gabinete.email")).alias("gab_tx_email"),
+        upper(trim(col("json_data.sexo")))
+            .alias("dept_sg_sexo"),
 
-        col("ingestion_timestamp").alias("bronze_ts_ingestao"),
-        col("source_endpoint").alias("bronze_tx_endpoint"),
-        col("source_id").alias("bronze_id_origem"),
-        col("batch_id").alias("bronze_id_batch"),
-        col("record_hash").alias("bronze_tx_record_hash"),
+        trim(col("json_data.urlWebsite"))
+            .alias("dept_tx_url_website"),
 
-        current_timestamp().alias("silver_ts_processamento")
+        col("json_data.redeSocial")
+            .alias("dept_arr_rede_social"),
+
+        to_date(col("json_data.dataNascimento"))
+            .alias("dept_dt_nascimento"),
+
+        to_date(col("json_data.dataFalecimento"))
+            .alias("dept_dt_falecimento"),
+
+        when(
+            to_date(col("json_data.dataNascimento")).isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("dept_fl_data_nascimento_valida"),
+
+        when(
+            col("json_data.dataFalecimento").isNull()
+            | to_date(col("json_data.dataFalecimento")).isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("dept_fl_data_falecimento_valida"),
+
+        upper(trim(col("json_data.ufNascimento")))
+            .alias("uf_sg_nascimento"),
+
+        initcap(trim(col("json_data.municipioNascimento")))
+            .alias("dept_tx_municipio_nascimento"),
+
+        initcap(trim(col("json_data.escolaridade")))
+            .alias("dept_tx_escolaridade"),
+
+        trim(col("json_data.uri"))
+            .alias("dept_tx_uri"),
+
+        regexp_replace(
+            trim(col("json_data.cpf")),
+            "[^0-9]",
+            ""
+        ).alias("dept_nr_cpf"),
+
+        when(
+            length(
+                regexp_replace(
+                    trim(col("json_data.cpf")),
+                    "[^0-9]",
+                    ""
+                )
+            ) == 11,
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("dept_fl_cpf_valido"),
+
+        col("json_data.ultimoStatus.id")
+            .alias("dept_id_ultimo_status"),
+
+        initcap(trim(col("json_data.ultimoStatus.nome")))
+            .alias("dept_tx_nome_parlamentar"),
+
+        initcap(trim(col("json_data.ultimoStatus.nomeEleitoral")))
+            .alias("dept_tx_nome_eleitoral"),
+
+        upper(trim(col("json_data.ultimoStatus.siglaPartido")))
+            .alias("part_sg_partido"),
+
+        upper(trim(col("json_data.ultimoStatus.siglaUf")))
+            .alias("uf_sg_uf"),
+
+        col("json_data.ultimoStatus.idLegislatura")
+            .alias("leg_id_legislatura"),
+
+        lower(trim(col("json_data.ultimoStatus.email")))
+            .alias("dept_tx_email"),
+
+        when(
+            lower(trim(col("json_data.ultimoStatus.email"))).rlike(
+                "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+            ),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("dept_fl_email_valido"),
+
+        to_date(col("json_data.ultimoStatus.data"))
+            .alias("dept_dt_ultimo_status"),
+
+        when(
+            to_date(col("json_data.ultimoStatus.data")).isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("dept_fl_data_status_valida"),
+
+        initcap(trim(col("json_data.ultimoStatus.situacao")))
+            .alias("dept_tx_situacao"),
+
+        initcap(trim(col("json_data.ultimoStatus.condicaoEleitoral")))
+            .alias("dept_tx_condicao_eleitoral"),
+
+        trim(col("json_data.ultimoStatus.descricaoStatus"))
+            .alias("dept_tx_descricao_status"),
+
+        initcap(trim(col("json_data.ultimoStatus.gabinete.nome")))
+            .alias("gab_tx_nome"),
+
+        trim(col("json_data.ultimoStatus.gabinete.predio"))
+            .alias("gab_tx_predio"),
+
+        trim(col("json_data.ultimoStatus.gabinete.sala"))
+            .alias("gab_tx_sala"),
+
+        trim(col("json_data.ultimoStatus.gabinete.andar"))
+            .alias("gab_tx_andar"),
+
+        regexp_replace(
+            trim(col("json_data.ultimoStatus.gabinete.telefone")),
+            "[^0-9]",
+            ""
+        ).alias("gab_tx_telefone"),
+
+        when(
+            length(
+                regexp_replace(
+                    trim(col("json_data.ultimoStatus.gabinete.telefone")),
+                    "[^0-9]",
+                    ""
+                )
+            ).between(8, 13),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("gab_fl_telefone_valido"),
+
+        lower(trim(col("json_data.ultimoStatus.gabinete.email")))
+            .alias("gab_tx_email"),
+
+        when(
+            lower(trim(col("json_data.ultimoStatus.gabinete.email"))).rlike(
+                "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+            ),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("gab_fl_email_valido"),
+
+        # ---------------------------------------------------
+        # Bronze lineage / traceability
+        # ---------------------------------------------------
+
+        col("ingestion_timestamp")
+            .alias("bronze_ts_ingestao"),
+
+        col("ingestion_date")
+            .alias("bronze_dt_ingestao"),
+
+        col("source_endpoint")
+            .alias("bronze_tx_endpoint"),
+
+        col("source_id")
+            .alias("bronze_id_origem"),
+
+        col("batch_id")
+            .alias("bronze_id_batch"),
+
+        col("record_hash")
+            .alias("bronze_tx_record_hash"),
+
+        # ---------------------------------------------------
+        # Silver metadata
+        # ---------------------------------------------------
+
+        current_timestamp()
+            .alias("silver_ts_processamento")
     )
 )
 
@@ -208,7 +363,7 @@ window_spec = (
 )
 
 df_dedup = (
-    df
+    df_standardized 
     .withColumn("rn", row_number().over(window_spec))
     .filter(col("rn") == 1)
     .drop("rn")
@@ -238,7 +393,7 @@ df_valid = df_dedup.filter(col("dept_id_deputado").isNotNull())
 
 records_written = df_valid.count()
 
-#print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
 
 # COMMAND ----------
 
@@ -255,19 +410,15 @@ records_written = df_valid.count()
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
     finished_at=datetime.now(),
 )
-
-# COMMAND ----------
-
-#display(spark.table(TARGET_TABLE))
 
 # COMMAND ----------
 
@@ -277,3 +428,4 @@ print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

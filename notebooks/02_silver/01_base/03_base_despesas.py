@@ -20,7 +20,9 @@
 # - Normalize supplier and CNPJ/CPF fields
 # - Preserve lineage and traceability columns
 # - Apply technical deduplication
-# - Persist Delta table for curated consumption
+# - Persist Silver Base Delta table
+# - Validate technical CPF/CNPJ quality
+# - Validate technical date quality
 #
 # Source:
 # bronze.despesas
@@ -58,6 +60,10 @@ from pyspark.sql.functions import (
     sha2,
     concat_ws,
     expr,
+    initcap,
+    length,
+    when,
+    lit,
 )
 
 from pyspark.sql.types import MapType, StringType
@@ -76,6 +82,7 @@ started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 
 # COMMAND ----------
@@ -83,7 +90,7 @@ records_written = 0
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -98,12 +105,6 @@ df_bronze = spark.table(SOURCE_TABLE)
 
 records_read = df_bronze.count()
 
-#print(f"Records read from Bronze: {records_read}")
-
-# COMMAND ----------
-
-#display(df_bronze.limit(10))
-#df_bronze.printSchema()
 
 # COMMAND ----------
 
@@ -183,14 +184,21 @@ df_parsed = (
     )
 )
 
-df = (
+df_standardized = (
     df_parsed
     .select(
-        trim(col("csv_data.txNomeParlamentar")).alias("desp_tx_nome_parlamentar"),
+        initcap(trim(col("csv_data.txNomeParlamentar"))).alias("desp_tx_nome_parlamentar"),
 
         regexp_replace(col("csv_data.cpf"), "[^0-9]", "")
             .alias("dept_nr_cpf"),
-
+        when(
+            length(
+                regexp_replace(col("csv_data.cpf"), "[^0-9]", "")
+            ) == 11,
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("dept_fl_cpf_valido"),
         col("csv_data.ideCadastro")
             .cast("long")
             .alias("dept_id_cadastro"),
@@ -216,17 +224,17 @@ df = (
             .cast("int")
             .alias("desp_cd_subcota"),
 
-        trim(col("csv_data.txtDescricao"))
+        initcap(trim(col("csv_data.txtDescricao")))
             .alias("desp_tx_descricao"),
 
         col("csv_data.numEspecificacaoSubCota")
             .cast("int")
             .alias("desp_cd_especificacao_subcota"),
 
-        trim(col("csv_data.txtDescricaoEspecificacao"))
+        initcap(trim(col("csv_data.txtDescricaoEspecificacao")))
             .alias("desp_tx_descricao_especificacao"),
 
-        trim(col("csv_data.txtFornecedor"))
+        initcap(trim(col("csv_data.txtFornecedor")))
             .alias("forn_tx_nome"),
 
         regexp_replace(
@@ -234,6 +242,42 @@ df = (
             "[^0-9]",
             ""
         ).alias("forn_nr_cnpj_cpf"),
+
+        when(
+            length(
+                regexp_replace(
+                    col("csv_data.txtCNPJCPF"),
+                    "[^0-9]",
+                    ""
+                )
+            ) == 11,
+            lit("CPF")
+        )
+        .when(
+            length(
+                regexp_replace(
+                    col("csv_data.txtCNPJCPF"),
+                    "[^0-9]",
+                    ""
+                )
+            ) == 14,
+            lit("CNPJ")
+        )
+        .otherwise(lit("NA"))
+        .alias("forn_tx_tipo_documento"),
+
+        when(
+            length(
+                regexp_replace(
+                    col("csv_data.txtCNPJCPF"),
+                    "[^0-9]",
+                    ""
+                )
+            ).isin(11, 14),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("forn_fl_documento_valido"),        
 
         trim(col("csv_data.txtNumero"))
             .alias("desp_nr_documento"),
@@ -245,6 +289,15 @@ df = (
         to_date(
             to_timestamp(col("csv_data.datEmissao"))
         ).alias("desp_dt_emissao"),
+
+        when(
+            to_date(
+                to_timestamp(col("csv_data.datEmissao"))
+            ).isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("desp_fl_data_emissao_valida"),
 
         regexp_replace(
             col("csv_data.vlrDocumento"),
@@ -296,6 +349,16 @@ df = (
         to_date(
             to_timestamp(col("csv_data.datPagamentoRestituicao"))
         ).alias("desp_dt_pagamento_restituicao"),
+        
+        when(
+            col("csv_data.datPagamentoRestituicao").isNull()
+            | to_date(
+                to_timestamp(col("csv_data.datPagamentoRestituicao"))
+            ).isNotNull(),
+            lit(1)
+        )
+        .otherwise(lit(0))
+        .alias("desp_fl_data_restituicao_valida"),
 
         regexp_replace(
             col("csv_data.vlrRestituicao"),
@@ -328,8 +391,7 @@ df = (
         col("source_endpoint")
             .alias("bronze_tx_endpoint"),
 
-        col("payload_map")
-            .getItem("_source_file")
+        col("source_id")
             .alias("bronze_id_origem"),
 
         col("payload_map")
@@ -359,7 +421,7 @@ df = (
 # COMMAND ----------
 
 df_keyed = (
-    df
+    df_standardized
     .withColumn(
         "desp_tx_dedup_key",
         sha2(
@@ -414,8 +476,6 @@ if invalid_null_key > 0:
 if duplicated_keys > 0:
     raise Exception(f"Data quality error: {duplicated_keys} duplicated expense keys.")
 
-#print(f"Data quality warning: {invalid_null_year} records without expense year.")
-#print(f"Data quality warning: {invalid_null_value} records without liquid value.")
 
 # COMMAND ----------
 
@@ -428,7 +488,7 @@ df_valid = (
 
 records_written = df_valid.count()
 
-#print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
 
 # COMMAND ----------
 
@@ -443,17 +503,13 @@ records_written = df_valid.count()
 
 # COMMAND ----------
 
-#display(spark.table(TARGET_TABLE).limit(50))
-
-# COMMAND ----------
-
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
@@ -468,3 +524,4 @@ print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")

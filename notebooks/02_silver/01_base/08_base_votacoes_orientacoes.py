@@ -22,7 +22,7 @@
 # - Preserve voting and political bench relationships
 # - Preserve lineage and traceability columns
 # - Apply technical deduplication
-# - Persist Delta table for curated consumption
+# - Persist Silver Base Delta table
 #
 # Source:
 # bronze.votacoes_orientacoes
@@ -57,6 +57,8 @@ from pyspark.sql.functions import (
     expr,
     sha2,
     concat_ws,
+    initcap,
+    count,
 )
 
 from pyspark.sql.types import MapType, StringType
@@ -68,19 +70,21 @@ SOURCE_TABLE = "bronze.votacoes_orientacoes"
 TARGET_TABLE = "silver_base.votacoes_orientacoes"
 
 PIPELINE_NAME = "silver_base_votacoes_orientacoes"
+LAYER = "silver_base"
 
 batch_id = str(uuid.uuid4())
 started_at = datetime.now()
 
 records_read = 0
 records_written = 0
+records_discarded = 0
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_started",
     message=f"source={PIPELINE_NAME} | start successfully",
@@ -95,7 +99,6 @@ df_bronze = spark.table(SOURCE_TABLE)
 
 records_read = df_bronze.count()
 
-print(f"Records read from Bronze: {records_read}")
 
 # COMMAND ----------
 
@@ -152,7 +155,7 @@ df_parsed = (
 
 # COMMAND ----------
 
-df = (
+df_standardized = (
     df_parsed
     .select(
         trim(col("csv_data.idVotacao"))
@@ -164,16 +167,16 @@ df = (
         upper(trim(col("csv_data.siglaOrgao")))
             .alias("org_sg_orgao"),
 
-        trim(col("csv_data.descricao"))
+        initcap(trim(col("csv_data.descricao")))
             .alias("vot_tx_descricao_resultado"),
 
-        trim(col("csv_data.siglaBancada"))
+        upper(trim(col("csv_data.siglaBancada")))
             .alias("banc_tx_sigla_bancada"),
 
         trim(col("csv_data.uriBancada"))
             .alias("banc_tx_uri"),
 
-        trim(col("csv_data.orientacao"))
+        initcap(trim(col("csv_data.orientacao")))
             .alias("vot_tx_orientacao"),
 
         sha2(
@@ -181,8 +184,8 @@ df = (
                 "||",
                 trim(col("csv_data.idVotacao")),
                 upper(trim(col("csv_data.siglaOrgao"))),
-                trim(col("csv_data.siglaBancada")),
-                trim(col("csv_data.orientacao"))
+                upper(trim(col("csv_data.siglaBancada"))),
+                initcap(trim(col("csv_data.orientacao")))
             ),
             256
         ).alias("vot_tx_dedup_key"),
@@ -196,13 +199,17 @@ df = (
         col("source_endpoint")
             .alias("bronze_tx_endpoint"),
 
-        col("payload_map")
-            .getItem("_source_file")
+        col("source_id")
             .alias("bronze_id_origem"),
 
         col("payload_map")
             .getItem("_source_file")
             .alias("bronze_tx_source_file"),
+
+        col("payload_map")
+            .getItem("ano_referencia")
+            .cast("int")
+            .alias("bronze_nr_ano_referencia"),
 
         col("batch_id")
             .alias("bronze_id_batch"),
@@ -224,7 +231,7 @@ window_spec = (
 )
 
 df_dedup = (
-    df
+    df_standardized
     .withColumn("rn", row_number().over(window_spec))
     .filter(col("rn") == 1)
     .drop("rn")
@@ -232,6 +239,32 @@ df_dedup = (
 
 # COMMAND ----------
 
+invalid_null_votacao = (
+    df_dedup
+    .filter(col("vot_id_votacao").isNull())
+    .count()
+)
+
+invalid_null_bancada = (
+    df_dedup
+    .filter(col("banc_tx_sigla_bancada").isNull())
+    .count()
+)
+
+duplicated_orientations = (
+    df_dedup
+    .groupBy("vot_tx_dedup_key")
+    .agg(count("*").alias("qt_registros"))
+    .filter(col("qt_registros") > 1)
+    .count()
+)
+
+
+if duplicated_orientations > 0:
+    raise Exception(
+        f"Data quality error: {duplicated_orientations} duplicated orientation records."
+    )
+    
 df_valid = (
     df_dedup
     .filter(col("vot_id_votacao").isNotNull())
@@ -240,7 +273,7 @@ df_valid = (
 
 records_written = df_valid.count()
 
-print(f"Records valid for Silver Base: {records_written}")
+records_discarded = records_read - records_written
 
 # COMMAND ----------
 
@@ -249,31 +282,32 @@ print(f"Records valid for Silver Base: {records_written}")
     .format("delta")
     .mode("overwrite")
     .option("overwriteSchema", "true")
-    .partitionBy("bronze_dt_ingestao")
+    .partitionBy("bronze_nr_ano_referencia")
     .saveAsTable(TARGET_TABLE)
 )
-
-# COMMAND ----------
-
-display(spark.table(TARGET_TABLE).limit(50))
 
 # COMMAND ----------
 
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,
-    layer="silver",
+    layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written}",
+    message=f"source={PIPELINE_NAME} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
     started_at=started_at,
     finished_at=datetime.now(),
 )
 
+
+# COMMAND ----------
+
 print(f"Pipeline: {PIPELINE_NAME}")
+print(f"Layer: {LAYER}")
 print(f"Source: {SOURCE_TABLE}")
 print(f"Target: {TARGET_TABLE}")
 print(f"Records read: {records_read}")
 print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")
