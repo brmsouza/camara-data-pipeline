@@ -1,6 +1,6 @@
 # Databricks notebook source
 # ------------------------------------------------------------------------------
-# Notebook: 18_build_ft_atividade_parlamentar
+# Notebook: 19_build_ft_atividade_parlamentar
 # Layer: Gold
 # Author: Bruno Souza
 #
@@ -85,7 +85,8 @@ records_read = df_deputados.count()
 
 df_metricas_despesas = (
     df_despesas
-    .groupBy("dept_id_deputado")
+    .filter(F.col("dept_id_deputado_resolvido").isNotNull())
+    .groupBy("dept_id_deputado_resolvido")
     .agg(
         F.count("*").alias("qt_despesas"),
         F.sum("desp_vl_documento").alias("vl_total_documento"),
@@ -95,6 +96,7 @@ df_metricas_despesas = (
         F.max("desp_fl_possui_glosa").alias("fl_possui_glosa"),
         F.max("desp_fl_possui_restituicao").alias("fl_possui_restituicao")
     )
+    .withColumnRenamed("dept_id_deputado_resolvido", "dept_id_deputado")
 )
 
 df_metricas_votos = (
@@ -197,15 +199,28 @@ if records_written == 0:
         "Gold validation failed: ft_atividade_parlamentar has no records."
     )
 
-null_required_keys = (
+null_sk_dept = (
     df_fact
     .filter(F.col("sk_dept").isNull())
     .count()
 )
 
-if null_required_keys > 0:
+if null_sk_dept > 0:
     raise Exception(
-        f"Gold validation failed: required dimensional keys are null = {null_required_keys}"
+        f"Gold validation failed: null sk_dept found = {null_sk_dept}"
+    )
+
+duplicated_business_keys = (
+    df_fact
+    .groupBy("dept_id_deputado")
+    .count()
+    .filter(F.col("count") > 1)
+    .count()
+)
+
+if duplicated_business_keys > 0:
+    raise Exception(
+        f"Gold validation failed: duplicated dept_id_deputado found = {duplicated_business_keys}"
     )
 
 # COMMAND ----------

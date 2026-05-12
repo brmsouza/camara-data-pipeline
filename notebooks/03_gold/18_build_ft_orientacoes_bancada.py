@@ -1,6 +1,6 @@
 # Databricks notebook source
 # ------------------------------------------------------------------------------
-# Notebook: 17_build_ft_orientacoes_bancada
+# Notebook: 18_build_ft_orientacoes_bancada
 # Layer: Gold
 # Author: Bruno Souza
 #
@@ -55,12 +55,26 @@ log_pipeline_event(
 
 # COMMAND ----------
 
-df_source = spark.table(SOURCE_TABLE)
+df_source_raw = spark.table(SOURCE_TABLE)
+
+df_source = (
+    df_source_raw
+    .dropDuplicates(["vot_tx_dedup_key"])
+)
 
 df_dm_bancada = spark.table("gold.dm_bancada")
-df_dm_orgao = spark.table("gold.dm_orgao")
 
-records_read = df_source.count()
+df_dm_orgao = (
+    spark.table("gold.dm_orgao")
+    .select(
+        "sk_org",
+        "org_sg_orgao"
+    )
+    .dropDuplicates(["org_sg_orgao"])
+)
+
+records_read = df_source_raw.count()
+records_source_deduplicated = df_source.count()
 
 # COMMAND ----------
 
@@ -68,7 +82,7 @@ df_fact = (
     df_source.alias("ori")
     .join(
         df_dm_bancada.alias("banc"),
-        F.col("ori.banc_tx_sigla_bancada") == F.col("banc.banc_tx_sigla_bancada"),
+        F.col("ori.banc_tx_bancada_curada") == F.col("banc.banc_tx_bancada_curada"),
         "left"
     )
     .join(
@@ -77,18 +91,38 @@ df_fact = (
         "left"
     )
     .select(
+        # ---------------------------------------------------
+        # Dimension foreign keys
+        # ---------------------------------------------------
+
         F.col("banc.sk_banc"),
         F.col("org.sk_org"),
+
+        # ---------------------------------------------------
+        # Degenerate dimensions / business identifiers
+        # ---------------------------------------------------
 
         F.col("ori.vot_id_votacao"),
         F.col("ori.vot_tx_uri"),
 
+        # ---------------------------------------------------
+        # Descriptive attributes retained in fact
+        # ---------------------------------------------------
+
         F.col("ori.org_sg_orgao"),
-        F.col("ori.banc_tx_sigla_bancada"),
+        F.col("ori.banc_tx_bancada_curada"),
+
+        # ---------------------------------------------------
+        # Orientation attributes
+        # ---------------------------------------------------
 
         F.col("ori.vot_tx_orientacao"),
         F.col("ori.vot_tx_orientacao_curada"),
         F.col("ori.vot_tx_descricao_resultado"),
+
+        # ---------------------------------------------------
+        # Analytical flags
+        # ---------------------------------------------------
 
         F.col("ori.vot_fl_orientacao_sim"),
         F.col("ori.vot_fl_orientacao_nao"),
@@ -96,8 +130,16 @@ df_fact = (
         F.col("ori.vot_fl_orientacao_obstrucao"),
         F.col("ori.vot_fl_orientacao_abstencao"),
 
+        # ---------------------------------------------------
+        # Technical key
+        # ---------------------------------------------------
+
         F.col("ori.vot_tx_dedup_key"),
         F.col("ori.bronze_nr_ano_referencia"),
+
+        # ---------------------------------------------------
+        # Lineage / traceability
+        # ---------------------------------------------------
 
         F.col("ori.bronze_ts_ingestao"),
         F.col("ori.bronze_dt_ingestao"),
@@ -117,6 +159,13 @@ df_fact = (
 records_written = df_fact.count()
 records_discarded = records_read - records_written
 
+print(f"Records read: {records_read}")
+print(f"Records after deduplication: {records_source_deduplicated}")
+print(f"Records written: {records_written}")
+print(f"Records discarded: {records_discarded}")
+
+# COMMAND ----------
+
 if records_read == 0:
     raise Exception(
         "Gold validation failed: source silver_curated.votacoes_orientacoes has no records."
@@ -125,6 +174,30 @@ if records_read == 0:
 if records_written == 0:
     raise Exception(
         "Gold validation failed: ft_orientacoes_bancada has no records."
+    )
+
+null_sk_banc = (
+    df_fact
+    .filter(F.col("sk_banc").isNull())
+    .count()
+)
+
+if null_sk_banc > 0:
+    raise Exception(
+        f"Gold validation failed: null sk_banc found = {null_sk_banc}"
+    )
+
+duplicated_business_keys = (
+    df_fact
+    .groupBy("vot_tx_dedup_key")
+    .count()
+    .filter(F.col("count") > 1)
+    .count()
+)
+
+if duplicated_business_keys > 0:
+    raise Exception(
+        f"Gold validation failed: duplicated vot_tx_dedup_key found = {duplicated_business_keys}"
     )
 
 # COMMAND ----------

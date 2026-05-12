@@ -22,7 +22,7 @@
 # - Register operational execution metrics
 #
 # Source:
-# silver_curated.curated_deputados
+# silver_curated.legislaturas
 #
 # Target:
 # gold.dm_legislatura
@@ -75,21 +75,13 @@ df_dm_legislatura = (
     df_source
     .select(
         F.col("leg_id_legislatura"),
-
         F.col("leg_nr_ano_eleicao"),
-
         F.col("leg_nr_ano_inicio"),
-
         F.col("leg_nr_ano_fim"),
-
         F.col("leg_dt_inicio"),
-
         F.col("leg_dt_fim"),
-
         F.col("leg_qt_meses_duracao"),
-
         F.col("leg_fl_legislatura_atual"),
-
         F.col("leg_tx_descricao")
     )
     .filter(F.col("leg_id_legislatura").isNotNull())
@@ -129,6 +121,35 @@ df_dm_legislatura = (
 )
 
 # COMMAND ----------
+
+records_written = df_dm_legislatura.count()
+
+records_discarded = records_read - records_written
+
+# COMMAND ----------
+
+if records_read == 0:
+    raise Exception(
+        "Gold validation failed: silver_curated.legislaturas has no records."
+    )
+
+if records_written == 0:
+    raise Exception(
+        "Gold validation failed: dm_legislatura has no records."
+    )
+
+duplicated_business_keys = (
+    df_dm_legislatura
+    .groupBy("leg_id_legislatura")
+    .count()
+    .filter(F.col("count") > 1)
+    .count()
+)
+
+if duplicated_business_keys > 0:
+    raise Exception(
+        f"Gold validation failed: duplicated leg_id_legislatura found = {duplicated_business_keys}"
+    )
 
 duplicated_surrogate_keys = (
     df_dm_legislatura

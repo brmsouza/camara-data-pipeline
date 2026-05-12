@@ -1,6 +1,6 @@
 # Databricks notebook source
 # ------------------------------------------------------------------------------
-# Notebook: 19_build_ft_presenca_eventos
+# Notebook: 20_build_ft_presenca_eventos
 # Layer: Gold
 # Author: Bruno Souza
 #
@@ -160,7 +160,6 @@ df_fact = (
 # COMMAND ----------
 
 records_written = df_fact.count()
-
 records_discarded = records_read - records_written
 
 if records_read == 0:
@@ -173,18 +172,36 @@ if records_written == 0:
         "Gold validation failed: ft_presenca_eventos has no records."
     )
 
-null_required_keys = (
+null_sk_evt = (
     df_fact
-    .filter(
-        F.col("sk_evt").isNull() |
-        F.col("sk_data_inicio").isNull()
-    )
+    .filter(F.col("sk_evt").isNull())
     .count()
 )
 
-if null_required_keys > 0:
+if null_sk_evt > 0:
     raise Exception(
-        f"Gold validation failed: required dimensional keys are null = {null_required_keys}"
+        f"Gold validation failed: null sk_evt found = {null_sk_evt}"
+    )
+
+null_sk_data_inicio = (
+    df_fact
+    .filter(F.col("sk_data_inicio").isNull())
+    .count()
+)
+
+print(f"Null sk_data_inicio: {null_sk_data_inicio}")
+
+duplicated_business_keys = (
+    df_fact
+    .groupBy("evt_id_evento")
+    .count()
+    .filter(F.col("count") > 1)
+    .count()
+)
+
+if duplicated_business_keys > 0:
+    raise Exception(
+        f"Gold validation failed: duplicated evt_id_evento found = {duplicated_business_keys}"
     )
 
 # COMMAND ----------

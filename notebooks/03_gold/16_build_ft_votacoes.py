@@ -1,6 +1,6 @@
 # Databricks notebook source
 # ------------------------------------------------------------------------------
-# Notebook: 15_build_ft_votacoes
+# Notebook: 16_build_ft_votacoes
 # Layer: Gold
 # Author: Bruno Souza
 #
@@ -57,7 +57,6 @@ log_pipeline_event(
 
 df_source = spark.table(SOURCE_TABLE)
 
-df_dm_data = spark.table("gold.dm_data")
 df_dm_evento = spark.table("gold.dm_evento")
 df_dm_orgao = spark.table("gold.dm_orgao")
 df_dm_proposicao = spark.table("gold.dm_proposicao")
@@ -107,8 +106,9 @@ df_fact = (
         F.col("vot.vot_fl_data_valida"),
         F.col("vot.vot_fl_timestamp_registro_valido"),
         F.col("vot.vot_fl_periodo_valido"),
-        F.col("vot.vot_fl_aprovacao"),
-        F.col("vot.vot_fl_aprovada"),
+
+        F.col("vot.vot_fl_aprovacao").alias("vot_fl_aprovada"),
+
         F.col("vot.vot_fl_rejeitada"),
 
         F.col("vot.vot_qt_sim"),
@@ -124,6 +124,10 @@ df_fact = (
         F.col("vot.vot_fl_possui_evento"),
         F.col("vot.vot_fl_possui_orgao"),
         F.col("vot.vot_fl_possui_votos_contabilizados"),
+
+        # ---------------------------------------------------
+        # Lineage / traceability
+        # ---------------------------------------------------
 
         F.col("vot.bronze_tx_endpoint"),
         F.col("vot.bronze_id_origem"),
@@ -152,15 +156,25 @@ if records_written == 0:
         "Gold validation failed: ft_votacoes has no records."
     )
 
-null_required_keys = (
+null_sk_data_votacao = (
     df_fact
     .filter(F.col("sk_data_votacao").isNull())
     .count()
 )
 
-if null_required_keys > 0:
+print(f"Null sk_data_votacao: {null_sk_data_votacao}")
+
+duplicated_business_keys = (
+    df_fact
+    .groupBy("vot_id_votacao")
+    .count()
+    .filter(F.col("count") > 1)
+    .count()
+)
+
+if duplicated_business_keys > 0:
     raise Exception(
-        f"Gold validation failed: required dimensional keys are null = {null_required_keys}"
+        f"Gold validation failed: duplicated vot_id_votacao found = {duplicated_business_keys}"
     )
 
 # COMMAND ----------

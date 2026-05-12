@@ -288,11 +288,6 @@ spark.sql(f"OPTIMIZE {TARGET_TABLE}")
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC select * from gold.dm_deputado
-
-# COMMAND ----------
-
 log_pipeline_event(
     batch_id=batch_id,
     pipeline_name=PIPELINE_NAME,

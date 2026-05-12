@@ -59,23 +59,36 @@ records_read = df_source.count()
 df_dm_bancada = (
     df_source
     .select(
-        F.col("banc_tx_sigla_bancada"),
-        F.col("banc_tx_uri")
+        F.col("banc_tx_bancada_curada"),
+        F.col("banc_tx_tipo_bancada"),
+        F.col("banc_tx_uri"),
+        F.col("banc_fl_bancada_valida")
     )
-    .filter(F.col("banc_tx_sigla_bancada").isNotNull())
-    .dropDuplicates(["banc_tx_sigla_bancada"])
+    .filter(F.col("banc_tx_bancada_curada").isNotNull())
+    .filter(F.col("banc_fl_bancada_valida") == 1)
+    .filter(F.col("banc_tx_tipo_bancada").isin(
+        "Partido",
+        "Governo",
+        "Oposição",
+        "Maioria",
+        "Minoria",
+        "Federação",
+        "Bloco/Federação"
+    ))
+    .dropDuplicates(["banc_tx_bancada_curada"])
 )
 
 # COMMAND ----------
 
-window_bancada = Window.orderBy("banc_tx_sigla_bancada")
+window_bancada = Window.orderBy("banc_tx_bancada_curada")
 
 df_dm_bancada = (
     df_dm_bancada
     .withColumn("sk_banc", F.row_number().over(window_bancada))
     .select(
         "sk_banc",
-        "banc_tx_sigla_bancada",
+        "banc_tx_bancada_curada",
+        "banc_tx_tipo_bancada",
         "banc_tx_uri"
     )
     .withColumn("gold_ts_processamento", F.current_timestamp())
@@ -95,7 +108,7 @@ if records_written == 0:
 
 duplicated_business_keys = (
     df_dm_bancada
-    .groupBy("banc_tx_sigla_bancada")
+    .groupBy("banc_tx_bancada_curada")
     .count()
     .filter(F.col("count") > 1)
     .count()

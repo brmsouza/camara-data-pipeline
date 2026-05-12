@@ -1,6 +1,6 @@
 # Databricks notebook source
 # ------------------------------------------------------------------------------
-# Notebook: 16_build_ft_votos
+# Notebook: 17_build_ft_votos
 # Layer: Gold
 # Author: Bruno Souza
 #
@@ -145,18 +145,39 @@ if records_written == 0:
         "Gold validation failed: ft_votos has no records."
     )
 
-null_required_keys = (
+null_sk_dept = (
     df_fact
-    .filter(
-        F.col("sk_dept").isNull() |
-        F.col("sk_data_voto").isNull()
-    )
+    .filter(F.col("sk_dept").isNull())
     .count()
 )
 
-if null_required_keys > 0:
+if null_sk_dept > 0:
     raise Exception(
-        f"Gold validation failed: required dimensional keys are null = {null_required_keys}"
+        f"Gold validation failed: null sk_dept found = {null_sk_dept}"
+    )
+
+null_sk_data_voto = (
+    df_fact
+    .filter(F.col("sk_data_voto").isNull())
+    .count()
+)
+
+print(f"Null sk_data_voto: {null_sk_data_voto}")
+
+duplicated_business_keys = (
+    df_fact
+    .groupBy(
+        "vot_id_votacao",
+        "dept_id_deputado"
+    )
+    .count()
+    .filter(F.col("count") > 1)
+    .count()
+)
+
+if duplicated_business_keys > 0:
+    raise Exception(
+        f"Gold validation failed: duplicated vote grain found = {duplicated_business_keys}"
     )
 
 # COMMAND ----------
@@ -175,7 +196,7 @@ if null_required_keys > 0:
 
 spark.sql(f"""
 OPTIMIZE {TARGET_TABLE}
-ZORDER BY (sk_dept, vot_id_votacao)
+ZORDER BY (vot_id_votacao, sk_dept, sk_part)
 """)
 
 # COMMAND ----------

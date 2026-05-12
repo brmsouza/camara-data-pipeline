@@ -1,6 +1,6 @@
 # Databricks notebook source
 # ------------------------------------------------------------------------------
-# Notebook: 14_build_ft_despesas_ceap
+# Notebook: 15_build_ft_despesas_ceap
 # Layer: Gold
 # Author: Bruno Souza
 #
@@ -67,6 +67,7 @@ log_pipeline_event(
 
 df_source = spark.table(SOURCE_TABLE)
 
+df_dm_responsavel_ceap = spark.table("gold.dm_responsavel_ceap")
 df_dm_deputado = spark.table("gold.dm_deputado")
 df_dm_partido = spark.table("gold.dm_partido")
 df_dm_legislatura = spark.table("gold.dm_legislatura")
@@ -81,8 +82,29 @@ records_read = df_source.count()
 df_fact = (
     df_source.alias("desp")
     .join(
+        df_dm_responsavel_ceap.alias("resp"),
+        (
+            F.coalesce(F.col("desp.dept_id_deputado_resolvido").cast("string"), F.lit(""))
+            ==
+            F.coalesce(F.col("resp.id_deputado").cast("string"), F.lit(""))
+        )
+        &
+        (
+            F.coalesce(F.col("desp.dept_id_cadastro").cast("string"), F.lit(""))
+            ==
+            F.coalesce(F.col("resp.id_cadastro_ceap").cast("string"), F.lit(""))
+        )
+        &
+        (
+            F.coalesce(F.col("desp.dept_id_deputado").cast("string"), F.lit(""))
+            ==
+            F.coalesce(F.col("resp.id_deputado_ceap").cast("string"), F.lit(""))
+        ),
+        "left"
+    )
+    .join(
         df_dm_deputado.alias("dept"),
-        F.col("desp.dept_id_deputado") == F.col("dept.id_deputado"),
+        F.col("desp.dept_id_deputado_resolvido") == F.col("dept.id_deputado"),
         "left"
     )
     .join(
@@ -103,7 +125,8 @@ df_fact = (
     .join(
         df_dm_tipo_despesa.alias("tipo"),
         (
-            (F.col("desp.desp_cd_subcota") == F.col("tipo.desp_cd_subcota")) &
+            (F.col("desp.desp_cd_subcota") == F.col("tipo.desp_cd_subcota"))
+            &
             (F.col("desp.desp_cd_especificacao_subcota") == F.col("tipo.desp_cd_especificacao_subcota"))
         ),
         "left"
@@ -114,6 +137,11 @@ df_fact = (
         "left"
     )
     .select(
+        # ---------------------------------------------------
+        # Dimension foreign keys
+        # ---------------------------------------------------
+
+        F.col("resp.sk_resp_ceap"),
         F.col("dept.sk_dept"),
         F.col("part.sk_part"),
         F.col("leg.sk_leg"),
@@ -126,33 +154,45 @@ df_fact = (
             "yyyyMMdd"
         ).cast("int").alias("sk_data_emissao"),
 
-        F.col("desp.dept_id_deputado"),
-        F.col("desp.part_sg_partido"),
-        F.col("desp.leg_id_legislatura"),
-        F.col("desp.uf_sg_uf"),
+        # ---------------------------------------------------
+        # Degenerate dimensions / business identifiers
+        # ---------------------------------------------------
 
         F.col("desp.desp_id_documento"),
         F.col("desp.desp_nr_documento"),
         F.col("desp.desp_cd_tipo_documento"),
         F.col("desp.desp_tx_url_documento"),
-        F.col("desp.desp_fl_possui_documento_url"),
 
-        F.col("desp.desp_cd_subcota"),
-        F.col("desp.desp_cd_especificacao_subcota"),
+        # ---------------------------------------------------
+        # Date / competence
+        # ---------------------------------------------------
 
         F.col("desp.desp_dt_emissao"),
         F.col("desp.desp_nr_ano"),
         F.col("desp.desp_nr_mes"),
         F.col("desp.desp_nr_parcela"),
 
+        # ---------------------------------------------------
+        # Measures
+        # ---------------------------------------------------
+
         F.col("desp.desp_vl_documento"),
         F.col("desp.desp_vl_glosa"),
         F.col("desp.desp_vl_liquido"),
         F.col("desp.desp_vl_restituicao"),
 
+        # ---------------------------------------------------
+        # Analytical flags
+        # ---------------------------------------------------
+
+        F.col("desp.desp_fl_possui_documento_url"),
         F.col("desp.desp_fl_possui_glosa"),
         F.col("desp.desp_fl_possui_restituicao"),
         F.col("desp.desp_fl_valor_negativo"),
+
+        # ---------------------------------------------------
+        # Travel / reimbursement
+        # ---------------------------------------------------
 
         F.col("desp.desp_tx_passageiro"),
         F.col("desp.desp_tx_trecho"),
@@ -160,11 +200,16 @@ df_fact = (
         F.col("desp.desp_nr_ressarcimento"),
         F.col("desp.desp_dt_pagamento_restituicao"),
 
+        # ---------------------------------------------------
+        # Technical key
+        # ---------------------------------------------------
+
         F.col("desp.desp_tx_dedup_key"),
 
-        F.col("desp.bronze_ts_ingestao"),
-        F.col("desp.bronze_dt_ingestao"),
-        F.col("desp.bronze_tx_endpoint"),
+        # ---------------------------------------------------
+        # Lineage / traceability
+        # ---------------------------------------------------
+
         F.col("desp.bronze_id_origem"),
         F.col("desp.bronze_tx_source_file"),
         F.col("desp.bronze_nr_ano_referencia"),
@@ -191,19 +236,48 @@ if records_written == 0:
         "Gold validation failed: ft_despesas_ceap has no records."
     )
 
-null_required_keys = (
+null_sk_resp_ceap = (
     df_fact
-    .filter(
-        F.col("sk_dept").isNull() |
-        F.col("sk_data_emissao").isNull()
-    )
+    .filter(F.col("sk_resp_ceap").isNull())
     .count()
 )
 
-if null_required_keys > 0:
+if null_sk_resp_ceap > 0:
     raise Exception(
-        f"Gold validation failed: required dimensional keys are null = {null_required_keys}"
+        f"Gold validation failed: null sk_resp_ceap found = {null_sk_resp_ceap}"
     )
+
+null_sk_dept_deputado = (
+    df_fact
+    .filter(
+        F.col("sk_dept").isNull()
+        &
+        F.col("sk_resp_ceap").isNotNull()
+    )
+    .join(
+        df_dm_responsavel_ceap.select(
+            "sk_resp_ceap",
+            "resp_tx_tipo_responsavel"
+        ),
+        "sk_resp_ceap",
+        "left"
+    )
+    .filter(F.col("resp_tx_tipo_responsavel") == "DEPUTADO")
+    .count()
+)
+
+if null_sk_dept_deputado > 0:
+    raise Exception(
+        f"Gold validation failed: null sk_dept for DEPUTADO records found = {null_sk_dept_deputado}"
+    )
+
+null_sk_data = (
+    df_fact
+    .filter(F.col("sk_data_emissao").isNull())
+    .count()
+)
+
+print(f"Null sk_data_emissao: {null_sk_data}")
 
 # COMMAND ----------
 
@@ -221,7 +295,7 @@ if null_required_keys > 0:
 
 spark.sql(f"""
 OPTIMIZE {TARGET_TABLE}
-ZORDER BY (sk_dept, sk_data_emissao)
+ZORDER BY (sk_resp_ceap, sk_dept, sk_data_emissao)
 """)
 
 # COMMAND ----------

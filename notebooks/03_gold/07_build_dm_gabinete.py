@@ -209,8 +209,3 @@ log_pipeline_event(
     started_at=started_at,
     finished_at=datetime.now(),
 )
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC select * from gold.dm_gabinete
