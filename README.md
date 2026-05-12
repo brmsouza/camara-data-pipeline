@@ -9,7 +9,6 @@
   <img src="https://img.shields.io/badge/analytics-parliamentary-2E7D32?style=flat-square" />
   <img src="https://img.shields.io/badge/release-v1.0.0-1976D2?style=flat-square" />
 </p>
->>>>>>> 6052eed60ce789e7b67a0221dd39bc513014dea1
 
 End-to-end lakehouse data engineering project built on Databricks using PySpark and Delta Lake for parliamentary analytics, governance, resiliency and dimensional modeling.
 
