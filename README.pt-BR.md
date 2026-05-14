@@ -338,19 +338,18 @@ docs/runbook.md
 ```text
 camara-data-pipeline/
 │
-├── README.md
 ├── README.pt-BR.md
 │
 ├── docs/
-│   ├── index.md
-│   ├── streaming_architecture.md
-│   ├── governance_and_lineage.md
-│   ├── replay_strategy.md
-│   ├── parliamentary_intelligence.md
-│   ├── architecture_decisions.md
-│   ├── challenge_matrix.md
-│   ├── runbook.md
-│   └── notebooks_catalog.md
+│   ├── index.pt-BR.md
+│   ├── streaming_architecture.pt-BR.md
+│   ├── governance_and_lineage.pt-BR.md
+│   ├── replay_strategy.pt-BR.md
+│   ├── parliamentary_intelligence.pt-BR.md
+│   ├── architecture_decisions.pt-BR.md
+│   ├── challenge_matrix.pt-BR.md
+│   ├── runbook.pt-BR.md
+│   └── notebooks_catalog.pt-BR.md
 │
 ├── assets/
 │   └── images/
@@ -380,14 +379,14 @@ docs/
 
 | Documento | Descrição |
 |---|---|
-| `streaming_architecture.md` | Streaming, CDC, DLT e SLA |
-| `governance_and_lineage.md` | Governança, lineage e observabilidade |
-| `replay_strategy.md` | Estratégia de replay e recuperação |
-| `parliamentary_intelligence.md` | Analytics e inteligência parlamentar |
-| `architecture_decisions.md` | Decisões arquiteturais e modelagem |
-| `challenge_matrix.md` | Matriz de aderência ao desafio |
-| `runbook.md` | Procedimentos operacionais |
-| `notebooks_catalog.md` | Catálogo de notebooks |
+| `streaming_architecture.pt-BR.md` | Streaming, CDC, DLT e SLA |
+| `governance_and_lineage.pt-BR.md` | Governança, lineage e observabilidade |
+| `replay_strategy.pt-BR.md` | Estratégia de replay e recuperação |
+| `parliamentary_intelligence.pt-BR.md` | Analytics e inteligência parlamentar |
+| `architecture_decisions.pt-BR.md` | Decisões arquiteturais e modelagem |
+| `challenge_matrix.pt-BR.md` | Matriz de aderência ao desafio |
+| `runbook.pt-BR.md` | Procedimentos operacionais |
+| `notebooks_catalog.pt-BR.md` | Catálogo de notebooks |
 
 ---
 
