@@ -1,4 +1,4 @@
-# camara-data-pipeline
+# Camara Data Pipeline — Plataforma Lakehouse Parlamentar
 
 Plataforma Lakehouse de Engenharia de Dados em padrão enterprise totalmente implementada de forma nativa no Databricks para analytics parlamentares em larga escala utilizando PySpark, Delta Lake, Delta Live Tables (DLT), ingestão streaming em micro-batch, processamento CDC/SCD Type 2, APIs REST multi-endpoint e arquitetura Medallion.
 
@@ -20,11 +20,8 @@ Plataforma Lakehouse de Engenharia de Dados em padrão enterprise totalmente imp
 # Finalidade Educacional
 
 Este projeto foi desenvolvido para fins educacionais, estudo técnico e portfólio profissional.
-
 O repositório demonstra conceitos modernos de Engenharia de Dados utilizando dados parlamentares públicos e padrões de arquitetura Lakehouse enterprise.
-
 Não existe qualquer vínculo político, governamental ou institucional com a Câmara dos Deputados.
-
 Todos os indicadores analíticos e camadas de inteligência presentes neste projeto possuem finalidade exclusivamente técnica, educacional e experimental.
 
 ---
@@ -347,6 +344,7 @@ camara-data-pipeline/
 │   ├── streaming_architecture.pt-BR.md
 │   ├── governance_and_lineage.pt-BR.md
 │   ├── replay_strategy.pt-BR.md
+│   ├── gold_layer_enterprise_data_dictionary.pt-BR.md
 │   ├── parliamentary_intelligence.pt-BR.md
 │   ├── architecture_decisions.pt-BR.md
 │   ├── challenge_matrix.pt-BR.md
