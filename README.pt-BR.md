@@ -294,6 +294,7 @@ Documentação analítica detalhada disponível em:
 
 
 [parliamentary_intelligence.pt-BR.md](docs/parliamentary_intelligence.pt-BR.md)
+
 [gold_layer_enterprise_data_dictionary.pt-BR.md](docs/gold_layer_enterprise_data_dictionary.pt-BR.md)
 
 ---
@@ -326,7 +327,9 @@ A arquitetura preserva governança, lineage e replayabilidade em todas as camada
 Documentação detalhada disponível em:
 
 [governance_and_lineage.pt-BR.md](docs/governance_and_lineage.pt-BR.md) 
+
 [replay_strategy.pt-BR.md](docs/replay_strategy.pt-BR.md)
+
 [runbook.pt-BR.md](docs/runbook.pt-BR.md)
 
 
