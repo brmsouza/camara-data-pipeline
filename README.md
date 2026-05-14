@@ -294,6 +294,7 @@ Detailed analytical documentation is available in:
 
 
 [parliamentary_intelligence.md](docs/parliamentary_intelligence.md)
+
 [gold_layer_enterprise_data_dictionary.md](docs/gold_layer_enterprise_data_dictionary.md)
 
 ---
@@ -327,7 +328,9 @@ Detailed governance documentation is available in:
 
 
 [governance_and_lineage.md](docs/governance_and_lineage.md)
+
 [replay_strategy.md](docs/replay_strategy.md) 
+
 [runbook.md](docs/runbook.md) 
 
 
