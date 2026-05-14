@@ -1,23 +1,32 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Module: bronze_writer
-# Layer: Core
-# Author: Bruno Souza
-#
-# Description:
-# Provides reusable functions to standardize the creation and persistence
-# of Bronze layer DataFrames.
-#
-# Context:
-# Centralizes the transformation of raw ingestion payloads into the
-# standardized Bronze structure and handles writes to Delta tables.
-#
-# Notes:
-# - Supports both Python records and Spark DataFrames
-# - Adds ingestion metadata (batch_id, source, timestamps)
-# - Preserves the raw payload as JSON
-# - Writes data using Delta Lake
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Core Layer — Bronze Layer Persistence Utilities
+# MAGIC
+# MAGIC **Notebook:** `bronze_writer`
+# MAGIC
+# MAGIC Provides reusable functions to standardize the creation and persistence
+# MAGIC of Bronze layer DataFrames.
+# MAGIC
+# MAGIC This notebook centralizes the transformation of raw ingestion payloads into the
+# MAGIC standardized Bronze structure and handles persistence into Delta Lake tables
+# MAGIC used by Bronze ingestion pipelines.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Standardize raw ingestion payload structures
+# MAGIC - Support ingestion from Python records and Spark DataFrames
+# MAGIC - Add ingestion metadata such as batch identifiers and timestamps
+# MAGIC - Preserve raw API payloads as JSON for replayability and auditing
+# MAGIC - Persist Bronze datasets using Delta Lake
+# MAGIC - Support reusable Bronze ingestion patterns across the project
+# MAGIC - Ensure consistent Bronze schema structure across ingestion pipelines
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Supports both Python records and Spark DataFrames
+# MAGIC - Adds ingestion metadata such as batch ID, source and ingestion timestamps
+# MAGIC - Preserves the raw payload as JSON
+# MAGIC - Writes data using Delta Lake
 
 # COMMAND ----------
 
