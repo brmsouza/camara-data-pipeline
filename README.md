@@ -294,6 +294,7 @@ Detailed analytical documentation is available in:
 
 
 [parliamentary_intelligence.md](docs/parliamentary_intelligence.md)
+[gold_layer_enterprise_data_dictionary.md](docs/gold_layer_enterprise_data_dictionary.md)
 
 ---
 
@@ -383,6 +384,7 @@ docs/
 | [governance_and_lineage.md](docs/governance_and_lineage.md) | Governance, lineage and observability |
 | [replay_strategy.md](docs/replay_strategy.md) | Replay and recovery strategy |
 | [parliamentary_intelligence.md](docs/parliamentary_intelligence.md) | Parliamentary analytics and intelligence |
+| [gold_layer_enterprise_data_dictionary.md](docs/gold_layer_enterprise_data_dictionary.md) | Enterprise Gold layer dimensional data dictionary |
 | [architecture_decisions.md](docs/architecture_decisions.md) | Architecture and modeling decisions |
 | [challenge_matrix.md](docs/challenge_matrix.md) | Challenge adherence matrix |
 | [runbook.md](docs/runbook.md) | Operational incident procedures |
