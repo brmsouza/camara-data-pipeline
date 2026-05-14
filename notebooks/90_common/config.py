@@ -1,22 +1,31 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Module: config
-# Layer: Core
-# Author: Bruno Souza
-#
-# Description:
-# Defines global configuration parameters used across the data pipeline.
-#
-# Context:
-# Centralizes environment variables, API settings, ingestion parameters
-# and default values to ensure consistency and simplify maintenance.
-#
-# Notes:
-# - Includes API base URL, timeouts and pagination settings
-# - Defines analysis parameters (e.g., SELECT_ANOS, legislaturas)
-# - Contains volume paths and environment-specific configurations
-# - Imported by ingestion and utility modules
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Core Layer — Global Pipeline Configuration
+# MAGIC
+# MAGIC **Notebook:** `config`
+# MAGIC
+# MAGIC Defines global configuration parameters used across the data pipeline.
+# MAGIC
+# MAGIC This notebook centralizes environment variables, API settings, ingestion
+# MAGIC parameters and default values to ensure consistency, reusability and simplified
+# MAGIC maintenance across ingestion, transformation and analytical workflows.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Centralize global pipeline configuration parameters
+# MAGIC - Define API connection and pagination settings
+# MAGIC - Configure ingestion execution parameters
+# MAGIC - Store analysis configuration values such as selected years and legislatures
+# MAGIC - Define environment-specific paths and volume locations
+# MAGIC - Standardize reusable configuration across notebooks and utility modules
+# MAGIC - Support centralized maintenance of operational parameters
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Includes API base URL, timeout and pagination settings
+# MAGIC - Defines analytical parameters such as `SELECT_ANOS` and legislaturas
+# MAGIC - Contains volume paths and environment-specific configurations
+# MAGIC - Imported by ingestion and utility notebooks
 
 # COMMAND ----------
 
