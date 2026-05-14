@@ -294,7 +294,7 @@ Documentação analítica detalhada disponível em:
 
 
 [parliamentary_intelligence.pt-BR.md](docs/parliamentary_intelligence.pt-BR.md)
-
+[gold_layer_enterprise_data_dictionary.pt-BR.md](docs/gold_layer_enterprise_data_dictionary.pt-BR.md)
 
 ---
 
@@ -381,6 +381,7 @@ docs/
 | [streaming_architecture.pt-BR.md](docs/streaming_architecture.pt-BR.md) | Streaming, CDC, DLT e SLA |
 | [governance_and_lineage.pt-BR.md](docs/governance_and_lineage.pt-BR.md) | Governança, lineage e observabilidade |
 | [replay_strategy.pt-BR.md](docs/replay_strategy.pt-BR.md) | Estratégia de replay e recuperação |
+| [gold_layer_enterprise_data_dictionary.pt-BR.md](docs/gold_layer_enterprise_data_dictionary.pt-BR.md) | Enterprise Gold layer dimensional data dictionary |
 | [parliamentary_intelligence.pt-BR.md](docs/parliamentary_intelligence.pt-BR.md) | Analytics e inteligência parlamentar |
 | [architecture_decisions.pt-BR.md](docs/architecture_decisions.pt-BR.md) | Decisões arquiteturais e modelagem |
 | [challenge_matrix.pt-BR.md](docs/challenge_matrix.pt-BR.md) | Matriz de aderência ao desafio |
