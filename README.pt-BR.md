@@ -243,9 +243,9 @@ O projeto também implementa capacidades modernas avançadas de Engenharia de Da
 
 Documentação detalhada disponível em:
 
-```text
+
 [streaming_architecture.pt-BR.md](docs/streaming_architecture.pt-BR.md) 
-```
+
 
 ---
 
@@ -292,9 +292,9 @@ As camadas Gold e Analytics implementam marts analíticos avançados de intelig�
 
 Documentação analítica detalhada disponível em:
 
-```text
+
 [parliamentary_intelligence.pt-BR.md](docs/parliamentary_intelligence.pt-BR.md)
-```
+
 
 ---
 
@@ -325,11 +325,10 @@ A arquitetura preserva governança, lineage e replayabilidade em todas as camada
 
 Documentação detalhada disponível em:
 
-```text
 [governance_and_lineage.pt-BR.md](docs/governance_and_lineage.pt-BR.md) 
 [replay_strategy.pt-BR.md](docs/replay_strategy.pt-BR.md)
 [runbook.pt-BR.md](docs/runbook.pt-BR.md)
-```
+
 
 ---
 

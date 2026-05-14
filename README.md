@@ -243,9 +243,9 @@ The project also implements advanced modern Data Engineering capabilities.
 
 Detailed streaming documentation is available in:
 
-```text
+
 [streaming_architecture.md](docs/streaming_architecture.md) 
-```
+
 
 ---
 
@@ -292,9 +292,8 @@ The Gold and Analytics layers implement advanced parliamentary intelligence anal
 
 Detailed analytical documentation is available in:
 
-```text
+
 [parliamentary_intelligence.md](docs/parliamentary_intelligence.md)
-```
 
 ---
 
@@ -325,11 +324,11 @@ The architecture preserves governance, lineage and replayability across all proc
 
 Detailed governance documentation is available in:
 
-```text
+
 [governance_and_lineage.md](docs/governance_and_lineage.md)
 [replay_strategy.md](docs/replay_strategy.md) 
 [runbook.md](docs/runbook.md) 
-```
+
 
 ---
 
