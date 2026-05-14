@@ -55,12 +55,6 @@ Granularidade analítica definida pelo modelo dimensional.
 - Permitir integração entre fatos e dimensões;
 - Servir dashboards e marts analíticos.
 
-## Colunas
-
-| Coluna | Descrição |
-|---|---|
-| *(não identificada automaticamente)* | Estrutura será refinada manualmente posteriormente. |
-
 ## Observações Técnicas
 
 - Persistido em Delta Lake;
@@ -97,7 +91,32 @@ Granularidade analítica definida pelo modelo dimensional.
 
 | Coluna | Descrição |
 |---|---|
-| *(não identificada automaticamente)* | Estrutura será refinada manualmente posteriormente. |
+| `sk_tempo` | Chave substituta da dimensão de tempo, utilizada para relacionamento com tabelas fato da camada Gold. |
+| `dt_data` | Data de referência da dimensão calendário. Representa o dia calendário utilizado nas análises temporais. |
+| `nr_ano` | Ano calendário da data de referência. |
+| `nr_semestre` | Número do semestre do ano, permitindo análises agregadas por primeiro ou segundo semestre. |
+| `nr_trimestre` | Número do trimestre do ano, utilizado para agregações trimestrais. |
+| `nr_mes` | Número do mês da data de referência, variando de 1 a 12. |
+| `tx_nome_mes` | Nome completo do mês da data de referência. |
+| `tx_nome_mes_abrev` | Nome abreviado do mês da data de referência. |
+| `nr_dia_mes` | Dia do mês da data de referência. |
+| `nr_dia_ano` | Número sequencial do dia dentro do ano. |
+| `nr_semana_ano` | Número da semana no ano, utilizado para análises semanais. |
+| `nr_dia_semana` | Número do dia da semana da data de referência. |
+| `tx_nome_dia_semana` | Nome completo do dia da semana. |
+| `tx_nome_dia_semana_abrev` | Nome abreviado do dia da semana. |
+| `fl_fim_semana` | Indicador se a data corresponde a sábado ou domingo. |
+| `fl_dia_util` | Indicador se a data corresponde a um dia útil do calendário. |
+| `dt_inicio_mes` | Data inicial do mês correspondente à data de referência. |
+| `dt_fim_mes` | Data final do mês correspondente à data de referência. |
+| `dt_inicio_trimestre` | Data inicial do trimestre correspondente à data de referência. |
+| `dt_fim_trimestre` | Data final do trimestre correspondente à data de referência. |
+| `dt_inicio_ano` | Data inicial do ano correspondente à data de referência. |
+| `dt_fim_ano` | Data final do ano correspondente à data de referência. |
+| `tx_ano_mes` | Representação textual do ano e mês, utilizada para ordenação e agrupamento mensal. |
+| `tx_mes_ano` | Representação textual amigável do mês e ano para exibição em dashboards. |
+| `nr_ano_mes` | Representação numérica no formato ano e mês, utilizada para ordenação cronológica. |
+| `dt_processamento` | Data ou timestamp de geração do registro na dimensão de tempo. |
 
 ## Observações Técnicas
 
