@@ -1,33 +1,31 @@
 # Databricks notebook source
-# Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 01_run_bronze_pipeline
-# Layer: Orchestration
-# Author: Bruno Souza
-#
-# Description:
-# Executes the complete Bronze ingestion pipeline.
-#
-# Context:
-# This notebook orchestrates all Bronze ingestion notebooks in deterministic
-# order, prioritizing file-based ingestion notebooks when available. It provides
-# centralized execution control for the raw ingestion layer and is intended to be
-# used as the main Bronze refresh entry point in Databricks Workflows.
-#
-# Responsibilities:
-# - Execute Bronze ingestion notebooks in deterministic order
-# - Prioritize *_file ingestion versions when available
-# - Register orchestration execution metrics
-# - Register notebook-level execution status
-# - Stop execution on failure to avoid inconsistent downstream refreshes
-# - Provide operational visibility for Bronze refresh jobs
-#
-# Source:
-# 01_bronze notebooks
-#
-# Target:
-# bronze layer tables
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Orchestration Layer — Bronze Pipeline Execution
+# MAGIC
+# MAGIC **Notebook:** `01_run_bronze_pipeline`
+# MAGIC
+# MAGIC Executes the complete Bronze ingestion pipeline.
+# MAGIC
+# MAGIC This notebook orchestrates all Bronze ingestion notebooks in deterministic
+# MAGIC execution order, prioritizing file-based ingestion notebooks when available.
+# MAGIC It provides centralized orchestration control for the raw ingestion layer and
+# MAGIC serves as the primary Bronze refresh entry point for Databricks Workflows.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Execute Bronze ingestion notebooks in deterministic order
+# MAGIC - Prioritize `*_file` ingestion notebook versions when available
+# MAGIC - Register orchestration execution metrics
+# MAGIC - Register notebook-level execution status
+# MAGIC - Stop execution on failure to avoid inconsistent downstream refreshes
+# MAGIC - Provide operational visibility for Bronze refresh jobs
+# MAGIC - Support centralized orchestration of the raw ingestion layer
+# MAGIC
+# MAGIC ## Source
+# MAGIC
+# MAGIC - `01_bronze` notebooks
+# MAGIC
+# MAGIC **Target:** Bronze layer tables
 
 # COMMAND ----------
 

@@ -1,31 +1,30 @@
 # Databricks notebook source
-# Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 03_run_silver_curated_pipeline
-# Layer: Orchestration
-# Author: Bruno Souza
-#
-# Description:
-# Executes the complete Silver Curated pipeline.
-#
-# Context:
-# This notebook orchestrates all Silver Curated notebooks in deterministic order.
-# It provides centralized execution control for curated business-ready datasets
-# that feed Gold analytical layers and dashboards.
-#
-# Responsibilities:
-# - Execute Silver Curated notebooks in deterministic order
-# - Register orchestration execution metrics
-# - Register notebook-level execution status
-# - Stop execution on failure to avoid inconsistent downstream refreshes
-# - Provide operational visibility for Silver Curated refresh jobs
-#
-# Source:
-# silver_base layer tables
-#
-# Target:
-# silver_curated layer tables
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Orchestration Layer — Silver Curated Pipeline Execution
+# MAGIC
+# MAGIC **Notebook:** `03_run_silver_curated_pipeline`
+# MAGIC
+# MAGIC Executes the complete Silver Curated pipeline.
+# MAGIC
+# MAGIC This notebook orchestrates all Silver Curated notebooks in deterministic
+# MAGIC execution order. It provides centralized orchestration control for curated
+# MAGIC business-ready datasets that feed Gold analytical layers, dashboards and
+# MAGIC analytical workloads.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Execute Silver Curated notebooks in deterministic order
+# MAGIC - Register orchestration execution metrics
+# MAGIC - Register notebook-level execution status
+# MAGIC - Stop execution on failure to avoid inconsistent downstream refreshes
+# MAGIC - Provide operational visibility for Silver Curated refresh jobs
+# MAGIC - Support centralized orchestration of curated analytical datasets
+# MAGIC
+# MAGIC ## Source
+# MAGIC
+# MAGIC - Silver Base layer tables
+# MAGIC
+# MAGIC **Target:** Silver Curated layer tables
 
 # COMMAND ----------
 

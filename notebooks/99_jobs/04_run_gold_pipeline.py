@@ -1,33 +1,32 @@
 # Databricks notebook source
-# Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 04_run_gold_pipeline
-# Layer: Orchestration
-# Author: Bruno Souza
-#
-# Description:
-# Executes the complete Gold dimensional and fact pipeline.
-#
-# Context:
-# This notebook orchestrates all Gold build notebooks in deterministic order.
-# It creates/refreshed Gold dimensions first, then fact tables and analytical
-# relationship tables used by downstream analytics and dashboards.
-#
-# Responsibilities:
-# - Execute Gold notebooks in deterministic dependency order
-# - Create Gold schema before tables
-# - Build dimensions before facts
-# - Register orchestration execution metrics
-# - Register notebook-level execution status
-# - Stop execution on failure to avoid inconsistent downstream refreshes
-# - Provide operational visibility for Gold refresh jobs
-#
-# Source:
-# silver_curated layer tables
-#
-# Target:
-# gold layer tables
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Orchestration Layer — Gold Pipeline Execution
+# MAGIC
+# MAGIC **Notebook:** `04_run_gold_pipeline`
+# MAGIC
+# MAGIC Executes the complete Gold dimensional and fact pipeline.
+# MAGIC
+# MAGIC This notebook orchestrates all Gold build notebooks in deterministic
+# MAGIC dependency order. It creates and refreshes Gold dimensions first, followed by
+# MAGIC fact tables and analytical relationship tables consumed by downstream analytics,
+# MAGIC BI dashboards and parliamentary intelligence workloads.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Execute Gold notebooks in deterministic dependency order
+# MAGIC - Create the Gold schema before analytical tables
+# MAGIC - Build conformed dimensions before fact tables
+# MAGIC - Register orchestration execution metrics
+# MAGIC - Register notebook-level execution status
+# MAGIC - Stop execution on failure to avoid inconsistent downstream refreshes
+# MAGIC - Provide operational visibility for Gold refresh jobs
+# MAGIC - Support centralized orchestration of analytical dimensional models
+# MAGIC
+# MAGIC ## Source
+# MAGIC
+# MAGIC - Silver Curated layer tables
+# MAGIC
+# MAGIC **Target:** Gold layer tables
 
 # COMMAND ----------
 

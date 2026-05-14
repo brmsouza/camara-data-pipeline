@@ -1,31 +1,29 @@
 # Databricks notebook source
-# Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 02_run_silver_base_pipeline
-# Layer: Orchestration
-# Author: Bruno Souza
-#
-# Description:
-# Executes the complete Silver Base pipeline.
-#
-# Context:
-# This notebook orchestrates all Silver Base notebooks in deterministic order.
-# It provides centralized execution control for standardized base tables that
-# feed Silver Curated and Gold layers.
-#
-# Responsibilities:
-# - Execute Silver Base notebooks in deterministic order
-# - Register orchestration execution metrics
-# - Register notebook-level execution status
-# - Stop execution on failure to avoid inconsistent downstream refreshes
-# - Provide operational visibility for Silver Base refresh jobs
-#
-# Source:
-# bronze layer tables
-#
-# Target:
-# silver_base layer tables
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Orchestration Layer — Silver Base Pipeline Execution
+# MAGIC
+# MAGIC **Notebook:** `02_run_silver_base_pipeline`
+# MAGIC
+# MAGIC Executes the complete Silver Base pipeline.
+# MAGIC
+# MAGIC This notebook orchestrates all Silver Base notebooks in deterministic
+# MAGIC execution order. It provides centralized orchestration control for the
+# MAGIC standardized base tables that feed the Silver Curated and Gold analytical layers.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Execute Silver Base notebooks in deterministic order
+# MAGIC - Register orchestration execution metrics
+# MAGIC - Register notebook-level execution status
+# MAGIC - Stop execution on failure to avoid inconsistent downstream refreshes
+# MAGIC - Provide operational visibility for Silver Base refresh jobs
+# MAGIC - Support centralized orchestration of standardized Silver Base datasets
+# MAGIC
+# MAGIC ## Source
+# MAGIC
+# MAGIC - Bronze layer tables
+# MAGIC
+# MAGIC **Target:** Silver Base layer tables
 
 # COMMAND ----------
 
