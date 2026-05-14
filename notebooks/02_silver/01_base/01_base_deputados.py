@@ -1,38 +1,35 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 01_base_deputados
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Performs standardization, typing, deduplication and quality validation
-# for deputies data from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw ingestion data from bronze.deputados into
-# a structured and validated Silver Base table following enterprise
-# engineering standards and Medallion Architecture principles.
-#
-# Responsibilities:
-# - Apply schema standardization
-# - Cast and normalize fields
-# - Remove invalid records
-# - Perform technical deduplication
-# - Add traceability columns
-# - Persist Silver Base Delta table
-# - Validate technical email quality
-#
-# Source:
-# bronze.deputados
-#
-# Target:
-# silver_base.deputados
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Ready for Silver Curated consumption
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Deputies Standardization
+# MAGIC
+# MAGIC **Notebook:** `01_base_deputados`
+# MAGIC
+# MAGIC Performs standardization, typing, deduplication and quality validation
+# MAGIC for deputies data from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw ingestion data from `bronze.deputados` into
+# MAGIC a structured and validated Silver Base table following enterprise engineering
+# MAGIC standards and Medallion Architecture principles.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Apply schema standardization
+# MAGIC - Cast and normalize fields
+# MAGIC - Remove invalid records
+# MAGIC - Perform technical deduplication
+# MAGIC - Add traceability columns
+# MAGIC - Persist Silver Base Delta table
+# MAGIC - Validate technical email quality
+# MAGIC
+# MAGIC **Source of truth:** `bronze.deputados`  
+# MAGIC
+# MAGIC **Target:** `silver_base.deputados`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Ready for Silver Curated consumption
 
 # COMMAND ----------
 

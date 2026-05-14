@@ -1,41 +1,39 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 08_base_votacoes_orientacoes
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Parses, structures, types, deduplicates and validates voting orientation data
-# from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw voting orientation payloads from
-# bronze.votacoes_orientacoes into a structured Silver Base table. The resulting
-# dataset represents party, bloc and bench orientations for each voting session,
-# enabling downstream analysis of political alignment, party discipline and
-# comparison between official orientation and individual deputy votes.
-#
-# Responsibilities:
-# - Parse raw CSV-like payload embedded in JSON structure
-# - Apply schema standardization
-# - Cast identifiers where applicable
-# - Preserve voting and political bench relationships
-# - Preserve lineage and traceability columns
-# - Apply technical deduplication
-# - Persist Silver Base Delta table
-#
-# Source:
-# bronze.votacoes_orientacoes
-#
-# Target:
-# silver_base.votacoes_orientacoes
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Partitioned by ingestion date
-# - Source for voting alignment and party orientation analytics
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Voting Orientations Standardization
+# MAGIC
+# MAGIC **Notebook:** `11_base_votacoes_orientacoes`
+# MAGIC
+# MAGIC Parses, structures, types, deduplicates and validates voting orientation data
+# MAGIC from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw voting orientation payloads from
+# MAGIC `bronze.votacoes_orientacoes` into a structured Silver Base table. The resulting
+# MAGIC dataset represents party, parliamentary bloc and bancada orientations for each
+# MAGIC voting session, enabling downstream analysis of political alignment, party
+# MAGIC discipline and comparison between official orientations and individual deputy
+# MAGIC votes.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw CSV-like payloads embedded in JSON structures
+# MAGIC - Apply schema standardization
+# MAGIC - Cast identifiers where applicable
+# MAGIC - Preserve voting session and political bancada relationships
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Apply technical deduplication
+# MAGIC - Persist Silver Base Delta table
+# MAGIC
+# MAGIC **Source of truth:** `bronze.votacoes_orientacoes`  
+# MAGIC
+# MAGIC **Target:** `silver_base.votacoes_orientacoes`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Partitioned by ingestion date
+# MAGIC - Source for voting alignment and party orientation analytics
 
 # COMMAND ----------
 

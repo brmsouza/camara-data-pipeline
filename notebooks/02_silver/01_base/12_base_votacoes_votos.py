@@ -1,42 +1,39 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 07_base_votacoes_votos
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Parses, structures, types, deduplicates and validates parliamentary voting
-# records from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw voting vote payloads from bronze.votacoes_votos
-# into a structured Silver Base table. The resulting dataset represents the
-# relationship between deputies and voting sessions, enabling downstream
-# analytical models related to parliamentary behavior, political alignment,
-# party cohesion and voting analytics.
-#
-# Responsibilities:
-# - Parse raw CSV-like payload embedded in JSON structure
-# - Apply schema standardization
-# - Cast identifiers and timestamps
-# - Preserve deputy and voting relationships
-# - Preserve party and federation information
-# - Preserve lineage and traceability columns
-# - Apply technical deduplication
-# - Persist Silver Base Delta table
-#
-# Source:
-# bronze.votacoes_votos
-#
-# Target:
-# silver_base.votacoes_votos
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Partitioned by voting year
-# - Source for voting behavior and political analytics
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Parliamentary Votes Standardization
+# MAGIC
+# MAGIC **Notebook:** `12_base_votacoes_votos`
+# MAGIC
+# MAGIC Parses, structures, types, deduplicates and validates parliamentary voting
+# MAGIC records from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw voting payloads from `bronze.votacoes_votos`
+# MAGIC into a structured Silver Base table. The resulting dataset represents the
+# MAGIC relationship between deputies and parliamentary voting sessions, enabling
+# MAGIC downstream analytical models related to parliamentary behavior, political
+# MAGIC alignment, party cohesion and voting analytics.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw CSV-like payloads embedded in JSON structures
+# MAGIC - Apply schema standardization
+# MAGIC - Cast identifiers and timestamps
+# MAGIC - Preserve deputy and voting session relationships
+# MAGIC - Preserve party and federation information
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Apply technical deduplication
+# MAGIC - Persist Silver Base Delta table
+# MAGIC
+# MAGIC **Source of truth:** `bronze.votacoes_votos`  
+# MAGIC
+# MAGIC **Target:** `silver_base.votacoes_votos`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Partitioned by voting year
+# MAGIC - Source for voting behavior and political analytics
 
 # COMMAND ----------
 

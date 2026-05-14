@@ -1,39 +1,36 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 09_base_orgaos
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Parses, structures, types, deduplicates and validates legislative organization
-# data from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw organization payloads from bronze.orgaos into a
-# structured Silver Base table. The resulting dataset centralizes Câmara
-# organizations such as plenary, committees and other legislative bodies,
-# supporting proposition, event and voting relationship analysis.
-#
-# Responsibilities:
-# - Parse raw JSON payload
-# - Apply schema standardization
-# - Cast identifiers
-# - Preserve organization classification fields
-# - Preserve lineage and traceability columns
-# - Apply technical deduplication
-# - Persist Silver Base Delta table
-#
-# Source:
-# bronze.orgaos
-#
-# Target:
-# silver_base.orgaos
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Source for legislative organization dimensions
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Legislative Organizations Standardization
+# MAGIC
+# MAGIC **Notebook:** `08_base_orgaos`
+# MAGIC
+# MAGIC Parses, structures, types, deduplicates and validates legislative organization
+# MAGIC data from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw organization payloads from `bronze.orgaos` into a
+# MAGIC structured Silver Base table. The resulting dataset centralizes Câmara
+# MAGIC organizations such as plenary sessions, committees and other legislative bodies,
+# MAGIC supporting proposition, event and voting relationship analysis.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw JSON payloads
+# MAGIC - Apply schema standardization
+# MAGIC - Cast identifiers
+# MAGIC - Preserve organization classification fields
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Apply technical deduplication
+# MAGIC - Persist Silver Base Delta table
+# MAGIC
+# MAGIC **Source of truth:** `bronze.orgaos`  
+# MAGIC
+# MAGIC **Target:** `silver_base.orgaos`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Source for legislative organization dimensions
 
 # COMMAND ----------
 

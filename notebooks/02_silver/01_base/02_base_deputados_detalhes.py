@@ -1,42 +1,40 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 02_base_deputados_detalhes
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Performs parsing, standardization, typing, deduplication and quality validation
-# for deputies detail data from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw ingestion data from bronze.deputados_detalhes into
-# a structured and validated Silver Base table. The resulting dataset complements
-# silver_base.deputados and supports the future construction of gold.dm_deputado.
-#
-# Responsibilities:
-# - Parse raw JSON payload
-# - Apply schema standardization
-# - Cast and normalize fields
-# - Remove invalid records
-# - Perform technical deduplication
-# - Preserve lineage and traceability columns
-# - Persist Silver Base Delta table
-# - Validate technical CPF quality
-# - Validate technical email quality
-# - Validate technical telephone quality
-# - Validate technical date quality
-#
-# Source:
-# bronze.deputados_detalhes
-#
-# Target:
-# silver_base.deputados_detalhes
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Ready for Silver Curated consumption
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Deputy Details Standardization
+# MAGIC
+# MAGIC **Notebook:** `02_base_deputados_detalhes`
+# MAGIC
+# MAGIC Performs parsing, standardization, typing, deduplication and quality validation
+# MAGIC for deputy detail data from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw ingestion data from `bronze.deputados_detalhes`
+# MAGIC into a structured and validated Silver Base table. The resulting dataset
+# MAGIC complements `silver_base.deputados` and supports downstream construction of
+# MAGIC the Gold deputy dimension.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw JSON payloads
+# MAGIC - Apply schema standardization
+# MAGIC - Cast and normalize fields
+# MAGIC - Remove invalid records
+# MAGIC - Perform technical deduplication
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Persist Silver Base Delta table
+# MAGIC - Validate technical CPF quality
+# MAGIC - Validate technical email quality
+# MAGIC - Validate technical telephone quality
+# MAGIC - Validate technical date quality
+# MAGIC
+# MAGIC **Source of truth:** `bronze.deputados_detalhes`  
+# MAGIC
+# MAGIC **Target:** `silver_base.deputados_detalhes`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Ready for Silver Curated consumption
 
 # COMMAND ----------
 

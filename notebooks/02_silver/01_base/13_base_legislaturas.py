@@ -1,33 +1,30 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 13_base_legislaturas
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Standardizes legislature reference data from Bronze.
-#
-# Context:
-# This notebook reads raw legislature records from Bronze and creates a clean,
-# typed and deduplicated Silver Base table. The output preserves Bronze lineage
-# and prepares legislature attributes for curated dimensional modeling.
-#
-# Responsibilities:
-# - Read legislature records from Bronze
-# - Parse and type source fields
-# - Standardize column names
-# - Deduplicate by legislature identifier
-# - Preserve Bronze lineage metadata
-# - Validate Silver Base consistency
-# - Persist Silver Base Delta table
-# - Register operational execution metrics
-#
-# Source:
-# bronze.legislaturas
-#
-# Target:
-# silver_base.legislaturas
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Legislature Reference Standardization
+# MAGIC
+# MAGIC **Notebook:** `13_base_legislaturas`
+# MAGIC
+# MAGIC Standardizes legislature reference data from the Bronze layer.
+# MAGIC
+# MAGIC This notebook reads raw legislature reference records from Bronze and creates
+# MAGIC a clean, typed and deduplicated Silver Base table. The resulting dataset
+# MAGIC preserves Bronze lineage metadata and prepares legislature attributes for
+# MAGIC downstream curated dimensional modeling.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read legislature reference records from Bronze
+# MAGIC - Parse and type source fields
+# MAGIC - Standardize column names
+# MAGIC - Deduplicate by legislature identifiers
+# MAGIC - Preserve Bronze lineage metadata
+# MAGIC - Validate Silver Base consistency
+# MAGIC - Persist Silver Base Delta table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `bronze.legislaturas`  
+# MAGIC
+# MAGIC **Target:** `silver_base.legislaturas`
 
 # COMMAND ----------
 

@@ -1,40 +1,38 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 04_base_eventos
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Parses, structures, types, deduplicates and validates legislative events data
-# from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw API payloads from bronze.eventos into a structured
-# Silver Base table. The resulting dataset supports future event analytics,
-# presence analysis, legislative calendar and engagement metrics.
-#
-# Responsibilities:
-# - Parse raw JSON payload
-# - Apply schema standardization
-# - Cast dates and timestamps
-# - Preserve event location and related bodies
-# - Preserve lineage and traceability columns
-# - Apply technical deduplication
-# - Persist Silver Base Delta table
-# - Validate technical date quality
-# - Validate event period consistency
-#
-# Source:
-# bronze.eventos
-#
-# Target:
-# silver_base.eventos
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Source for legislative calendar and attendance analytics
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Legislative Events Standardization
+# MAGIC
+# MAGIC **Notebook:** `04_base_eventos`
+# MAGIC
+# MAGIC Parses, structures, types, deduplicates and validates legislative events data
+# MAGIC from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw API payloads from `bronze.eventos` into a
+# MAGIC structured Silver Base table. The resulting dataset supports downstream
+# MAGIC event analytics, parliamentary attendance analysis, legislative calendar
+# MAGIC monitoring and engagement metrics.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw JSON payloads
+# MAGIC - Apply schema standardization
+# MAGIC - Cast dates and timestamps
+# MAGIC - Preserve event location and related legislative bodies
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Apply technical deduplication
+# MAGIC - Persist Silver Base Delta table
+# MAGIC - Validate technical date quality
+# MAGIC - Validate event period consistency
+# MAGIC
+# MAGIC **Source of truth:** `bronze.eventos`  
+# MAGIC
+# MAGIC **Target:** `silver_base.eventos`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Source for legislative calendar and attendance analytics
 
 # COMMAND ----------
 

@@ -1,41 +1,38 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 05_base_votacoes
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Parses, structures, types, deduplicates and validates voting session data
-# from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw voting payloads from bronze.votacoes into a
-# structured Silver Base table. The resulting dataset supports future voting
-# facts, political alignment analytics and correlation between parliamentary
-# fronts and votes.
-#
-# Responsibilities:
-# - Parse raw JSON payload
-# - Apply schema standardization
-# - Cast dates, timestamps and vote counts
-# - Preserve voting-event and proposition relationships
-# - Preserve lineage and traceability columns
-# - Apply technical deduplication
-# - Persist Silver Base Delta table
-# - Validate technical date quality
-# - Validate voting period consistency
-#
-# Source:
-# bronze.votacoes
-#
-# Target:
-# silver_base.votacoes
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Source for voting analytics and alignment analysis
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Voting Sessions Standardization
+# MAGIC
+# MAGIC **Notebook:** `10_base_votacoes`
+# MAGIC
+# MAGIC Parses, structures, types, deduplicates and validates voting session data
+# MAGIC from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw voting payloads from `bronze.votacoes` into a
+# MAGIC structured Silver Base table. The resulting dataset supports downstream voting
+# MAGIC fact construction, political alignment analytics and correlation analysis
+# MAGIC between parliamentary fronts, propositions and voting behavior.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw JSON payloads
+# MAGIC - Apply schema standardization
+# MAGIC - Cast dates, timestamps and voting counts
+# MAGIC - Preserve voting-event and proposition relationships
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Apply technical deduplication
+# MAGIC - Persist Silver Base Delta table
+# MAGIC - Validate technical date quality
+# MAGIC - Validate voting period consistency
+# MAGIC
+# MAGIC **Source of truth:** `bronze.votacoes`  
+# MAGIC
+# MAGIC **Target:** `silver_base.votacoes`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Source for voting analytics and political alignment analysis
 
 # COMMAND ----------
 

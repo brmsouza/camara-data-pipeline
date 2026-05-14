@@ -1,40 +1,37 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 11_base_frentes
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Parses, structures, types, deduplicates and validates parliamentary front data
-# from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw parliamentary front payloads from bronze.frentes
-# into a structured Silver Base table. The resulting dataset centralizes
-# parliamentary fronts and their legislature context, supporting downstream
-# analysis of political groups, thematic coalitions and relationships between
-# deputies, fronts, expenses and voting behavior.
-#
-# Responsibilities:
-# - Parse raw JSON payload
-# - Apply schema standardization
-# - Cast identifiers
-# - Preserve legislature relationship
-# - Preserve lineage and traceability columns
-# - Apply technical deduplication
-# - Persist Silver Base Delta table
-#
-# Source:
-# bronze.frentes
-#
-# Target:
-# silver_base.frentes
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Source for parliamentary front dimensions and political grouping analytics
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Parliamentary Fronts Standardization
+# MAGIC
+# MAGIC **Notebook:** `03_base_frentes`
+# MAGIC
+# MAGIC Parses, structures, types, deduplicates and validates parliamentary front data
+# MAGIC from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw parliamentary front payloads from `bronze.frentes`
+# MAGIC into a structured Silver Base table. The resulting dataset centralizes
+# MAGIC parliamentary fronts and their legislature context, supporting downstream
+# MAGIC analysis of political groups, thematic coalitions and relationships between
+# MAGIC deputies, fronts, expenses and voting behavior.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw JSON payloads
+# MAGIC - Apply schema standardization
+# MAGIC - Cast and normalize identifiers
+# MAGIC - Preserve legislature relationships
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Apply technical deduplication
+# MAGIC - Persist Silver Base Delta table
+# MAGIC
+# MAGIC **Source of truth:** `bronze.frentes`  
+# MAGIC
+# MAGIC **Target:** `silver_base.frentes`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Source for parliamentary front dimensions and political grouping analytics
 
 # COMMAND ----------
 

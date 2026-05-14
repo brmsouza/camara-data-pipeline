@@ -1,34 +1,30 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 15_base_proposicoes_tramitacoes_cdc
-# Layer: Silver Base CDC
-# Author: Bruno Souza
-#
-# Description:
-# Normalizes raw proposicoes tramitacoes CDC payloads from Bronze into a
-# structured Silver Base table, preparing data for SCD Type 2 processing.
-#
-# Context:
-# This notebook reads raw tramitacao payloads from Bronze CDC, extracts
-# structured attributes from JSON, applies data quality rules, deduplicates
-# technical duplicates and persists a standardized Silver CDC table.
-#
-# Responsibilities:
-# - Read raw CDC tramitacao records from Bronze CDC
-# - Parse JSON payload into structured columns
-# - Preserve CDC hash and lineage metadata
-# - Validate required business and CDC fields
-# - Persist rejected records
-# - Persist Silver CDC Delta table
-# - Register operational execution metrics
-#
-# Source:
-# bronze_cdc.proposicoes_tramitacoes_raw
-#
-# Target:
-# silver_cdc.proposicoes_tramitacoes_base
-# ------------------------------------------------------------------------------
-
+# MAGIC %md
+# MAGIC # Silver Base CDC Layer — Proposition Tramitacoes CDC Standardization
+# MAGIC
+# MAGIC **Notebook:** `15_base_proposicoes_tramitacoes_cdc`
+# MAGIC
+# MAGIC Normalizes raw proposition tramitacao CDC payloads from the Bronze CDC layer
+# MAGIC into a structured Silver Base CDC table, preparing records for SCD Type 2
+# MAGIC historization processing.
+# MAGIC
+# MAGIC This notebook reads raw tramitacao payloads from Bronze CDC, extracts
+# MAGIC structured attributes from JSON payloads, applies data quality validations,
+# MAGIC deduplicates technical duplicates and persists a standardized Silver CDC table.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read raw CDC tramitacao records from Bronze CDC
+# MAGIC - Parse JSON payloads into structured columns
+# MAGIC - Preserve CDC hash and lineage metadata
+# MAGIC - Validate required business and CDC fields
+# MAGIC - Persist rejected records for quality auditing
+# MAGIC - Persist Silver CDC Delta tables
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `bronze_cdc.proposicoes_tramitacoes_raw`  
+# MAGIC
+# MAGIC **Target:** `silver_cdc.proposicoes_tramitacoes_base`
 
 # COMMAND ----------
 

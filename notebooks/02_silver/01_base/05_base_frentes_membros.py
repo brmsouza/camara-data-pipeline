@@ -1,44 +1,41 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 12_base_frentes_membros
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Parses, structures, types, deduplicates and validates parliamentary front
-# membership data from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw parliamentary front membership payloads from
-# bronze.frentes_membros into a structured Silver Base table. The resulting
-# dataset represents the relationship between deputies and parliamentary fronts,
-# supporting downstream analysis of political groups, thematic coalitions,
-# parliamentary participation and future correlation with expenses and votes.
-#
-# Responsibilities:
-# - Parse raw JSON payload
-# - Apply schema standardization
-# - Cast identifiers and dates
-# - Preserve deputy, party and parliamentary front relationships
-# - Preserve membership role information
-# - Preserve lineage and traceability columns
-# - Apply technical deduplication
-# - Persist Silver Base Delta table
-# - Validate technical email quality
-# - Validate technical date quality
-# - Validate membership period consistency
-#
-# Source:
-# bronze.frentes_membros
-#
-# Target:
-# silver_base.frentes_membros
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Source for parliamentary front membership analytics
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Parliamentary Front Membership Standardization
+# MAGIC
+# MAGIC **Notebook:** `05_base_frentes_membros`
+# MAGIC
+# MAGIC Parses, structures, types, deduplicates and validates parliamentary front
+# MAGIC membership data from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw parliamentary front membership payloads from
+# MAGIC `bronze.frentes_membros` into a structured Silver Base table. The resulting
+# MAGIC dataset represents the relationship between deputies and parliamentary fronts,
+# MAGIC supporting downstream analysis of political groups, thematic coalitions,
+# MAGIC parliamentary participation and future correlation with expenses and votes.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw JSON payloads
+# MAGIC - Apply schema standardization
+# MAGIC - Cast identifiers and dates
+# MAGIC - Preserve deputy, party and parliamentary front relationships
+# MAGIC - Preserve membership role information
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Apply technical deduplication
+# MAGIC - Persist Silver Base Delta table
+# MAGIC - Validate technical email quality
+# MAGIC - Validate technical date quality
+# MAGIC - Validate membership period consistency
+# MAGIC
+# MAGIC **Source of truth:** `bronze.frentes_membros`  
+# MAGIC
+# MAGIC **Target:** `silver_base.frentes_membros`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Source for parliamentary front membership analytics
 
 # COMMAND ----------
 

@@ -1,44 +1,41 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 10_base_orgaos_membros
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Parses, structures, types, deduplicates and validates legislative organization
-# membership data from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw organization membership payloads from
-# bronze.orgaos_membros into a structured Silver Base table. The resulting
-# dataset represents the relationship between deputies and legislative bodies,
-# supporting committee participation, institutional role analysis and future
-# dimensional modeling.
-#
-# Responsibilities:
-# - Parse raw CSV-like payload embedded in JSON structure
-# - Apply schema standardization
-# - Cast dates
-# - Preserve organization and deputy relationships
-# - Preserve role and membership period information
-# - Preserve lineage and traceability columns
-# - Apply technical deduplication
-# - Persist Silver Base Delta table
-# - Validate technical date quality
-# - Validate membership period consistency
-#
-# Source:
-# bronze.orgaos_membros
-#
-# Target:
-# silver_base.orgaos_membros
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Partitioned by ingestion date
-# - Source for organization membership and committee analytics
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Legislative Organization Membership Standardization
+# MAGIC
+# MAGIC **Notebook:** `09_base_orgaos_membros`
+# MAGIC
+# MAGIC Parses, structures, types, deduplicates and validates legislative organization
+# MAGIC membership data from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw organization membership payloads from
+# MAGIC `bronze.orgaos_membros` into a structured Silver Base table. The resulting
+# MAGIC dataset represents the relationship between deputies and legislative bodies,
+# MAGIC supporting committee participation, institutional role analysis and future
+# MAGIC dimensional modeling.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw CSV-like payloads embedded in JSON structures
+# MAGIC - Apply schema standardization
+# MAGIC - Cast dates
+# MAGIC - Preserve organization and deputy relationships
+# MAGIC - Preserve role and membership period information
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Apply technical deduplication
+# MAGIC - Persist Silver Base Delta table
+# MAGIC - Validate technical date quality
+# MAGIC - Validate membership period consistency
+# MAGIC
+# MAGIC **Source of truth:** `bronze.orgaos_membros`  
+# MAGIC
+# MAGIC **Target:** `silver_base.orgaos_membros`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Partitioned by ingestion date
+# MAGIC - Source for organization membership and committee analytics
 
 # COMMAND ----------
 

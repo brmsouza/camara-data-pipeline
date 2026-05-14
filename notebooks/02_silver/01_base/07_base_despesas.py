@@ -1,40 +1,38 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 03_base_despesas
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Parses, structures, types, deduplicates and validates CEAP expenses data
-# from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw CSV-based payloads stored in bronze.despesas
-# into a structured Silver Base table. This dataset will support the future
-# construction of gold.ft_despesas_ceap, gold.dm_fornecedor and CEAP analytics.
-#
-# Responsibilities:
-# - Parse raw CSV payload stored as JSON
-# - Standardize expense fields
-# - Cast dates and monetary values
-# - Normalize supplier and CNPJ/CPF fields
-# - Preserve lineage and traceability columns
-# - Apply technical deduplication
-# - Persist Silver Base Delta table
-# - Validate technical CPF/CNPJ quality
-# - Validate technical date quality
-#
-# Source:
-# bronze.despesas
-#
-# Target:
-# silver_base.despesas
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Critical source for CEAP analytics and anomaly detection
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — CEAP Expenses Standardization
+# MAGIC
+# MAGIC **Notebook:** `07_base_despesas`
+# MAGIC
+# MAGIC Parses, structures, types, deduplicates and validates CEAP expenses data
+# MAGIC from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw CSV-based payloads stored in `bronze.despesas`
+# MAGIC into a structured Silver Base table. The resulting dataset supports downstream
+# MAGIC construction of CEAP analytical fact tables, supplier dimensions and
+# MAGIC parliamentary expenditure analytics.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw CSV payloads stored as JSON
+# MAGIC - Standardize CEAP expense fields
+# MAGIC - Cast dates and monetary values
+# MAGIC - Normalize supplier and CPF/CNPJ fields
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Apply technical deduplication
+# MAGIC - Persist Silver Base Delta table
+# MAGIC - Validate technical CPF/CNPJ quality
+# MAGIC - Validate technical date quality
+# MAGIC
+# MAGIC **Source of truth:** `bronze.despesas`  
+# MAGIC
+# MAGIC **Target:** `silver_base.despesas`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Critical source for CEAP analytics and anomaly detection
 
 # COMMAND ----------
 

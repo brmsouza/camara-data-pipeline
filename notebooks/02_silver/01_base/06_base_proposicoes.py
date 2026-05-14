@@ -1,44 +1,41 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 06_base_proposicoes
-# Layer: Silver Base
-# Author: Bruno Souza
-#
-# Description:
-# Parses, structures, types, deduplicates and validates legislative proposition
-# data from the Bronze layer.
-#
-# Context:
-# This notebook transforms raw proposition payloads from bronze.proposicoes
-# into a structured Silver Base table. The resulting dataset centralizes
-# proposition metadata, legislative status, proposition lifecycle and
-# parliamentary processing information required for downstream analytical
-# layers and dimensional modeling.
-#
-# Responsibilities:
-# - Parse raw CSV-like payload embedded in JSON structure
-# - Apply schema standardization
-# - Cast identifiers, dates and timestamps
-# - Preserve proposition lifecycle and status relationships
-# - Preserve legislative organization references
-# - Preserve lineage and traceability columns
-# - Apply technical deduplication
-# - Persist Silver Base Delta table
-# - Validate technical date quality
-# - Validate proposition lifecycle consistency
-#
-# Source:
-# bronze.proposicoes
-#
-# Target:
-# silver_base.proposicoes
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Partitioned by proposition year
-# - Source for proposition analytics and legislative tracking
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Base Layer — Legislative Propositions Standardization
+# MAGIC
+# MAGIC **Notebook:** `06_base_proposicoes`
+# MAGIC
+# MAGIC Parses, structures, types, deduplicates and validates legislative proposition
+# MAGIC data from the Bronze layer.
+# MAGIC
+# MAGIC This notebook transforms raw proposition payloads from `bronze.proposicoes`
+# MAGIC into a structured Silver Base table. The resulting dataset centralizes
+# MAGIC proposition metadata, legislative status, proposition lifecycle and
+# MAGIC parliamentary processing information required for downstream analytical
+# MAGIC layers and dimensional modeling.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Parse raw CSV-like payloads embedded in JSON structures
+# MAGIC - Apply schema standardization
+# MAGIC - Cast identifiers, dates and timestamps
+# MAGIC - Preserve proposition lifecycle and status relationships
+# MAGIC - Preserve legislative organization references
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Apply technical deduplication
+# MAGIC - Persist Silver Base Delta table
+# MAGIC - Validate technical date quality
+# MAGIC - Validate proposition lifecycle consistency
+# MAGIC
+# MAGIC **Source of truth:** `bronze.proposicoes`  
+# MAGIC
+# MAGIC **Target:** `silver_base.proposicoes`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Partitioned by proposition year
+# MAGIC - Source for proposition analytics and legislative tracking
 
 # COMMAND ----------
 
