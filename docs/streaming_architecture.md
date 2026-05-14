@@ -92,7 +92,7 @@ notebooks/99_jobs/05_run_votacoes_streaming_pipeline.py
 ## Visual evidence
 
 ```md
-![Streaming Workflow](../assets/images/job_votacoes_streaming_microbatch.PNG)
+![Streaming Workflow](assets/images/job_votacoes_streaming_microbatch.png)
 ```
 
 ---
@@ -134,7 +134,7 @@ notebooks/05_dlt/01_dlt_votacoes_streaming.py.py
 ## Visual evidence
 
 ```md
-![DLT Pipeline](../assets/images/dlt_votacoes_streaming.PNG)
+![DLT Pipeline](assets/images/dlt_votacoes_streaming.PNG)
 ```
 
 ---
