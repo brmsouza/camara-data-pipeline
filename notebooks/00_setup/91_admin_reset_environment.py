@@ -1,21 +1,28 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 91_admin_reset_environment
-# Layer: Admin
-# Author: Bruno Souza
-#
-# Description:
-# Resets the data pipeline environment by clearing tables and execution state.
-#
-# Context:
-# Used to support reprocessing scenarios, testing cycles or full environment
-# reinitialization during development and validation.
-#
-# Notes:
-# - Truncates data from configured schemas (e.g., bronze, monitoring)
-# - Does not drop schemas or table structures
-# - Should be used with caution in controlled environments only
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Admin Layer — Environment Reset and Reprocessing Support
+# MAGIC
+# MAGIC **Notebook:** `91_admin_reset_environment`
+# MAGIC
+# MAGIC Resets the data pipeline environment by clearing tables and execution state.
+# MAGIC
+# MAGIC This notebook is used to support reprocessing scenarios, testing cycles and
+# MAGIC full environment reinitialization during development, validation and pipeline
+# MAGIC troubleshooting activities.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Clear configured pipeline tables and execution state
+# MAGIC - Support full or partial environment reprocessing
+# MAGIC - Reset operational monitoring and ingestion control data
+# MAGIC - Assist development and testing workflows
+# MAGIC - Preserve schemas and table structures for rapid re-execution
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Truncates data from configured schemas such as Bronze and Monitoring
+# MAGIC - Does not drop schemas or table structures
+# MAGIC - Should be used with caution in controlled environments only
 
 # COMMAND ----------
 
