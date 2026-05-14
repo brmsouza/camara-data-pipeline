@@ -244,7 +244,7 @@ O projeto também implementa capacidades modernas avançadas de Engenharia de Da
 Documentação detalhada disponível em:
 
 ```text
-docs/streaming_architecture.md
+[streaming_architecture.pt-BR.md](docs/streaming_architecture.pt-BR.md) 
 ```
 
 ---
@@ -293,7 +293,7 @@ As camadas Gold e Analytics implementam marts analíticos avançados de intelig�
 Documentação analítica detalhada disponível em:
 
 ```text
-docs/parliamentary_intelligence.md
+[parliamentary_intelligence.pt-BR.md](docs/parliamentary_intelligence.pt-BR.md)
 ```
 
 ---
@@ -326,9 +326,9 @@ A arquitetura preserva governança, lineage e replayabilidade em todas as camada
 Documentação detalhada disponível em:
 
 ```text
-docs/governance_and_lineage.md
-docs/replay_strategy.md
-docs/runbook.md
+[governance_and_lineage.pt-BR.md](docs/governance_and_lineage.pt-BR.md) 
+[replay_strategy.pt-BR.md](docs/replay_strategy.pt-BR.md)
+[runbook.pt-BR.md](docs/runbook.pt-BR.md)
 ```
 
 ---
@@ -379,15 +379,14 @@ docs/
 
 | Documento | Descrição |
 |---|---|
-| `streaming_architecture.pt-BR.md` | Streaming, CDC, DLT e SLA |
-| `governance_and_lineage.pt-BR.md` | Governança, lineage e observabilidade |
-| `replay_strategy.pt-BR.md` | Estratégia de replay e recuperação |
-| `parliamentary_intelligence.pt-BR.md` | Analytics e inteligência parlamentar |
-| `architecture_decisions.pt-BR.md` | Decisões arquiteturais e modelagem |
-| `challenge_matrix.pt-BR.md` | Matriz de aderência ao desafio |
-| `runbook.pt-BR.md` | Procedimentos operacionais |
-| `notebooks_catalog.pt-BR.md` | Catálogo de notebooks |
-
+| [streaming_architecture.pt-BR.md](docs/streaming_architecture.pt-BR.md) | Streaming, CDC, DLT e SLA |
+| [governance_and_lineage.pt-BR.md](docs/governance_and_lineage.pt-BR.md) | Governança, lineage e observabilidade |
+| [replay_strategy.pt-BR.md](docs/replay_strategy.pt-BR.md) | Estratégia de replay e recuperação |
+| [parliamentary_intelligence.pt-BR.md](docs/parliamentary_intelligence.pt-BR.md) | Analytics e inteligência parlamentar |
+| [architecture_decisions.pt-BR.md](docs/architecture_decisions.pt-BR.md) | Decisões arquiteturais e modelagem |
+| [challenge_matrix.pt-BR.md](docs/challenge_matrix.pt-BR.md) | Matriz de aderência ao desafio |
+| [runbook.pt-BR.md](docs/runbook.pt-BR.md) | Procedimentos operacionais |
+| [notebooks_catalog.pt-BR.md](docs/notebooks_catalog.pt-BR.md) | Catálogo de notebooks |
 ---
 
 # Objetivos de Engenharia
