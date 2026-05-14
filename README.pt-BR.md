@@ -8,23 +8,64 @@
   <img src="https://img.shields.io/badge/Databricks-Lakehouse%20Platform-FF3621?style=flat-square&logo=databricks&logoColor=white" />
   <img src="https://img.shields.io/badge/Delta%20Lake-ACID%20Tables-00ADD8?style=flat-square" />
   <img src="https://img.shields.io/badge/architecture-medallion-6A1B9A?style=flat-square" />
+  <img src="https://img.shields.io/badge/streaming-DLT%20%2B%20CDC-00897B?style=flat-square" />
   <img src="https://img.shields.io/badge/analytics-parliamentary-2E7D32?style=flat-square" />
   <img src="https://img.shields.io/badge/release-v1.0.0-1976D2?style=flat-square" />
 </p>
 
-Projeto completo de Engenharia de Dados Lakehouse desenvolvido no Databricks utilizando PySpark, Spark SQL e Delta Lake para analytics parlamentares, governança, linhagem, streaming e modelagem dimensional.
+Plataforma Lakehouse de Engenharia de Dados construída no Databricks para analytics parlamentares em larga escala utilizando ingestão distribuída de APIs REST, Delta Lake, historização CDC/SCD2, streaming em micro-batch, Delta Live Tables, enriquecimento de fornecedores e modelagem dimensional analítica.
 
 ---
 
-## Finalidade Educacional
+# Finalidade Educacional
 
-Este projeto foi desenvolvido com fins educacionais, estudo técnico e composição de portfólio profissional de Engenharia de Dados.
+Este projeto foi desenvolvido para fins educacionais, estudo técnico e portfólio profissional.
 
-A solução demonstra conceitos modernos de Data Engineering utilizando datasets públicos parlamentares e padrões enterprise de arquitetura Lakehouse.
+O repositório demonstra conceitos modernos de Engenharia de Dados utilizando dados parlamentares públicos e padrões de arquitetura Lakehouse enterprise.
 
-Nenhuma afiliação política, vínculo institucional ou posicionamento governamental é representado neste repositório.
+Não existe qualquer vínculo político, governamental ou institucional com a Câmara dos Deputados.
 
-As análises e indicadores apresentados possuem finalidade exclusivamente técnica, analítica e educacional.
+Todos os indicadores analíticos e camadas de inteligência presentes neste projeto possuem finalidade exclusivamente técnica, educacional e experimental.
+
+---
+
+# Por Que Este Projeto É Diferente
+
+Diferente de projetos tradicionais de portfólio focados apenas em ETL, esta solução implementa:
+
+* ingestão distribuída de múltiplos endpoints REST;
+* arquitetura Lakehouse Medallion replayável;
+* rastreabilidade determinística e controle de batch;
+* historização CDC / SCD Type 2;
+* ingestão streaming em micro-batch;
+* Delta Live Tables (DLT);
+* monitoramento de SLA e observabilidade operacional;
+* enriquecimento de fornecedores utilizando datasets públicos de CNPJ;
+* marts analíticos de inteligência parlamentar;
+* detecção de anomalias e analytics comportamentais;
+* estratégia de replay e recuperação orientada à governança;
+* documentação técnica em padrão enterprise.
+
+O projeto foi desenhado para simular padrões reais de Engenharia de Dados corporativa e não apenas pipelines ETL isolados.
+
+---
+
+# Destaques de Engenharia
+
+| Capacidade | Implementação |
+|---|---|
+| Ingestão REST multi-endpoint | API Dados Abertos Câmara |
+| Streaming micro-batch | Ingestão de votações parlamentares |
+| CDC / SCD Type 2 | Historização de tramitações |
+| Delta Live Tables | Pipeline streaming Bronze → Silver → Gold |
+| Replayabilidade | Ingestão Bronze replayável |
+| Governança | Controle de batch e hashes determinísticos |
+| SLA Monitoring | Métricas operacionais streaming |
+| Enriquecimento de fornecedores | Datasets públicos de CNPJ |
+| Inteligência parlamentar | Marts analíticos Gold |
+| Detecção de anomalias | Análise z-score |
+| Orquestração | Databricks Workflows |
+| Observabilidade | Tabelas de monitoramento e logs |
 
 ---
 
@@ -34,437 +75,261 @@ As análises e indicadores apresentados possuem finalidade exclusivamente técni
 |---|---|
 | Plataforma | Databricks Free Edition |
 | Linguagens | PySpark (Python) e Spark SQL |
-| Armazenamento | Delta Lake |
-| Arquitetura | Medallion Architecture (Bronze, Silver e Gold) |
-| Streaming | Delta Live Tables (DLT) e Micro-batch |
-| Fonte de Dados | API Dados Abertos Câmara |
-| Versionamento | GitHub |
 | Engine de Processamento | Apache Spark |
-| Modelagem Analítica | Star Schema / Modelagem Dimensional |
+| Armazenamento | Delta Lake |
+| Arquitetura | Medallion Lakehouse Architecture |
+| Streaming | Delta Live Tables (DLT) e Micro-batch |
+| APIs | APIs REST |
+| Versionamento | GitHub |
+| Modelagem | Star Schema / Modelagem Dimensional |
+| Observabilidade | Tabelas operacionais de monitoramento |
+| Governança | Arquitetura replayável com lineage |
 
 ---
 
-## Plataforma
+# Principais Fontes de Dados
 
-### Databricks Free Edition
-
-Página oficial:
-
-https://www.databricks.com/blog/introducing-databricks-free-edition
-
-O projeto foi desenvolvido utilizando recursos Lakehouse do Databricks incluindo:
-
-* Delta Lake;
-* Workflows;
-* notebooks PySpark;
-* Spark SQL;
-* streaming micro-batch;
-* Delta Live Tables (DLT);
-* implementação Medallion Architecture.
-
----
-
-## Linguagens
-
-### PySpark (Python)
-
-Utilizado para:
-
-* pipelines de ingestão;
-* transformações;
-* validações de qualidade;
-* processamento CDC;
-* processamento streaming;
-* orquestração;
-* processamento analítico.
-
-### Spark SQL
-
-Utilizado para:
-
-* views analíticas;
-* marts Gold;
-* modelagem dimensional;
-* agregações;
-* produtos analíticos;
-* validações de qualidade.
-
----
-
-## Fonte de Dados
-
-### API Dados Abertos Câmara dos Deputados
+## API Dados Abertos Câmara dos Deputados
 
 Documentação oficial:
 
 https://dadosabertos.camara.leg.br/swagger/api.html
 
-A API fornece datasets públicos parlamentares incluindo:
-
-* deputados;
-* despesas;
-* proposições;
-* frentes parlamentares;
-* eventos legislativos;
-* órgãos;
-* votações;
-* orientações de voto;
-* votos;
-* legislaturas.
-
 ---
 
-## Padrão Arquitetural
+## Principais Endpoints Consumidos
 
-### Medallion Architecture
-
-O projeto implementa arquitetura Lakehouse Medallion com refinamento progressivo dos dados:
-
-| Camada | Responsabilidade |
+| Domínio | Endpoint |
 |---|---|
-| Bronze | Ingestão bruta e replayabilidade |
-| Silver Base | Padronização técnica e validações |
-| Silver Curated | Entidades reutilizáveis orientadas ao negócio |
-| Gold | Modelagem dimensional e marts analíticos |
-| Analytics | Inteligência parlamentar e produtos analíticos |
+| Deputados | `/deputados` |
+| Detalhes de deputados | `/deputados/{id}` |
+| Despesas parlamentares | `/deputados/{id}/despesas` |
+| Frentes parlamentares | `/frentes` |
+| Membros de frentes | `/frentes/{id}/membros` |
+| Eventos legislativos | `/eventos` |
+| Proposições | `/proposicoes` |
+| Tramitações | `/proposicoes/{id}/tramitacoes` |
+| Órgãos | `/orgaos` |
+| Membros de órgãos | `/orgaos/{id}/membros` |
+| Votações | `/votacoes` |
+| Votos | `/votacoes/{id}/votos` |
+| Orientações partidárias | `/votacoes/{id}/orientacoes` |
+| Legislaturas | `/legislaturas` |
 
 ---
 
-## Recursos Avançados Implementados
+## Fontes Externas de Enriquecimento
 
-O projeto também implementa:
+O projeto também integra datasets públicos externos para enriquecimento analítico.
 
-* CDC / SCD Type 2;
-* Delta Live Tables (DLT);
-* streaming micro-batch;
-* replay/reprocessamento;
-* workflow orchestration;
-* SLA monitoring;
-* observabilidade operacional;
-* padrões de governança e lineage.
+### Enriquecimento de Fornecedores
 
----
+Datasets públicos brasileiros de CNPJ são utilizados para:
 
-# Sumário
+* validação de fornecedores;
+* classificação CPF/CNPJ;
+* identificação de fornecedores ativos/inativos;
+* apoio à detecção de anomalias;
+* melhoria dos analytics financeiros CEAP.
 
-* [Visão Geral](#visão-geral)
-* [Escopo do Desafio](#escopo-do-desafio)
-* [Fontes de Dados e APIs](#fontes-de-dados-e-apis)
-* [Arquitetura](#arquitetura)
-* [Arquitetura Medallion](#arquitetura-medallion)
-* [Arquitetura Streaming, CDC e DLT](#arquitetura-streaming-cdc-e-dlt)
-* [Orquestração de Workflows](#orquestração-de-workflows)
-* [Modelo Dimensional Gold](#modelo-dimensional-gold)
-* [Governança, Resiliência e Analytics](#governança-resiliência-e-analytics)
-* [Principais Analytics Entregues](#principais-analytics-entregues)
-* [Streaming e Inteligência Parlamentar](#streaming-e-inteligência-parlamentar)
-* [Stack Tecnológica](#stack-tecnológica)
-* [Estrutura do Repositório](#estrutura-do-repositório)
-* [Arquitetura da Documentação](#arquitetura-da-documentação)
-* [Qualidade e Lineage](#qualidade-e-lineage)
-* [Processamento Incremental e Replay](#processamento-incremental-e-replay)
-* [Enriquecimento de Fornecedores e Detecção de Anomalias](#enriquecimento-de-fornecedores-e-detecção-de-anomalias)
-* [Considerações e Limitações Analíticas](#considerações-e-limitações-analíticas)
-* [Evoluções Futuras](#evoluções-futuras)
-* [Documentação](#documentação)
-* [Autor](#autor)
+Essa camada simula integrações reais de master data utilizadas em ambientes corporativos.
 
 ---
 
 # Visão Geral
 
-`camara-data-pipeline` é um projeto moderno de Engenharia de Dados Lakehouse desenvolvido para ingestão, validação, curadoria e modelagem analítica de dados públicos parlamentares da Câmara dos Deputados.
+`camara-data-pipeline` é uma plataforma moderna de Engenharia de Dados Lakehouse desenvolvida para ingerir, validar, curar e modelar analiticamente dados parlamentares públicos do ecossistema da Câmara dos Deputados.
 
-O projeto foi construído utilizando padrão Medallion Architecture com refinamento progressivo entre as camadas Bronze, Silver Base, Silver Curated, Gold e Analytics.
+A arquitetura segue uma estratégia Medallion com refinamento progressivo entre:
 
-A solução possui foco em:
+* Bronze;
+* Silver Base;
+* Silver Curated;
+* Gold;
+* Analytics.
 
-* pipelines escaláveis de ingestão;
-* replayabilidade e resiliência;
-* modelagem dimensional;
+A plataforma combina:
+
+* ingestão escalável via APIs;
+* pipelines replayáveis;
 * governança e lineage;
-* analytics parlamentares;
-* produtos analíticos financeiros e políticos;
-* CDC e historização SCD Type 2;
-* streaming micro-batch;
+* modelagem dimensional;
+* ingestão streaming;
+* CDC / SCD Type 2;
 * Delta Live Tables;
-* workflow orchestration;
-* SLA monitoring e observabilidade operacional.
-
----
-
-# Escopo do Desafio
-
-| Tema do Desafio | Status |
-|---|---|
-| Analytics CEAP | ✔ |
-| Frentes parlamentares | ✔ |
-| Eventos legislativos | ✔ |
-| Análise de votações | ✔ |
-| Engagement score | ✔ |
-| Enriquecimento de fornecedores | ✔ |
-| Detecção de anomalias com z-score | ✔ |
-| Governança e lineage | ✔ |
-| Replay e resiliência | ✔ |
-| CDC / SCD Type 2 | Implementado Parcialmente |
-| Streaming micro-batch | ✔ |
-| Delta Live Tables (DLT) | ✔ |
-| SLA monitoring | ✔ |
-| Workflow orchestration | ✔ |
-| Inteligência Parlamentar | ✔ |
-| Analytics de CPI | Roadmap |
-
----
-
-# Fontes de Dados e APIs
-
-O projeto utiliza datasets públicos parlamentares e governamentais para construção de uma plataforma analítica Lakehouse focada em atividade legislativa brasileira.
-
----
-
-## Principal Fonte de Dados
-
-### API Dados Abertos Câmara dos Deputados
-
-API oficial:
-
-https://dadosabertos.camara.leg.br/swagger/api.html
-
-Principais datasets consumidos:
-
-| Dataset | Endpoint |
-|---|---|
-| Deputados | `/deputados` |
-| Detalhes deputados | `/deputados/{id}` |
-| Frentes parlamentares | `/frentes` |
-| Membros frentes | `/frentes/{id}/membros` |
-| Eventos legislativos | `/eventos` |
-| Proposições | `/proposicoes` |
-| Tramitações | `/proposicoes/{id}/tramitacoes` |
-| Despesas CEAP | `/deputados/{id}/despesas` |
-| Órgãos | `/orgaos` |
-| Membros órgãos | `/orgaos/{id}/membros` |
-| Votações | `/votacoes` |
-| Orientações | `/votacoes/{id}/orientacoes` |
-| Votos | `/votacoes/{id}/votos` |
-| Legislaturas | `/legislaturas` |
-
----
-
-## Fonte de Enriquecimento
-
-### Receita Federal / Bases Públicas CNPJ
-
-Utilizado para:
-
-* enriquecimento de fornecedores;
-* validação CPF/CNPJ;
-* validação ativo/inativo;
-* suporte à análise de anomalias;
-* detecção de fornecedores suspeitos.
+* observabilidade operacional;
+* analytics de inteligência parlamentar.
 
 ---
 
 # Arquitetura
 
-O projeto segue arquitetura Lakehouse em camadas com refinamento progressivo dos dados parlamentares.
+A plataforma segue uma arquitetura Lakehouse em camadas com refinamento progressivo e replayabilidade.
 
-* Bronze preserva ingestão bruta e replayabilidade;
-* Silver Base executa tratamento técnico e validações;
-* Silver Curated prepara entidades reutilizáveis;
-* Gold materializa dimensões, fatos e marts analíticos;
-* Analytics entrega produtos analíticos parlamentares.
+```text
+Bronze
+    │
+    ▼
+Silver Base
+    │
+    ▼
+Silver Curated
+    │
+    ▼
+Gold
+    │
+    ▼
+Analytics
+```
+
+---
+
+## Princípios Arquiteturais
+
+A arquitetura foi construída sobre os seguintes princípios:
+
+* ingestão orientada a replay;
+* preservação de dados brutos;
+* processamento determinístico;
+* validações explícitas;
+* escalabilidade analítica;
+* lineage orientado à governança;
+* observabilidade operacional;
+* pipelines modulares.
+
+---
+
+## Diagrama da Arquitetura
 
 ![Architecture](assets/images/camadamedalhao_camaradeputados.png)
 
 ---
 
-# Arquitetura Medallion
+# Streaming, CDC e DLT
 
-## Bronze
+O projeto também implementa capacidades modernas avançadas de Engenharia de Dados.
 
-Camada de ingestão bruta responsável por preservar:
+## Componentes Implementados
 
-* respostas originais da API;
-* metadados;
-* lineage;
-* histórico de replay;
-* rastreabilidade de ingestão.
-
----
-
-## Silver Base
-
-Camada técnica responsável por:
-
-* parsing;
-* tipagem;
-* validações estruturais;
-* deduplicação;
-* descarte de registros inválidos;
-* flags técnicas de qualidade.
-
----
-
-## Silver Curated
-
-Camada reutilizável orientada ao negócio.
-
-Principais características:
-
-* regras leves de negócio;
-* fallback logic;
-* padronização textual;
-* enriquecimento Receita Federal;
-* entidades reutilizáveis.
-
----
-
-## Gold
-
-Camada dimensional analítica responsável por:
-
-* dimensões;
-* fatos;
-* marts analíticos;
-* views analíticas;
-* inteligência parlamentar.
-
----
-
-# Arquitetura Streaming, CDC e DLT
-
-O projeto evoluiu além de uma arquitetura batch tradicional e atualmente também implementa:
-
-* ingestão incremental micro-batch;
-* pipelines CDC;
-* historização SCD Type 2;
+* ingestão streaming em micro-batch;
 * Delta Live Tables (DLT);
-* workflow orchestration;
-* SLA monitoring;
-* replay/reprocessamento;
-* observabilidade operacional.
+* CDC / SCD Type 2;
+* historização de tramitações;
+* orquestração via workflows;
+* monitoramento de SLA;
+* estratégia de replay e recuperação;
+* observabilidade operacional;
+* lineage streaming.
 
 ---
 
-## Workflow Orchestration
+## Orquestração
 
-![Workflow Orchestration](assets/images/job_camara_medallion_pipeline.PNG)
+![Workflow](assets/images/job_camara_medallion_pipeline.PNG)
 
 ---
 
 ## Streaming Micro-Batch
 
-![Streaming Microbatch](assets/images/job_votacoes_streaming_microbatch.PNG)
+![Streaming](assets/images/job_votacoes_streaming_microbatch.PNG)
 
 ---
 
 ## Delta Live Tables
 
-![DLT Pipeline](assets/images/dlt_votacoes_streaming.PNG)
+![DLT](assets/images/dlt_votacoes_streaming.PNG)
 
 ---
 
-# Modelo Dimensional Gold
+Documentação detalhada disponível em:
 
-A camada Gold segue abordagem Star Schema com fatos independentes e dimensões reutilizáveis.
+```text
+docs/streaming_architecture.md
+```
+
+---
+
+# Analytics de Inteligência Parlamentar
+
+As camadas Gold e Analytics implementam marts analíticos avançados de inteligência parlamentar.
+
+## Principais Domínios Analíticos
+
+* analytics de despesas parlamentares;
+* analytics de votações;
+* indicadores de transparência;
+* indicadores de eficiência parlamentar;
+* inteligência de fornecedores;
+* analytics de alinhamento político;
+* score de engajamento parlamentar;
+* detecção de anomalias;
+* analytics de frentes parlamentares;
+* dashboards analíticos partidários.
+
+---
+
+## Modelo Dimensional Gold
 
 ![Gold Model](assets/images/modelo_camaradeputados.png)
 
 ---
 
-# Governança, Resiliência e Analytics
+## Principais Capacidades Analíticas
 
-O projeto implementa padrões de governança, resiliência e observabilidade analítica.
+| Capacidade | Descrição |
+|---|---|
+| Analytics CEAP | Análise de despesas parlamentares |
+| Inteligência de fornecedores | Enriquecimento e validação |
+| Índice de transparência | Indicadores analíticos parlamentares |
+| Índice de eficiência | Eficiência parlamentar |
+| Analytics de votação | Comportamento e alinhamento político |
+| Inteligência partidária | Dashboards analíticos |
+| Analytics de frentes | Análise de concentração parlamentar |
+| Score de engajamento | Métricas de participação |
+| Analytics Z-Score | Detecção de anomalias financeiras |
+
+---
+
+Documentação analítica detalhada disponível em:
+
+```text
+docs/parliamentary_intelligence.md
+```
+
+---
+
+# Governança, Replay e Observabilidade
+
+A arquitetura preserva governança, lineage e replayabilidade em todas as camadas.
+
+## Principais Conceitos Implementados
+
+* ingestão Bronze replayável;
+* lineage por batch;
+* hashes determinísticos;
+* monitoramento operacional;
+* tratamento de registros rejeitados;
+* replay e recuperação;
+* historização CDC;
+* controle de offset streaming;
+* monitoramento de SLA;
+* logging operacional.
+
+---
+
+## Diagrama de Governança
 
 ![Governance](assets/images/pilares_analiticos.png)
 
 ---
 
-# Principais Analytics Entregues
+Documentação detalhada disponível em:
 
-## Analytics CEAP
-
-* ranking de despesas parlamentares;
-* análise categoria × UF;
-* fornecedores suspeitos;
-* detecção de anomalias z-score.
-
----
-
-## Frentes Parlamentares
-
-* análise HHI;
-* análise de overlap;
-* alinhamento político;
-* análise de concentração.
-
----
-
-## Analytics de Votação
-
-* alinhamento partidário;
-* alinhamento de frentes;
-* análise de orientações;
-* divergência de voto.
-
----
-
-## Eventos Legislativos
-
-* calendário legislativo;
-* densidade semanal;
-* períodos de inatividade;
-* aproximação de presença.
-
----
-
-# Streaming e Inteligência Parlamentar
-
-O projeto também inclui produtos operacionais e analíticos avançados.
-
-## Streaming Voting Alerts
-
-* monitoramento micro-batch;
-* classificação de urgência;
-* geração de alertas;
-* monitoramento SLA.
-
----
-
-## CDC Proposition Analytics
-
-* histórico de tramitações;
-* versionamento SCD Type 2;
-* análise temporal;
-* analytics de tramitações.
-
----
-
-## Parliamentary Intelligence
-
-Views analíticas avançadas incluem:
-
-* perfil parlamentar;
-* perfil partidário;
-* índice de transparência;
-* índice de eficiência;
-* especialização temática;
-* comportamento financeiro partidário.
-
----
-
-# Stack Tecnológica
-
-## Tecnologias Principais
-
-* Databricks
-* PySpark
-* Spark SQL
-* Delta Lake
-* Python
-* GitHub
-* Delta Live Tables
+```text
+docs/governance_and_lineage.md
+docs/replay_strategy.md
+docs/runbook.md
+```
 
 ---
 
@@ -473,16 +338,22 @@ Views analíticas avançadas incluem:
 ```text
 camara-data-pipeline/
 │
-├── assets/
-│   └── images/
+├── README.md
+├── README.pt-BR.md
 │
 ├── docs/
-│   ├── notebooks_catalog.md
-│   ├── challenge_matrix.md
-│   ├── architecture_decisions.md
+│   ├── index.md
 │   ├── streaming_architecture.md
+│   ├── governance_and_lineage.md
+│   ├── replay_strategy.md
+│   ├── parliamentary_intelligence.md
+│   ├── architecture_decisions.md
+│   ├── challenge_matrix.md
 │   ├── runbook.md
-│   └── pdf/
+│   └── notebooks_catalog.md
+│
+├── assets/
+│   └── images/
 │
 ├── notebooks/
 │   ├── 00_setup/
@@ -494,28 +365,44 @@ camara-data-pipeline/
 │   ├── 90_common/
 │   └── 99_jobs/
 │
-└── README.md
+└── requirements.txt
 ```
 
 ---
 
 # Documentação
 
-Documentações adicionais disponíveis em:
+A documentação técnica detalhada está disponível em:
 
 ```text
 docs/
 ```
 
-Principais documentos:
-
 | Documento | Descrição |
 |---|---|
-| notebooks_catalog.md | Catálogo completo de notebooks |
-| challenge_matrix.md | Matriz de aderência |
-| architecture_decisions.md | Decisões arquiteturais |
-| streaming_architecture.md | Arquitetura streaming e CDC |
-| runbook.md | Procedimentos operacionais |
+| `streaming_architecture.md` | Streaming, CDC, DLT e SLA |
+| `governance_and_lineage.md` | Governança, lineage e observabilidade |
+| `replay_strategy.md` | Estratégia de replay e recuperação |
+| `parliamentary_intelligence.md` | Analytics e inteligência parlamentar |
+| `architecture_decisions.md` | Decisões arquiteturais e modelagem |
+| `challenge_matrix.md` | Matriz de aderência ao desafio |
+| `runbook.md` | Procedimentos operacionais |
+| `notebooks_catalog.md` | Catálogo de notebooks |
+
+---
+
+# Objetivos de Engenharia
+
+O projeto foi desenvolvido para demonstrar:
+
+* arquitetura enterprise de Engenharia de Dados;
+* processamento Lakehouse escalável;
+* replayabilidade e resiliência;
+* padrões CDC e streaming;
+* modelagem dimensional;
+* observabilidade operacional;
+* governança analítica;
+* workflows modernos em Databricks.
 
 ---
 
@@ -523,4 +410,4 @@ Principais documentos:
 
 Bruno Souza
 
-Engenheiro de Dados focado em plataformas analíticas escaláveis, governança, modelagem dimensional e arquiteturas modernas Lakehouse.
+Engenheiro de Dados com foco em plataformas analíticas escaláveis, governança, arquitetura Lakehouse, modelagem dimensional e práticas modernas de Engenharia de Dados.
