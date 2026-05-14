@@ -26,15 +26,47 @@ import requests
 BASE_URL = "https://dadosabertos.camara.leg.br/api/v2"
 
 
-def get_data(endpoint: str, params: dict | None = None, timeout: int = 20) -> dict:
+import time
+import requests
+
+BASE_URL = "https://dadosabertos.camara.leg.br/api/v2"
+
+
+def get_data(
+    endpoint: str,
+    params: dict | None = None,
+    timeout: int = 20,
+    retries: int = 3,
+    sleep_seconds: int = 2,
+) -> dict:
+
     url = f"{BASE_URL}{endpoint}"
 
-    response = requests.get(
-        url,
-        params=params,
-        timeout=timeout,
-    )
+    last_exception = None
 
-    response.raise_for_status()
+    for attempt in range(retries):
 
-    return response.json()
+        try:
+
+            response = requests.get(
+                url,
+                params=params,
+                timeout=timeout,
+            )
+
+            response.raise_for_status()
+
+            return response.json()
+
+        except Exception as e:
+
+            last_exception = e
+
+            print(
+                f"Attempt {attempt + 1}/{retries} failed: {str(e)}"
+            )
+
+            if attempt < retries - 1:
+                time.sleep(sleep_seconds)
+
+    raise last_exception
