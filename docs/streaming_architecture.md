@@ -92,7 +92,7 @@ notebooks/99_jobs/05_run_votacoes_streaming_pipeline.py
 ## Visual evidence
 
 ```md
-![Streaming Workflow](assets/images/job_votacoes_streaming_microbatch.png)
+![Streaming Workflow](../assets/images/job_votacoes_streaming_microbatch.png)
 ```
 
 ---
