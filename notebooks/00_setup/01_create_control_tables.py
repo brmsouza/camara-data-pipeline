@@ -1,23 +1,19 @@
 # Databricks notebook source
-# MAGIC %sql
+# MAGIC %md
+# MAGIC # Setup Layer — Control and Monitoring Tables Initialization
 # MAGIC
-# MAGIC -- ------------------------------------------------------------------------------
-# MAGIC -- Notebook: 01_create_control_tables
-# MAGIC -- Layer: Setup
-# MAGIC -- Author: Bruno Souza
-# MAGIC --
-# MAGIC -- Description:
-# MAGIC -- Creates the control and monitoring tables required by the data pipeline.
-# MAGIC --
-# MAGIC -- Context:
-# MAGIC -- Provides the structures used to track pipeline executions, operational logs
-# MAGIC -- and ingestion control metadata across the project.
-# MAGIC --
-# MAGIC -- Notes:
-# MAGIC -- - Safe to re-run (idempotent)
-# MAGIC -- - Must be executed after schema creation
-# MAGIC -- - Pipeline executions are logged in monitoring.pipeline_log
-# MAGIC -- ------------------------------------------------------------------------------
+# MAGIC **Notebook:** 01_create_control_tables
+# MAGIC
+# MAGIC Creates the control and monitoring tables required by the data pipeline.
+# MAGIC
+# MAGIC Provides the structures used to track pipeline executions, operational logs
+# MAGIC and ingestion control metadata across the project.
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Safe to re-run, idempotent
+# MAGIC - Must be executed after schema creation
+# MAGIC - Pipeline executions are logged in `monitoring.pipeline_log`
 
 # COMMAND ----------
 
