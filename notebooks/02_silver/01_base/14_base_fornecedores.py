@@ -1,23 +1,38 @@
 # Databricks notebook source
+# Databricks notebook source
+# ------------------------------------------------------------------------------
+# Notebook: 14_curated_fornecedores
+# Layer: Silver Curated
 # Author: Bruno Souza
 #
 # Description:
-# Builds the base supplier dataset from Silver Base CEAP expenses.
+# Builds the curated supplier dataset enriched with public CNPJ validation data.
 #
 # Context:
-# This notebook extracts unique suppliers from silver_base.despesas and prepares
-# a standardized supplier base table for later enrichment in Silver Curated.
+# This notebook reads supplier records from Silver Base, prioritizes CNPJ
+# suppliers based on CEAP expense usage, validates selected CNPJs using a public
+# CNPJ API utility, and creates analytical flags for supplier registration
+# status and potential suspicious documents.
 #
 # Grain:
 # One row per supplier document.
 #
+# Responsibilities:
+# - Read standardized supplier records from Silver Base
+# - Prioritize CNPJ suppliers based on CEAP usage
+# - Validate selected CNPJs using public API enrichment
+# - Create analytical supplier status and suspicion flags
+# - Preserve lineage metadata
+# - Validate curated entity consistency
+# - Persist Silver Curated Delta table
+# - Register operational execution metrics
+#
 # Source:
-# silver_base.despesas
+# silver_base.fornecedores
 #
 # Target:
-# silver_base.fornecedores
+# silver_curated.fornecedores
 # ------------------------------------------------------------------------------
-
 
 # COMMAND ----------
 
@@ -43,14 +58,17 @@ started_at = datetime.now()
 
 # COMMAND ----------
 
-LAYER = "silver_base"
-PIPELINE_NAME = "silver_base_fornecedores"
-
-SOURCE_TABLE = "silver_base.despesas"
-TARGET_TABLE = "silver_base.fornecedores"
-
-batch_id = str(uuid.uuid4())
-started_at = datetime.now()
+log_pipeline_event(
+    batch_id=batch_id,
+    pipeline_name=PIPELINE_NAME,
+    layer=LAYER,
+    level="INFO",
+    event_name="job_started",
+    message=f"source={SOURCE_TABLE} | started | target_table={TARGET_TABLE}",
+    endpoint=SOURCE_TABLE,
+    target_table=TARGET_TABLE,
+    started_at=started_at,
+)
 
 # COMMAND ----------
 
@@ -152,26 +170,48 @@ df_deduplicated = (
 
 # COMMAND ----------
 
-df_valid = (
+df_discarded = (
     df_deduplicated
     .filter(
-        F.col("forn_tx_nome").isNotNull()
-        & F.col("forn_nr_documento_limpo").isNotNull()
+        F.col("forn_tx_nome").isNull()
+        |
+        F.col("forn_nr_documento_limpo").isNull()
     )
+    .withColumn(
+        "rejection_reason",
+        F.when(
+            F.col("forn_tx_nome").isNull(),
+            F.lit("forn_tx_nome_is_null")
+        )
+        .when(
+            F.col("forn_nr_documento_limpo").isNull(),
+            F.lit("forn_nr_documento_limpo_is_null")
+        )
+        .otherwise(F.lit("unknown"))
+    )
+)
+
+df_valid = (
+    df_deduplicated
+    .filter(F.col("forn_tx_nome").isNotNull())
+    .filter(F.col("forn_nr_documento_limpo").isNotNull())
 )
 
 # COMMAND ----------
 
-records_read = df_source.count()
 records_written = df_valid.count()
-records_deduplicated = records_read - records_written
-records_discarded = 0
+records_discarded = df_discarded.count()
+records_deduplicated = records_read - records_written - records_discarded
 
 if records_read == 0:
-    raise Exception("Silver Base validation failed: source silver_base.despesas has no records.")
+    raise Exception(
+        "Silver Base validation failed: source silver_base.despesas has no records."
+    )
 
 if records_written == 0:
-    raise Exception("Silver Base validation failed: silver_base.fornecedores has no records.")
+    raise Exception(
+        "Silver Base validation failed: silver_base.fornecedores has no records."
+    )
 
 duplicated_documents = (
     df_valid
@@ -185,6 +225,17 @@ if duplicated_documents > 0:
     raise Exception(
         f"Silver Base validation failed: duplicated supplier documents found = {duplicated_documents}"
     )
+
+# COMMAND ----------
+
+(
+    df_discarded
+    .write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
 
 # COMMAND ----------
 
@@ -211,9 +262,17 @@ log_pipeline_event(
     layer=LAYER,
     level="INFO",
     event_name="job_finished",
-    message=f"source={SOURCE_TABLE} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
+    message=(
+        f"source={SOURCE_TABLE} | finished successfully "
+        f"| records_read={records_read} "
+        f"| records_written={records_written} "
+        f"| records_discarded={records_discarded} "
+        f"| records_deduplicated={records_deduplicated}"
+    ),
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
+    records_read=records_read,
+    records_written=records_written,
     started_at=started_at,
     finished_at=datetime.now(),
 )
