@@ -20,9 +20,12 @@ End-to-end lakehouse data engineering project built on Databricks using PySpark 
 * [Challenge Scope](#challenge-scope)
 * [Architecture](#architecture)
 * [Medallion Architecture](#medallion-architecture)
+* [Streaming, CDC and DLT Architecture](#streaming-cdc-and-dlt-architecture)
+* [Workflow Orchestration](#workflow-orchestration)
 * [Gold Dimensional Model](#gold-dimensional-model)
 * [Governance, Resilience and Analytics](#governance-resilience-and-analytics)
 * [Main Analytics Delivered](#main-analytics-delivered)
+* [Streaming and Parliamentary Intelligence](#streaming-and-parliamentary-intelligence)
 * [Tech Stack](#tech-stack)
 * [Repository Structure](#repository-structure)
 * [Data Quality and Lineage](#data-quality-and-lineage)
@@ -48,24 +51,35 @@ The solution focuses on:
 * dimensional modeling;
 * governance and lineage;
 * parliamentary intelligence analytics;
-* analytical products for political and financial analysis.
+* analytical products for political and financial analysis;
+* CDC and SCD Type 2 historization;
+* streaming micro-batch processing;
+* Delta Live Tables;
+* workflow orchestration;
+* SLA monitoring and operational observability.
 
 ---
 
 # Challenge Scope
 
-| Challenge Theme           | Status  |
-| ------------------------- | ------- |
-| CEAP analytics            | ✔       |
-| Parliamentary fronts      | ✔       |
-| Legislative events        | ✔       |
-| Voting analysis           | ✔       |
-| Engagement score          | ✔       |
-| Supplier enrichment       | ✔       |
-| Z-score anomaly detection | ✔       |
-| Governance & lineage      | ✔       |
-| Replay & resiliency       | ✔       |
-| CPI analysis              | Roadmap |
+| Challenge Theme                      | Status              |
+| ------------------------------------ | ------------------- |
+| CEAP analytics                       | ✔                   |
+| Parliamentary fronts                 | ✔                   |
+| Legislative events                   | ✔                   |
+| Voting analysis                      | ✔                   |
+| Engagement score                     | ✔                   |
+| Supplier enrichment                  | ✔                   |
+| Z-score anomaly detection            | ✔                   |
+| Governance & lineage                 | ✔                   |
+| Replay & resiliency                  | ✔                   |
+| CDC / SCD Type 2                     | Implemented Partial |
+| Streaming micro-batch                | ✔                   |
+| Delta Live Tables (DLT)              | ✔                   |
+| SLA monitoring                       | ✔                   |
+| Workflow orchestration               | ✔                   |
+| Parliamentary Intelligence           | ✔                   |
+| CPI analysis                         | Roadmap             |
 
 ---
 
@@ -77,9 +91,11 @@ The project follows a layered lakehouse architecture with progressive refinement
 * Silver Base performs technical treatment and validations;
 * Silver Curated prepares reusable business entities;
 * Gold materializes dimensions, facts and analytical marts;
-* Analytics delivers parliamentary intelligence products.
+* Analytics delivers parliamentary intelligence products;
+* Streaming workloads support near-real-time parliamentary voting monitoring;
+* CDC/SCD2 workloads support historical tracking of proposition processing events.
 
-![Architecture](assets/images/camadamedalhao_camaradeputados.png)
+![Architecture](./docs/images/camadamedalhao_camaradeputados.png)
 
 ---
 
@@ -175,6 +191,133 @@ Consumption-oriented analytical products.
 
 ---
 
+# Streaming, CDC and DLT Architecture
+
+The project evolved beyond a traditional batch Medallion architecture and now also includes:
+
+* incremental micro-batch ingestion;
+* CDC pipelines;
+* SCD Type 2 historization;
+* Delta Live Tables (DLT);
+* workflow orchestration;
+* SLA monitoring;
+* replay/reprocessing strategy;
+* operational observability.
+
+---
+
+## Workflow Orchestration
+
+The orchestration layer separates responsibilities between Bronze, Silver Base, Silver Curated, Gold and Streaming workloads using independent Databricks Workflows.
+
+### Main characteristics
+
+* layer isolation;
+* execution dependency control;
+* replay support;
+* operational monitoring;
+* workflow orchestration;
+* scalable execution strategy.
+
+![Workflow Orchestration](./docs/images/job_camara_medallion_pipeline.PNG)
+
+---
+
+## Streaming Micro-Batch Pipeline
+
+The project implements a scheduled micro-batch pipeline responsible for continuously monitoring parliamentary voting events.
+
+### Main characteristics
+
+* incremental ingestion;
+* offset control;
+* replay/reprocessing;
+* batch lineage;
+* operational logging;
+* raw payload preservation;
+* execution observability.
+
+### Implemented controls
+
+* control.votacoes_stream_offset;
+* bronze_stream.votacoes_raw;
+* monitoring.pipeline_log;
+* batch_id lineage;
+* record_hash tracking.
+
+![Streaming Microbatch](./docs/images/job_votacoes_streaming_microbatch.PNG)
+
+---
+
+## Delta Live Tables (DLT)
+
+The streaming architecture also includes a Delta Live Tables pipeline implementing continuous Bronze → Silver → Gold processing.
+
+### Main characteristics
+
+* declarative expectations;
+* streaming validations;
+* automatic quality enforcement;
+* Gold alert generation;
+* SLA-oriented processing;
+* observability integration.
+
+### DLT expectations
+
+* voting ID validation;
+* timestamp validation;
+* payload validation;
+* hash validation;
+* mandatory field validation.
+
+![DLT Pipeline](./docs/images/dlt_votacoes_streaming.PNG)
+
+---
+
+## CDC / SCD Type 2
+
+The project also implements CDC historization for parliamentary proposition processing.
+
+### Main characteristics
+
+* payload hash comparison;
+* incremental historization;
+* valid_from;
+* valid_to;
+* is_current;
+* replay support;
+* Delta Lake historization.
+
+### Main objects
+
+* silver_cdc.proposicoes_tramitacoes_base;
+* silver_cdc.proposicoes_tramitacoes_scd2;
+* gold_cdc.proposicoes_tramitacoes_alertas.
+
+---
+
+## SLA Monitoring and Observability
+
+Operational observability was implemented through logs, monitoring tables and SLA-oriented workflows.
+
+### Monitoring features
+
+* records_read;
+* records_written;
+* records_discarded;
+* execution duration;
+* latency monitoring;
+* operational logs;
+* replay traceability;
+* workflow observability.
+
+### Monitoring objects
+
+* monitoring.pipeline_log;
+* monitoring.vw_sla_votacoes_streaming.
+
+---
+
 # Gold Dimensional Model
 
 The Gold layer follows a reflected star schema approach with independent facts and reusable conformed dimensions.
@@ -187,7 +330,7 @@ The Gold layer follows a reflected star schema approach with independent facts a
 * no fact-to-fact relationships;
 * dimensional consistency.
 
-![Gold Model](assets/images/modelo_camaradeputados.png)
+![Gold Model](./docs/images/modelo_camaradeputados.png)
 
 ---
 
@@ -209,16 +352,21 @@ The project incorporates governance, resiliency and analytical observability pat
 * Bronze replayability;
 * layer reprocessing;
 * Delta Lake recovery;
-* reconstruction from Curated layer.
+* reconstruction from Curated layer;
+* CDC replay strategy;
+* streaming offset recovery.
 
 ### Analytics
 
 * z-score anomaly detection;
 * suspicious suppliers;
 * parliamentary intelligence;
-* analytical marts and views.
+* analytical marts and views;
+* SLA monitoring;
+* streaming alerts;
+* proposition processing historization.
 
-![Governance](assets/images/pilares_analiticos.png)
+![Governance](./docs/images/pilares_analiticos.png)
 
 ---
 
@@ -272,6 +420,45 @@ Composite parliamentary engagement score based on:
 
 ---
 
+# Streaming and Parliamentary Intelligence
+
+The project also includes advanced analytical and operational products beyond the original batch processing scope.
+
+## Streaming Voting Alerts
+
+* micro-batch voting monitoring;
+* urgency classification;
+* notification flag generation;
+* Gold streaming alert layer;
+* SLA-oriented monitoring.
+
+---
+
+## CDC Proposition Processing Analytics
+
+* historical proposition processing tracking;
+* SCD Type 2 versioning;
+* current and historical state analysis;
+* proposition processing alerts;
+* time-to-process analytical views.
+
+---
+
+## Parliamentary Intelligence
+
+Advanced analytical views include:
+
+* parliamentary profile;
+* party profile;
+* transparency index;
+* parliamentary efficiency index;
+* thematic specialization;
+* party spending behavior;
+* executive party dashboard;
+* parliamentary inefficiency analysis.
+
+---
+
 # Tech Stack
 
 ## Main Technologies
@@ -282,6 +469,7 @@ Composite parliamentary engagement score based on:
 * Delta Lake
 * Python
 * GitHub
+* Delta Live Tables
 
 ---
 
@@ -294,6 +482,12 @@ Composite parliamentary engagement score based on:
 * Replayability
 * Data Governance
 * Parliamentary Intelligence
+* CDC / SCD Type 2
+* Delta Live Tables (DLT)
+* Streaming Micro-batch
+* Operational Observability
+* SLA Monitoring
+* Workflow Orchestration
 
 ---
 
@@ -302,14 +496,8 @@ Composite parliamentary engagement score based on:
 ```text
 camara-data-pipeline/
 │
-├── assets/
-├── configs/
 ├── docs/
-│   ├── analytics/
-│   ├── arquitetura/
-│   ├── diagramas/
-│   ├── evidencias/
-│   └── runbooks/
+│   └── images/
 │
 ├── notebooks/
 │   ├── 00_setup/
@@ -319,10 +507,10 @@ camara-data-pipeline/
 │   │   └── 02_curated/
 │   ├── 03_gold/
 │   ├── 04_analytics/
+│   ├── 05_dlt/
 │   ├── 90_common/
 │   └── 99_jobs/
 │
-├── sql/
 ├── requirements.txt
 └── README.md
 ```
@@ -342,7 +530,10 @@ The project implements explicit governance and quality patterns.
 * explicit validations;
 * raise Exception validations;
 * deterministic deduplication;
-* analytical range validations.
+* analytical range validations;
+* DLT declarative expectations;
+* streaming quality validation;
+* CDC payload hash comparison.
 
 ### Lineage metadata
 
@@ -356,6 +547,17 @@ Preserved across layers:
 * bronze_tx_source_file
 * bronze_nr_ano_referencia
 
+Additional operational lineage:
+
+* batch_id;
+* record_hash;
+* source endpoint;
+* source payload;
+* streaming offset;
+* valid_from;
+* valid_to;
+* is_current.
+
 ---
 
 # Incremental Processing and Replay
@@ -366,7 +568,10 @@ The architecture supports:
 * layer reprocessing;
 * batch reconstruction;
 * historical recovery;
-* replayable ingestion.
+* replayable ingestion;
+* CDC historization;
+* streaming offset recovery;
+* micro-batch reprocessing.
 
 ### Resiliency characteristics
 
@@ -374,7 +579,10 @@ The architecture supports:
 * Curated reconstruction;
 * Delta Lake recovery;
 * batch traceability;
-* operational resiliency.
+* operational resiliency;
+* CDC payload comparison;
+* DLT quality expectations;
+* monitoring-driven replay strategy.
 
 ---
 
@@ -413,6 +621,22 @@ was intentionally documented as a future evolution due to project scope prioriti
 
 ---
 
+## CDC / SCD Type 2 Interpretation
+
+The CDC/SCD2 implementation provides a functional historical structure for proposition processing events using payload hash comparison and versioning fields.
+
+The historical reconstruction quality depends on recurring executions, Delta retention configuration and operational continuity.
+
+---
+
+## Streaming Interpretation
+
+The streaming implementation uses a micro-batch pattern for parliamentary voting monitoring.
+
+The architecture provides near-real-time operational behavior, offset control, replay capability and SLA monitoring, but the actual freshness depends on the configured Databricks job schedule and API availability.
+
+---
+
 ## Supplier CNPJ Validation Disclaimer
 
 Some supplier records may contain the classification `NOT_VALIDATED`.
@@ -447,12 +671,29 @@ that the parliamentarian was absent from the event.
 
 Planned future evolutions include:
 
-* CPI lifecycle analytics;
+* complete CPI lifecycle analytics;
+* advanced realtime parliamentary monitoring;
+* external political datasets integration;
+* speech and sentiment analytics;
+* advanced temporal political alignment analytics;
+* predictive parliamentary behavior analytics;
+* advanced operational dashboards;
+* automated alert integrations.
+
+---
+
+## Already Implemented Advanced Features
+
+The following advanced engineering features are already implemented in the current version:
+
 * CDC / SCD Type 2;
-* streaming ingestion;
-* realtime monitoring;
-* advanced political profiling;
-* temporal political alignment analytics.
+* streaming micro-batch ingestion;
+* Delta Live Tables (DLT);
+* workflow orchestration;
+* SLA monitoring;
+* replay/reprocessing strategy;
+* operational observability;
+* parliamentary intelligence analytics.
 
 ---
 
@@ -471,7 +712,10 @@ Including:
 * technical standards;
 * analytical documentation;
 * runbooks;
-* evidences and diagrams.
+* evidences and diagrams;
+* streaming evidence images;
+* CDC/SCD2 documentation;
+* SLA and observability evidence.
 
 ---
 
