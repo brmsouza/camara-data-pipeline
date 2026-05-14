@@ -404,6 +404,34 @@ O projeto foi desenvolvido para demonstrar:
 * workflows modernos em Databricks.
 
 ---
+## Matriz de Aderência ao Desafio Final
+
+O projeto inclui uma matriz completa de aderência mapeando os requisitos do
+desafio final Databricks para os pipelines implementados, produtos analíticos,
+modelagem dimensional Gold, arquitetura streaming e capacidades de
+Parliamentary Intelligence.
+
+### Documentos
+
+- [Final Challenge Adherence Matrix](docs/final_challenge_adherence_matrix.md)
+- [Matriz de Aderência ao Desafio Final](docs/final_challenge_adherence_matrix.pt-BR.md)
+
+### Áreas Cobertas
+
+- Arquitetura Medalhão (Bronze / Silver / Gold)
+- Modelagem dimensional Gold Star Schema
+- Analytics de despesas parlamentares CEAP
+- Analytics de frentes parlamentares
+- Inteligência de votações e alinhamento partidário
+- Analytics de eventos legislativos
+- Analytics de engajamento parlamentar
+- Historificação CDC / SCD Type 2
+- Pipelines streaming com DLT / Lakeflow
+- Monitoramento de SLA e observabilidade
+- Governança e validação de metadata
+- Produtos analíticos de Parliamentary Intelligence
+---
+
 
 # Autor
 
