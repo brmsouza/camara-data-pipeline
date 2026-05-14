@@ -104,7 +104,7 @@ A ingestão micro-batch monitora continuamente novas sessões de votação parla
 ## Notebook responsável
 
 ```text
-notebooks/01_bronze/99_ingest_votacoes_microbatch.py.py
+notebooks/01_bronze/99_ingest_votacoes_microbatch.py
 ```
 
 ## Fonte
@@ -128,7 +128,7 @@ A arquitetura também inclui um pipeline Delta Live Tables para estruturar o flu
 ## Notebook responsável
 
 ```text
-notebooks/05_dlt/01_dlt_votacoes_streaming.py.py
+notebooks/05_dlt/01_dlt_votacoes_streaming.py
 ```
 
 ## Evidência visual
@@ -168,7 +168,7 @@ Além do streaming de votações, o projeto implementa CDC/SCD Type 2 para hist�
 
 ```text
 notebooks/00_setup/04_create_cdc_scd2_objects.py
-notebooks/01_bronze/14_ingest_proposicoes_tramitacoes_cdc.py.py
+notebooks/01_bronze/14_ingest_proposicoes_tramitacoes_cdc.py
 notebooks/02_silver/01_base/15_base_proposicoes_tramitacoes_cdc.py
 notebooks/02_silver/02_curated/15_curated_proposicoes_tramitacoes_scd.py
 notebooks/04_analytics/08_build_gold_proposicoes_cdc_analytics.py

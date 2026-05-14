@@ -50,7 +50,7 @@ for CDC/SCD2, streaming micro-batch, SLA monitoring and DLT pipelines.
 |---|---|---|
 | `00_setup/00_create_schemas.py` | Setup | `Not applicable / support object` |
 | `00_setup/01_create_control_tables.py` | Setup | `Not applicable / support object` |
-| `00_setup/03_create_streaming_objects.py.py` | Setup | `Not applicable / support object` |
+| `00_setup/03_create_streaming_objects.py` | Setup | `Not applicable / support object` |
 | `00_setup/04_create_cdc_scd2_objects.py` | Setup | `Not applicable / support object` |
 | `00_setup/90_admin_test_api_connection.py` | Admin | `Not applicable / support object` |
 | `00_setup/91_admin_reset_environment.py` | Admin | `Not applicable / support object` |
@@ -74,9 +74,9 @@ for CDC/SCD2, streaming micro-batch, SLA monitoring and DLT pipelines.
 | `01_bronze/12_ingest_votacoes_votos.py` | Bronze | `bronze.votacoes_votos` |
 | `01_bronze/12b_ingest_votacoes_votos_file.py` | Bronze | `bronze.votacoes_votos` |
 | `01_bronze/13_ingest_legislaturas.py` | Bronze | `bronze.legislaturas` |
-| `01_bronze/14_ingest_proposicoes_tramitacoes_cdc.py.py` | Bronze CDC | `bronze_cdc.proposicoes_tramitacoes_raw` |
+| `01_bronze/14_ingest_proposicoes_tramitacoes_cdc.py` | Bronze CDC | `bronze_cdc.proposicoes_tramitacoes_raw` |
 | `01_bronze/90_validate_bronze.py` | Validation | `Not applicable / support object` |
-| `01_bronze/99_ingest_votacoes_microbatch.py.py` | Bronze Stream | `bronze_stream.votacoes_raw` |
+| `01_bronze/99_ingest_votacoes_microbatch.py` | Bronze Stream | `bronze_stream.votacoes_raw` |
 | `02_silver/01_base/01_base_deputados.py` | Silver Base | `silver_base.deputados` |
 | `02_silver/01_base/02_base_deputados_detalhes.py` | Silver Base | `silver_base.deputados_detalhes` |
 | `02_silver/01_base/03_base_frentes.py` | Silver Base | `silver_base.frentes` |
@@ -137,7 +137,7 @@ for CDC/SCD2, streaming micro-batch, SLA monitoring and DLT pipelines.
 | `04_analytics/07_build_gold_sla_votacoes_streaming.py` | Gold Analytics | `Not applicable / support object` |
 | `04_analytics/08_build_gold_proposicoes_cdc_analytics.py` | Gold Analytics | `Not applicable / support object` |
 | `04_analytics/90_build_gold_validations.py` | Gold Analytics | `Not applicable / support object` |
-| `05_dlt/01_dlt_votacoes_streaming.py.py` | DLT / Lakeflow | `Not applicable / support object` |
+| `05_dlt/01_dlt_votacoes_streaming.py` | DLT / Lakeflow | `Not applicable / support object` |
 | `90_common/api_client.py` | Core | `Not applicable / support object` |
 | `90_common/bronze_writer.py` | Core | `Not applicable / support object` |
 | `90_common/cnpj_utils.py` | Common Utilities | `Not applicable / support object` |
@@ -197,9 +197,9 @@ Environment preparation notebooks. These objects must be executed before ingesti
 
 ---
 
-### `03_create_streaming_objects.py.py`
+### `03_create_streaming_objects.py`
 
-**Location:** `00_setup/03_create_streaming_objects.py.py`
+**Location:** `00_setup/03_create_streaming_objects.py`
 
 **Layer:** Setup
 
@@ -832,9 +832,9 @@ Raw ingestion notebooks. This layer preserves source data, operational metadata,
 
 ---
 
-### `14_ingest_proposicoes_tramitacoes_cdc.py.py`
+### `14_ingest_proposicoes_tramitacoes_cdc.py`
 
-**Location:** `01_bronze/14_ingest_proposicoes_tramitacoes_cdc.py.py`
+**Location:** `01_bronze/14_ingest_proposicoes_tramitacoes_cdc.py`
 
 **Layer:** Bronze CDC
 
@@ -888,9 +888,9 @@ Raw ingestion notebooks. This layer preserves source data, operational metadata,
 
 ---
 
-### `99_ingest_votacoes_microbatch.py.py`
+### `99_ingest_votacoes_microbatch.py`
 
-**Location:** `01_bronze/99_ingest_votacoes_microbatch.py.py`
+**Location:** `01_bronze/99_ingest_votacoes_microbatch.py`
 
 **Layer:** Bronze Stream
 
@@ -2747,9 +2747,9 @@ Analytical product notebooks. This layer creates views, marts, indicators, valid
 
 Delta Live Tables notebook for declarative streaming quality and alert generation.
 
-### `01_dlt_votacoes_streaming.py.py`
+### `01_dlt_votacoes_streaming.py`
 
-**Location:** `05_dlt/01_dlt_votacoes_streaming.py.py`
+**Location:** `05_dlt/01_dlt_votacoes_streaming.py`
 
 **Layer:** DLT / Lakeflow
 

@@ -104,7 +104,7 @@ Camada responsável pela preparação do ambiente.
 |---|---|
 | `00_create_schemas.py` | Criação de schemas |
 | `01_create_control_tables.py` | Tabelas de controle operacional |
-| `03_create_streaming_objects.py.py` | Objetos streaming |
+| `03_create_streaming_objects.py` | Objetos streaming |
 | `04_create_cdc_scd2_objects.py` | Estruturas CDC/SCD2 |
 | `90_admin_test_api_connection.py` | Teste de conectividade |
 | `91_admin_reset_environment.py` | Reset operacional |
@@ -166,7 +166,7 @@ O projeto implementa ingestão CDC para tramitações parlamentares.
 ## Notebook CDC
 
 ```text
-14_ingest_proposicoes_tramitacoes_cdc.py.py
+14_ingest_proposicoes_tramitacoes_cdc.py
 ```
 
 ## Saída
@@ -184,7 +184,7 @@ O projeto implementa ingestão streaming micro-batch.
 ## Notebook Streaming
 
 ```text
-99_ingest_votacoes_microbatch.py.py
+99_ingest_votacoes_microbatch.py
 ```
 
 ## Saída
@@ -291,7 +291,7 @@ Silver CDC SCD2
 
 | Notebook | Objetivo |
 |---|---|
-| `14_ingest_proposicoes_tramitacoes_cdc.py.py` | CDC Bronze |
+| `14_ingest_proposicoes_tramitacoes_cdc.py` | CDC Bronze |
 | `15_base_proposicoes_tramitacoes_cdc.py` | CDC Silver Base |
 | `15_curated_proposicoes_tramitacoes_scd.py` | SCD Type 2 |
 
@@ -377,7 +377,7 @@ Implementar pipeline streaming declarativo com validações automáticas.
 ## Notebook principal
 
 ```text
-01_dlt_votacoes_streaming.py.py
+01_dlt_votacoes_streaming.py
 ```
 
 ## Principais capacidades
