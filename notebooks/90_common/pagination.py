@@ -1,22 +1,30 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Module: pagination
-# Layer: Core
-# Author: Bruno Souza
-#
-# Description:
-# Provides reusable functions to handle API pagination.
-#
-# Context:
-# Centralizes logic to iterate through paginated endpoints of the
-# Câmara dos Deputados API, ensuring complete data retrieval.
-#
-# Notes:
-# - Supports page-based pagination (pagina / itens)
-# - Handles loop termination based on API response size
-# - Designed to be used with or without retry logic
-# - Used across ingestion pipelines for large datasets
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Core Layer — API Pagination Utilities
+# MAGIC
+# MAGIC **Notebook:** `pagination`
+# MAGIC
+# MAGIC Provides reusable functions to handle API pagination.
+# MAGIC
+# MAGIC This notebook centralizes the logic required to iterate through paginated
+# MAGIC endpoints of the Câmara dos Deputados Open Data API, ensuring complete and
+# MAGIC consistent retrieval of large datasets across ingestion pipelines.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Handle page-based API pagination workflows
+# MAGIC - Support iterative retrieval of large API datasets
+# MAGIC - Control pagination parameters such as `pagina` and `itens`
+# MAGIC - Detect pagination termination conditions based on API responses
+# MAGIC - Standardize pagination logic across ingestion notebooks
+# MAGIC - Support reusable ingestion execution patterns for large-volume endpoints
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Supports page-based pagination using `pagina` and `itens`
+# MAGIC - Handles loop termination based on API response size
+# MAGIC - Designed to be used with or without retry logic
+# MAGIC - Used across ingestion pipelines for large datasets
 
 # COMMAND ----------
 
