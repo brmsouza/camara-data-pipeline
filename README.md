@@ -1,5 +1,7 @@
 # camara-data-pipeline
 
+Enterprise-style Lakehouse Data Engineering platform fully implemented natively on Databricks using PySpark, Delta Lake, Delta Live Tables (DLT), streaming micro-batch ingestion, CDC/SCD Type 2 processing and Medallion architecture.
+
 🇧🇷 Portuguese version: [README.pt-BR.md](README.pt-BR.md)
 
 <p align="left">
@@ -225,19 +227,19 @@ The project also implements advanced modern Data Engineering capabilities.
 
 ## Workflow Orchestration
 
-![Workflow](assets/images/job_camara_medallion_pipeline.PNG)
+![Workflow](assets/images/job_camara_medallion_pipeline.png)
 
 ---
 
 ## Streaming Micro-Batch
 
-![Streaming](assets/images/job_votacoes_streaming_microbatch.PNG)
+![Streaming](assets/images/job_votacoes_streaming_microbatch.png)
 
 ---
 
 ## Delta Live Tables
 
-![DLT](assets/images/dlt_votacoes_streaming.PNG)
+![DLT](assets/images/dlt_votacoes_streaming.png)
 
 ---
 
