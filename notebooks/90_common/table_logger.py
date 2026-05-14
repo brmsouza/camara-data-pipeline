@@ -1,22 +1,30 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Module: table_logger
-# Layer: Core
-# Author: Bruno Souza
-#
-# Description:
-# Provides utilities to log pipeline execution events into Delta tables.
-#
-# Context:
-# Implements the persistence layer for operational logging, writing structured
-# events into monitoring.pipeline_log to support observability and auditing.
-#
-# Notes:
-# - Writes structured logs (start, progress, success, failure)
-# - Standardizes log schema across all pipelines
-# - Supports batch-level traceability via batch_id
-# - Used by all ingestion and admin notebooks
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Core Layer — Pipeline Table Logging Utilities
+# MAGIC
+# MAGIC **Notebook:** `table_logger`
+# MAGIC
+# MAGIC Provides utilities to log pipeline execution events into Delta tables.
+# MAGIC
+# MAGIC This notebook implements the persistence layer for operational logging,
+# MAGIC writing structured execution events into `monitoring.pipeline_log` to support
+# MAGIC observability, auditing and operational traceability across the data pipeline.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Persist structured pipeline execution logs into Delta tables
+# MAGIC - Support logging of start, progress, success and failure events
+# MAGIC - Standardize operational log schemas across ingestion and transformation pipelines
+# MAGIC - Support batch-level traceability using batch identifiers
+# MAGIC - Enable operational observability and auditing workflows
+# MAGIC - Provide reusable persistence utilities for pipeline logging
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Writes structured logs such as start, progress, success and failure events
+# MAGIC - Standardizes logging schema across all pipelines
+# MAGIC - Supports batch-level traceability via `batch_id`
+# MAGIC - Used by ingestion, transformation and admin notebooks
 
 # COMMAND ----------
 
