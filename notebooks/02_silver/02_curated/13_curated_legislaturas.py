@@ -1,32 +1,29 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 13_curated_legislaturas
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Builds the curated legislature entity for downstream dimensional modeling.
-#
-# Context:
-# This notebook reads standardized legislature records from Silver Base and
-# creates a curated business entity with descriptive and analytical attributes.
-# The output is used by the Gold dm_legislatura dimension.
-#
-# Responsibilities:
-# - Read standardized legislature records from Silver Base
-# - Preserve valid legislature attributes
-# - Create analytical period attributes
-# - Preserve lineage metadata
-# - Validate curated entity consistency
-# - Persist Silver Curated Delta table
-# - Register operational execution metrics
-#
-# Source:
-# silver_base.legislaturas
-#
-# Target:
-# silver_curated.legislaturas
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Legislature Entity Consolidation
+# MAGIC
+# MAGIC **Notebook:** `13_curated_legislaturas`
+# MAGIC
+# MAGIC Builds the curated legislature entity for downstream dimensional modeling.
+# MAGIC
+# MAGIC This notebook reads standardized legislature records from the Silver Base layer
+# MAGIC and creates a curated business entity enriched with descriptive and analytical
+# MAGIC attributes. The resulting dataset is used downstream by the Gold legislature
+# MAGIC dimension.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read standardized legislature records from Silver Base
+# MAGIC - Preserve valid legislature attributes
+# MAGIC - Create analytical period attributes
+# MAGIC - Preserve lineage metadata
+# MAGIC - Validate curated entity consistency
+# MAGIC - Persist curated Delta tables
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.legislaturas`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.legislaturas`
 
 # COMMAND ----------
 

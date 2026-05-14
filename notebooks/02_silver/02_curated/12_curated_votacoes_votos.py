@@ -1,38 +1,36 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 07_curated_votacoes_votos
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, enriches and validates deputy voting records from Silver Base.
-#
-# Context:
-# This notebook transforms silver_base.votacoes_votos into a curated and
-# analytics-ready voting behavior dataset. The resulting table represents the
-# relationship between deputies and voting sessions, preserving party, UF,
-# legislature and vote information for downstream Gold fact modeling.
-#
-# Responsibilities:
-# - Consolidate standardized deputy voting attributes from Silver Base
-# - Normalize vote values into curated analytical categories
-# - Create analytical voting behavior flags
-# - Preserve deputy, party, UF, legislature and voting relationships
-# - Preserve lineage and traceability columns
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
-#
-# Source:
-# silver_base.votacoes_votos
-#
-# Target:
-# silver_curated.votacoes_votos
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Source for deputy voting behavior and political alignment modeling
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Deputy Voting Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `12_curated_votacoes_votos`
+# MAGIC
+# MAGIC Consolidates, enriches and validates deputy voting records from the
+# MAGIC Silver Base layer.
+# MAGIC
+# MAGIC This notebook transforms `silver_base.votacoes_votos` into a curated and
+# MAGIC analytics-ready voting behavior dataset. The resulting table represents the
+# MAGIC relationship between deputies and voting sessions, preserving party, UF,
+# MAGIC legislature and vote information for downstream Gold fact modeling.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Consolidate standardized deputy voting attributes from Silver Base
+# MAGIC - Normalize vote values into curated analytical categories
+# MAGIC - Create analytical voting behavior flags
+# MAGIC - Preserve deputy, party, UF, legislature and voting relationships
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Validate curated-level uniqueness
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.votacoes_votos`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.votacoes_votos`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Source for deputy voting behavior and political alignment modeling
 
 # COMMAND ----------
 

@@ -1,40 +1,37 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 05_curated_votacoes
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, standardizes, enriches and validates voting session data
-# from Silver Base.
-#
-# Context:
-# This notebook transforms silver_base.votacoes into a curated and
-# analytics-ready voting dataset. The resulting table centralizes voting
-# metadata, voting results, approval status, proposition relationship, event
-# relationship and legislative organization context.
-#
-# Responsibilities:
-# - Consolidate standardized voting attributes from Silver Base
-# - Create analytical voting flags and voting result indicators
-# - Preserve proposition, event and organization relationships
-# - Preserve voting result counts
-# - Preserve complete lineage and traceability columns
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
-#
-# Source:
-# silver_base.votacoes
-#
-# Target:
-# silver_curated.votacoes
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Partitioned by voting reference year
-# - Ready for voting analytics and Gold fact modeling
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Voting Session Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `10_curated_votacoes`
+# MAGIC
+# MAGIC Consolidates, standardizes, enriches and validates voting session data
+# MAGIC from the Silver Base layer.
+# MAGIC
+# MAGIC This notebook transforms `silver_base.votacoes` into a curated and
+# MAGIC analytics-ready voting dataset. The resulting table centralizes voting
+# MAGIC metadata, voting results, approval status, proposition relationships,
+# MAGIC event relationships and legislative organization context.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Consolidate standardized voting attributes from Silver Base
+# MAGIC - Create analytical voting flags and voting result indicators
+# MAGIC - Preserve proposition, event and organization relationships
+# MAGIC - Preserve voting result counts
+# MAGIC - Preserve complete lineage and traceability columns
+# MAGIC - Validate curated-level uniqueness
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.votacoes`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.votacoes`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Partitioned by voting reference year
+# MAGIC - Ready for voting analytics and Gold fact modeling
 
 # COMMAND ----------
 

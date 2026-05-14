@@ -1,39 +1,36 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 09_curated_orgaos
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, enriches and validates legislative organization
-# data from Silver Base.
-#
-# Context:
-# This notebook transforms silver_base.orgaos into a curated and analytics-ready
-# organization dataset. The resulting table centralizes legislative bodies such
-# as plenary, committees and other Câmara organizations for downstream
-# dimensional modeling and relationship analysis.
-#
-# Responsibilities:
-# - Consolidate standardized organization attributes from Silver Base
-# - Curate organization type classification indicators
-# - Create analytical organization flags
-# - Preserve organization identifiers and relationships
-# - Preserve lineage and traceability columns
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
-#
-# Source:
-# silver_base.orgaos
-#
-# Target:
-# silver_curated.orgaos
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Ready for organization dimension modeling
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Legislative Organization Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `08_curated_orgaos`
+# MAGIC
+# MAGIC Consolidates, enriches and validates legislative organization
+# MAGIC data from the Silver Base layer.
+# MAGIC
+# MAGIC This notebook transforms `silver_base.orgaos` into a curated and analytics-ready
+# MAGIC organization dataset. The resulting table centralizes legislative bodies such
+# MAGIC as plenary sessions, committees and other Câmara organizations for downstream
+# MAGIC dimensional modeling and relationship analysis.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Consolidate standardized organization attributes from Silver Base
+# MAGIC - Curate organization type classification indicators
+# MAGIC - Create analytical organization flags
+# MAGIC - Preserve organization identifiers and relationships
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Validate curated-level uniqueness
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.orgaos`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.orgaos`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Ready for organization dimension modeling
 
 # COMMAND ----------
 

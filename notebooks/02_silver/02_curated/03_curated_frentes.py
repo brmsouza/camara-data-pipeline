@@ -1,38 +1,35 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 11_curated_frentes
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, enriches and validates parliamentary front data
-# from Silver Base.
-#
-# Context:
-# This notebook transforms silver_base.frentes into a curated and analytics-ready
-# parliamentary front dataset. The resulting table supports downstream analysis
-# of thematic political groups, parliamentary coalitions and relationships
-# between fronts, deputies, expenses and voting behavior.
-#
-# Responsibilities:
-# - Consolidate standardized parliamentary front attributes from Silver Base
-# - Preserve legislature relationships
-# - Create analytical thematic classification flags
-# - Preserve complete lineage and traceability columns
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
-#
-# Source:
-# silver_base.frentes
-#
-# Target:
-# silver_curated.frentes
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Ready for parliamentary front dimension modeling
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Parliamentary Front Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `03_curated_frentes`
+# MAGIC
+# MAGIC Consolidates, enriches and validates parliamentary front data
+# MAGIC from the Silver Base layer.
+# MAGIC
+# MAGIC This notebook transforms `silver_base.frentes` into a curated and
+# MAGIC analytics-ready parliamentary front dataset. The resulting table supports
+# MAGIC downstream analysis of thematic political groups, parliamentary coalitions
+# MAGIC and relationships between fronts, deputies, expenses and voting behavior.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Consolidate standardized parliamentary front attributes from Silver Base
+# MAGIC - Preserve legislature relationships
+# MAGIC - Create analytical thematic classification flags
+# MAGIC - Preserve complete lineage and traceability columns
+# MAGIC - Validate curated-level uniqueness
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.frentes`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.frentes`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Ready for parliamentary front dimension modeling
 
 # COMMAND ----------
 

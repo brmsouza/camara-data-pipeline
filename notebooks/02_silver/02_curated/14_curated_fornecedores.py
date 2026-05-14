@@ -1,38 +1,34 @@
 # Databricks notebook source
-# Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 14_curated_fornecedores
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Builds the curated supplier dataset enriched with public CNPJ validation data.
-#
-# Context:
-# This notebook reads supplier records from Silver Base, prioritizes CNPJ
-# suppliers based on CEAP expense usage, validates selected CNPJs using a public
-# CNPJ API utility, and creates analytical flags for supplier registration
-# status and potential suspicious documents.
-#
-# Grain:
-# One row per supplier document.
-#
-# Responsibilities:
-# - Read standardized supplier records from Silver Base
-# - Prioritize CNPJ suppliers based on CEAP usage
-# - Validate selected CNPJs using public API enrichment
-# - Create analytical supplier status and suspicion flags
-# - Preserve lineage metadata
-# - Validate curated entity consistency
-# - Persist Silver Curated Delta table
-# - Register operational execution metrics
-#
-# Source:
-# silver_base.fornecedores
-#
-# Target:
-# silver_curated.fornecedores
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Supplier Consolidation and CNPJ Enrichment
+# MAGIC
+# MAGIC **Notebook:** `14_curated_fornecedores`
+# MAGIC
+# MAGIC Builds the curated supplier dataset enriched with public CNPJ validation data.
+# MAGIC
+# MAGIC This notebook reads supplier records from the Silver Base layer, prioritizes
+# MAGIC CNPJ suppliers based on CEAP expense usage, validates selected CNPJs using
+# MAGIC public enrichment utilities and creates analytical flags related to supplier
+# MAGIC registration status and potentially suspicious supplier documents.
+# MAGIC
+# MAGIC ## Grain
+# MAGIC
+# MAGIC One row per supplier document.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read standardized supplier records from Silver Base
+# MAGIC - Prioritize CNPJ suppliers based on CEAP expense usage
+# MAGIC - Validate selected CNPJs using public API enrichment
+# MAGIC - Create analytical supplier status and suspicion flags
+# MAGIC - Preserve lineage metadata
+# MAGIC - Validate curated entity consistency
+# MAGIC - Persist curated Delta tables
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.fornecedores`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.fornecedores`
 
 # COMMAND ----------
 

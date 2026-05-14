@@ -1,42 +1,39 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 04_curated_eventos
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, enriches and validates legislative event data
-# from Silver Base.
-#
-# Context:
-# This notebook transforms silver_base.eventos into a curated and
-# analytics-ready event dataset. The resulting table centralizes Câmara event
-# information such as sessions, meetings, public hearings and committee events,
-# enabling downstream analysis of parliamentary presence, legislative agenda,
-# voting context and institutional activity.
-#
-# Responsibilities:
-# - Consolidate standardized event attributes from Silver Base
-# - Curate event type, situation and location indicators
-# - Create analytical event flags
-# - Extract primary organization information from event organization array
-# - Preserve event temporal attributes and technical validation flags
-# - Preserve lineage and traceability columns
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
-#
-# Source:
-# silver_base.eventos
-#
-# Target:
-# silver_curated.eventos
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Partitioned by event reference year
-# - Ready for presence, agenda and voting-context Gold modeling
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Legislative Event Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `04_curated_eventos`
+# MAGIC
+# MAGIC Consolidates, enriches and validates legislative event data
+# MAGIC from the Silver Base layer.
+# MAGIC
+# MAGIC This notebook transforms `silver_base.eventos` into a curated and
+# MAGIC analytics-ready legislative event dataset. The resulting table centralizes
+# MAGIC Câmara event information such as parliamentary sessions, meetings, public
+# MAGIC hearings and committee events, enabling downstream analysis of parliamentary
+# MAGIC attendance, legislative agenda, voting context and institutional activity.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Consolidate standardized event attributes from Silver Base
+# MAGIC - Curate event type, status and location indicators
+# MAGIC - Create analytical event flags
+# MAGIC - Extract primary organization information from event organization arrays
+# MAGIC - Preserve event temporal attributes and technical validation flags
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Validate curated-level uniqueness
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.eventos`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.eventos`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Partitioned by event reference year
+# MAGIC - Ready for attendance, legislative agenda and voting-context Gold modeling
 
 # COMMAND ----------
 

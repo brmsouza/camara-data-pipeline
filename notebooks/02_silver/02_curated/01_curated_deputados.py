@@ -1,56 +1,58 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 01_curated_deputados
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, enriches and validates parliamentary deputy data for the
-# Silver Curated layer.
-#
-# Context:
-# This notebook integrates standardized datasets from:
-# - 01_base_deputados
-# - 02_base_deputados_detalhes
-#
-# The objective is to create a consolidated and analytics-ready deputy entity
-# containing parliamentary identity, political affiliation, federation,
-# personal profile, contact, office and status information.
-#
-# The resulting dataset becomes the trusted deputy reference entity for:
-# - Gold dimension modeling
-# - parliamentary analytics
-# - CEAP analysis
-# - voting analysis
-# - engagement and transparency indicators
-#
-# Grain:
-# One row per deputy.
-#
-# Responsibilities:
-# - Read and integrate Silver Base deputy datasets
-# - Consolidate standardized deputy attributes
-# - Resolve fallback attributes between source datasets
-# - Preserve deputy, party and legislature relationships
-# - Create business-friendly descriptive attributes
-# - Preserve technical validation and quality flags from Silver Base
-# - Preserve lineage, audit and processing metadata
-# - Validate curated-level uniqueness and consistency
-# - Persist a curated Delta table for Gold consumption
-#
-# Sources:
-# silver_base.deputados
-# silver_base.deputados_detalhes
-#
-# Target:
-# silver_curated.deputados
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Supports Gold dimensional modeling
-# - Preserves Bronze lineage metadata through Silver layers
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Deputy Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `01_curated_deputados`
+# MAGIC
+# MAGIC Consolidates, enriches and validates parliamentary deputy data for the
+# MAGIC Silver Curated layer.
+# MAGIC
+# MAGIC This notebook integrates standardized datasets from:
+# MAGIC
+# MAGIC - `01_base_deputados`
+# MAGIC - `02_base_deputados_detalhes`
+# MAGIC
+# MAGIC The objective is to create a consolidated and analytics-ready deputy entity
+# MAGIC containing parliamentary identity, political affiliation, federation,
+# MAGIC personal profile, contact, office and status information.
+# MAGIC
+# MAGIC The resulting dataset becomes the trusted deputy reference entity for:
+# MAGIC
+# MAGIC - Gold dimension modeling
+# MAGIC - parliamentary analytics
+# MAGIC - CEAP analysis
+# MAGIC - voting analysis
+# MAGIC - engagement and transparency indicators
+# MAGIC
+# MAGIC ## Grain
+# MAGIC
+# MAGIC One row per deputy.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read and integrate Silver Base deputy datasets
+# MAGIC - Consolidate standardized deputy attributes
+# MAGIC - Resolve fallback attributes between source datasets
+# MAGIC - Preserve deputy, party and legislature relationships
+# MAGIC - Create business-friendly descriptive attributes
+# MAGIC - Preserve technical validation and quality flags from Silver Base
+# MAGIC - Preserve lineage, audit and processing metadata
+# MAGIC - Validate curated-level uniqueness and consistency
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `silver_base.deputados`
+# MAGIC - `silver_base.deputados_detalhes`
+# MAGIC
+# MAGIC **Target:** `silver_curated.deputados`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Supports Gold dimensional modeling
+# MAGIC - Preserves Bronze lineage metadata through Silver layers
 
 # COMMAND ----------
 

@@ -1,41 +1,38 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 12_curated_frentes_membros
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, enriches and validates parliamentary front
-# membership data from Silver Base.
-#
-# Context:
-# This notebook transforms silver_base.frentes_membros into a curated and
-# analytics-ready dataset representing the relationship between deputies and
-# parliamentary fronts. The resulting table supports downstream analysis of
-# thematic participation, political grouping, parliamentary coalitions and
-# correlation with votes and expenses.
-#
-# Responsibilities:
-# - Consolidate standardized parliamentary front membership attributes from Silver Base
-# - Curate membership role and status indicators
-# - Create analytical membership flags
-# - Preserve deputy, party, UF, legislature and front relationships
-# - Preserve membership temporal attributes and technical validation flags
-# - Preserve complete lineage and traceability columns
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
-#
-# Source:
-# silver_base.frentes_membros
-#
-# Target:
-# silver_curated.frentes_membros
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Source for parliamentary front participation and coalition analytics
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Parliamentary Front Membership Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `05_curated_frentes_membros`
+# MAGIC
+# MAGIC Consolidates, enriches and validates parliamentary front
+# MAGIC membership data from the Silver Base layer.
+# MAGIC
+# MAGIC This notebook transforms `silver_base.frentes_membros` into a curated and
+# MAGIC analytics-ready dataset representing the relationship between deputies and
+# MAGIC parliamentary fronts. The resulting table supports downstream analysis of
+# MAGIC thematic participation, political grouping, parliamentary coalitions and
+# MAGIC correlation with votes and expenses.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Consolidate standardized parliamentary front membership attributes from Silver Base
+# MAGIC - Curate membership role and status indicators
+# MAGIC - Create analytical membership flags
+# MAGIC - Preserve deputy, party, UF, legislature and parliamentary front relationships
+# MAGIC - Preserve membership temporal attributes and technical validation flags
+# MAGIC - Preserve complete lineage and traceability columns
+# MAGIC - Validate curated-level uniqueness
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.frentes_membros`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.frentes_membros`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Source for parliamentary front participation and coalition analytics
 
 # COMMAND ----------
 

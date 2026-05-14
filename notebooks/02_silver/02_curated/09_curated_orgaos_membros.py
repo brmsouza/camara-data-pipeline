@@ -1,39 +1,37 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 10_curated_orgaos_membros
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, enriches and validates legislative organization
-# membership data from Silver Base.
-#
-# Context:
-# This notebook transforms silver_base.orgaos_membros into a curated and
-# analytics-ready dataset representing the relationship between deputies and
-# legislative organizations such as committees, plenary and governing bodies.
-#
-# Responsibilities:
-# - Consolidate standardized organization membership attributes from Silver Base
-# - Curate membership role and status indicators
-# - Create analytical membership flags
-# - Preserve deputy, party, UF and organization relationships
-# - Preserve membership temporal attributes and technical validation flags
-# - Preserve complete lineage and traceability columns
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
-#
-# Source:
-# silver_base.orgaos_membros
-#
-# Target:
-# silver_curated.orgaos_membros
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Source for committee participation and organizational analytics
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Legislative Organization Membership Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `09_curated_orgaos_membros`
+# MAGIC
+# MAGIC Consolidates, enriches and validates legislative organization
+# MAGIC membership data from the Silver Base layer.
+# MAGIC
+# MAGIC This notebook transforms `silver_base.orgaos_membros` into a curated and
+# MAGIC analytics-ready dataset representing the relationship between deputies and
+# MAGIC legislative organizations such as committees, plenary sessions and governing
+# MAGIC bodies.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Consolidate standardized organization membership attributes from Silver Base
+# MAGIC - Curate membership role and status indicators
+# MAGIC - Create analytical membership flags
+# MAGIC - Preserve deputy, party, UF and organization relationships
+# MAGIC - Preserve membership temporal attributes and technical validation flags
+# MAGIC - Preserve complete lineage and traceability columns
+# MAGIC - Validate curated-level uniqueness
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.orgaos_membros`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.orgaos_membros`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Source for committee participation and organizational analytics
 
 # COMMAND ----------
 

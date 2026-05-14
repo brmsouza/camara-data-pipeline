@@ -1,33 +1,29 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 14_curated_proposicoes_tramitacoes_scd2
-# Layer: Silver Curated CDC
-# Author: Bruno Souza
-#
-# Description:
-# Builds the SCD Type 2 historical table for proposicoes tramitacoes.
-#
-# Context:
-# This notebook reads normalized CDC records from Silver CDC Base and creates
-# a temporal historical table using SCD Type 2 logic. Each change is tracked
-# using payload hash comparison, preserving historical versions with validity
-# intervals.
-#
-# Responsibilities:
-# - Read normalized tramitacoes CDC records from Silver CDC Base
-# - Validate required CDC and temporal attributes
-# - Preserve historical changes using SCD Type 2
-# - Close previous active versions when changes are detected
-# - Insert new current versions
-# - Persist rejected records
-# - Register operational execution metrics
-#
-# Source:
-# silver_cdc.proposicoes_tramitacoes_base
-#
-# Target:
-# silver_cdc.proposicoes_tramitacoes_scd2
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated CDC Layer — Proposition Tramitacoes SCD Type 2 Historization
+# MAGIC
+# MAGIC **Notebook:** `15_curated_proposicoes_tramitacoes_scd2`
+# MAGIC
+# MAGIC Builds the SCD Type 2 historical table for proposition tramitacoes.
+# MAGIC
+# MAGIC This notebook reads normalized CDC records from the Silver CDC Base layer and
+# MAGIC creates a temporal historical table using SCD Type 2 historization logic.
+# MAGIC Each detected change is tracked using payload hash comparison, preserving
+# MAGIC historical versions together with validity intervals.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read normalized proposition tramitacao CDC records from Silver CDC Base
+# MAGIC - Validate required CDC and temporal attributes
+# MAGIC - Preserve historical changes using SCD Type 2 logic
+# MAGIC - Close previous active versions when changes are detected
+# MAGIC - Insert new current versions
+# MAGIC - Persist rejected records for quality auditing
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_cdc.proposicoes_tramitacoes_base`  
+# MAGIC
+# MAGIC **Target:** `silver_cdc.proposicoes_tramitacoes_scd2`
 
 # COMMAND ----------
 

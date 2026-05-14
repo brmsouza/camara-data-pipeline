@@ -1,41 +1,39 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 03_curated_despesas
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, enriches and validates parliamentary expense data
-# from Silver Base.
-#
-# Context:
-# This notebook transforms silver_base.despesas into a curated and
-# analytics-ready expense dataset. The resulting table centralizes CEAP expense
-# records with financial values, supplier information, deputy references,
-# document metadata and analytical flags required for Gold fact modeling.
-#
-# Responsibilities:
-# - Consolidate standardized expense attributes from Silver Base
-# - Preserve financial values and document references
-# - Preserve supplier, deputy and legislature relationships
-# - Preserve technical validation flags from Silver Base
-# - Create analytical expense flags
-# - Preserve lineage and traceability columns
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
-#
-# Source:
-# silver_base.despesas
-#
-# Target:
-# silver_curated.despesas
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Partitioned by expense year
-# - Ready for CEAP financial analytics and Gold modeling
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — CEAP Expense Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `07_curated_despesas`
+# MAGIC
+# MAGIC Consolidates, enriches and validates parliamentary expense data
+# MAGIC from the Silver Base layer.
+# MAGIC
+# MAGIC This notebook transforms `silver_base.despesas` into a curated and
+# MAGIC analytics-ready expense dataset. The resulting table centralizes CEAP expense
+# MAGIC records with financial values, supplier information, deputy references,
+# MAGIC document metadata and analytical flags required for downstream Gold fact
+# MAGIC modeling.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Consolidate standardized expense attributes from Silver Base
+# MAGIC - Preserve financial values and document references
+# MAGIC - Preserve supplier, deputy and legislature relationships
+# MAGIC - Preserve technical validation flags from Silver Base
+# MAGIC - Create analytical expense flags
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Validate curated-level uniqueness
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.despesas`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.despesas`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Partitioned by expense year
+# MAGIC - Ready for CEAP financial analytics and Gold modeling
 
 # COMMAND ----------
 

@@ -1,40 +1,37 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 05_curated_proposicoes
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, enriches and validates legislative proposition data
-# from Silver Base.
-#
-# Context:
-# This notebook transforms silver_base.proposicoes into a curated and
-# analytics-ready proposition dataset. The resulting table centralizes
-# proposition metadata, legislative status, proposition lifecycle and
-# parliamentary processing information used downstream in Gold fact tables,
-# legislative analytics and voting correlation analysis.
-#
-# Responsibilities:
-# - Consolidate standardized proposition attributes from Silver Base
-# - Curate legislative status and proposition type indicators
-# - Create analytical proposition flags
-# - Create proposition lifecycle indicators
-# - Preserve lineage and traceability columns
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
-#
-# Source:
-# silver_base.proposicoes
-#
-# Target:
-# silver_curated.proposicoes
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Ready for legislative analytics and Gold modeling
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Legislative Proposition Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `06_curated_proposicoes`
+# MAGIC
+# MAGIC Consolidates, enriches and validates legislative proposition data
+# MAGIC from the Silver Base layer.
+# MAGIC
+# MAGIC This notebook transforms `silver_base.proposicoes` into a curated and
+# MAGIC analytics-ready proposition dataset. The resulting table centralizes
+# MAGIC proposition metadata, legislative status, proposition lifecycle and
+# MAGIC parliamentary processing information used downstream in Gold fact tables,
+# MAGIC legislative analytics and voting correlation analysis.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Consolidate standardized proposition attributes from Silver Base
+# MAGIC - Curate legislative status and proposition type indicators
+# MAGIC - Create analytical proposition flags
+# MAGIC - Create proposition lifecycle indicators
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Validate curated-level uniqueness
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.proposicoes`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.proposicoes`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Ready for legislative analytics and Gold modeling
 
 # COMMAND ----------
 

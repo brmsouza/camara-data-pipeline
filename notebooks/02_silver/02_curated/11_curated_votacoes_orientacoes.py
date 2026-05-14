@@ -1,38 +1,36 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 08_curated_votacoes_orientacoes
-# Layer: Silver Curated
-# Author: Bruno Souza
-#
-# Description:
-# Consolidates, enriches and validates voting orientation data from Silver Base.
-#
-# Context:
-# This notebook transforms silver_base.votacoes_orientacoes into a curated and
-# analytics-ready dataset representing party, bloc and bench voting orientations.
-# The resulting table supports downstream comparison between official political
-# orientation and individual deputy votes.
-#
-# Responsibilities:
-# - Consolidate standardized voting orientation attributes from Silver Base
-# - Normalize voting orientation values into curated analytical categories
-# - Create analytical orientation flags
-# - Preserve voting, organization and bench relationships
-# - Preserve lineage and traceability columns
-# - Validate curated-level uniqueness
-# - Persist Delta table for Gold consumption
-#
-# Source:
-# silver_base.votacoes_orientacoes
-#
-# Target:
-# silver_curated.votacoes_orientacoes
-#
-# Notes:
-# - Idempotent execution
-# - Delta Lake format
-# - Source for political alignment and party discipline modeling
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Silver Curated Layer — Voting Orientation Consolidation and Enrichment
+# MAGIC
+# MAGIC **Notebook:** `11_curated_votacoes_orientacoes`
+# MAGIC
+# MAGIC Consolidates, enriches and validates voting orientation data from the
+# MAGIC Silver Base layer.
+# MAGIC
+# MAGIC This notebook transforms `silver_base.votacoes_orientacoes` into a curated and
+# MAGIC analytics-ready dataset representing party, parliamentary bloc and bancada
+# MAGIC voting orientations. The resulting table supports downstream comparison between
+# MAGIC official political orientations and individual deputy votes.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Consolidate standardized voting orientation attributes from Silver Base
+# MAGIC - Normalize voting orientation values into curated analytical categories
+# MAGIC - Create analytical orientation flags
+# MAGIC - Preserve voting, organization and bancada relationships
+# MAGIC - Preserve lineage and traceability columns
+# MAGIC - Validate curated-level uniqueness
+# MAGIC - Persist curated Delta tables for Gold consumption
+# MAGIC
+# MAGIC **Source of truth:** `silver_base.votacoes_orientacoes`  
+# MAGIC
+# MAGIC **Target:** `silver_curated.votacoes_orientacoes`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake format
+# MAGIC - Source for political alignment and party discipline modeling
 
 # COMMAND ----------
 
