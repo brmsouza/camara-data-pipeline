@@ -1,4 +1,39 @@
 # Databricks notebook source
+# MAGIC %md
+# MAGIC # Bronze Layer — Deputy Details API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `02_ingest_deputados_detalhes`  
+# MAGIC **Endpoint:** `/deputados/{id}`
+# MAGIC
+# MAGIC Retrieves detailed information for each deputy using the individual deputy
+# MAGIC endpoint based on previously ingested deputy identifiers.
+# MAGIC
+# MAGIC This notebook complements the base deputies dataset by enriching records with
+# MAGIC additional deputy-level attributes required for downstream Silver and Gold
+# MAGIC analytical processing.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Retrieve detailed deputy information from the Câmara Open Data API
+# MAGIC - Execute one API request per deputy identifier
+# MAGIC - Enrich deputy records with individual-level attributes
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load, non-incremental ingestion
+# MAGIC - One API call per deputy, higher latency expected
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze deputy details ingestion tables
+
+# COMMAND ----------
+
 # ------------------------------------------------------------------------------
 # Notebook: 02_ingest_deputados_detalhes
 # Layer: Bronze

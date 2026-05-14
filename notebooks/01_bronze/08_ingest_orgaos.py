@@ -1,25 +1,39 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 08_ingest_orgaos
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests legislative bodies data from the Câmara dos Deputados API
-# using the /orgaos endpoint.
-#
-# Context:
-# Legislative bodies are treated as reference entities with validity periods.
-# A broad historical date range is used instead of SELECT_ANOS to avoid
-# losing inactive or historical records.
-#
-# Notes:
-# - Full load with historical date range
-# - Manual pagination using pagina and itens parameters
-# - Data ordered by id for stable extraction
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Legislative Bodies API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `08_ingest_orgaos`  
+# MAGIC **Endpoint:** `/orgaos`
+# MAGIC
+# MAGIC Ingests legislative bodies data from the Câmara dos Deputados Open Data API
+# MAGIC using the legislative bodies endpoint.
+# MAGIC
+# MAGIC This notebook extracts legislative bodies as reference entities with historical
+# MAGIC validity periods. A broad historical extraction range is used instead of
+# MAGIC `SELECT_ANOS` to avoid losing inactive, archived or historical organizational
+# MAGIC records.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Extract legislative body records from the Câmara Open Data API
+# MAGIC - Retrieve historical and active organizational entities
+# MAGIC - Handle manual pagination using `pagina` and `itens`
+# MAGIC - Preserve stable extraction ordering using organizational identifiers
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load using broad historical date ranges
+# MAGIC - Manual pagination using `pagina` and `itens` parameters
+# MAGIC - Data ordered by identifier for stable extraction
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze legislative bodies ingestion tables
 
 # COMMAND ----------
 

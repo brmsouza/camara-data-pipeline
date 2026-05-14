@@ -1,25 +1,39 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 11_ingest_votacoes_orientacoes
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests voting guidance data from the Câmara dos Deputados API
-# using the /votacoes/{id}/orientacoes endpoint.
-#
-# Context:
-# Complements the voting sessions dataset by retrieving party or bloc
-# voting guidance for each voting session previously ingested in Bronze.
-#
-# Notes:
-# - Full load based on previously ingested voting IDs
-# - One API request per voting session
-# - Controlled parallelism is used to reduce execution time
-# - Each record is enriched with id_votacao
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Voting Guidance API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `11_ingest_votacoes_orientacoes`  
+# MAGIC **Endpoint:** `/votacoes/{id}/orientacoes`
+# MAGIC
+# MAGIC Ingests voting guidance data from the Câmara dos Deputados Open Data API
+# MAGIC using the voting guidance endpoint.
+# MAGIC
+# MAGIC This notebook complements the voting sessions dataset by retrieving political
+# MAGIC party and parliamentary bloc voting guidance for each voting session previously
+# MAGIC ingested in the Bronze layer.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Retrieve voting guidance records from the Câmara Open Data API
+# MAGIC - Execute one API request per voting session identifier
+# MAGIC - Support controlled parallel extraction workflows
+# MAGIC - Enrich records with voting session identifiers
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load based on previously ingested voting session identifiers
+# MAGIC - One API request per voting session
+# MAGIC - Controlled parallelism used to reduce execution time
+# MAGIC - Each record enriched with `id_votacao`
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze voting guidance ingestion tables
 
 # COMMAND ----------
 

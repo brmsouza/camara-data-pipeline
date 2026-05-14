@@ -1,13 +1,38 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 99_ingest_votacoes_microbatch
-# Layer: Bronze Stream
-#
-# Description:get_data
-# Incremental micro-batch ingestion for voting events from /votacoes endpoint.
-# Uses offset control by voting ID and persists raw payloads into Bronze Stream.
-# ------------------------------------------------------------------------------
-
+# MAGIC %md
+# MAGIC # Bronze Stream Layer — Voting Micro-Batch Ingestion
+# MAGIC
+# MAGIC **Notebook:** `99_ingest_votacoes_microbatch`  
+# MAGIC **Endpoint:** `/votacoes`
+# MAGIC
+# MAGIC Performs incremental micro-batch ingestion of parliamentary voting events
+# MAGIC from the Câmara dos Deputados Open Data API.
+# MAGIC
+# MAGIC This notebook implements the streaming ingestion entry point for near real-time
+# MAGIC voting analytics, using offset control based on voting identifiers to detect
+# MAGIC new voting events and persist raw payloads into Bronze Stream Delta tables.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Perform incremental micro-batch ingestion of voting events
+# MAGIC - Consume the `/votacoes` endpoint using offset-based control
+# MAGIC - Detect new voting sessions using voting identifiers
+# MAGIC - Preserve raw API payloads for replayability and auditing
+# MAGIC - Persist streaming ingestion records into Bronze Stream Delta tables
+# MAGIC - Support near real-time parliamentary voting analytics
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and recovery of streaming micro-batches
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Incremental micro-batch ingestion pipeline
+# MAGIC - Uses offset control based on voting identifiers
+# MAGIC - Persists raw payloads into Bronze Stream Delta tables
+# MAGIC - Supports streaming replay and recovery workflows
+# MAGIC - Data persisted in Delta Lake
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze Stream voting ingestion tables
 
 # COMMAND ----------
 

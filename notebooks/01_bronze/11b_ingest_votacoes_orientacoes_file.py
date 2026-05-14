@@ -1,25 +1,39 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 11b_ingest_votacoes_orientacoes_file
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests voting guidance data from CSV files stored in the
-# Unity Catalog volume.
-#
-# Context:
-# File-based ingestion is used as an alternative to the API pipeline for
-# voting guidance loads, reducing execution time while preserving Bronze metadata.
-#
-# Notes:
-# - Full load from CSV files
-# - Source files are read from Unity Catalog volume
-# - File path is captured using Unity Catalog metadata
-# - Each record is enriched with ano_referencia extracted from the file name
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Voting Guidance File Ingestion
+# MAGIC
+# MAGIC **Notebook:** `11b_ingest_votacoes_orientacoes_file`  
+# MAGIC **Source:** Unity Catalog volume CSV files
+# MAGIC
+# MAGIC Ingests voting guidance data from CSV files stored in the
+# MAGIC Unity Catalog volume.
+# MAGIC
+# MAGIC This notebook provides a file-based ingestion alternative to the API extraction
+# MAGIC pipeline for voting guidance datasets, reducing execution time while preserving
+# MAGIC Bronze metadata, traceability and replayability standards.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read voting guidance CSV files from Unity Catalog volumes
+# MAGIC - Support high-volume voting guidance ingestion workflows
+# MAGIC - Capture source file paths using Unity Catalog metadata
+# MAGIC - Enrich records with reference year extracted from file names
+# MAGIC - Preserve raw ingestion payload structure with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load from CSV files
+# MAGIC - Source files read from Unity Catalog volumes
+# MAGIC - File paths captured using Unity Catalog metadata
+# MAGIC - Each record enriched with `ano_referencia` extracted from the file name
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze voting guidance ingestion tables
 
 # COMMAND ----------
 

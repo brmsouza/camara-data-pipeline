@@ -1,22 +1,34 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 01_ingest_deputados
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests deputies data from the Câmara dos Deputados API (/deputados),
-# retrieving records per legislature defined in LEGISLATURAS_PADRAO.
-#
-# Context:
-# Part of the Bronze layer, storing raw data with minimal transformation,
-# including technical metadata for traceability and reprocessing.
-#
-# Notes:
-# - Full load (non-incremental)
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Deputies API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `01_ingest_deputados`  
+# MAGIC **Endpoint:** `/deputados`
+# MAGIC
+# MAGIC Ingests deputies data from the Câmara dos Deputados Open Data API,
+# MAGIC retrieving records per legislature defined in `LEGISLATURAS_PADRAO`.
+# MAGIC
+# MAGIC This notebook is part of the Bronze ingestion layer, persisting raw deputy
+# MAGIC records with minimal transformation and preserving technical metadata required
+# MAGIC for traceability, auditing and reprocessing workflows.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Extract deputy records from the Câmara Open Data API
+# MAGIC - Retrieve deputies by configured legislatures
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load, non-incremental ingestion
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze deputy ingestion tables
 
 # COMMAND ----------
 

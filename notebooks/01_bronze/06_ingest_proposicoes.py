@@ -1,24 +1,39 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 06_ingest_proposicoes
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests legislative propositions data from the Câmara dos Deputados API
-# using the /proposicoes endpoint.
-#
-# Context:
-# Propositions are extracted by year to control API volume, improve
-# reliability and support partial reprocessing when a specific year fails.
-#
-# Notes:
-# - Full load by configured years
-# - Data retrieved with pagination and retry support
-# - Each record is enriched with ano_referencia
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Legislative Propositions API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `06_ingest_proposicoes`  
+# MAGIC **Endpoint:** `/proposicoes`
+# MAGIC
+# MAGIC Ingests legislative propositions data from the Câmara dos Deputados Open Data
+# MAGIC API using the legislative propositions endpoint.
+# MAGIC
+# MAGIC This notebook extracts propositions by configured reference years to control
+# MAGIC API volume, improve extraction reliability and support partial reprocessing
+# MAGIC when failures occur for specific years.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Extract legislative proposition records from the Câmara Open Data API
+# MAGIC - Retrieve propositions by configured reference years
+# MAGIC - Handle paginated API extraction workflows
+# MAGIC - Apply retry logic for resilient ingestion execution
+# MAGIC - Enrich records with reference year metadata
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load using configured reference years
+# MAGIC - Data retrieved with pagination and retry support
+# MAGIC - Each record enriched with `ano_referencia`
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze legislative propositions ingestion tables
 
 # COMMAND ----------
 

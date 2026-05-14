@@ -1,23 +1,35 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 03_ingest_frentes
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests parliamentary fronts data from the Câmara dos Deputados API
-# using the /frentes endpoint.
-#
-# Context:
-# Provides the base dataset for parliamentary front analysis, including
-# downstream joins with members, deputies, parties and legislatures.
-#
-# Notes:
-# - Full load (non-incremental)
-# - Data retrieved with pagination support
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Parliamentary Fronts API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `03_ingest_frentes`  
+# MAGIC **Endpoint:** `/frentes`
+# MAGIC
+# MAGIC Ingests parliamentary fronts data from the Câmara dos Deputados Open Data API
+# MAGIC using the parliamentary fronts endpoint.
+# MAGIC
+# MAGIC This notebook provides the base dataset required for parliamentary front
+# MAGIC analysis, supporting downstream joins with members, deputies, political parties
+# MAGIC and legislatures across Silver and Gold analytical layers.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Extract parliamentary front records from the Câmara Open Data API
+# MAGIC - Handle paginated API retrieval workflows
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load, non-incremental ingestion
+# MAGIC - Data retrieved with pagination support
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze parliamentary fronts ingestion tables
 
 # COMMAND ----------
 

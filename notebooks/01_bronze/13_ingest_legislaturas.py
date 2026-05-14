@@ -1,30 +1,32 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 13_ingest_legislaturas
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests legislature reference data from the Câmara dos Deputados Open Data API.
-#
-# Context:
-# This notebook consumes the /legislaturas endpoint, which provides basic
-# information about parliamentary legislature periods. The resulting Bronze
-# table preserves the source payload with technical metadata for replay,
-# auditability and downstream dimensional modeling.
-#
-# Responsibilities:
-# - Call the /legislaturas endpoint
-# - Extract legislature records from the API response
-# - Persist raw records with Bronze lineage metadata
-# - Register operational execution metrics
-#
-# Source:
-# API Dados Abertos Câmara dos Deputados - /legislaturas
-#
-# Target:
-# bronze.legislaturas
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Legislature Reference API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `13_ingest_legislaturas`  
+# MAGIC **Endpoint:** `/legislaturas`
+# MAGIC
+# MAGIC Ingests legislature reference data from the Câmara dos Deputados Open Data API.
+# MAGIC
+# MAGIC This notebook consumes the legislature reference endpoint, which provides
+# MAGIC basic information about parliamentary legislature periods. The resulting Bronze
+# MAGIC table preserves raw source payloads together with technical lineage metadata
+# MAGIC required for replayability, auditability and downstream dimensional modeling.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Call the legislature reference endpoint from the Câmara Open Data API
+# MAGIC - Extract legislature records from API responses
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add Bronze lineage and ingestion metadata
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Source
+# MAGIC
+# MAGIC - Câmara dos Deputados Open Data API — `/legislaturas`
+# MAGIC
+# MAGIC **Target:** `bronze.legislaturas`
 
 # COMMAND ----------
 

@@ -1,22 +1,33 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 99_validate_bronze
-# Layer: Validation
-# Author: Bruno Souza
-#
-# Description:
-# Validates the Bronze layer after ingestion.
-#
-# Context:
-# Used to verify data availability, volume and basic consistency across
-# all Bronze tables before promoting data to Silver layer.
-#
-# Notes:
-# - Executes dynamic validation checks across Bronze tables
-# - Checks row counts, null source IDs and duplicate payload hashes
-# - Does not modify data
-# - Intended to be executed after all Bronze pipelines
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Validation Layer — Bronze Layer Validation
+# MAGIC
+# MAGIC **Notebook:** `99_validate_bronze`
+# MAGIC
+# MAGIC Validates the Bronze ingestion layer after pipeline execution.
+# MAGIC
+# MAGIC This notebook performs dynamic validation checks across Bronze ingestion
+# MAGIC tables to verify data availability, ingestion volume and basic consistency
+# MAGIC before promoting datasets to the Silver processing layer.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Validate Bronze ingestion table availability
+# MAGIC - Perform row count validation across Bronze datasets
+# MAGIC - Detect null source identifiers and ingestion inconsistencies
+# MAGIC - Detect duplicate payload hashes
+# MAGIC - Support ingestion quality verification workflows
+# MAGIC - Provide operational visibility for Bronze ingestion health
+# MAGIC - Support troubleshooting and reprocessing analysis
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Executes dynamic validation checks across Bronze tables
+# MAGIC - Checks row counts, null source identifiers and duplicate payload hashes
+# MAGIC - Does not modify data
+# MAGIC - Intended to be executed after all Bronze ingestion pipelines
+# MAGIC
+# MAGIC **Target:** Bronze validation and ingestion quality reports
 
 # COMMAND ----------
 

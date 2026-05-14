@@ -1,25 +1,40 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 07_ingest_despesas
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests parliamentary expense data from the Câmara dos Deputados API
-# using the /deputados/{id}/despesas endpoint.
-#
-# Context:
-# Expenses are extracted for each deputy and configured year, supporting
-# CEAP analysis by deputy, supplier, expense category and reference period.
-#
-# Notes:
-# - Full load by deputy and year
-# - Data retrieved with pagination and retry support
-# - Each record is enriched with id_deputado and ano_referencia
-# - One API extraction cycle per deputy/year combination
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Parliamentary Expenses API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `07_ingest_despesas`  
+# MAGIC **Endpoint:** `/deputados/{id}/despesas`
+# MAGIC
+# MAGIC Ingests parliamentary expense data from the Câmara dos Deputados Open Data API
+# MAGIC using the deputy expenses endpoint.
+# MAGIC
+# MAGIC This notebook extracts CEAP expense records for each deputy and configured
+# MAGIC reference year, supporting downstream analysis by deputy, supplier, expense
+# MAGIC category and reporting period.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Extract parliamentary expense records from the Câmara Open Data API
+# MAGIC - Retrieve CEAP expenses by deputy and reference year
+# MAGIC - Handle paginated API extraction workflows
+# MAGIC - Apply retry logic for resilient ingestion execution
+# MAGIC - Enrich records with deputy identifiers and reference year metadata
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load by deputy and reference year
+# MAGIC - Data retrieved with pagination and retry support
+# MAGIC - Each record enriched with `id_deputado` and `ano_referencia`
+# MAGIC - One API extraction cycle per deputy/year combination
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze parliamentary expenses ingestion tables
 
 # COMMAND ----------
 

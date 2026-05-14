@@ -1,25 +1,40 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 07b_ingest_despesas_file
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests parliamentary expense data from CSV files stored in the
-# Unity Catalog volume.
-#
-# Context:
-# File-based ingestion is used as an alternative to the API pipeline for
-# high-volume expense loads, reducing execution time while preserving Bronze metadata.
-#
-# Notes:
-# - Full load from CSV files
-# - Source files are processed by reference year
-# - File path is captured using Unity Catalog metadata
-# - Each record is enriched with ano_referencia extracted from the file name
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Parliamentary Expenses File Ingestion
+# MAGIC
+# MAGIC **Notebook:** `07b_ingest_despesas_file`  
+# MAGIC **Source:** Unity Catalog volume CSV files
+# MAGIC
+# MAGIC Ingests parliamentary expense data from CSV files stored in the
+# MAGIC Unity Catalog volume.
+# MAGIC
+# MAGIC This notebook provides a file-based ingestion alternative to the API extraction
+# MAGIC pipeline for high-volume CEAP expense loads, reducing execution time while
+# MAGIC preserving Bronze metadata, traceability and replayability standards.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read parliamentary expense CSV files from Unity Catalog volumes
+# MAGIC - Support high-volume CEAP expense ingestion workflows
+# MAGIC - Process source files by reference year
+# MAGIC - Capture source file paths using Unity Catalog metadata
+# MAGIC - Enrich records with reference year extracted from file names
+# MAGIC - Preserve raw ingestion payload structure with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load from CSV files
+# MAGIC - Source files processed by reference year
+# MAGIC - File paths captured using Unity Catalog metadata
+# MAGIC - Each record enriched with `ano_referencia` extracted from the file name
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze parliamentary expenses ingestion tables
 
 # COMMAND ----------
 

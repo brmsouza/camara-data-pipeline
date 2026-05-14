@@ -1,27 +1,41 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 09_ingest_orgaos_membros
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests members of legislative bodies from the Câmara dos Deputados API
-# using the /orgaos/{id}/membros endpoint.
-#
-# Context:
-# Complements the legislative bodies dataset by retrieving membership
-# relationships for each body previously ingested in the Bronze layer.
-# The extraction uses the configured analysis period because membership
-# is a temporal relationship.
-#
-# Notes:
-# - Full load by configured analysis period
-# - One API extraction cycle per legislative body
-# - Data retrieved with pagination and retry support
-# - Each record is enriched with id_orgao and reference date range
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Legislative Body Members API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `09_ingest_orgaos_membros`  
+# MAGIC **Endpoint:** `/orgaos/{id}/membros`
+# MAGIC
+# MAGIC Ingests members of legislative bodies from the Câmara dos Deputados Open Data
+# MAGIC API using the legislative body members endpoint.
+# MAGIC
+# MAGIC This notebook complements the legislative bodies dataset by retrieving
+# MAGIC membership relationships for each organizational entity previously ingested
+# MAGIC in the Bronze layer. The extraction uses the configured analysis period
+# MAGIC because membership is treated as a temporal relationship.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Retrieve legislative body membership records from the Câmara Open Data API
+# MAGIC - Execute one API extraction cycle per legislative body
+# MAGIC - Handle paginated API extraction workflows
+# MAGIC - Apply retry logic for resilient ingestion execution
+# MAGIC - Enrich records with legislative body identifiers and reference date ranges
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load using the configured analysis period
+# MAGIC - One API extraction cycle per legislative body
+# MAGIC - Data retrieved with pagination and retry support
+# MAGIC - Each record enriched with `id_orgao` and extraction reference date ranges
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze legislative body members ingestion tables
 
 # COMMAND ----------
 

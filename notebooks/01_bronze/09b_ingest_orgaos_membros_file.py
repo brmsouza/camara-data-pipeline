@@ -1,25 +1,37 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 09b_ingest_orgaos_membros_file
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests members of legislative bodies from CSV files stored in the
-# Unity Catalog volume.
-#
-# Context:
-# File-based ingestion is used as an alternative to the API pipeline for
-# high-volume membership loads, reducing execution time while preserving
-# Bronze metadata.
-#
-# Notes:
-# - Full load from CSV files
-# - Source files are read from Unity Catalog volume
-# - File path is captured using Unity Catalog metadata
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Legislative Body Members File Ingestion
+# MAGIC
+# MAGIC **Notebook:** `09b_ingest_orgaos_membros_file`  
+# MAGIC **Source:** Unity Catalog volume CSV files
+# MAGIC
+# MAGIC Ingests members of legislative bodies from CSV files stored in the
+# MAGIC Unity Catalog volume.
+# MAGIC
+# MAGIC This notebook provides a file-based ingestion alternative to the API extraction
+# MAGIC pipeline for high-volume legislative body membership loads, reducing execution
+# MAGIC time while preserving Bronze metadata, traceability and replayability standards.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read legislative body membership CSV files from Unity Catalog volumes
+# MAGIC - Support high-volume membership ingestion workflows
+# MAGIC - Capture source file paths using Unity Catalog metadata
+# MAGIC - Preserve raw ingestion payload structure with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load from CSV files
+# MAGIC - Source files read from Unity Catalog volumes
+# MAGIC - File paths captured using Unity Catalog metadata
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze legislative body members ingestion tables
 
 # COMMAND ----------
 

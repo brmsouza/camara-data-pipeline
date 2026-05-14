@@ -1,13 +1,39 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 14_ingest_proposicoes_tramitacoes_cdc
-# Layer: Bronze CDC
-#
-# Description:
-# Incremental ingestion of proposicoes tramitacoes for CDC/SCD Type 2 analysis.
-# Consumes /proposicoes/{id}/tramitacoes and stores raw payload events with hash.
-# ------------------------------------------------------------------------------
-
+# MAGIC %md
+# MAGIC # Bronze CDC Layer — Proposition Tramitacoes CDC Ingestion
+# MAGIC
+# MAGIC **Notebook:** `14_ingest_proposicoes_tramitacoes_cdc`  
+# MAGIC **Endpoint:** `/proposicoes/{id}/tramitacoes`
+# MAGIC
+# MAGIC Performs incremental ingestion of proposition tramitacoes for CDC and
+# MAGIC SCD Type 2 historical analysis workflows.
+# MAGIC
+# MAGIC This notebook consumes proposition tramitacao events from the Câmara dos
+# MAGIC Deputados Open Data API and stores raw event payloads together with hash-based
+# MAGIC change tracking metadata required for historization and temporal analysis.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Perform incremental ingestion of proposition tramitacao events
+# MAGIC - Retrieve tramitacoes using proposition identifiers
+# MAGIC - Consume the `/proposicoes/{id}/tramitacoes` endpoint
+# MAGIC - Preserve raw API payloads for replayability and auditing
+# MAGIC - Generate hash-based change tracking metadata
+# MAGIC - Support CDC and SCD Type 2 historization workflows
+# MAGIC - Persist Bronze CDC Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Incremental ingestion pipeline
+# MAGIC - Designed for CDC and SCD Type 2 analysis
+# MAGIC - Stores raw tramitacao payload events with hash-based change tracking
+# MAGIC - Supports proposition lifecycle historization workflows
+# MAGIC - Data persisted in Delta Lake
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze CDC proposition tramitacoes tables
 
 # COMMAND ----------
 

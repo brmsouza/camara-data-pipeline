@@ -1,24 +1,37 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 05_ingest_frentes_membros
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests members of parliamentary fronts from the Câmara dos Deputados API
-# using the /frentes/{id}/membros endpoint.
-#
-# Context:
-# Complements the parliamentary fronts dataset by retrieving the deputies
-# associated with each front previously ingested in the Bronze layer.
-#
-# Notes:
-# - Full load (non-incremental)
-# - One API call per parliamentary front
-# - Each record is enriched with id_frente
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Parliamentary Front Members API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `05_ingest_frentes_membros`  
+# MAGIC **Endpoint:** `/frentes/{id}/membros`
+# MAGIC
+# MAGIC Ingests members of parliamentary fronts from the Câmara dos Deputados Open
+# MAGIC Data API using the parliamentary front members endpoint.
+# MAGIC
+# MAGIC This notebook complements the parliamentary fronts dataset by retrieving the
+# MAGIC deputies associated with each parliamentary front previously ingested in the
+# MAGIC Bronze layer.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Retrieve parliamentary front membership records from the Câmara Open Data API
+# MAGIC - Execute one API request per parliamentary front identifier
+# MAGIC - Enrich records with parliamentary front identifiers
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load, non-incremental ingestion
+# MAGIC - One API call per parliamentary front
+# MAGIC - Each record enriched with `id_frente`
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze parliamentary front members ingestion tables
 
 # COMMAND ----------
 

@@ -1,24 +1,39 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 04_ingest_eventos
-# Layer: Bronze
-# Author: Bruno Souza
-#
-# Description:
-# Ingests legislative events data from the Câmara dos Deputados API
-# using the /eventos endpoint.
-#
-# Context:
-# Events are extracted by day for each configured year to reduce API
-# response size, improve reliability and preserve the extraction window.
-#
-# Notes:
-# - Full load by year and daily window
-# - Data retrieved with pagination and retry support
-# - Each record is enriched with ano_referencia and extraction window dates
-# - Data persisted in Delta (append mode)
-# - Execution logged in monitoring.pipeline_log
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Bronze Layer — Legislative Events API Ingestion
+# MAGIC
+# MAGIC **Notebook:** `04_ingest_eventos`  
+# MAGIC **Endpoint:** `/eventos`
+# MAGIC
+# MAGIC Ingests legislative events data from the Câmara dos Deputados Open Data API
+# MAGIC using the legislative events endpoint.
+# MAGIC
+# MAGIC This notebook extracts parliamentary events by daily windows for each configured
+# MAGIC reference year, reducing API response size, improving extraction reliability
+# MAGIC and preserving the original extraction period used during ingestion.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Extract legislative event records from the Câmara Open Data API
+# MAGIC - Retrieve events using daily extraction windows by reference year
+# MAGIC - Handle paginated API extraction workflows
+# MAGIC - Apply retry logic for resilient ingestion execution
+# MAGIC - Enrich records with reference year and extraction window metadata
+# MAGIC - Preserve raw API payloads with minimal transformation
+# MAGIC - Add ingestion metadata for traceability and auditing
+# MAGIC - Persist Bronze Delta ingestion tables
+# MAGIC - Register operational execution metrics and ingestion logs
+# MAGIC - Support replay and reprocessing scenarios
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Full load using yearly and daily extraction windows
+# MAGIC - Data retrieved with pagination and retry support
+# MAGIC - Each record enriched with `ano_referencia` and extraction window dates
+# MAGIC - Data persisted in Delta Lake using append mode
+# MAGIC - Execution logged in `monitoring.pipeline_log`
+# MAGIC
+# MAGIC **Target:** Bronze legislative events ingestion tables
 
 # COMMAND ----------
 
