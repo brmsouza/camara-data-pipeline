@@ -95,7 +95,7 @@ The project follows a layered lakehouse architecture with progressive refinement
 * Streaming workloads support near-real-time parliamentary voting monitoring;
 * CDC/SCD2 workloads support historical tracking of proposition processing events.
 
-![Architecture](./docs/images/camadamedalhao_camaradeputados.png)
+![Architecture](assets/images/camadamedalhao_camaradeputados.png)
 
 ---
 
@@ -219,7 +219,7 @@ The orchestration layer separates responsibilities between Bronze, Silver Base, 
 * workflow orchestration;
 * scalable execution strategy.
 
-![Workflow Orchestration](./docs/images/job_camara_medallion_pipeline.PNG)
+![Workflow Orchestration](assets/images/job_camara_medallion_pipeline.PNG)
 
 ---
 
@@ -245,7 +245,7 @@ The project implements a scheduled micro-batch pipeline responsible for continuo
 * batch_id lineage;
 * record_hash tracking.
 
-![Streaming Microbatch](./docs/images/job_votacoes_streaming_microbatch.PNG)
+![Streaming Microbatch](assets/images/job_votacoes_streaming_microbatch.PNG)
 
 ---
 
@@ -270,7 +270,7 @@ The streaming architecture also includes a Delta Live Tables pipeline implementi
 * hash validation;
 * mandatory field validation.
 
-![DLT Pipeline](./docs/images/dlt_votacoes_streaming.PNG)
+![DLT Pipeline](assets/images/dlt_votacoes_streaming.PNG)
 
 ---
 
@@ -330,7 +330,7 @@ The Gold layer follows a reflected star schema approach with independent facts a
 * no fact-to-fact relationships;
 * dimensional consistency.
 
-![Gold Model](./docs/images/modelo_camaradeputados.png)
+![Gold Model](assets/images/modelo_camaradeputados.png)
 
 ---
 
@@ -366,7 +366,7 @@ The project incorporates governance, resiliency and analytical observability pat
 * streaming alerts;
 * proposition processing historization.
 
-![Governance](./docs/images/pilares_analiticos.png)
+![Governance](assets/images/pilares_analiticos.png)
 
 ---
 
