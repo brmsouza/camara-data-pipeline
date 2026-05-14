@@ -1,20 +1,59 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 05_build_gold_engajamento_analytics
-# Layer: Gold Analytics
-# Author: Bruno Souza
-# ------------------------------------------------------------------------------
-
-# COMMAND ----------
-
-# Views / analytical objects included in this notebook
-
-# - gold.vw_atividade_parlamentar_analitica
-# - gold.vw_indice_eficiencia_parlamentar
-# - gold.vw_indice_transparencia
-# - gold.vw_ausencias_votacoes_criticas
-# - gold.vw_ranking_ausencias_criticas
-# - gold.vw_score_engajamento_parlamentar
+# MAGIC %md
+# MAGIC # Gold Analytics Layer — Parliamentary Engagement Intelligence
+# MAGIC
+# MAGIC **Notebook:** `05_build_gold_engajamento_analytics`
+# MAGIC
+# MAGIC Builds advanced analytical views and Parliamentary Intelligence products
+# MAGIC related to parliamentary engagement, transparency and legislative activity
+# MAGIC in the Gold Analytics layer.
+# MAGIC
+# MAGIC This notebook consolidates analytical datasets derived from Gold fact and
+# MAGIC dimension tables related to parliamentary activity, voting participation,
+# MAGIC event attendance, transparency indicators and engagement behavior.
+# MAGIC The resulting analytical products support engagement scoring, parliamentary
+# MAGIC efficiency analysis, transparency monitoring and absenteeism intelligence.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read Gold parliamentary activity fact and dimension tables
+# MAGIC - Build analytical parliamentary engagement views
+# MAGIC - Create engagement scoring and efficiency indicators
+# MAGIC - Create transparency and accountability metrics
+# MAGIC - Create absenteeism and critical voting absence analytics
+# MAGIC - Support parliamentary behavior and institutional performance analysis
+# MAGIC - Support political accountability and engagement monitoring
+# MAGIC - Preserve analytical lineage and traceability metadata
+# MAGIC - Persist Gold analytical views and marts
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `gold.ft_atividade_parlamentar`
+# MAGIC - `gold.ft_votos`
+# MAGIC - `gold.ft_presenca_eventos`
+# MAGIC - `gold.ft_votacoes`
+# MAGIC - `gold.dm_deputado`
+# MAGIC - `gold.dm_partido`
+# MAGIC - `gold.dm_legislatura`
+# MAGIC - `gold.dm_data`
+# MAGIC - `gold.dm_evento`
+# MAGIC
+# MAGIC ## Views / Analytical Objects
+# MAGIC
+# MAGIC - `gold.vw_atividade_parlamentar_analitica`
+# MAGIC - `gold.vw_indice_eficiencia_parlamentar`
+# MAGIC - `gold.vw_indice_transparencia`
+# MAGIC - `gold.vw_ausencias_votacoes_criticas`
+# MAGIC - `gold.vw_ranking_ausencias_criticas`
+# MAGIC - `gold.vw_score_engajamento_parlamentar`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake analytical layer
+# MAGIC - Supports Parliamentary Intelligence and engagement analytics
+# MAGIC - Supports transparency, efficiency and absenteeism analysis
 
 # COMMAND ----------
 

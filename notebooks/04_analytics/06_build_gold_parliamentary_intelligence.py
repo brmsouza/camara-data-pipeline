@@ -1,19 +1,58 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 06_build_gold_parliamentary_intelligence
-# Layer: Gold Analytics
-# Author: Bruno Souza
-# ------------------------------------------------------------------------------
-
-# COMMAND ----------
-
-# Views / analytical objects included in this notebook
-
-# - gold.vw_perfil_parlamentar
-# - gold.vw_partidos_analitica
-# - gold.vw_partidos_perfil
-# - gold.vw_dashboard_partidos
-# - gold.vw_analise_ineficiencia_parlamentar
+# MAGIC %md
+# MAGIC # Gold Analytics Layer — Parliamentary Intelligence Executive Analytics
+# MAGIC
+# MAGIC **Notebook:** `06_build_gold_parliamentary_intelligence`
+# MAGIC
+# MAGIC Builds executive-level Parliamentary Intelligence analytical views and
+# MAGIC strategic political analytics products in the Gold Analytics layer.
+# MAGIC
+# MAGIC This notebook consolidates analytical datasets derived from Gold fact and
+# MAGIC dimension tables related to parliamentary behavior, political parties,
+# MAGIC engagement, efficiency, transparency and institutional performance.
+# MAGIC The resulting analytical products support executive dashboards, political
+# MAGIC profiling, parliamentary segmentation and strategic legislative intelligence.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read Gold parliamentary fact and dimension tables
+# MAGIC - Build executive-level Parliamentary Intelligence analytical views
+# MAGIC - Create parliamentary behavioral and political profile analytics
+# MAGIC - Create political party segmentation and institutional analysis
+# MAGIC - Create executive dashboard aggregation views
+# MAGIC - Create parliamentary inefficiency and performance indicators
+# MAGIC - Support strategic legislative intelligence analysis
+# MAGIC - Support political behavior and institutional performance monitoring
+# MAGIC - Preserve analytical lineage and traceability metadata
+# MAGIC - Persist Gold analytical views and marts
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `gold.ft_atividade_parlamentar`
+# MAGIC - `gold.ft_despesas_ceap`
+# MAGIC - `gold.ft_votos`
+# MAGIC - `gold.ft_presenca_eventos`
+# MAGIC - `gold.dm_deputado`
+# MAGIC - `gold.dm_partido`
+# MAGIC - `gold.dm_legislatura`
+# MAGIC - `gold.dm_uf`
+# MAGIC - `gold.dm_data`
+# MAGIC
+# MAGIC ## Views / Analytical Objects
+# MAGIC
+# MAGIC - `gold.vw_perfil_parlamentar`
+# MAGIC - `gold.vw_partidos_analitica`
+# MAGIC - `gold.vw_partidos_perfil`
+# MAGIC - `gold.vw_dashboard_partidos`
+# MAGIC - `gold.vw_analise_ineficiencia_parlamentar`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake analytical layer
+# MAGIC - Supports executive Parliamentary Intelligence analytics
+# MAGIC - Supports political segmentation and institutional performance analysis
 
 # COMMAND ----------
 

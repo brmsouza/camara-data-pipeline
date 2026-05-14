@@ -1,22 +1,59 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 01_build_gold_ceap_analytics
-# Layer: Gold Analytics
-# Author: Bruno Souza
-# ------------------------------------------------------------------------------
-
-# COMMAND ----------
-
-# Views / analytical objects included in this notebook
-
-# - gold.vw_despesas_ceap_analitica
-# - gold.vw_ranking_despesas_deputado_mensal
-# - gold.vw_despesas_deputado_segmento
-# - gold.vw_gastos_segmentados
-# - gold.vw_partidos_despesas_segmento
-# - gold.vw_perfil_gasto_partido
-# - gold.vw_anomalias_ceap_zscore
-# - gold.vw_top_10_gastos_partido_mensal
+# MAGIC %md
+# MAGIC # Gold Analytics Layer — CEAP Parliamentary Expense Intelligence
+# MAGIC
+# MAGIC **Notebook:** `01_build_gold_ceap_analytics`
+# MAGIC
+# MAGIC Builds advanced analytical views and Parliamentary Intelligence products
+# MAGIC related to CEAP parliamentary expenses in the Gold Analytics layer.
+# MAGIC
+# MAGIC This notebook consolidates analytical datasets derived from Gold fact and
+# MAGIC dimension tables related to parliamentary expenses, suppliers, political
+# MAGIC parties, expenditure segmentation and anomaly detection. The resulting
+# MAGIC analytical products support transparency analysis, supplier intelligence,
+# MAGIC financial behavior analysis, political expenditure profiling and spending
+# MAGIC monitoring across deputies and parties.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read Gold CEAP fact and dimension tables
+# MAGIC - Build analytical expenditure aggregation views
+# MAGIC - Create supplier intelligence and anomaly detection indicators
+# MAGIC - Create deputy and political party spending segmentation analytics
+# MAGIC - Create monthly expenditure rankings and comparative views
+# MAGIC - Support parliamentary transparency and accountability analysis
+# MAGIC - Support political expenditure intelligence and behavioral analysis
+# MAGIC - Preserve analytical lineage and traceability metadata
+# MAGIC - Persist Gold analytical views and marts
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `gold.ft_despesas_ceap`
+# MAGIC - `gold.dm_deputado`
+# MAGIC - `gold.dm_fornecedor`
+# MAGIC - `gold.dm_partido`
+# MAGIC - `gold.dm_tipo_despesa`
+# MAGIC - `gold.dm_data`
+# MAGIC - `gold.dm_uf`
+# MAGIC
+# MAGIC ## Views / Analytical Objects
+# MAGIC
+# MAGIC - `gold.vw_despesas_ceap_analitica`
+# MAGIC - `gold.vw_ranking_despesas_deputado_mensal`
+# MAGIC - `gold.vw_despesas_deputado_segmento`
+# MAGIC - `gold.vw_gastos_segmentados`
+# MAGIC - `gold.vw_partidos_despesas_segmento`
+# MAGIC - `gold.vw_perfil_gasto_partido`
+# MAGIC - `gold.vw_anomalias_ceap_zscore`
+# MAGIC - `gold.vw_top_10_gastos_partido_mensal`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake analytical layer
+# MAGIC - Supports Parliamentary Intelligence and CEAP analytics
+# MAGIC - Supports anomaly detection and expenditure segmentation analysis
 
 # COMMAND ----------
 

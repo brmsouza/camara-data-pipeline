@@ -1,21 +1,60 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 04_build_gold_votacoes_analytics
-# Layer: Gold Analytics
-# Author: Bruno Souza
-# ------------------------------------------------------------------------------
-
-# COMMAND ----------
-
-# Views / analytical objects included in this notebook
-
-# - gold.vw_votacoes_analitica
-# - gold.vw_votos_deputados_analitica
-# - gold.vw_orientacoes_bancada_analitica
-# - gold.vw_fidelidade_partidaria
-# - gold.vw_partidos_fidelidade_votacao
-# - gold.vw_partidos_votos_distribuicao
-# - gold.vw_alinhamento_frente_vs_partido
+# MAGIC %md
+# MAGIC # Gold Analytics Layer — Parliamentary Voting Intelligence
+# MAGIC
+# MAGIC **Notebook:** `04_build_gold_votacoes_analytics`
+# MAGIC
+# MAGIC Builds advanced analytical views and Parliamentary Intelligence products
+# MAGIC related to parliamentary voting behavior in the Gold Analytics layer.
+# MAGIC
+# MAGIC This notebook consolidates analytical datasets derived from Gold fact and
+# MAGIC dimension tables related to voting sessions, deputy votes, bancada
+# MAGIC orientations, political party alignment and parliamentary behavior.
+# MAGIC The resulting analytical products support voting intelligence, party cohesion
+# MAGIC analysis, political alignment monitoring and legislative behavior analytics.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read Gold voting fact and dimension tables
+# MAGIC - Build analytical voting aggregation views
+# MAGIC - Create deputy voting behavior analytics
+# MAGIC - Create bancada orientation and political alignment indicators
+# MAGIC - Create party fidelity and cohesion metrics
+# MAGIC - Create vote distribution and alignment comparison analytics
+# MAGIC - Support parliamentary behavior and legislative intelligence analysis
+# MAGIC - Preserve analytical lineage and traceability metadata
+# MAGIC - Persist Gold analytical views and marts
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `gold.ft_votacoes`
+# MAGIC - `gold.ft_votos`
+# MAGIC - `gold.ft_orientacoes_bancada`
+# MAGIC - `gold.ft_frentes_membros`
+# MAGIC - `gold.dm_deputado`
+# MAGIC - `gold.dm_partido`
+# MAGIC - `gold.dm_bancada`
+# MAGIC - `gold.dm_frente`
+# MAGIC - `gold.dm_legislatura`
+# MAGIC - `gold.dm_data`
+# MAGIC
+# MAGIC ## Views / Analytical Objects
+# MAGIC
+# MAGIC - `gold.vw_votacoes_analitica`
+# MAGIC - `gold.vw_votos_deputados_analitica`
+# MAGIC - `gold.vw_orientacoes_bancada_analitica`
+# MAGIC - `gold.vw_fidelidade_partidaria`
+# MAGIC - `gold.vw_partidos_fidelidade_votacao`
+# MAGIC - `gold.vw_partidos_votos_distribuicao`
+# MAGIC - `gold.vw_alinhamento_frente_vs_partido`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake analytical layer
+# MAGIC - Supports Parliamentary Intelligence and voting behavior analytics
+# MAGIC - Supports political alignment and party discipline analysis
 
 # COMMAND ----------
 

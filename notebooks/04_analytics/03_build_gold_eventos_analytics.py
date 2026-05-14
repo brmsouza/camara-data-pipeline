@@ -1,18 +1,51 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 03_build_gold_eventos_analytics
-# Layer: Gold Analytics
-# Author: Bruno Souza
-# ------------------------------------------------------------------------------
-
-# COMMAND ----------
-
-# Views / analytical objects included in this notebook
-
-# - gold.vw_eventos_analitica
-# - gold.vw_eventos_futuros
-# - gold.vw_densidade_eventos_semanal
-# - gold.vw_semanas_sem_atividade
+# MAGIC %md
+# MAGIC # Gold Analytics Layer — Legislative Events Intelligence
+# MAGIC
+# MAGIC **Notebook:** `03_build_gold_eventos_analytics`
+# MAGIC
+# MAGIC Builds advanced analytical views and Parliamentary Intelligence products
+# MAGIC related to legislative events in the Gold Analytics layer.
+# MAGIC
+# MAGIC This notebook consolidates analytical datasets derived from Gold fact and
+# MAGIC dimension tables related to legislative events, parliamentary agendas,
+# MAGIC institutional activity and temporal event distribution. The resulting analytical
+# MAGIC products support legislative calendar analysis, event density monitoring,
+# MAGIC future event tracking and institutional activity intelligence.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read Gold legislative event fact and dimension tables
+# MAGIC - Build analytical legislative event aggregation views
+# MAGIC - Create event density and temporal distribution analytics
+# MAGIC - Create future legislative event monitoring views
+# MAGIC - Identify periods with low or absent parliamentary activity
+# MAGIC - Support legislative calendar and institutional activity analysis
+# MAGIC - Preserve analytical lineage and traceability metadata
+# MAGIC - Persist Gold analytical views and marts
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `gold.ft_presenca_eventos`
+# MAGIC - `gold.dm_evento`
+# MAGIC - `gold.dm_orgao`
+# MAGIC - `gold.dm_data`
+# MAGIC - `gold.dm_deputado`
+# MAGIC
+# MAGIC ## Views / Analytical Objects
+# MAGIC
+# MAGIC - `gold.vw_eventos_analitica`
+# MAGIC - `gold.vw_eventos_futuros`
+# MAGIC - `gold.vw_densidade_eventos_semanal`
+# MAGIC - `gold.vw_semanas_sem_atividade`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake analytical layer
+# MAGIC - Supports legislative calendar and institutional activity analytics
+# MAGIC - Supports parliamentary event intelligence and agenda monitoring
 
 # COMMAND ----------
 

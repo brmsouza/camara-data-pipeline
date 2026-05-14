@@ -1,18 +1,52 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 90_validations
-# Layer: Gold Analytics
-# Author: Bruno Souza
-# ------------------------------------------------------------------------------
-
-# Views / analytical objects validated in this notebook
-
-# - CEAP analytics
-# - Fronts analytics
-# - Events analytics
-# - Voting analytics
-# - Engagement analytics
-# - Decisive participation percentages
+# MAGIC %md
+# MAGIC # Gold Analytics Layer — Analytical Validation and Quality Assurance
+# MAGIC
+# MAGIC **Notebook:** `90_validations`
+# MAGIC
+# MAGIC Executes analytical validation, consistency verification and quality assurance
+# MAGIC checks across Gold Analytics products and Parliamentary Intelligence views.
+# MAGIC
+# MAGIC This notebook validates the integrity, consistency and analytical reliability
+# MAGIC of the Gold Analytics layer, ensuring that business metrics, aggregation rules,
+# MAGIC dimensional relationships and analytical outputs remain aligned with expected
+# MAGIC parliamentary and financial analysis standards.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Validate Gold analytical views and marts
+# MAGIC - Validate CEAP analytical metrics and aggregations
+# MAGIC - Validate parliamentary front analytical relationships
+# MAGIC - Validate legislative event analytical outputs
+# MAGIC - Validate voting and political alignment analytical metrics
+# MAGIC - Validate parliamentary engagement and participation indicators
+# MAGIC - Validate decisive participation percentage calculations
+# MAGIC - Detect analytical inconsistencies and metric anomalies
+# MAGIC - Support analytical governance and quality assurance
+# MAGIC - Register operational validation metrics and execution logs
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - Gold analytical views
+# MAGIC - Gold fact tables
+# MAGIC - Gold dimensions
+# MAGIC - Monitoring and validation metadata tables
+# MAGIC
+# MAGIC ## Views / Analytical Objects Validated
+# MAGIC
+# MAGIC - CEAP analytics
+# MAGIC - Parliamentary fronts analytics
+# MAGIC - Legislative events analytics
+# MAGIC - Parliamentary voting analytics
+# MAGIC - Parliamentary engagement analytics
+# MAGIC - Decisive participation percentage analytics
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake analytical governance layer
+# MAGIC - Supports analytical quality assurance and governance
+# MAGIC - Supports validation of Parliamentary Intelligence products
 
 # COMMAND ----------
 

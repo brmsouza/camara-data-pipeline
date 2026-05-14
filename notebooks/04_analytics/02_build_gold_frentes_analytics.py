@@ -1,21 +1,57 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 02_build_gold_frentes_analytics
-# Layer: Gold Analytics
-# Author: Bruno Souza
-# ------------------------------------------------------------------------------
-
-# COMMAND ----------
-
-# Views / analytical objects included in this notebook
-
-# - gold.vw_frentes_membros_analitica
-# - gold.vw_frentes_diversidade_partidaria
-# - gold.vw_deputados_mais_frentes
-# - gold.vw_sobreposicao_frentes
-# - gold.vw_evolucao_frentes_legislatura
-# - gold.vw_especializacao_tematica
-# - gold.vw_partidos_especializacao_tematica
+# MAGIC %md
+# MAGIC # Gold Analytics Layer — Parliamentary Front Intelligence
+# MAGIC
+# MAGIC **Notebook:** `02_build_gold_frentes_analytics`
+# MAGIC
+# MAGIC Builds advanced analytical views and Parliamentary Intelligence products
+# MAGIC related to parliamentary fronts in the Gold Analytics layer.
+# MAGIC
+# MAGIC This notebook consolidates analytical datasets derived from Gold fact and
+# MAGIC dimension tables related to parliamentary fronts, deputy participation,
+# MAGIC political party composition, thematic specialization and coalition behavior.
+# MAGIC The resulting analytical products support analysis of parliamentary alliances,
+# MAGIC thematic political groups, ideological overlap and front evolution across
+# MAGIC legislatures.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read Gold parliamentary front fact and dimension tables
+# MAGIC - Build analytical parliamentary front aggregation views
+# MAGIC - Create thematic specialization and coalition analysis indicators
+# MAGIC - Create political diversity and concentration metrics
+# MAGIC - Create parliamentary front overlap and relationship analytics
+# MAGIC - Support analysis of deputy participation across multiple fronts
+# MAGIC - Support political alignment and thematic intelligence analysis
+# MAGIC - Preserve analytical lineage and traceability metadata
+# MAGIC - Persist Gold analytical views and marts
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `gold.ft_frentes_membros`
+# MAGIC - `gold.dm_frente`
+# MAGIC - `gold.dm_deputado`
+# MAGIC - `gold.dm_partido`
+# MAGIC - `gold.dm_legislatura`
+# MAGIC - `gold.dm_uf`
+# MAGIC
+# MAGIC ## Views / Analytical Objects
+# MAGIC
+# MAGIC - `gold.vw_frentes_membros_analitica`
+# MAGIC - `gold.vw_frentes_diversidade_partidaria`
+# MAGIC - `gold.vw_deputados_mais_frentes`
+# MAGIC - `gold.vw_sobreposicao_frentes`
+# MAGIC - `gold.vw_evolucao_frentes_legislatura`
+# MAGIC - `gold.vw_especializacao_tematica`
+# MAGIC - `gold.vw_partidos_especializacao_tematica`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake analytical layer
+# MAGIC - Supports Parliamentary Intelligence and coalition analysis
+# MAGIC - Supports thematic political group and parliamentary front analytics
 
 # COMMAND ----------
 

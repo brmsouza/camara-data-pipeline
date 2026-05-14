@@ -1,17 +1,46 @@
 # Databricks notebook source
-# Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 07_sla_votacoes_streaming
-# Layer: Gold Analytics
-# Author: Bruno Souza
-# ------------------------------------------------------------------------------
-
-
-# COMMAND ----------
-
-# Views / analytical objects included in this notebook
-
-# - monitoring.vw_sla_votacoes_streaming
+# MAGIC %md
+# MAGIC # Gold Analytics Layer — Streaming SLA and Operational Monitoring
+# MAGIC
+# MAGIC **Notebook:** `07_sla_votacoes_streaming`
+# MAGIC
+# MAGIC Builds operational SLA monitoring views for the parliamentary voting
+# MAGIC streaming pipeline in the Gold Analytics layer.
+# MAGIC
+# MAGIC This notebook consolidates operational and streaming execution metadata
+# MAGIC related to the real-time voting ingestion pipeline, supporting monitoring
+# MAGIC of end-to-end latency, execution health, ingestion volume and operational
+# MAGIC quality indicators for streaming workloads.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read streaming operational monitoring datasets
+# MAGIC - Build SLA and streaming execution monitoring views
+# MAGIC - Monitor end-to-end streaming latency indicators
+# MAGIC - Monitor ingestion volume and execution health metrics
+# MAGIC - Support operational observability for streaming workloads
+# MAGIC - Support replay and streaming incident analysis
+# MAGIC - Preserve operational lineage and monitoring metadata
+# MAGIC - Persist Gold operational monitoring views
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `monitoring.pipeline_log`
+# MAGIC - `bronze_stream.votacoes_raw`
+# MAGIC - `silver_stream_votacoes_validas`
+# MAGIC - `gold_stream_votacoes_alertas`
+# MAGIC
+# MAGIC ## Views / Analytical Objects
+# MAGIC
+# MAGIC - `monitoring.vw_sla_votacoes_streaming`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake analytical monitoring layer
+# MAGIC - Supports streaming observability and SLA monitoring
+# MAGIC - Supports operational governance for real-time voting pipelines
 
 # COMMAND ----------
 

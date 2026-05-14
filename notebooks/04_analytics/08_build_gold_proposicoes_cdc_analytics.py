@@ -1,18 +1,51 @@
 # Databricks notebook source
-# Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 08_build_gold_proposicoes_cdc_analytics
-# Layer: Gold Analytics
-# Author: Bruno Souza
-# ------------------------------------------------------------------------------
-
-# COMMAND ----------
-
-# Views / analytical objects included in this notebook
-
-# - gold_cdc.vw_proposicoes_tramitacao_historica
-# - gold_cdc.vw_tempo_tramitacao_proposicoes
-# - gold_cdc.vw_alertas_tramitacao_proposicoes
+# MAGIC %md
+# MAGIC # Gold Analytics Layer — Proposition CDC and Legislative Lifecycle Intelligence
+# MAGIC
+# MAGIC **Notebook:** `08_build_gold_proposicoes_cdc_analytics`
+# MAGIC
+# MAGIC Builds advanced analytical views and Parliamentary Intelligence products
+# MAGIC related to proposition CDC historization and legislative lifecycle analysis
+# MAGIC in the Gold Analytics layer.
+# MAGIC
+# MAGIC This notebook consolidates analytical datasets derived from CDC/SCD Type 2
+# MAGIC historical proposition tramitacao records, enabling reconstruction of
+# MAGIC legislative lifecycle events, proposition status evolution and temporal
+# MAGIC analysis of parliamentary processing workflows.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read historical proposition CDC and SCD Type 2 datasets
+# MAGIC - Build analytical proposition historization views
+# MAGIC - Create legislative lifecycle and temporal processing analytics
+# MAGIC - Create proposition tramitacao duration indicators
+# MAGIC - Create proposition status transition monitoring analytics
+# MAGIC - Create proposition progression and alerting analytical views
+# MAGIC - Support legislative workflow and parliamentary process intelligence
+# MAGIC - Preserve analytical lineage and traceability metadata
+# MAGIC - Persist Gold CDC analytical views and marts
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `silver_cdc.proposicoes_tramitacoes_scd2`
+# MAGIC - `silver_cdc.proposicoes_tramitacoes_base`
+# MAGIC - `gold.dm_proposicao`
+# MAGIC - `gold.dm_orgao`
+# MAGIC - `gold.dm_data`
+# MAGIC
+# MAGIC ## Views / Analytical Objects
+# MAGIC
+# MAGIC - `gold_cdc.vw_proposicoes_tramitacao_historica`
+# MAGIC - `gold_cdc.vw_tempo_tramitacao_proposicoes`
+# MAGIC - `gold_cdc.vw_alertas_tramitacao_proposicoes`
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Idempotent execution
+# MAGIC - Delta Lake analytical layer
+# MAGIC - Supports CDC/SCD Type 2 legislative lifecycle analytics
+# MAGIC - Supports proposition historization and parliamentary workflow intelligence
 
 # COMMAND ----------
 
