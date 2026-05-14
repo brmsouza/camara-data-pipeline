@@ -1,29 +1,44 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 01_dlt_votacoes_streaming
-# Layer: DLT / Lakeflow
-#
-# Description:
-# Declarative pipeline for voting micro-batch data.
-# Transforms Bronze Stream into Silver and Gold streaming tables.
-#
-# Flow:
-# bronze_stream.votacoes_raw
-#   -> silver_stream_votacoes_validas
-#   -> gold_stream_votacoes_alertas
-#
-# Important:
-# This notebook must NOT be executed manually from a standard Databricks notebook
-# cluster.
-#
-# It must be executed only through a Databricks Lakeflow / Delta Live Tables
-# pipeline, because the dlt module is available only in the DLT runtime context.
-#
-# Execution:
-# Jobs & Pipelines
-#   -> dlt_votacoes_streaming
-#   -> Run / Start
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # DLT / Lakeflow Layer — Real-Time Voting Streaming Pipeline
+# MAGIC
+# MAGIC **Notebook:** `01_dlt_votacoes_streaming`  
+# MAGIC **Flow:** `bronze_stream.votacoes_raw -> silver_stream_votacoes_validas -> gold_stream_votacoes_alertas`
+# MAGIC
+# MAGIC Implements the declarative streaming pipeline for parliamentary voting
+# MAGIC micro-batch processing using Databricks Lakeflow / Delta Live Tables.
+# MAGIC
+# MAGIC This notebook transforms streaming voting data from Bronze ingestion tables
+# MAGIC into validated Silver streaming datasets and analytical Gold alert tables,
+# MAGIC supporting near real-time parliamentary monitoring and voting intelligence
+# MAGIC use cases.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read streaming voting data from Bronze ingestion tables
+# MAGIC - Validate and transform voting micro-batch records
+# MAGIC - Apply declarative DLT expectations and quality rules
+# MAGIC - Create Silver streaming validation tables
+# MAGIC - Create Gold streaming analytical alert tables
+# MAGIC - Support near real-time parliamentary voting analytics
+# MAGIC - Enable streaming observability and operational monitoring
+# MAGIC - Support replay and recovery of streaming micro-batches
+# MAGIC
+# MAGIC ## Important
+# MAGIC
+# MAGIC - This notebook must NOT be executed manually from a standard Databricks notebook cluster
+# MAGIC - It must be executed only through a Databricks Lakeflow / Delta Live Tables pipeline
+# MAGIC - The `dlt` module is available only in the DLT runtime execution context
+# MAGIC
+# MAGIC ## Execution
+# MAGIC
+# MAGIC `
+# MAGIC Jobs & Pipelines
+# MAGIC   -> dlt_votacoes_streaming
+# MAGIC   -> Run / Start
+
+# COMMAND ----------
+
 
 import dlt
 from pyspark.sql import functions as F
