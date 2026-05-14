@@ -1,4 +1,26 @@
-.databricks/
-.env
-*.dbc
+# Python
 __pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Databricks
+.databricks/
+*.dbc
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Data / temp
+data/
+tmp/
+*.csv
+*.parquet
+*.delta

@@ -133,9 +133,9 @@ notebooks/05_dlt/01_dlt_votacoes_streaming.py
 
 ## Evidência visual
 
-```md
-![DLT Pipeline](../assets/images/dlt_votacoes_streaming.PNG)
-```
+
+![DLT Pipeline](../assets/images/dlt_votacoes_streaming.png)
+
 
 ---
 

@@ -1395,7 +1395,30 @@ Technical standardization notebooks. This layer validates, types, deduplicates a
 
 ## `02_silver/02_curated`
 
-Business curation notebooks. This layer builds reusable, enriched and analytics-ready entities for Gold consumption.
+### 02_curated_deputados_detalhes.py
+
+Status: Intentionally not implemented
+
+Architectural Decision:
+The deputy detail enrichment process was intentionally consolidated into:
+
+01_curated_deputados.py
+
+This decision avoids redundant curated entities and centralizes all
+parliamentary identity, profile, contact, office and enrichment logic
+into a single analytics-ready curated dataset.
+
+Rationale:
+- Reduce downstream joins
+- Avoid duplicated curated entities
+- Simplify analytical consumption
+- Centralize deputy business attributes
+- Improve maintainability and governance
+
+Notes:
+The original silver_base.deputados_detalhes dataset remains available
+as a normalized source entity within the Silver Base layer.
+
 
 ### `01_curated_deputados.py`
 
