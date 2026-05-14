@@ -1,4 +1,34 @@
 # Databricks notebook source
+# MAGIC %md
+# MAGIC # Core Layer — CNPJ Validation Utilities
+# MAGIC
+# MAGIC **Notebook:** `cnpj_utils`
+# MAGIC
+# MAGIC Provides reusable utilities for CNPJ validation, normalization and supplier risk enrichment.
+# MAGIC
+# MAGIC This notebook centralizes CNPJ-related helper functions used to standardize
+# MAGIC supplier documents, validate Brazilian legal entity identifiers and support
+# MAGIC supplier quality checks across CEAP expense and supplier pipelines.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Normalize CNPJ values into a consistent format
+# MAGIC - Remove punctuation and non-numeric characters from CNPJ fields
+# MAGIC - Validate CNPJ structure and check digits
+# MAGIC - Identify invalid, missing or suspicious supplier documents
+# MAGIC - Support supplier data quality rules in CEAP expense pipelines
+# MAGIC - Provide reusable utilities for supplier enrichment and risk analysis
+# MAGIC - Standardize CNPJ handling across Bronze, Silver and Gold workflows
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Designed to support supplier and CEAP expense processing
+# MAGIC - Used by ingestion, curation and Gold supplier dimension notebooks
+# MAGIC - Does not persist data directly
+# MAGIC - Provides reusable validation functions for CNPJ-related transformations
+
+# COMMAND ----------
+
 import re
 import time
 import requests
