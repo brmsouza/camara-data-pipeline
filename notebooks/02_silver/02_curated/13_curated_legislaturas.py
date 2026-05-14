@@ -135,10 +135,6 @@ df_curated = (
 
 # COMMAND ----------
 
-# ---------------------------------------------------
-# Discarded records
-# ---------------------------------------------------
-
 df_discarded = (
     df_curated
     .filter(
@@ -160,20 +156,14 @@ df_discarded = (
     )
 )
 
-# ---------------------------------------------------
 # Valid records
-# ---------------------------------------------------
-
 df_valid = (
     df_curated
     .filter(F.col("leg_id_legislatura").isNotNull())
     .filter(F.col("leg_fl_periodo_valido") == 1)
 )
 
-# ---------------------------------------------------
 # Metrics and validations
-# ---------------------------------------------------
-
 records_written = df_valid.count()
 records_discarded = df_discarded.count()
 
