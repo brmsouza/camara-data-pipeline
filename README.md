@@ -20,11 +20,8 @@ Enterprise-style Lakehouse Data Engineering platform fully implemented natively 
 # Educational Purpose
 
 This project was developed for educational, portfolio and technical study purposes.
-
 The repository demonstrates enterprise-oriented Data Engineering concepts using public parliamentary datasets and modern Lakehouse architecture patterns.
-
 No political affiliation, governmental endorsement or institutional relationship is implied.
-
 All analytical indicators and intelligence layers were created exclusively for technical demonstration, analytical experimentation and engineering architecture studies.
 
 ---
