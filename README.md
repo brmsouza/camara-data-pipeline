@@ -1,8 +1,6 @@
 # camara-data-pipeline
 
-Enterprise-style Lakehouse Data Engineering platform fully implemented natively on Databricks using PySpark, Delta Lake, Delta Live Tables (DLT), streaming micro-batch ingestion, CDC/SCD Type 2 processing and Medallion architecture.
-
-🇧🇷 Portuguese version: [README.pt-BR.md](README.pt-BR.md)
+Enterprise-style Lakehouse Data Engineering platform fully implemented natively on Databricks for large-scale parliamentary analytics using PySpark, Delta Lake, Delta Live Tables (DLT), streaming micro-batch ingestion, CDC/SCD Type 2 processing, multi-endpoint REST APIs and Medallion architecture.
 
 <p align="left">
   <img src="https://img.shields.io/badge/python-3.12+-3776AB?style=flat-square&logo=python&logoColor=white" />
@@ -15,7 +13,7 @@ Enterprise-style Lakehouse Data Engineering platform fully implemented natively 
   <img src="https://img.shields.io/badge/release-v1.0.0-1976D2?style=flat-square" />
 </p>
 
-Enterprise-style Lakehouse Data Engineering platform built on Databricks for large-scale parliamentary analytics using multi-endpoint REST ingestion, Delta Lake, CDC/SCD2 historization, streaming micro-batch processing, Delta Live Tables, supplier enrichment and dimensional analytical modeling.
+🇧🇷 Portuguese version: [README.pt-BR.md](README.pt-BR.md)
 
 ---
 
