@@ -9,12 +9,23 @@
 # Builds the curated supplier dataset enriched with public CNPJ validation data.
 #
 # Context:
-# This notebook reads supplier records from Silver Base, validates CNPJ suppliers
-# using a public CNPJ API utility, and creates analytical flags for supplier
-# registration status and potential suspicious documents.
+# This notebook reads supplier records from Silver Base, prioritizes CNPJ
+# suppliers based on CEAP expense usage, validates selected CNPJs using a public
+# CNPJ API utility, and creates analytical flags for supplier registration
+# status and potential suspicious documents.
 #
 # Grain:
 # One row per supplier document.
+#
+# Responsibilities:
+# - Read standardized supplier records from Silver Base
+# - Prioritize CNPJ suppliers based on CEAP usage
+# - Validate selected CNPJs using public API enrichment
+# - Create analytical supplier status and suspicion flags
+# - Preserve lineage metadata
+# - Validate curated entity consistency
+# - Persist Silver Curated Delta table
+# - Register operational execution metrics
 #
 # Source:
 # silver_base.fornecedores
@@ -22,7 +33,6 @@
 # Target:
 # silver_curated.fornecedores
 # ------------------------------------------------------------------------------
-
 
 # COMMAND ----------
 
@@ -53,6 +63,20 @@ started_at = datetime.now()
 
 REQUEST_SLEEP_SECONDS = 1.2
 
+
+# COMMAND ----------
+
+log_pipeline_event(
+    batch_id=batch_id,
+    pipeline_name=PIPELINE_NAME,
+    layer=LAYER,
+    level="INFO",
+    event_name="job_started",
+    message=f"source={SOURCE_TABLE} | started | target_table={TARGET_TABLE}",
+    endpoint=SOURCE_TABLE,
+    target_table=TARGET_TABLE,
+    started_at=started_at,
+)
 
 # COMMAND ----------
 
@@ -283,8 +307,12 @@ df_curated = (
 
 # COMMAND ----------
 
+df_discarded = spark.createDataFrame([], df_curated.schema)
+
 records_written = df_curated.count()
-records_discarded = records_read - records_written
+records_discarded = df_discarded.count()
+
+# COMMAND ----------
 
 if records_read == 0:
     raise Exception(
@@ -312,6 +340,17 @@ if duplicated_documents > 0:
 # COMMAND ----------
 
 (
+    df_discarded
+    .write
+    .format("delta")
+    .mode("overwrite")
+    .option("overwriteSchema", "true")
+    .saveAsTable(f"{TARGET_TABLE}_rejeitadas")
+)
+
+# COMMAND ----------
+
+(
     df_curated
     .write
     .format("delta")
@@ -335,6 +374,8 @@ log_pipeline_event(
     message=f"source={SOURCE_TABLE} | finished successfully | records_read={records_read} | records_written={records_written} | records_discarded={records_discarded}",
     endpoint=SOURCE_TABLE,
     target_table=TARGET_TABLE,
+    records_read=records_read,
+    records_written=records_written,
     started_at=started_at,
     finished_at=datetime.now(),
 )
