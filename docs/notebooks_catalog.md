@@ -3071,13 +3071,3 @@ Databricks workflow orchestration notebooks used to run each layer in a controll
 * Gold objects should be rebuilt from Silver Curated whenever possible, preserving Bronze as the replay foundation rather than as a direct analytical source.
 * DLT notebooks must be executed in the Databricks Delta Live Tables / Lakeflow context, not as a regular standalone notebook when pipeline semantics are required.
 * The project uses `records_read`, `records_written` and `records_discarded` as the standard execution volume metrics.
-
----
-
-## Suggested README Link
-
-Add this link to the main `README.md`:
-
-```md
-- [Notebook Catalog](docs/notebooks_catalog.md)
-```
