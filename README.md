@@ -416,8 +416,6 @@ capabilities.
 ### Documents
 
 - [Final Challenge Adherence Matrix](docs/final_challenge_adherence_matrix.md)
-- [Matriz de Aderência ao Desafio Final](docs/final_challenge_adherence_matrix.pt-BR.md)
-
 ### Covered Areas
 
 - Medallion Architecture (Bronze / Silver / Gold)
