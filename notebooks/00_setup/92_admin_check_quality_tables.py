@@ -1,22 +1,28 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 92_admin_check_table_row_counts
-# Layer: Admin
-# Author: Bruno Souza
-#
-# Description:
-# Performs row count and basic quality checks across pipeline tables.
-#
-# Context:
-# Used to validate data availability and identify empty or inconsistent tables
-# after pipeline execution.
-#
-# Notes:
-# - Executes dynamically across selected schemas
-# - Does not modify data
-# - Supports operational validation and troubleshooting
-# ------------------------------------------------------------------------------
-
+# MAGIC %md
+# MAGIC # Admin Layer — Table Row Count and Quality Validation
+# MAGIC
+# MAGIC **Notebook:** `92_admin_check_table_row_counts`
+# MAGIC
+# MAGIC Performs row count and basic quality checks across pipeline tables.
+# MAGIC
+# MAGIC This notebook is used to validate data availability, identify empty tables and
+# MAGIC detect basic inconsistencies after ingestion and transformation pipeline
+# MAGIC executions.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Perform row count validation across pipeline tables
+# MAGIC - Detect empty or partially loaded tables
+# MAGIC - Support operational quality verification after pipeline execution
+# MAGIC - Assist troubleshooting and reprocessing analysis
+# MAGIC - Validate data availability across analytical layers
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Executes dynamically across selected schemas
+# MAGIC - Does not modify data
+# MAGIC - Supports operational validation and troubleshooting
 
 # COMMAND ----------
 
