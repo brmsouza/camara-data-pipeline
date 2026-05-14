@@ -1,4 +1,4 @@
-# camara-data-pipeline
+# Camara Data Pipeline — Parliamentary Lakehouse Platform
 
 Enterprise-style Lakehouse Data Engineering platform fully implemented natively on Databricks for large-scale parliamentary analytics using PySpark, Delta Lake, Delta Live Tables (DLT), streaming micro-batch ingestion, CDC/SCD Type 2 processing, multi-endpoint REST APIs and Medallion architecture.
 
@@ -342,13 +342,13 @@ Detailed governance documentation is available in:
 camara-data-pipeline/
 │
 ├── README.md
-├── README.pt-BR.md
 │
 ├── docs/
 │   ├── index.md
 │   ├── streaming_architecture.md
 │   ├── governance_and_lineage.md
 │   ├── replay_strategy.md
+│   ├── gold_layer_enterprise_data_dictionary.md
 │   ├── parliamentary_intelligence.md
 │   ├── notebooks_catalog.md
 │   ├── architecture_decisions.md
