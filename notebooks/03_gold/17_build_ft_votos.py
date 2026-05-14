@@ -1,22 +1,28 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 17_build_ft_votos
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the individual deputy votes fact table for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the deputy voting fact table by joining curated vote
-# records with deputy, party, legislature, UF and voting dimensions.
-#
-# Source:
-# silver_curated.votacoes_votos
-#
-# Target:
-# gold.ft_votos
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Individual Votes Fact Table (ft_votos)
+# MAGIC
+# MAGIC **Notebook:** 17_build_ft_votos
+# MAGIC
+# MAGIC Builds the individual deputy votes fact table for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the deputy voting fact table by joining curated vote
+# MAGIC records with deputy, party, legislature, UF and voting dimensions.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated individual vote records
+# MAGIC - Join Gold conformed dimensions
+# MAGIC - Create dimensional foreign keys
+# MAGIC - Preserve deputy voting decisions and analytical indicators
+# MAGIC - Support parliamentary behavior and political alignment analytics
+# MAGIC - Persist the Gold Delta fact table
+# MAGIC - Optimize the Delta table for analytical queries
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.votacoes_votos`  
+# MAGIC
+# MAGIC **Target:** `gold.ft_votos`
 
 # COMMAND ----------
 

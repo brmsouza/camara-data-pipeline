@@ -1,33 +1,29 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 04_build_dm_deputado
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed deputy dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the deputy dimension used across analytical fact tables
-# such as CEAP expenses, voting behavior, event attendance and parliamentary
-# activity.
-#
-# Responsibilities:
-# - Read curated deputy records
-# - Extract analytical deputy attributes
-# - Create a surrogate key for dimensional modeling
-# - Ensure one record per deputy
-# - Preserve lineage and Gold processing metadata
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.deputados
-#
-# Target:
-# gold.dm_deputado
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Deputy Dimension (dm_deputado)
+# MAGIC
+# MAGIC **Notebook:** 04_build_dm_deputado
+# MAGIC
+# MAGIC Builds the conformed deputy dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the deputy dimension used across analytical fact tables
+# MAGIC such as CEAP expenses, voting behavior, event attendance and parliamentary
+# MAGIC activity.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated deputy records
+# MAGIC - Extract analytical deputy attributes
+# MAGIC - Create a surrogate key for dimensional modeling
+# MAGIC - Ensure one record per deputy
+# MAGIC - Preserve lineage and Gold processing metadata
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.deputados`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_deputado`
 
 # COMMAND ----------
 

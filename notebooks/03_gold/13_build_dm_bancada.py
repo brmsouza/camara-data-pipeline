@@ -1,31 +1,27 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 13_build_dm_bancada
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed bench/party bloc dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the bancada dimension used by voting orientation fact
-# tables and political alignment analytics.
-#
-# Responsibilities:
-# - Read curated voting orientation records
-# - Extract bancada attributes
-# - Create a surrogate key for dimensional modeling
-# - Ensure one record per bancada
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.votacoes_orientacoes
-#
-# Target:
-# gold.dm_bancada
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Parliamentary Bench Dimension (dm_bancada)
+# MAGIC
+# MAGIC **Notebook:** 13_build_dm_bancada
+# MAGIC
+# MAGIC Builds the conformed bench/party bloc dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the bancada dimension used by voting orientation fact
+# MAGIC tables and political alignment analytics.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated voting orientation records
+# MAGIC - Extract bancada attributes
+# MAGIC - Create a surrogate key for dimensional modeling
+# MAGIC - Ensure one record per bancada
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.votacoes_orientacoes`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_bancada`
 
 # COMMAND ----------
 

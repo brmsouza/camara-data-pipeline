@@ -1,33 +1,29 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 05_build_dm_proposicao
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed proposition dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the proposition dimension used across analytical fact
-# tables and data marts related to voting behavior, proposition lifecycle,
-# legislative activity and parliamentary productivity.
-#
-# Responsibilities:
-# - Read curated proposition records
-# - Extract analytical proposition attributes
-# - Create a surrogate key for dimensional modeling
-# - Ensure one record per proposition
-# - Preserve lineage and Gold processing metadata
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.proposicoes
-#
-# Target:
-# gold.dm_proposicao
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Proposition Dimension (dm_proposicao)
+# MAGIC
+# MAGIC **Notebook:** 05_build_dm_proposicao
+# MAGIC
+# MAGIC Builds the conformed proposition dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the proposition dimension used across analytical fact
+# MAGIC tables and data marts related to voting behavior, proposition lifecycle,
+# MAGIC legislative activity and parliamentary productivity.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated proposition records
+# MAGIC - Extract analytical proposition attributes
+# MAGIC - Create a surrogate key for dimensional modeling
+# MAGIC - Ensure one record per proposition
+# MAGIC - Preserve lineage and Gold processing metadata
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.proposicoes`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_proposicao`
 
 # COMMAND ----------
 

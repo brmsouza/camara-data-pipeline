@@ -1,33 +1,28 @@
 # Databricks notebook source
-# Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 14_build_dm_responsavel_ceap
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed CEAP expense responsible dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the CEAP responsible dimension used by CEAP expense fact
-# tables and parliamentary expenditure analytics.
-#
-# Responsibilities:
-# - Read curated CEAP expense records
-# - Extract CEAP responsible attributes
-# - Classify responsible type
-# - Create a sequential surrogate key for dimensional modeling
-# - Ensure one record per CEAP responsible
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.despesas
-#
-# Target:
-# gold.dm_responsavel_ceap
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — CEAP Responsible Dimension (dm_responsavel_ceap)
+# MAGIC
+# MAGIC **Notebook:** 14_build_dm_responsavel_ceap
+# MAGIC
+# MAGIC Builds the conformed CEAP expense responsible dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the CEAP responsible dimension used by CEAP expense fact
+# MAGIC tables and parliamentary expenditure analytics.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated CEAP expense records
+# MAGIC - Extract CEAP responsible attributes
+# MAGIC - Classify responsible type
+# MAGIC - Create a sequential surrogate key for dimensional modeling
+# MAGIC - Ensure one record per CEAP responsible
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.despesas`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_responsavel_ceap`
 
 # COMMAND ----------
 

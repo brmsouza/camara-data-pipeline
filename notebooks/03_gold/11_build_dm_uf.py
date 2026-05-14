@@ -1,33 +1,31 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 11_build_dm_uf
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed Brazilian state dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the UF dimension from curated deputy, expense and voting
-# datasets. It supports regional analysis across Gold fact tables.
-#
-# Responsibilities:
-# - Read curated datasets with UF attributes
-# - Consolidate unique UF values
-# - Create a surrogate key for dimensional modeling
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Sources:
-# silver_curated.deputados
-# silver_curated.despesas
-# silver_curated.votacoes_votos
-# silver_curated.frentes_membros
-#
-# Target:
-# gold.dm_uf
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Brazilian State Dimension (dm_uf)
+# MAGIC
+# MAGIC **Notebook:** 11_build_dm_uf
+# MAGIC
+# MAGIC Builds the conformed Brazilian state dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the UF dimension from curated deputy, expense and voting
+# MAGIC datasets. It supports regional analysis across Gold fact tables.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated datasets with UF attributes
+# MAGIC - Consolidate unique UF values
+# MAGIC - Create a surrogate key for dimensional modeling
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `silver_curated.deputados`
+# MAGIC - `silver_curated.despesas`
+# MAGIC - `silver_curated.votacoes_votos`
+# MAGIC - `silver_curated.frentes_membros`
+# MAGIC
+# MAGIC **Target:** `gold.dm_uf`
 
 # COMMAND ----------
 

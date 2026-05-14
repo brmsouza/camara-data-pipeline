@@ -1,57 +1,56 @@
 # Databricks notebook source
-# Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 21_build_ft_frentes_membros
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the parliamentary front membership fact table for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the analytical fact table that represents the relationship
-# between parliamentary fronts and their deputy members. It integrates curated
-# front membership records with Gold conformed dimensions such as front, deputy,
-# party, UF and legislature.
-#
-# The resulting table supports the Atlas of Parliamentary Fronts use case from
-# the final challenge, enabling analysis of:
-# - active parliamentary fronts
-# - front membership composition
-# - party and UF diversity within fronts
-# - deputies participating in multiple fronts
-# - front evolution across legislatures
-# - overlap of members between different fronts
-#
-# Grain:
-# One row per deputy membership in a parliamentary front.
-#
-# Responsibilities:
-# - Read curated parliamentary front membership records
-# - Join Gold conformed dimensions
-# - Resolve dimensional surrogate keys
-# - Preserve front, deputy, party, UF and legislature relationships
-# - Preserve membership dates, roles, status and analytical flags
-# - Preserve lineage and audit metadata
-# - Validate Gold fact consistency
-# - Persist a partitioned Gold Delta fact table
-# - Optimize the Delta table for analytical workloads
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.frentes_membros
-#
-# Dimensions:
-# gold.dm_frente
-# gold.dm_deputado
-# gold.dm_partido
-# gold.dm_uf
-# gold.dm_legislatura
-#
-# Target:
-# gold.ft_frentes_membros
-# ------------------------------------------------------------------------------
-
+# MAGIC %md
+# MAGIC # Gold Layer — Parliamentary Front Membership Fact Table (ft_frentes_membros)
+# MAGIC
+# MAGIC **Notebook:** 21_ft_build_ft_frentes_membros
+# MAGIC
+# MAGIC Builds the parliamentary front membership fact table for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the analytical fact table that represents the relationship
+# MAGIC between parliamentary fronts and their deputy members. It integrates curated
+# MAGIC front membership records with Gold conformed dimensions such as front, deputy,
+# MAGIC party, UF and legislature.
+# MAGIC
+# MAGIC The resulting table supports the Atlas of Parliamentary Fronts use case from
+# MAGIC the final challenge, enabling analysis of:
+# MAGIC
+# MAGIC - active parliamentary fronts
+# MAGIC - front membership composition
+# MAGIC - party and UF diversity within fronts
+# MAGIC - deputies participating in multiple fronts
+# MAGIC - front evolution across legislatures
+# MAGIC - overlap of members between different fronts
+# MAGIC
+# MAGIC ## Grain
+# MAGIC
+# MAGIC One row per deputy membership in a parliamentary front.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated parliamentary front membership records
+# MAGIC - Join Gold conformed dimensions
+# MAGIC - Resolve dimensional surrogate keys
+# MAGIC - Preserve front, deputy, party, UF and legislature relationships
+# MAGIC - Preserve membership dates, roles, status and analytical flags
+# MAGIC - Preserve lineage and audit metadata
+# MAGIC - Validate Gold fact consistency
+# MAGIC - Persist a partitioned Gold Delta fact table
+# MAGIC - Optimize the Delta table for analytical workloads
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Source
+# MAGIC
+# MAGIC - `silver_curated.frentes_membros`
+# MAGIC
+# MAGIC ## Dimensions
+# MAGIC
+# MAGIC - `gold.dm_frente`
+# MAGIC - `gold.dm_deputado`
+# MAGIC - `gold.dm_partido`
+# MAGIC - `gold.dm_uf`
+# MAGIC - `gold.dm_legislatura`
+# MAGIC
+# MAGIC **Target:** `gold.ft_frentes_membros`
 
 # COMMAND ----------
 

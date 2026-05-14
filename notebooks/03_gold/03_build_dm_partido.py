@@ -1,31 +1,27 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 03_build_dm_partido
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed political party dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the political party dimension used across analytical
-# fact tables such as expenses, voting behavior and parliamentary activity.
-#
-# Responsibilities:
-# - Read curated deputy records
-# - Extract valid political party attributes
-# - Ensure one record per political party
-# - Preserve Gold processing metadata
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.deputados
-#
-# Target:
-# gold.dm_partido
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Political Party Dimension (dm_partido)
+# MAGIC
+# MAGIC **Notebook:** 03_build_dm_partido
+# MAGIC
+# MAGIC Builds the conformed political party dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the political party dimension used across analytical
+# MAGIC fact tables such as expenses, voting behavior and parliamentary activity.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated deputy records
+# MAGIC - Extract valid political party attributes
+# MAGIC - Ensure one record per political party
+# MAGIC - Preserve Gold processing metadata
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.deputados`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_partido`
 
 # COMMAND ----------
 

@@ -1,33 +1,29 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 06_build_dm_orgao
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed legislative body dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the legislative body dimension used across analytical
-# fact tables related to events, attendance, voting, committees and
-# parliamentary activity.
-#
-# Responsibilities:
-# - Read curated legislative body records
-# - Extract analytical organization attributes
-# - Create a surrogate key for dimensional modeling
-# - Ensure one record per legislative body
-# - Preserve lineage and Gold processing metadata
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.orgaos
-#
-# Target:
-# gold.dm_orgao
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Legislative Body Dimension (dm_orgao)
+# MAGIC
+# MAGIC **Notebook:** 06_build_dm_orgao
+# MAGIC
+# MAGIC Builds the conformed legislative body dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the legislative body dimension used across analytical
+# MAGIC fact tables related to events, attendance, voting, committees and
+# MAGIC parliamentary activity.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated legislative body records
+# MAGIC - Extract analytical organization attributes
+# MAGIC - Create a surrogate key for dimensional modeling
+# MAGIC - Ensure one record per legislative body
+# MAGIC - Preserve lineage and Gold processing metadata
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.orgaos`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_orgao`
 
 # COMMAND ----------
 

@@ -1,31 +1,27 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 12_build_dm_tipo_despesa
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed expense type dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the CEAP expense type dimension used by expense fact
-# tables and spending analytics.
-#
-# Responsibilities:
-# - Read curated expense records
-# - Extract CEAP expense type and specification attributes
-# - Create a surrogate key for dimensional modeling
-# - Ensure one record per expense type/specification combination
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.despesas
-#
-# Target:
-# gold.dm_tipo_despesa
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Expense Type Dimension (dm_tipo_despesa)
+# MAGIC
+# MAGIC **Notebook:** 12_build_dm_tipo_despesa
+# MAGIC
+# MAGIC Builds the conformed expense type dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the CEAP expense type dimension used by expense fact
+# MAGIC tables and spending analytics.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated expense records
+# MAGIC - Extract CEAP expense type and specification attributes
+# MAGIC - Create a surrogate key for dimensional modeling
+# MAGIC - Ensure one record per expense type/specification combination
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.despesas`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_tipo_despesa`
 
 # COMMAND ----------
 

@@ -1,31 +1,27 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 08_build_dm_fornecedor
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed supplier dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the supplier dimension used by CEAP expense fact tables.
-#
-# Responsibilities: 
-#- Read curated supplier records
-#- Extract supplier attributes
-#- Create a surrogate key for dimensional modeling
-#- Ensure one record per supplier document
-#- Preserve CNPJ validation and supplier risk attributes
-#- Validate dimension consistency
-#- Persist the Gold Delta dimension table
-#- Register operational execution metrics
-#
-# Source:
-# silver_curated.fornecedores
-#
-# Target:
-# gold.dm_fornecedor
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Supplier Dimension (dm_fornecedor)
+# MAGIC
+# MAGIC **Notebook:** 08_build_dm_fornecedor
+# MAGIC
+# MAGIC Builds the conformed supplier dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the supplier dimension used by CEAP expense fact tables.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated supplier records
+# MAGIC - Extract supplier attributes
+# MAGIC - Create a surrogate key for dimensional modeling
+# MAGIC - Ensure one record per supplier document
+# MAGIC - Preserve CNPJ validation and supplier risk attributes
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.fornecedores`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_fornecedor`
 
 # COMMAND ----------
 

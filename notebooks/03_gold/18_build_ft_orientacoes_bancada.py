@@ -1,22 +1,28 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 18_build_ft_orientacoes_bancada
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the voting orientation fact table for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the bancada voting orientation fact table, enabling
-# analysis of party bloc recommendations across legislative voting events.
-#
-# Source:
-# silver_curated.votacoes_orientacoes
-#
-# Target:
-# gold.ft_orientacoes_bancada
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Parliamentary Orientation Fact Table (ft_orientacoes_bancada)
+# MAGIC
+# MAGIC **Notebook:** 19_build_ft_orientacoes_bancada
+# MAGIC
+# MAGIC Builds the voting orientation fact table for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the bancada voting orientation fact table, enabling
+# MAGIC analysis of party bloc recommendations across legislative voting events.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated voting orientation records
+# MAGIC - Join Gold conformed dimensions
+# MAGIC - Create dimensional foreign keys
+# MAGIC - Preserve bancada orientation decisions and analytical indicators
+# MAGIC - Support political alignment and voting recommendation analytics
+# MAGIC - Persist the Gold Delta fact table
+# MAGIC - Optimize the Delta table for analytical queries
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.votacoes_orientacoes`  
+# MAGIC
+# MAGIC **Target:** `gold.ft_orientacoes_bancada`
 
 # COMMAND ----------
 

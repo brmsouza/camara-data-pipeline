@@ -1,32 +1,28 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 15_build_ft_despesas_ceap
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the CEAP expenses fact table for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the parliamentary expense fact table by joining curated
-# expense records with Gold conformed dimensions such as deputy, party,
-# legislature, supplier, expense type, UF and date.
-#
-# Responsibilities:
-# - Read curated expense records
-# - Join Gold dimensions
-# - Create dimensional foreign keys
-# - Preserve CEAP analytical measures and flags
-# - Persist a partitioned Gold Delta fact table
-# - Optimize the Delta table for analytical queries
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.despesas
-#
-# Target:
-# gold.ft_despesas_ceap
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — CEAP Expenses Fact Table (ft_despesas_ceap)
+# MAGIC
+# MAGIC **Notebook:** 15_build_ft_despesas_ceap
+# MAGIC
+# MAGIC Builds the CEAP expenses fact table for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the parliamentary expense fact table by joining curated
+# MAGIC expense records with Gold conformed dimensions such as deputy, party,
+# MAGIC legislature, supplier, expense type, UF and date.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated expense records
+# MAGIC - Join Gold dimensions
+# MAGIC - Create dimensional foreign keys
+# MAGIC - Preserve CEAP analytical measures and flags
+# MAGIC - Persist a partitioned Gold Delta fact table
+# MAGIC - Optimize the Delta table for analytical queries
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.despesas`  
+# MAGIC
+# MAGIC **Target:** `gold.ft_despesas_ceap`
 
 # COMMAND ----------
 

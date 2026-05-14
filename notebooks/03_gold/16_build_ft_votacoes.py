@@ -1,22 +1,28 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 16_build_ft_votacoes
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the voting summary fact table for the Gold Star Schema.
-#
-# Context:
-# This notebook creates an analytical fact table with voting-level measures,
-# voting result indicators and dimensional foreign keys.
-#
-# Source:
-# silver_curated.votacoes
-#
-# Target:
-# gold.ft_votacoes
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Voting Fact Table (ft_votacoes)
+# MAGIC
+# MAGIC **Notebook:** 16_build_ft_votacoes
+# MAGIC
+# MAGIC Builds the voting summary fact table for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates an analytical fact table with voting-level measures,
+# MAGIC voting result indicators and dimensional foreign keys.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated voting records
+# MAGIC - Join Gold conformed dimensions
+# MAGIC - Create dimensional foreign keys
+# MAGIC - Preserve voting analytical measures and result indicators
+# MAGIC - Support parliamentary voting behavior analytics
+# MAGIC - Persist the Gold Delta fact table
+# MAGIC - Optimize the Delta table for analytical queries
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.votacoes`  
+# MAGIC
+# MAGIC **Target:** `gold.ft_votacoes`
 
 # COMMAND ----------
 

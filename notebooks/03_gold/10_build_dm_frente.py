@@ -1,31 +1,27 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 10_build_dm_frente
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed parliamentary front dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the parliamentary front dimension used by activity and
-# engagement analytical fact tables.
-#
-# Responsibilities:
-# - Read curated parliamentary front records
-# - Extract analytical front attributes
-# - Create a surrogate key for dimensional modeling
-# - Ensure one record per parliamentary front
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.frentes
-#
-# Target:
-# gold.dm_frente
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Parliamentary Front Dimension (dm_frente)
+# MAGIC
+# MAGIC **Notebook:** 10_build_dm_frente
+# MAGIC
+# MAGIC Builds the conformed parliamentary front dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the parliamentary front dimension used by activity and
+# MAGIC engagement analytical fact tables.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated parliamentary front records
+# MAGIC - Extract analytical front attributes
+# MAGIC - Create a surrogate key for dimensional modeling
+# MAGIC - Ensure one record per parliamentary front
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.frentes`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_frente`
 
 # COMMAND ----------
 

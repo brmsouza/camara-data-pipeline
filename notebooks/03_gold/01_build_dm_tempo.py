@@ -1,29 +1,26 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 01_build_dm_data
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed date dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates a reusable analytical date dimension used by Gold fact
-# tables, data marts and BI views. It supports time-based analysis required by
-# the final challenge, including CEAP expenses by month, event density by week,
-# voting timelines and parliamentary engagement series.
-#
-# Responsibilities:
-# - Generate a complete analytical calendar
-# - Create a surrogate date key for dimensional joins
-# - Create date hierarchy attributes for BI consumption
-# - Support Star Schema modeling in the Gold layer
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Target:
-# gold.dm_data
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Date Dimension (dm_data)
+# MAGIC
+# MAGIC **Notebook:** 01_build_dm_tempo
+# MAGIC
+# MAGIC Builds the conformed date dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates a reusable analytical date dimension used by Gold fact
+# MAGIC tables, data marts and BI views. It supports time-based analysis required by
+# MAGIC the final challenge, including CEAP expenses by month, event density by week,
+# MAGIC voting timelines and parliamentary engagement series.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Generate a complete analytical calendar
+# MAGIC - Create a surrogate date key for dimensional joins
+# MAGIC - Create date hierarchy attributes for BI consumption
+# MAGIC - Support Star Schema modeling in the Gold layer
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Target:** `gold.dm_data`
 
 # COMMAND ----------
 

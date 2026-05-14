@@ -1,25 +1,34 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 19_build_ft_atividade_parlamentar
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the parliamentary activity fact table for the Gold Star Schema.
-#
-# Context:
-# This notebook consolidates deputy activity indicators from curated datasets,
-# creating a wide analytical fact table for parliamentary engagement.
-#
-# Source:
-# silver_curated.deputados
-# silver_curated.despesas
-# silver_curated.votacoes_votos
-# silver_curated.frentes_membros
-#
-# Target:
-# gold.ft_atividade_parlamentar
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Parliamentary Activity Fact Table (ft_atividade_parlamentar)
+# MAGIC
+# MAGIC **Notebook:** 19_build_ft_atividade_parlamentar
+# MAGIC
+# MAGIC Builds the parliamentary activity fact table for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook consolidates deputy activity indicators from curated datasets,
+# MAGIC creating a wide analytical fact table for parliamentary engagement.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated parliamentary activity datasets
+# MAGIC - Consolidate deputy engagement indicators
+# MAGIC - Join Gold conformed dimensions
+# MAGIC - Create dimensional foreign keys
+# MAGIC - Preserve parliamentary activity analytical measures
+# MAGIC - Support productivity and engagement analytics
+# MAGIC - Persist the Gold Delta fact table
+# MAGIC - Optimize the Delta table for analytical queries
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC ## Sources
+# MAGIC
+# MAGIC - `silver_curated.deputados`
+# MAGIC - `silver_curated.despesas`
+# MAGIC - `silver_curated.votacoes_votos`
+# MAGIC - `silver_curated.frentes_membros`
+# MAGIC
+# MAGIC **Target:** `gold.ft_atividade_parlamentar`
 
 # COMMAND ----------
 

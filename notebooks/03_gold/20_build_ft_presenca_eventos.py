@@ -1,31 +1,28 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 20_build_ft_presenca_eventos
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the parliamentary event attendance fact table for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the deputy attendance fact table by combining event,
-# deputy and organizational participation records for analytical reporting.
-#
-# Responsibilities:
-# - Read curated event participation records
-# - Join conformed Gold dimensions
-# - Create dimensional foreign keys
-# - Preserve attendance analytical attributes
-# - Persist the Gold Delta fact table
-# - Optimize analytical query performance
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.eventos
-#
-# Target:
-# gold.ft_presenca_eventos
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Parliamentary Event Attendance Fact Table (ft_presenca_eventos)
+# MAGIC
+# MAGIC **Notebook:** 20_ft_build_ft_presenca_eventos
+# MAGIC
+# MAGIC Builds the parliamentary event attendance fact table for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the deputy attendance fact table by combining event,
+# MAGIC deputy and organizational participation records for analytical reporting.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated event participation records
+# MAGIC - Join conformed Gold dimensions
+# MAGIC - Create dimensional foreign keys
+# MAGIC - Preserve attendance analytical attributes
+# MAGIC - Support parliamentary participation and engagement analytics
+# MAGIC - Persist the Gold Delta fact table
+# MAGIC - Optimize analytical query performance
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.eventos`  
+# MAGIC
+# MAGIC **Target:** `gold.ft_presenca_eventos`
 
 # COMMAND ----------
 

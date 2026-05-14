@@ -1,33 +1,29 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 07_build_dm_gabinete
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed office dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the deputy office dimension from curated deputy data.
-# It supports analytical joins related to parliamentary office location,
-# contact information and cabinet-level segmentation.
-#
-# Responsibilities:
-# - Read curated deputy records
-# - Extract cabinet/office attributes
-# - Create a surrogate key for dimensional modeling
-# - Ensure one record per deputy office
-# - Preserve lineage and Gold processing metadata
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.deputados
-#
-# Target:
-# gold.dm_gabinete
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Parliamentary Office Dimension (dm_gabinete)
+# MAGIC
+# MAGIC **Notebook:**07_build_dm_gabinete
+# MAGIC
+# MAGIC Builds the conformed office dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the deputy office dimension from curated deputy data.
+# MAGIC It supports analytical joins related to parliamentary office location,
+# MAGIC contact information and cabinet-level segmentation.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated deputy records
+# MAGIC - Extract cabinet/office attributes
+# MAGIC - Create a surrogate key for dimensional modeling
+# MAGIC - Ensure one record per deputy office
+# MAGIC - Preserve lineage and Gold processing metadata
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.deputados`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_gabinete`
 
 # COMMAND ----------
 

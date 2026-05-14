@@ -1,31 +1,27 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 09_build_dm_evento
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed event dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates the legislative event dimension used by attendance,
-# activity and event-based analytical fact tables.
-#
-# Responsibilities:
-# - Read curated event records
-# - Extract analytical event attributes
-# - Create a surrogate key for dimensional modeling
-# - Ensure one record per event
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.eventos
-#
-# Target:
-# gold.dm_evento
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Legislative Event Dimension (dm_evento)
+# MAGIC
+# MAGIC **Notebook:** 09_build_dm_evento
+# MAGIC
+# MAGIC Builds the conformed event dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates the legislative event dimension used by attendance,
+# MAGIC activity and event-based analytical fact tables.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated event records
+# MAGIC - Extract analytical event attributes
+# MAGIC - Create a surrogate key for dimensional modeling
+# MAGIC - Ensure one record per event
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.eventos`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_evento`
 
 # COMMAND ----------
 

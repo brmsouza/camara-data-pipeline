@@ -1,32 +1,28 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Notebook: 02_build_dm_legislatura
-# Layer: Gold
-# Author: Bruno Souza
-#
-# Description:
-# Builds the conformed legislature dimension for the Gold Star Schema.
-#
-# Context:
-# This notebook creates a reusable legislature dimension from curated deputy
-# data. It supports analytical joins across CEAP expenses, voting behavior,
-# event attendance and parliamentary activity by legislature.
-#
-# Responsibilities:
-# - Read curated legislature records
-# - Extract valid legislature identifiers
-# - Ensure one record per legislature
-# - Preserve Gold processing metadata
-# - Validate dimension consistency
-# - Persist the Gold Delta dimension table
-# - Register operational execution metrics
-#
-# Source:
-# silver_curated.legislaturas
-#
-# Target:
-# gold.dm_legislatura
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Gold Layer — Legislature Dimension (dm_legislatura)
+# MAGIC
+# MAGIC **Notebook:** 02_build_dm_legislatura
+# MAGIC
+# MAGIC Builds the conformed legislature dimension for the Gold Star Schema.
+# MAGIC
+# MAGIC This notebook creates a reusable legislature dimension from curated legislature
+# MAGIC data. It supports analytical joins across CEAP expenses, voting behavior,
+# MAGIC event attendance and parliamentary activity by legislature.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Read curated legislature records
+# MAGIC - Extract valid legislature identifiers
+# MAGIC - Ensure one record per legislature
+# MAGIC - Preserve Gold processing metadata
+# MAGIC - Validate dimension consistency
+# MAGIC - Persist the Gold Delta dimension table
+# MAGIC - Register operational execution metrics
+# MAGIC
+# MAGIC **Source of truth:** `silver_curated.legislaturas`  
+# MAGIC
+# MAGIC **Target:** `gold.dm_legislatura`
 
 # COMMAND ----------
 
