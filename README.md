@@ -14,10 +14,140 @@ End-to-end lakehouse data engineering project built on Databricks using PySpark 
 
 ---
 
+## Educational Purpose
+
+This project was developed for educational, technical portfolio and data engineering study purposes.
+
+The solution demonstrates enterprise-style Data Engineering concepts using public parliamentary datasets and modern Lakehouse architecture patterns.
+
+No political affiliation, governmental endorsement or institutional relationship is implied.
+
+The analytical interpretations and indicators presented in this repository are intended exclusively for technical demonstration, analytical experimentation and engineering architecture studies.
+
+---
+
+# Technologies Used
+
+| Category | Technology |
+|---|---|
+| Platform | Databricks Free Edition |
+| Languages | PySpark (Python) and Spark SQL |
+| Storage | Delta Lake |
+| Architecture | Medallion Architecture (Bronze, Silver, Gold) |
+| Streaming | Delta Live Tables (DLT) and Micro-batch |
+| Source API | Câmara dos Deputados Open Data API |
+| Version Control | GitHub |
+| Processing Engine | Apache Spark |
+| Analytical Modeling | Star Schema / Dimensional Modeling |
+
+---
+
+## Platform
+
+### Databricks Free Edition
+
+Official page:
+
+https://www.databricks.com/blog/introducing-databricks-free-edition
+
+The project was developed using Databricks Lakehouse capabilities including:
+
+* Delta Lake;
+* Workflows;
+* PySpark notebooks;
+* Spark SQL;
+* Streaming micro-batch;
+* Delta Live Tables (DLT);
+* medallion architecture implementation.
+
+---
+
+## Programming Languages
+
+### PySpark (Python)
+
+Used for:
+
+* ingestion pipelines;
+* transformations;
+* quality validations;
+* CDC processing;
+* streaming processing;
+* orchestration logic;
+* analytical processing.
+
+### Spark SQL
+
+Used for:
+
+* analytical views;
+* Gold marts;
+* dimensional modeling;
+* aggregations;
+* analytical products;
+* quality checks.
+
+---
+
+## Data Source
+
+### Câmara dos Deputados Open Data API
+
+Official documentation:
+
+https://dadosabertos.camara.leg.br/swagger/api.html
+
+The API provides public parliamentary datasets including:
+
+* deputies;
+* expenses;
+* propositions;
+* parliamentary fronts;
+* legislative events;
+* organizations;
+* voting sessions;
+* voting orientations;
+* voting votes;
+* legislatures.
+
+---
+
+## Architecture Pattern
+
+### Medallion Architecture
+
+The project implements a Medallion Lakehouse Architecture with progressive data refinement:
+
+| Layer | Responsibility |
+|---|---|
+| Bronze | Raw ingestion and replayability |
+| Silver Base | Technical standardization and validations |
+| Silver Curated | Business-oriented reusable entities |
+| Gold | Dimensional modeling and analytical marts |
+| Analytics | Parliamentary intelligence and analytical products |
+
+---
+
+## Additional Engineering Features
+
+The project also implements:
+
+* CDC / SCD Type 2;
+* Delta Live Tables (DLT);
+* streaming micro-batch ingestion;
+* replay/reprocessing strategy;
+* workflow orchestration;
+* SLA monitoring;
+* operational observability;
+* lineage and governance patterns.
+
+---
+
 # Table of Contents
 
 * [Overview](#overview)
 * [Challenge Scope](#challenge-scope)
+* [Data Sources and APIs](#data-sources-and-apis)
 * [Architecture](#architecture)
 * [Medallion Architecture](#medallion-architecture)
 * [Streaming, CDC and DLT Architecture](#streaming-cdc-and-dlt-architecture)
@@ -28,6 +158,7 @@ End-to-end lakehouse data engineering project built on Databricks using PySpark 
 * [Streaming and Parliamentary Intelligence](#streaming-and-parliamentary-intelligence)
 * [Tech Stack](#tech-stack)
 * [Repository Structure](#repository-structure)
+* [Documentation Architecture](#documentation-architecture)
 * [Data Quality and Lineage](#data-quality-and-lineage)
 * [Incremental Processing and Replay](#incremental-processing-and-replay)
 * [Supplier Enrichment and Anomaly Detection](#supplier-enrichment-and-anomaly-detection)
@@ -83,6 +214,110 @@ The solution focuses on:
 
 ---
 
+# Data Sources and APIs
+
+The project uses public parliamentary and governmental datasets to build a complete analytical lakehouse platform focused on Brazilian legislative activity.
+
+---
+
+## Main Data Source
+
+### Câmara dos Deputados Open Data API
+
+Official API:
+
+https://dadosabertos.camara.leg.br/swagger/api.html
+
+Main datasets consumed:
+
+| Dataset | Endpoint |
+|---|---|
+| Deputies | `/deputados` |
+| Deputy details | `/deputados/{id}` |
+| Parliamentary fronts | `/frentes` |
+| Front members | `/frentes/{id}/membros` |
+| Legislative events | `/eventos` |
+| Propositions | `/proposicoes` |
+| Proposition processing | `/proposicoes/{id}/tramitacoes` |
+| Expenses (CEAP) | `/deputados/{id}/despesas` |
+| Organizations | `/orgaos` |
+| Organization members | `/orgaos/{id}/membros` |
+| Voting sessions | `/votacoes` |
+| Voting orientations | `/votacoes/{id}/orientacoes` |
+| Voting votes | `/votacoes/{id}/votos` |
+| Legislatures | `/legislaturas` |
+
+---
+
+## Supplier Enrichment Source
+
+### Receita Federal / Public CNPJ datasets
+
+Used for:
+
+* supplier enrichment;
+* CPF/CNPJ validation;
+* active/inactive supplier verification;
+* anomaly support analysis;
+* suspicious supplier detection.
+
+---
+
+## Data Consumption Strategy
+
+The ingestion architecture combines:
+
+* direct API ingestion;
+* incremental ingestion;
+* file-based replay ingestion;
+* CDC ingestion;
+* streaming micro-batch ingestion.
+
+---
+
+## API Engineering Features
+
+Implemented ingestion controls include:
+
+* pagination;
+* retry strategy;
+* timeout control;
+* incremental processing;
+* lineage generation;
+* replay support;
+* payload hashing;
+* batch_id tracking;
+* Delta persistence;
+* operational logging.
+
+---
+
+## Streaming APIs
+
+The streaming architecture continuously monitors:
+
+| Streaming Dataset | Strategy |
+|---|---|
+| Voting sessions | Incremental micro-batch |
+| Proposition processing | CDC / SCD Type 2 |
+
+---
+
+## API Observability
+
+The project implements operational observability for API workloads through:
+
+* monitoring.pipeline_log;
+* SLA monitoring;
+* execution logs;
+* records_read;
+* records_written;
+* records_discarded;
+* batch lineage;
+* replay traceability.
+
+---
+
 # Architecture
 
 The project follows a layered lakehouse architecture with progressive refinement of parliamentary data.
@@ -91,9 +326,7 @@ The project follows a layered lakehouse architecture with progressive refinement
 * Silver Base performs technical treatment and validations;
 * Silver Curated prepares reusable business entities;
 * Gold materializes dimensions, facts and analytical marts;
-* Analytics delivers parliamentary intelligence products;
-* Streaming workloads support near-real-time parliamentary voting monitoring;
-* CDC/SCD2 workloads support historical tracking of proposition processing events.
+* Analytics delivers parliamentary intelligence products.
 
 ![Architecture](assets/images/camadamedalhao_camaradeputados.png)
 
@@ -288,34 +521,6 @@ The project also implements CDC historization for parliamentary proposition proc
 * replay support;
 * Delta Lake historization.
 
-### Main objects
-
-* silver_cdc.proposicoes_tramitacoes_base;
-* silver_cdc.proposicoes_tramitacoes_scd2;
-* gold_cdc.proposicoes_tramitacoes_alertas.
-
----
-
-## SLA Monitoring and Observability
-
-Operational observability was implemented through logs, monitoring tables and SLA-oriented workflows.
-
-### Monitoring features
-
-* records_read;
-* records_written;
-* records_discarded;
-* execution duration;
-* latency monitoring;
-* operational logs;
-* replay traceability;
-* workflow observability.
-
-### Monitoring objects
-
-* monitoring.pipeline_log;
-* monitoring.vw_sla_votacoes_streaming.
-
 ---
 
 # Gold Dimensional Model
@@ -496,8 +701,16 @@ Advanced analytical views include:
 ```text
 camara-data-pipeline/
 │
-├── docs/
+├── assets/
 │   └── images/
+│
+├── docs/
+│   ├── notebooks_catalog.md
+│   ├── challenge_matrix.md
+│   ├── architecture_decisions.md
+│   ├── streaming_architecture.md
+│   ├── runbook.md
+│   └── pdf/
 │
 ├── notebooks/
 │   ├── 00_setup/
@@ -514,6 +727,49 @@ camara-data-pipeline/
 ├── requirements.txt
 └── README.md
 ```
+
+---
+
+# Documentation Architecture
+
+The project documentation follows an enterprise-style engineering documentation approach.
+
+### Main goals
+
+* onboarding support;
+* architectural transparency;
+* operational guidance;
+* analytical explainability;
+* replay/recovery procedures;
+* technical governance;
+* challenge defense support.
+
+---
+
+## Documentation Layers
+
+| Layer | Responsibility |
+|---|---|
+| README.md | High-level architecture and project overview |
+| notebooks_catalog.md | Notebook responsibilities and lineage |
+| challenge_matrix.md | Detailed challenge adherence mapping |
+| architecture_decisions.md | Technical and modeling decisions |
+| streaming_architecture.md | Streaming and CDC operational design |
+| runbook.md | Incident response and replay procedures |
+
+---
+
+## Engineering Documentation Principles
+
+The documentation strategy prioritizes:
+
+* technical clarity;
+* reproducibility;
+* governance transparency;
+* architectural explainability;
+* operational resilience;
+* replay traceability;
+* analytical reproducibility.
 
 ---
 
@@ -705,17 +961,60 @@ Additional technical documentation is available under:
 docs/
 ```
 
-Including:
+Main documentation files:
+
+| Document | Description |
+|---|---|
+| notebooks_catalog.md | Complete notebook catalog and responsibilities |
+| challenge_matrix.md | Detailed challenge adherence matrix |
+| architecture_decisions.md | Architectural and modeling decisions |
+| streaming_architecture.md | Streaming, CDC and DLT architecture |
+| runbook.md | Operational recovery and replay procedures |
+| guia_projeto_camaradatapipeline.pdf | Full technical project guide |
+| estudo_matriz_aderencia.pdf | Complete challenge adherence study |
+
+---
+
+## Documentation Coverage
+
+The documentation includes:
 
 * architecture decisions;
+* medallion architecture;
 * dimensional modeling;
+* governance;
+* lineage;
+* replay/reprocessing;
+* streaming architecture;
+* CDC / SCD Type 2;
+* Delta Live Tables (DLT);
+* workflow orchestration;
+* SLA monitoring;
+* operational observability;
+* analytical products;
+* notebook responsibilities;
 * technical standards;
-* analytical documentation;
 * runbooks;
-* evidences and diagrams;
-* streaming evidence images;
-* CDC/SCD2 documentation;
-* SLA and observability evidence.
+* evidences and diagrams.
+
+---
+
+## Evidence Images
+
+Operational evidence images available under:
+
+```text
+assets/images/
+```
+
+Including:
+
+* medallion architecture;
+* workflow orchestration;
+* DLT streaming pipeline;
+* streaming micro-batch execution;
+* governance architecture;
+* dimensional model diagrams.
 
 ---
 
