@@ -380,14 +380,14 @@ docs/
 
 | Document | Description |
 |---|---|
-| `streaming_architecture.md` | Streaming, CDC, DLT and SLA architecture |
-| `governance_and_lineage.md` | Governance, lineage and observability |
-| `replay_strategy.md` | Replay and recovery strategy |
-| `parliamentary_intelligence.md` | Parliamentary analytics and intelligence |
-| `architecture_decisions.md` | Architecture and modeling decisions |
-| `challenge_matrix.md` | Challenge adherence matrix |
-| `runbook.md` | Operational incident procedures |
-| `notebooks_catalog.md` | Notebook catalog and responsibilities |
+| [streaming_architecture.md](docs/streaming_architecture.md) | Streaming, CDC, DLT and SLA architecture |
+| [governance_and_lineage.md](docs/governance_and_lineage.md) | Governance, lineage and observability |
+| [replay_strategy.md](docs/replay_strategy.md) | Replay and recovery strategy |
+| [parliamentary_intelligence.md](docs/parliamentary_intelligence.md) | Parliamentary analytics and intelligence |
+| [architecture_decisions.md](docs/architecture_decisions.md) | Architecture and modeling decisions |
+| [challenge_matrix.md](docs/challenge_matrix.md) | Challenge adherence matrix |
+| [runbook.md](docs/runbook.md) | Operational incident procedures |
+| [notebooks_catalog.md](docs/notebooks_catalog.md) | Notebook catalog and responsibilities |
 
 ---
 
