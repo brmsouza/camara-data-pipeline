@@ -26,7 +26,6 @@ The documentation strategy follows enterprise-oriented Data Engineering document
 | Document | Description |
 |---|---|
 | `README.md` | Executive project overview |
-| `README.pt-BR.md` | Executive overview in Portuguese |
 | `streaming_architecture.md` | Streaming, CDC, DLT and SLA architecture |
 | `governance_and_lineage.md` | Governance, lineage and observability |
 | `replay_strategy.md` | Replay, recovery and reprocessing strategy |
@@ -98,7 +97,6 @@ The analytical layer includes:
 camara-data-pipeline/
 │
 ├── README.md
-├── README.pt-BR.md
 │
 ├── docs/
 │   ├── index.md
