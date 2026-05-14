@@ -1,14 +1,31 @@
 # Databricks notebook source
-# MAGIC %sql
-# MAGIC -- -----------------------------------------------------------------------------
-# MAGIC -- Notebook: 04_create_cdc_scd2_objects
-# MAGIC -- Layer: Setup
-# MAGIC --
-# MAGIC -- Description:
-# MAGIC -- Creates control, Bronze, Silver and Analytics objects required for the
-# MAGIC -- proposicoes tramitacoes CDC / SCD Type 2 pipeline.
-# MAGIC -- -----------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Setup Layer — CDC / SCD Type 2 Objects Initialization
 # MAGIC
+# MAGIC **Notebook:** `04_create_cdc_scd2_objects`
+# MAGIC
+# MAGIC Creates control, Bronze, Silver and Analytics objects required for the
+# MAGIC proposicoes tramitacoes CDC / SCD Type 2 pipeline.
+# MAGIC
+# MAGIC This notebook prepares the schemas, Delta tables and operational structures
+# MAGIC required to support historical tracking of proposition tramitacoes using
+# MAGIC Change Data Capture and Slowly Changing Dimension Type 2 strategies.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Create control objects required by the CDC pipeline
+# MAGIC - Create Bronze ingestion structures for proposition tramitacoes
+# MAGIC - Create Silver historized structures using SCD Type 2 logic
+# MAGIC - Prepare Analytics layer objects for historical analysis
+# MAGIC - Support change tracking and historization of proposition lifecycle events
+# MAGIC - Enable replay and reprocessing strategies for CDC workloads
+# MAGIC - Support temporal analysis of proposition tramitacoes
+# MAGIC
+# MAGIC **Target:** CDC / SCD Type 2 control and historization objects
+
+# COMMAND ----------
+
+# MAGIC %sql
 # MAGIC CREATE SCHEMA IF NOT EXISTS control;
 # MAGIC CREATE SCHEMA IF NOT EXISTS bronze_cdc;
 # MAGIC CREATE SCHEMA IF NOT EXISTS silver_cdc;
