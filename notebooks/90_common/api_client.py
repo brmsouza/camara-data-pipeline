@@ -1,23 +1,32 @@
 # Databricks notebook source
-# ------------------------------------------------------------------------------
-# Module: api_client
-# Layer: Core
-# Author: Bruno Souza
-#
-# Description:
-# Provides reusable functions to interact with the Câmara dos Deputados
-# Open Data API.
-#
-# Context:
-# Centralizes HTTP request handling, pagination, retries and timeout control
-# used across ingestion pipelines.
-#
-# Notes:
-# - Supports GET requests with parameter handling
-# - Includes retry logic for resilience
-# - Handles pagination for large datasets
-# - Designed to be reused across all Bronze ingestion notebooks
-# ------------------------------------------------------------------------------
+# MAGIC %md
+# MAGIC # Core Layer — Câmara Open Data API Client
+# MAGIC
+# MAGIC **Notebook:** `api_client`
+# MAGIC
+# MAGIC Provides reusable functions to interact with the Câmara dos Deputados
+# MAGIC Open Data API.
+# MAGIC
+# MAGIC This module centralizes HTTP request handling, pagination, retries and timeout
+# MAGIC control used across Bronze ingestion pipelines and operational data collection
+# MAGIC workflows.
+# MAGIC
+# MAGIC ## Responsibilities
+# MAGIC
+# MAGIC - Execute HTTP GET requests against the Câmara Open Data API
+# MAGIC - Handle API parameter construction and transmission
+# MAGIC - Support paginated API extraction workflows
+# MAGIC - Implement retry logic for resilient ingestion execution
+# MAGIC - Control request timeout and connection handling
+# MAGIC - Standardize API interaction logic across ingestion notebooks
+# MAGIC - Support reusable ingestion patterns across Bronze pipelines
+# MAGIC
+# MAGIC ## Notes
+# MAGIC
+# MAGIC - Supports GET requests with parameter handling
+# MAGIC - Includes retry logic for resilience
+# MAGIC - Handles pagination for large datasets
+# MAGIC - Designed to be reused across all Bronze ingestion notebooks
 
 # COMMAND ----------
 
