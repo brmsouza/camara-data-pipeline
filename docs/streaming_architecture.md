@@ -131,11 +131,6 @@ The architecture also includes a Delta Live Tables pipeline to structure the Bro
 notebooks/05_dlt/01_dlt_votacoes_streaming.py
 ```
 
-## Visual evidence
-
-
-![DLT Pipeline](assets/images/dlt_votacoes_streaming.png)
-
 ---
 
 # SLA Monitoring
