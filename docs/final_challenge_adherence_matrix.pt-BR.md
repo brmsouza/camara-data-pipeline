@@ -4,27 +4,20 @@ Documento consolidando o mapeamento entre os requisitos do desafio final Databri
 
 ---
 
-## Como Avaliar Este Projeto
+## Visão Geral da Matriz
 
-Esta matriz representa o principal artefato de validação das entregas do Desafio Final Databricks.
+Esta matriz consolida a rastreabilidade entre os requisitos do Desafio Final Databricks e os componentes efetivamente implementados no projeto `camara-data-pipeline`.
 
-Cada requisito do desafio está diretamente mapeado para:
-- notebooks implementados;
-- views analíticas Gold;
-- modelos dimensionais;
-- pipelines streaming;
-- estruturas CDC/SCD2;
-- componentes de governança e observabilidade;
-- documentação operacional e analítica.
+O objetivo é facilitar a validação técnica da entrega, apresentando em um único documento:
 
-Fluxo sugerido de avaliação:
+- os requisitos do desafio;
+- os notebooks e pipelines relacionados;
+- as tabelas dimensionais e fatos da camada Gold;
+- as views analíticas implementadas;
+- os componentes de streaming, CDC/SCD2, governança e observabilidade;
+- a documentação técnica complementar.
 
-1. Revisar a matriz de aderência ao desafio
-2. Abrir os notebooks, views e tabelas referenciados
-3. Validar os produtos analíticos Gold e os modelos dimensionais
-4. Revisar as implementações de streaming e CDC/SCD2
-5. Revisar a documentação de governança, metadata e operação
-6. Revisar os ativos arquiteturais enterprise e os produtos analíticos de Parliamentary Intelligence
+Dessa forma, a matriz funciona como um guia de rastreabilidade da solução, permitindo localizar rapidamente onde cada requisito foi atendido dentro da arquitetura do projeto.
 
 ---
 

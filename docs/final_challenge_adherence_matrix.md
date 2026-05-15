@@ -4,28 +4,20 @@ Consolidated document mapping the Databricks final challenge requirements to the
 
 ---
 
-## How to Evaluate This Project
+## Matrix Overview
 
-This matrix represents the primary validation artifact for the Databricks Final Challenge delivery.
+This matrix consolidates the traceability between the Databricks Final Challenge requirements and the components effectively implemented in the `camara-data-pipeline` project.
 
-Each challenge requirement is directly mapped to:
-- implemented notebooks;
-- Gold analytical views;
-- dimensional models;
-- streaming pipelines;
-- CDC/SCD2 structures;
-- governance and observability components;
-- operational and analytical documentation.
+Its purpose is to support the technical validation of the delivery by presenting in a single document:
 
-Suggested evaluation flow:
+- challenge requirements;
+- related notebooks and pipelines;
+- Gold dimensional tables and fact tables;
+- implemented analytical views;
+- streaming, CDC/SCD2, governance and observability components;
+- complementary technical documentation.
 
-1. Review the challenge adherence matrix
-2. Open the referenced notebooks, views and tables
-3. Validate Gold analytical products and dimensional models
-4. Review streaming and CDC/SCD2 implementations
-5. Review governance, metadata and operational documentation
-6. Review enterprise architecture and Parliamentary Intelligence analytical assets
-
+As a result, the matrix serves as a solution traceability guide, allowing each requirement to be quickly located within the project architecture.
 ---
 
 ## Enterprise Differentiators
