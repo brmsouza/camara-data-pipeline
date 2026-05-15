@@ -50,11 +50,12 @@ for CDC/SCD2, streaming micro-batch, SLA monitoring and DLT pipelines.
 |---|---|---|
 | `00_setup/00_create_schemas.py` | Setup | `Not applicable / support object` |
 | `00_setup/01_create_control_tables.py` | Setup | `Not applicable / support object` |
-| `00_setup/03_create_streaming_objects.py` | Setup | `Not applicable / support object` |
-| `00_setup/04_create_cdc_scd2_objects.py` | Setup | `Not applicable / support object` |
+| `00_setup/02_create_streaming_objects.py` | Setup | `Not applicable / support object` |
+| `00_setup/03_create_cdc_scd2_objects.py` | Setup | `Not applicable / support object` |
 | `00_setup/90_admin_test_api_connection.py` | Admin | `Not applicable / support object` |
 | `00_setup/91_admin_reset_environment.py` | Admin | `Not applicable / support object` |
 | `00_setup/92_admin_check_quality_tables.py` | Admin | `Not applicable / support object` |
+| `00_setup/93_admin_export_volume_csv.py` | Admin | `Not applicable / support object` |
 | `01_bronze/01_ingest_deputados.py` | Bronze | `bronze.deputados` |
 | `01_bronze/02_ingest_deputados_detalhes.py` | Bronze | `bronze.deputados_detalhes` |
 | `01_bronze/03_ingest_frentes.py` | Bronze | `bronze.frentes` |
@@ -197,7 +198,7 @@ Environment preparation notebooks. These objects must be executed before ingesti
 
 ---
 
-### `03_create_streaming_objects.py`
+### `02_create_streaming_objects.py`
 
 **Location:** `00_setup/03_create_streaming_objects.py`
 
@@ -217,7 +218,7 @@ Environment preparation notebooks. These objects must be executed before ingesti
 
 ---
 
-### `04_create_cdc_scd2_objects.py`
+### `03_create_cdc_scd2_objects.py`
 
 **Location:** `00_setup/04_create_cdc_scd2_objects.py`
 
@@ -294,6 +295,29 @@ Environment preparation notebooks. These objects must be executed before ingesti
 * Create schemas or support objects
 * Prepare control and monitoring structures
 * Support idempotent environment setup
+
+---
+
+### `93_admin_export_volume_csv.py`
+
+**Location:** `00_setup/93_admin_export_volume_csv.py`
+
+**Layer:** Admin
+
+**Purpose:** Exports pipeline volume and operational monitoring datasets to CSV files for external analysis, validation and reporting purposes.
+
+**Input / Source:** `Monitoring and analytical Delta tables`
+
+**Output / Target:** `CSV export files`
+
+**Main responsibilities:**
+
+* Export operational monitoring datasets
+* Support external validation and analysis
+* Generate CSV outputs for reporting purposes
+* Facilitate operational data inspection
+* Support volume and throughput analysis
+* Enable data extraction for auditing and troubleshooting
 
 ---
 

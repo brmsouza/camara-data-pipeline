@@ -54,11 +54,12 @@ para pipelines de CDC/SCD2, micro-lotes de streaming, monitoramento de SLA e DLT
 |---|---|---|
 | `00_setup/00_create_schemas.py` | Setup | `Não aplicável / objeto de suporte` |
 | `00_setup/01_create_control_tables.py` | Setup | `Não aplicável / objeto de suporte` |
-| `00_setup/03_create_streaming_objects.py` | Setup | `Não aplicável / objeto de suporte` |
-| `00_setup/04_create_cdc_scd2_objects.py` | Setup | `Não aplicável / objeto de suporte` |
+| `00_setup/02_create_streaming_objects.py` | Setup | `Não aplicável / objeto de suporte` |
+| `00_setup/03_create_cdc_scd2_objects.py` | Setup | `Não aplicável / objeto de suporte` |
 | `00_setup/90_admin_test_api_connection.py` | Admin | `Não aplicável / objeto de suporte` |
 | `00_setup/91_admin_reset_environment.py` | Admin | `Não aplicável / objeto de suporte` |
 | `00_setup/92_admin_check_quality_tables.py` | Admin | `Não aplicável / objeto de suporte` |
+| `00_setup/93_admin_export_volume_csv.py` | Admin | `Não aplicável / objeto de suporte` |
 | `01_bronze/01_ingest_deputados.py` | Bronze | `bronze.deputados` |
 | `01_bronze/02_ingest_deputados_detalhes.py` | Bronze | `bronze.deputados_detalhes` |
 | `01_bronze/03_ingest_frentes.py` | Bronze | `bronze.frentes` |
@@ -201,7 +202,7 @@ Notebooks de preparação do ambiente. Esses objetos devem ser executados antes 
 
 ---
 
-### `03_create_streaming_objects.py`
+### `02_create_streaming_objects.py`
 
 **Local:** `00_setup/03_create_streaming_objects.py`
 
@@ -221,7 +222,7 @@ Notebooks de preparação do ambiente. Esses objetos devem ser executados antes 
 
 ---
 
-### `04_create_cdc_scd2_objects.py`
+### `03_create_cdc_scd2_objects.py`
 
 **Local:** `00_setup/04_create_cdc_scd2_objects.py`
 
@@ -300,6 +301,30 @@ Notebooks de preparação do ambiente. Esses objetos devem ser executados antes 
 * Dar suporte à configuração de ambiente idempotente
 
 ---
+
+### `93_admin_export_volume_csv.py`
+
+**Localização:** `00_setup/93_admin_export_volume_csv.py`
+
+**Camada:** Admin
+
+**Objetivo:** Exporta datasets de volume do pipeline e monitoramento operacional para arquivos CSV utilizados em análises externas, validações e reporting operacional.
+
+**Entrada / Origem:** `Tabelas Delta analíticas e de monitoramento`
+
+**Saída / Destino:** `Arquivos CSV de exportação`
+
+**Principais responsabilidades:**
+
+* Exportar datasets de monitoramento operacional
+* Suportar validações e análises externas
+* Gerar arquivos CSV para reporting
+* Facilitar inspeção operacional dos dados
+* Apoiar análises de volume e throughput
+* Permitir extração de dados para auditoria e troubleshooting
+
+---
+
 ## `01_bronze`
 
 Cadernos de ingestão crua. Essa camada preserva os dados de origem, os metadados operacionais, a linhagem do lote e a capacidade de reprodução.
