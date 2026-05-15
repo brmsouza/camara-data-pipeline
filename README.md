@@ -265,6 +265,7 @@ The solution provides:
 Additional technical details:
 
 [`docs/streaming_sla_observability.md`](docs/streaming_sla_observability.md)
+
 ---
 
 Detailed streaming documentation is available at:

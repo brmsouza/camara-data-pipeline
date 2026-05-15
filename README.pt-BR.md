@@ -264,7 +264,9 @@ A solução fornece:
 
 Detalhes técnicos adicionais:
 
-[`docs/streaming_sla_observability.pt-BR.md`](docs/streaming_sla_observability.pt-BR.md)## Observabilidade em Tempo Real do Pipeline Legislativo
+[`docs/streaming_sla_observability.pt-BR.md`](docs/streaming_sla_observability.pt-BR.md)
+
+## Observabilidade em Tempo Real do Pipeline Legislativo
 
 O projeto implementa um dashboard enterprise de observabilidade operacional para pipelines legislativos em streaming executados no Databricks.
 
@@ -289,6 +291,7 @@ A solução fornece:
 Detalhes técnicos adicionais:
 
 [`docs/streaming_sla_observability.pt-BR.md`](docs/streaming_sla_observability.pt-BR.md)
+
 ---
 
 Documentação detalhada disponível em:
