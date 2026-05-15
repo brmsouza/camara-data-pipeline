@@ -100,13 +100,15 @@ camara-data-pipeline/
 │
 ├── docs/
 │   ├── index.pt-BR.md
+│   ├── final_challenge_adherence_matrix.pt-BR.md
 │   ├── streaming_architecture.pt-BR.md
 │   ├── governance_and_lineage.pt-BR.md
 │   ├── replay_strategy.pt-BR.md
 │   ├── parliamentary_intelligence.pt-BR.md
+│   ├── gold_layer_enterprise_data_dictionary.pt-BR.md
+│   ├── analytical_data_products.pt-BR.md
 │   ├── notebooks_catalog.pt-BR.md
 │   ├── architecture_decisions.pt-BR.md
-│   ├── challenge_matrix.pt-BR.md
 │   └── runbook.pt-BR.md
 │
 ├── assets/
