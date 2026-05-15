@@ -216,7 +216,7 @@ A arquitetura foi construída sobre os seguintes princípios:
 
 ## Diagrama da Arquitetura
 
-![Architecture](assets/images/camadamedalhao_camaradeputados.pt-BR.png)
+![Architecture](assets/images/camara_data_platform_architecture.pt-BR.png)
 
 ---
 
