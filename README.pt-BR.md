@@ -337,7 +337,7 @@ Documentação detalhada disponível em:
 ```text
 camara-data-pipeline/
 │
-├── README.pt-BR.md
+├── README.pt-BRmd
 │
 ├── docs/
 │   ├── index.pt-BR.md
@@ -346,13 +346,26 @@ camara-data-pipeline/
 │   ├── replay_strategy.pt-BR.md
 │   ├── gold_layer_enterprise_data_dictionary.pt-BR.md
 │   ├── parliamentary_intelligence.pt-BR.md
+│   ├── notebooks_catalog.pt-BR.md
 │   ├── architecture_decisions.pt-BR.md
 │   ├── challenge_matrix.pt-BR.md
-│   ├── runbook.pt-BR.md
-│   └── notebooks_catalog.pt-BR.md
+│   ├── analytical_data_products.pt-BR.md
+│   ├── final_challenge_adherence_matrix.pt-BR.md
+│   └── runbook.pt-BR.md
 │
 ├── assets/
 │   └── images/
+│
+├── data/
+│   └── parliamentary_intelligence/
+│       ├── ceap/
+│       ├── frentes/
+│       ├── eventos/
+│       ├── votacoes/
+│       ├── engajamento/
+│       ├── partidos/
+│       ├── cdc/
+│       └── streaming/
 │
 ├── notebooks/
 │   ├── 00_setup/
@@ -362,11 +375,38 @@ camara-data-pipeline/
 │   ├── 04_analytics/
 │   ├── 05_dlt/
 │   ├── 90_common/
+│   ├── 93_admin/
 │   └── 99_jobs/
 │
 └── requirements.txt
 ```
+## Produtos Analíticos de Dados
 
+O projeto possui uma estrutura dedicada em `data/` contendo exports analíticos
+em CSV gerados a partir das views Gold e datasets de Parliamentary Intelligence.
+
+Esses exports fornecem evidências analíticas reproduzíveis para:
+- análises CEAP
+- análises de frentes parlamentares
+- análises de eventos legislativos
+- inteligência de votações
+- indicadores de engajamento parlamentar
+- inteligência partidária
+- histórico analítico CDC/SCD2
+- monitoramento de SLA streaming
+
+### Estrutura de Dados
+
+```text
+data/parliamentary_intelligence/
+├── ceap/
+├── frentes/
+├── eventos/
+├── votacoes/
+├── engajamento/
+├── partidos/
+├── cdc/
+└── streaming/
 ---
 
 # Documentação

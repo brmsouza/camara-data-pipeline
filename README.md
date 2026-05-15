@@ -350,10 +350,23 @@ camara-data-pipeline/
 │   ├── notebooks_catalog.md
 │   ├── architecture_decisions.md
 │   ├── challenge_matrix.md
+│   ├── analytical_data_products.md
+│   ├── final_challenge_adherence_matrix.md
 │   └── runbook.md
 │
 ├── assets/
 │   └── images/
+│
+├── data/
+│   └── parliamentary_intelligence/
+│       ├── ceap/
+│       ├── frentes/
+│       ├── eventos/
+│       ├── votacoes/
+│       ├── engajamento/
+│       ├── partidos/
+│       ├── cdc/
+│       └── streaming/
 │
 ├── notebooks/
 │   ├── 00_setup/
@@ -363,10 +376,39 @@ camara-data-pipeline/
 │   ├── 04_analytics/
 │   ├── 05_dlt/
 │   ├── 90_common/
+│   ├── 93_admin/
 │   └── 99_jobs/
 │
 └── requirements.txt
 ```
+## Analytical Data Products
+
+The project includes a dedicated `data/` structure containing analytical CSV
+exports generated from Gold analytical views and Parliamentary Intelligence
+datasets.
+
+These exports provide reproducible analytical evidence for:
+- CEAP analytics
+- parliamentary fronts analytics
+- legislative events analytics
+- voting intelligence
+- engagement indicators
+- party intelligence
+- CDC/SCD2 analytical history
+- streaming SLA monitoring
+
+### Data Structure
+
+```text
+data/parliamentary_intelligence/
+├── ceap/
+├── frentes/
+├── eventos/
+├── votacoes/
+├── engajamento/
+├── partidos/
+├── cdc/
+└── streaming/
 
 ---
 
