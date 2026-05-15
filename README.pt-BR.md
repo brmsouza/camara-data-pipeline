@@ -195,7 +195,7 @@ A plataforma combina:
 
 A plataforma segue uma arquitetura Lakehouse em camadas com refinamento progressivo e replayabilidade.
 
-![Arquitetura Lakehouse Corporativa](assets/images/enterprise_lakehouse_architecture.pt-BR.png)
+![Arquitetura Lakehouse Corporativa](assets/images/parliamentary_lakehouse_architecture.pt-BR.png)
 
 ---
 
@@ -384,7 +384,7 @@ A arquitetura preserva governança, lineage e replayabilidade em todas as camada
 
 ## Diagrama de Governança
 
-![Governance](assets/images/camara_analytics_governance_framework.pt-BR.png)
+![Governance](assets/images/parliamentary_lakehouse_architecture.pt-BR.png)
 
 ---
 

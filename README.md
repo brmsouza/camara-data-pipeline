@@ -192,7 +192,7 @@ The platform combines:
 
 The platform follows a layered Lakehouse architecture with progressive data refinement and replayability.
 
-![Arquitetura Lakehouse Corporativa](assets/images/enterprise_lakehouse_architecture.png)
+![Arquitetura Lakehouse Corporativa](assets/images/parliamentary_lakehouse_architecture.png)
 
 ---
 
@@ -353,7 +353,7 @@ The architecture preserves governance, lineage and replayability across all proc
 
 ## Governance Diagram
 
-![Governance](assets/images/camara_analytics_governance_framework.png)
+![Governance](assets/images/parliamentary_lakehouse_architecture.png)
 
 ---
 
