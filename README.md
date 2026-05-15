@@ -10,7 +10,7 @@ Enterprise-style Lakehouse Data Engineering platform fully implemented natively 
   <img src="https://img.shields.io/badge/architecture-medallion-6A1B9A?style=flat-square" />
   <img src="https://img.shields.io/badge/streaming-DLT%20%2B%20CDC-00897B?style=flat-square" />
   <img src="https://img.shields.io/badge/analytics-parliamentary-2E7D32?style=flat-square" />
-  <img src="https://img.shields.io/badge/release-v1.1.0-1976D2?style=flat-square" />
+  <img src="https://img.shields.io/badge/release-v1.2.0-1976D2?style=flat-square" />
 </p>
 
 🇧🇷 Portuguese version: [README.pt-BR.md](README.pt-BR.md)
@@ -324,11 +324,12 @@ The Gold and Analytics layers implement advanced parliamentary intelligence anal
 
 ---
 
-Detailed analytical documentation is available at:
+Detailed analytical documentation:
 
-[parliamentary_intelligence.md](docs/parliamentary_intelligence.md)
-
-[gold_layer_enterprise_data_dictionary.md](docs/gold_layer_enterprise_data_dictionary.md)
+| Document | Description |
+|---|---|
+| [Parliamentary Intelligence](docs/parliamentary_intelligence.md) | Parliamentary analytics and intelligence layer |
+| [Gold Layer Enterprise Data Dictionary](docs/gold_layer_enterprise_data_dictionary.md) | Enterprise dimensional dictionary and Gold semantic model |
 
 ---
 
@@ -357,14 +358,13 @@ The architecture preserves governance, lineage and replayability across all proc
 
 ---
 
-Detailed governance documentation is available at:
+Detailed governance and operational documentation:
 
-[governance_and_lineage.md](docs/governance_and_lineage.md)
-
-[replay_strategy.md](docs/replay_strategy.md)
-
-[runbook.md](docs/runbook.md)
-
+| Document | Description |
+|---|---|
+| [Governance and Lineage](docs/governance_and_lineage.md) | Governance, lineage and operational observability |
+| [Replay Strategy](docs/replay_strategy.md) | Replay, recovery and reprocessing strategies |
+| [Runbook](docs/runbook.md) | Operational procedures, troubleshooting and recovery workflows |
 ---
 
 # Repository Structure
@@ -422,9 +422,7 @@ camara-data-pipeline/
 
 The repository also includes analytical CSV exports generated from Gold views and Parliamentary Intelligence datasets for reproducibility and delivery evidence.
 
-Detailed export catalog documentation is available at:
-
-[analytical_data_products.md](docs/analytical_data_products.md)
+Detailed export catalog documentation is available at: [analytical_data_products.md](docs/analytical_data_products.md)
 
 ---
 
@@ -441,9 +439,7 @@ The project adopts a standardized notebook construction model defining:
 * CDC/SCD2 notebook patterns;
 * streaming notebook structure.
 
-Detailed notebook construction documentation is available at:
-
-[notebook_engineering_standards.md](docs/notebook_engineering_standards.md)
+Detailed notebook construction documentation is available at: [notebook_engineering_standards.md](docs/notebook_engineering_standards.md)
 
 ---
 
@@ -492,9 +488,8 @@ The matrix provides:
 - streaming and DLT validation;
 - Parliamentary Intelligence feature validation.
 
-### Main Validation Document
-
-[Final Challenge Adherence Matrix](docs/final_challenge_adherence_matrix.md)
+> ## Main Validation Document  
+> ### **[Final Challenge Adherence Matrix](docs/final_challenge_adherence_matrix.md)**
 
 ## Covered Areas
 
