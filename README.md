@@ -384,7 +384,6 @@ camara-data-pipeline/
 │   ├── parliamentary_intelligence.md
 │   ├── notebooks_catalog.md
 │   ├── architecture_decisions.md
-│   ├── challenge_matrix.md
 │   ├── analytical_data_products.md
 │   ├── final_challenge_adherence_matrix.md
 │   ├── notebook_engineering_standards.md
@@ -465,7 +464,6 @@ docs/
 | [parliamentary_intelligence.md](docs/parliamentary_intelligence.md) | Parliamentary analytics and intelligence |
 | [gold_layer_enterprise_data_dictionary.md](docs/gold_layer_enterprise_data_dictionary.md) | Enterprise Gold layer dimensional data dictionary |
 | [architecture_decisions.md](docs/architecture_decisions.md) | Architecture and modeling decisions |
-| [challenge_matrix.md](docs/challenge_matrix.md) | Challenge adherence matrix |
 | [analytical_data_products.md](docs/analytical_data_products.md) | Analytical CSV exports catalog |
 | [notebook_engineering_standards.md](docs/notebook_engineering_standards.md) | Standard notebook construction patterns |
 | [final_challenge_adherence_matrix.md](docs/final_challenge_adherence_matrix.md) | Final challenge adherence mapping |

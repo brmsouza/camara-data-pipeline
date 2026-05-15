@@ -8,24 +8,53 @@ O catálogo segue a arquitetura Medallion do projeto: Bronze → Prata Base → 
 
 ## Fluxo de Execução
 
-```texto
+```text
+Pipeline analítico padrão:
+
 00_setup
-↓
+   ↓
 01_bronze
-↓
+   ↓
 02_silver/01_base
-↓
+   ↓
 02_silver/02_curated
-↓
+   ↓
 03_gold
-↓
+   ↓
 04_analytics
-
-Cargas de trabalho opcionais/avançadas:
-00_setup + 01_bronze + 02_silver + 04_analytics + 05_dlt + 99_jobs
-para pipelines de CDC/SCD2, micro-lotes de streaming, monitoramento de SLA e DLT.
-
+   ↓
+99_jobs / monitoramento / exports
 ```
+
+Workloads avançados executados em paralelo quando necessário:
+
+```text
+Pipeline CDC / SCD2:
+
+01_bronze
+   ↓
+02_silver_cdc
+   ↓
+03_gold
+   ↓
+04_analytics
+```
+
+```text
+Pipeline Streaming / DLT:
+
+01_bronze
+   ↓
+05_dlt
+   ↓
+03_gold_stream
+   ↓
+04_analytics
+   ↓
+monitoramento SLA / replay / runbooks
+```
+
+A arquitetura separa o fluxo analítico padrão dos workloads avançados de CDC, SCD2, streaming, DLT e monitoramento operacional.
 
 ---
 

@@ -9,6 +9,8 @@ The catalog follows the project Medallion architecture: Bronze → Silver Base �
 ## Execution Flow
 
 ```text
+Standard analytical pipeline:
+
 00_setup
    ↓
 01_bronze
@@ -20,11 +22,39 @@ The catalog follows the project Medallion architecture: Bronze → Silver Base �
 03_gold
    ↓
 04_analytics
-
-Optional / advanced workloads:
-00_setup + 01_bronze + 02_silver + 04_analytics + 05_dlt + 99_jobs
-for CDC/SCD2, streaming micro-batch, SLA monitoring and DLT pipelines.
+   ↓
+99_jobs / monitoring / exports
 ```
+
+Advanced workloads executed in parallel when required:
+
+```text
+CDC / SCD2 pipeline:
+
+01_bronze
+   ↓
+02_silver_cdc
+   ↓
+03_gold
+   ↓
+04_analytics
+```
+
+```text
+Streaming / DLT pipeline:
+
+01_bronze
+   ↓
+05_dlt
+   ↓
+03_gold_stream
+   ↓
+04_analytics
+   ↓
+SLA monitoring / replay / runbooks
+```
+
+The architecture separates the standard analytical flow from advanced CDC, SCD2, streaming, DLT and operational monitoring workloads.
 
 ---
 
