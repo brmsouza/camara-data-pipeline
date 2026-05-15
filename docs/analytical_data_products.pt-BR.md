@@ -117,7 +117,12 @@ Esses datasets fornecem evidências analíticas reproduzíveis para:
 
 # Estratégia para Grandes Datasets
 
-Alguns datasets analíticos excedem os limites de tamanho suportados pelo GitHub.
+Alguns datasets analíticos excedem os limites de tamanho suportados pelo GitHub para versionamento eficiente.
+
+Os seguintes arquivos completos foram mantidos fora do repositório GitHub devido ao volume de dados:
+
+- `vw_votacoes_analitica_full.csv`
+- `vw_votos_analitica_full.csv`
 
 Nesses cenários:
 - amostras representativas em CSV são versionadas no repositório
