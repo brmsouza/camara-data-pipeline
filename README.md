@@ -373,7 +373,6 @@ Detailed governance documentation is available at:
 camara-data-pipeline/
 │
 ├── README.md
-├── README.pt-BR.md
 │
 ├── docs/
 │   ├── index.md
