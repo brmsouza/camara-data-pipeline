@@ -20,8 +20,11 @@ Enterprise-style Lakehouse Data Engineering platform fully implemented natively 
 # Educational Purpose
 
 This project was developed for educational, portfolio and technical study purposes.
+
 The repository demonstrates enterprise-oriented Data Engineering concepts using public parliamentary datasets and modern Lakehouse architecture patterns.
+
 No political affiliation, governmental endorsement or institutional relationship is implied.
+
 All analytical indicators and intelligence layers were created exclusively for technical demonstration, analytical experimentation and engineering architecture studies.
 
 ---
@@ -204,7 +207,7 @@ The architecture was designed around the following principles:
 
 # Streaming, CDC and DLT
 
-The project also implements advanced modern Data Engineering capabilities.
+The project implements advanced modern Data Engineering capabilities.
 
 ## Implemented Components
 
@@ -238,11 +241,9 @@ The project also implements advanced modern Data Engineering capabilities.
 
 ---
 
-Detailed streaming documentation is available in:
+Detailed streaming documentation is available at:
 
-
-[streaming_architecture.md](docs/streaming_architecture.md) 
-
+[streaming_architecture.md](docs/streaming_architecture.md)
 
 ---
 
@@ -287,8 +288,7 @@ The Gold and Analytics layers implement advanced parliamentary intelligence anal
 
 ---
 
-Detailed analytical documentation is available in:
-
+Detailed analytical documentation is available at:
 
 [parliamentary_intelligence.md](docs/parliamentary_intelligence.md)
 
@@ -321,15 +321,13 @@ The architecture preserves governance, lineage and replayability across all proc
 
 ---
 
-Detailed governance documentation is available in:
-
+Detailed governance documentation is available at:
 
 [governance_and_lineage.md](docs/governance_and_lineage.md)
 
-[replay_strategy.md](docs/replay_strategy.md) 
+[replay_strategy.md](docs/replay_strategy.md)
 
-[runbook.md](docs/runbook.md) 
-
+[runbook.md](docs/runbook.md)
 
 ---
 
@@ -339,6 +337,7 @@ Detailed governance documentation is available in:
 camara-data-pipeline/
 │
 ├── README.md
+├── README.pt-BR.md
 │
 ├── docs/
 │   ├── index.md
@@ -352,6 +351,7 @@ camara-data-pipeline/
 │   ├── challenge_matrix.md
 │   ├── analytical_data_products.md
 │   ├── final_challenge_adherence_matrix.md
+│   ├── notebook_engineering_standards.md
 │   └── runbook.md
 │
 ├── assets/
@@ -381,38 +381,35 @@ camara-data-pipeline/
 │
 └── requirements.txt
 ```
-## Analytical Data Products
 
-The project includes a dedicated `data/` structure containing analytical CSV
-exports generated from Gold analytical views and Parliamentary Intelligence
-datasets.
+---
 
-These exports provide reproducible analytical evidence for:
-- CEAP analytics
-- parliamentary fronts analytics
-- legislative events analytics
-- voting intelligence
-- engagement indicators
-- party intelligence
-- CDC/SCD2 analytical history
-- streaming SLA monitoring
+# Analytical Data Products
 
-Detailed analytical export documentation is available at:
+The repository also includes analytical CSV exports generated from Gold views and Parliamentary Intelligence datasets for reproducibility and delivery evidence.
+
+Detailed export catalog documentation is available at:
 
 [analytical_data_products.md](docs/analytical_data_products.md)
 
-### Data Structure
+---
 
-```text
-data/parliamentary_intelligence/
-├── ceap/
-├── frentes/
-├── eventos/
-├── votacoes/
-├── engajamento/
-├── partidos/
-├── cdc/
-└── streaming/
+# Notebook Construction Standards
+
+The project adopts a standardized notebook construction model defining:
+
+* notebook structure;
+* operational logging flow;
+* lineage registration;
+* validation flow;
+* Delta persistence;
+* rejected records handling;
+* CDC/SCD2 notebook patterns;
+* streaming notebook structure.
+
+Detailed notebook construction documentation is available at:
+
+[notebook_engineering_standards.md](docs/notebook_engineering_standards.md)
 
 ---
 
@@ -433,68 +430,43 @@ docs/
 | [gold_layer_enterprise_data_dictionary.md](docs/gold_layer_enterprise_data_dictionary.md) | Enterprise Gold layer dimensional data dictionary |
 | [architecture_decisions.md](docs/architecture_decisions.md) | Architecture and modeling decisions |
 | [challenge_matrix.md](docs/challenge_matrix.md) | Challenge adherence matrix |
+| [analytical_data_products.md](docs/analytical_data_products.md) | Analytical CSV exports catalog |
+| [notebook_engineering_standards.md](docs/notebook_engineering_standards.md) | Standard notebook construction patterns |
+| [final_challenge_adherence_matrix.md](docs/final_challenge_adherence_matrix.md) | Final challenge adherence mapping |
 | [runbook.md](docs/runbook.md) | Operational incident procedures |
 | [notebooks_catalog.md](docs/notebooks_catalog.md) | Notebook catalog and responsibilities |
-
-
-## Notebook Engineering Standards
-
-The project adopts standardized enterprise notebook engineering practices
-covering:
-- notebook structure
-- operational logging
-- lineage
-- observability
-- data quality
-- Delta persistence
-- CDC/SCD2 patterns
-- streaming engineering
-- governance conventions
-
-Detailed notebook engineering documentation is available at:
-
-- [notebook_engineering_standards.md](docs/notebook_engineering_standards.md)
 
 ---
 
 # Engineering Goals
 
-The project was designed to demonstrate:
-
-* enterprise-style Data Engineering architecture;
-* scalable Lakehouse processing;
-* replayability and resiliency;
-* streaming and CDC patterns;
-* dimensional modeling;
-* operational observability;
-* analytical governance;
-* modern Databricks engineering workflows.
+The project was designed to simulate enterprise-grade Data Engineering architecture patterns using modern Lakehouse, streaming and analytical engineering practices on Databricks.
 
 ---
-## Final Challenge Adherence Matrix
 
-The project includes a complete adherence matrix mapping the Databricks final
-challenge requirements to the implemented pipelines, analytical products,
-Gold dimensional models, streaming architecture and Parliamentary Intelligence
-capabilities.
+# Final Challenge Adherence Matrix
 
-### Documents
+The project includes a complete adherence matrix mapping the Databricks final challenge requirements to the implemented pipelines, analytical products, Gold dimensional models, streaming architecture and Parliamentary Intelligence capabilities.
 
-- [Final Challenge Adherence Matrix](docs/final_challenge_adherence_matrix.md)
-### Covered Areas
+## Document
 
-- Medallion Architecture (Bronze / Silver / Gold)
-- Gold Star Schema dimensional modeling
-- CEAP parliamentary expense analytics
-- Parliamentary fronts analytics
-- Voting intelligence and party alignment
-- Legislative events analytics
-- Parliamentary engagement analytics
-- CDC / SCD Type 2 historization
-- Streaming pipelines with DLT / Lakeflow
-- SLA monitoring and observability
-- Metadata governance and validation
-- Parliamentary Intelligence analytical products
+[Final Challenge Adherence Matrix](docs/final_challenge_adherence_matrix.md)
+
+## Covered Areas
+
+* Medallion Architecture (Bronze / Silver / Gold);
+* Gold Star Schema dimensional modeling;
+* CEAP parliamentary expense analytics;
+* Parliamentary fronts analytics;
+* Voting intelligence and party alignment;
+* Legislative events analytics;
+* Parliamentary engagement analytics;
+* CDC / SCD Type 2 historization;
+* Streaming pipelines with DLT / Lakeflow;
+* SLA monitoring and observability;
+* Metadata governance and validation;
+* Parliamentary Intelligence analytical products.
+
 ---
 
 # Author

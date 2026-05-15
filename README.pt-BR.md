@@ -20,8 +20,11 @@ Plataforma Lakehouse de Engenharia de Dados em padrão enterprise totalmente imp
 # Finalidade Educacional
 
 Este projeto foi desenvolvido para fins educacionais, estudo técnico e portfólio profissional.
+
 O repositório demonstra conceitos modernos de Engenharia de Dados utilizando dados parlamentares públicos e padrões de arquitetura Lakehouse enterprise.
+
 Não existe qualquer vínculo político, governamental ou institucional com a Câmara dos Deputados.
+
 Todos os indicadores analíticos e camadas de inteligência presentes neste projeto possuem finalidade exclusivamente técnica, educacional e experimental.
 
 ---
@@ -240,9 +243,7 @@ O projeto também implementa capacidades modernas avançadas de Engenharia de Da
 
 Documentação detalhada disponível em:
 
-
-[streaming_architecture.pt-BR.md](docs/streaming_architecture.pt-BR.md) 
-
+[streaming_architecture.pt-BR.md](docs/streaming_architecture.pt-BR.md)
 
 ---
 
@@ -289,7 +290,6 @@ As camadas Gold e Analytics implementam marts analíticos avançados de intelig�
 
 Documentação analítica detalhada disponível em:
 
-
 [parliamentary_intelligence.pt-BR.md](docs/parliamentary_intelligence.pt-BR.md)
 
 [gold_layer_enterprise_data_dictionary.pt-BR.md](docs/gold_layer_enterprise_data_dictionary.pt-BR.md)
@@ -323,12 +323,11 @@ A arquitetura preserva governança, lineage e replayabilidade em todas as camada
 
 Documentação detalhada disponível em:
 
-[governance_and_lineage.pt-BR.md](docs/governance_and_lineage.pt-BR.md) 
+[governance_and_lineage.pt-BR.md](docs/governance_and_lineage.pt-BR.md)
 
 [replay_strategy.pt-BR.md](docs/replay_strategy.pt-BR.md)
 
 [runbook.pt-BR.md](docs/runbook.pt-BR.md)
-
 
 ---
 
@@ -337,7 +336,8 @@ Documentação detalhada disponível em:
 ```text
 camara-data-pipeline/
 │
-├── README.pt-BRmd
+├── README.md
+├── README.pt-BR.md
 │
 ├── docs/
 │   ├── index.pt-BR.md
@@ -351,6 +351,7 @@ camara-data-pipeline/
 │   ├── challenge_matrix.pt-BR.md
 │   ├── analytical_data_products.pt-BR.md
 │   ├── final_challenge_adherence_matrix.pt-BR.md
+│   ├── notebook_engineering_standards.pt-BR.md
 │   └── runbook.pt-BR.md
 │
 ├── assets/
@@ -380,37 +381,36 @@ camara-data-pipeline/
 │
 └── requirements.txt
 ```
-## Produtos Analíticos de Dados
 
-O projeto possui uma estrutura dedicada em `data/` contendo exports analíticos
-em CSV gerados a partir das views Gold e datasets de Parliamentary Intelligence.
+---
 
-Esses exports fornecem evidências analíticas reproduzíveis para:
-- análises CEAP
-- análises de frentes parlamentares
-- análises de eventos legislativos
-- inteligência de votações
-- indicadores de engajamento parlamentar
-- inteligência partidária
-- histórico analítico CDC/SCD2
-- monitoramento de SLA streaming
+# Produtos Analíticos de Dados
+
+O repositório também inclui exports analíticos em CSV gerados a partir das views Gold e datasets de Parliamentary Intelligence para reprodutibilidade e evidência de entrega.
 
 A documentação detalhada dos exports analíticos está disponível em:
 
 [analytical_data_products.pt-BR.md](docs/analytical_data_products.pt-BR.md)
 
-### Estrutura de Dados
+---
 
-```text
-data/parliamentary_intelligence/
-├── ceap/
-├── frentes/
-├── eventos/
-├── votacoes/
-├── engajamento/
-├── partidos/
-├── cdc/
-└── streaming/
+# Padrões de Construção de Notebooks
+
+O projeto adota um modelo padronizado de construção de notebooks definindo:
+
+* estrutura dos notebooks;
+* fluxo de logging operacional;
+* registro de lineage;
+* fluxo de validação;
+* persistência Delta;
+* tratamento de registros rejeitados;
+* padrões CDC/SCD2;
+* estrutura de notebooks streaming.
+
+A documentação detalhada de construção dos notebooks está disponível em:
+
+[notebook_engineering_standards.pt-BR.md](docs/notebook_engineering_standards.pt-BR.md)
+
 ---
 
 # Documentação
@@ -423,78 +423,51 @@ docs/
 
 | Documento | Descrição |
 |---|---|
-| [streaming_architecture.pt-BR.md](docs/streaming_architecture.pt-BR.md) | Streaming, CDC, DLT e SLA |
+| [streaming_architecture.pt-BR.md](docs/streaming_architecture.pt-BR.md) | Arquitetura streaming, CDC, DLT e SLA |
 | [governance_and_lineage.pt-BR.md](docs/governance_and_lineage.pt-BR.md) | Governança, lineage e observabilidade |
 | [replay_strategy.pt-BR.md](docs/replay_strategy.pt-BR.md) | Estratégia de replay e recuperação |
-| [gold_layer_enterprise_data_dictionary.pt-BR.md](docs/gold_layer_enterprise_data_dictionary.pt-BR.md) | Dicionário de dados dimensionais da camada Enterprise Gold |
 | [parliamentary_intelligence.pt-BR.md](docs/parliamentary_intelligence.pt-BR.md) | Analytics e inteligência parlamentar |
+| [gold_layer_enterprise_data_dictionary.pt-BR.md](docs/gold_layer_enterprise_data_dictionary.pt-BR.md) | Dicionário dimensional enterprise da camada Gold |
 | [architecture_decisions.pt-BR.md](docs/architecture_decisions.pt-BR.md) | Decisões arquiteturais e modelagem |
 | [challenge_matrix.pt-BR.md](docs/challenge_matrix.pt-BR.md) | Matriz de aderência ao desafio |
+| [analytical_data_products.pt-BR.md](docs/analytical_data_products.pt-BR.md) | Catálogo de exports analíticos CSV |
+| [notebook_engineering_standards.pt-BR.md](docs/notebook_engineering_standards.pt-BR.md) | Padrões de construção de notebooks |
+| [final_challenge_adherence_matrix.pt-BR.md](docs/final_challenge_adherence_matrix.pt-BR.md) | Matriz de aderência ao desafio final |
 | [runbook.pt-BR.md](docs/runbook.pt-BR.md) | Procedimentos operacionais |
-| [notebooks_catalog.pt-BR.md](docs/notebooks_catalog.pt-BR.md) | Catálogo de notebooks |
+| [notebooks_catalog.pt-BR.md](docs/notebooks_catalog.pt-BR.md) | Catálogo de notebooks e responsabilidades |
 
 ---
 
-## Padrões de Construção de Notebooks
-
-O projeto adota um modelo padronizado de construção de notebooks definindo:
-- estrutura dos notebooks
-- organização das células
-- estrutura de logging
-- registro de linhagem
-- fluxo de validação
-- fluxo de persistência Delta
-- padrão de métricas operacionais
-- tratamento de registros rejeitados
-- estrutura de notebooks CDC/SCD2
-- estrutura de notebooks streaming
-
-A documentação detalhada de construção dos notebooks está disponível em:
-
-- [notebook_engineering_standards.pt-BR.md](docs/notebook_engineering_standards.pt-BR.md)
-
----
 # Objetivos de Engenharia
 
-O projeto foi desenvolvido para demonstrar:
-
-* arquitetura enterprise de Engenharia de Dados;
-* processamento Lakehouse escalável;
-* replayabilidade e resiliência;
-* padrões CDC e streaming;
-* modelagem dimensional;
-* observabilidade operacional;
-* governança analítica;
-* workflows modernos em Databricks.
+O projeto foi desenvolvido para simular padrões enterprise de Engenharia de Dados utilizando práticas modernas de Lakehouse, streaming e analytics no Databricks.
 
 ---
-## Matriz de Aderência ao Desafio Final
 
-O projeto inclui uma matriz completa de aderência mapeando os requisitos do
-desafio final Databricks para os pipelines implementados, produtos analíticos,
-modelagem dimensional Gold, arquitetura streaming e capacidades de
-Parliamentary Intelligence.
+# Matriz de Aderência ao Desafio Final
 
-### Documentos
+O projeto inclui uma matriz completa de aderência mapeando os requisitos do desafio final Databricks para os pipelines implementados, produtos analíticos, modelagem dimensional Gold, arquitetura streaming e capacidades de Parliamentary Intelligence.
 
-- [Matriz de Aderência ao Desafio Final](docs/final_challenge_adherence_matrix.pt-BR.md)
+## Documento
 
-### Áreas Cobertas
+[Matriz de Aderência ao Desafio Final](docs/final_challenge_adherence_matrix.pt-BR.md)
 
-- Arquitetura Medalhão (Bronze / Silver / Gold)
-- Modelagem dimensional Gold Star Schema
-- Analytics de despesas parlamentares CEAP
-- Analytics de frentes parlamentares
-- Inteligência de votações e alinhamento partidário
-- Analytics de eventos legislativos
-- Analytics de engajamento parlamentar
-- Historificação CDC / SCD Type 2
-- Pipelines streaming com DLT / Lakeflow
-- Monitoramento de SLA e observabilidade
-- Governança e validação de metadata
-- Produtos analíticos de Parliamentary Intelligence
+## Áreas Cobertas
+
+* Arquitetura Medalhão (Bronze / Silver / Gold);
+* Modelagem dimensional Gold Star Schema;
+* Analytics de despesas parlamentares CEAP;
+* Analytics de frentes parlamentares;
+* Inteligência de votações e alinhamento partidário;
+* Analytics de eventos legislativos;
+* Analytics de engajamento parlamentar;
+* Historização CDC / SCD Type 2;
+* Pipelines streaming com DLT / Lakeflow;
+* Monitoramento de SLA e observabilidade;
+* Governança e validação de metadata;
+* Produtos analíticos de Parliamentary Intelligence.
+
 ---
-
 
 # Autor
 
