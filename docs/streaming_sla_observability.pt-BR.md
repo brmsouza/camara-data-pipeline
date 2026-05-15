@@ -67,17 +67,17 @@ A arquitetura de monitoramento está integrada à plataforma enterprise Medallio
 ```text
 API
   ↓
-Camada Bronze
+Bronze Layer
   ↓
-Camada Silver Base
+Silver Base Layer
   ↓
-Camada Silver Curated
+Silver Curated Layer
   ↓
-Camada Gold
+Gold Layer
   ↓
-Monitoramento e Observabilidade Streaming
+Streaming Monitoring & Observability
   ↓
-Dashboard Databricks SQL
+Databricks SQL Dashboard
 ```
 
 ---
@@ -87,7 +87,7 @@ Dashboard Databricks SQL
 O fluxo de observabilidade operacional segue a arquitetura abaixo:
 
 ```text
-Job Streaming Micro-Batch
+Job Streaming Micro-batch
         ↓
 Logging de Execução do Pipeline
         ↓

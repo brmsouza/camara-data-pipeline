@@ -49,7 +49,7 @@ A solução combina:
 # Arquitetura Lógica
 
 ```text
-API da Câmara dos Deputados
+API Câmara dos Deputados
         │
         │ /votacoes
         ▼
@@ -61,7 +61,7 @@ Silver Streaming / DLT
         │
         │ validações + expectations
         ▼
-Gold Streaming Alerts
+Alertas Streaming Gold
         │
         │ urgência + flag de notificação
         ▼

@@ -87,11 +87,11 @@ Databricks SQL Dashboard
 The operational observability flow follows the architecture below:
 
 ```text
-Streaming Micro-Batch Job
+Streaming Micro-batch Job
         ↓
 Pipeline Execution Logging
         ↓
-Monitoring Delta Tables
+Delta Monitoring Tables
         ↓
 Operational Metrics Aggregation
         ↓
