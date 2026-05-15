@@ -240,6 +240,32 @@ The project implements advanced modern Data Engineering capabilities.
 ![DLT](assets/images/dlt_votacoes_streaming.png)
 
 ---
+## Real-Time Legislative Pipeline Observability
+
+The project implements an enterprise operational observability dashboard for streaming legislative pipelines executed on Databricks.
+
+The solution provides:
+
+- end-to-end SLA monitoring;
+- throughput monitoring;
+- execution error-rate tracking;
+- operational health classification;
+- streaming pipeline observability.
+
+### Dashboard Overview
+
+![Legislative Pipeline Observability Dashboard](assets/images/figure_1_legislative_pipeline_observability_dashboard.png)
+
+*Enterprise operational observability dashboard for streaming legislative workloads.*
+
+![Legislative Volume Monitoring](assets/images/figure_2_legislative_volume_monitoring.png)
+
+*Streaming throughput and legislative operational monitoring indicators.*
+
+Additional technical details:
+
+[`docs/streaming_sla_observability.md`](docs/streaming_sla_observability.md)
+---
 
 Detailed streaming documentation is available at:
 
@@ -435,6 +461,7 @@ docs/
 | [final_challenge_adherence_matrix.md](docs/final_challenge_adherence_matrix.md) | Final challenge adherence mapping |
 | [runbook.md](docs/runbook.md) | Operational incident procedures |
 | [notebooks_catalog.md](docs/notebooks_catalog.md) | Notebook catalog and responsibilities |
+| [streaming_sla_observability.md](docs/streaming_sla_observability.md) | Operational observability architecture, streaming SLA monitoring and operational dashboard |
 
 ---
 

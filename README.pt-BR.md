@@ -240,6 +240,56 @@ O projeto também implementa capacidades modernas avançadas de Engenharia de Da
 ![DLT](assets/images/dlt_votacoes_streaming.png)
 
 ---
+## Observabilidade em Tempo Real do Pipeline Legislativo
+
+O projeto implementa um dashboard enterprise de observabilidade operacional para pipelines legislativos em streaming executados no Databricks.
+
+A solução fornece:
+
+- monitoramento de SLA ponta a ponta;
+- monitoramento de throughput;
+- rastreamento de taxa de erro das execuções;
+- classificação de saúde operacional;
+- observabilidade de pipelines streaming.
+
+### Visão Geral do Dashboard
+
+![Dashboard de Observabilidade do Pipeline Legislativo](assets/images/figure_1_legislative_pipeline_observability_dashboard.png)
+
+*Dashboard enterprise de observabilidade operacional para workloads legislativos em streaming.*
+
+![Monitoramento de Volume Legislativo](assets/images/figure_2_legislative_volume_monitoring.png)
+
+*Indicadores de throughput streaming e monitoramento operacional legislativo.*
+
+Detalhes técnicos adicionais:
+
+[`docs/streaming_sla_observability.pt-BR.md`](docs/streaming_sla_observability.pt-BR.md)## Observabilidade em Tempo Real do Pipeline Legislativo
+
+O projeto implementa um dashboard enterprise de observabilidade operacional para pipelines legislativos em streaming executados no Databricks.
+
+A solução fornece:
+
+- monitoramento de SLA ponta a ponta;
+- monitoramento de throughput;
+- rastreamento de taxa de erro das execuções;
+- classificação de saúde operacional;
+- observabilidade de pipelines streaming.
+
+### Visão Geral do Dashboard
+
+![Dashboard de Observabilidade do Pipeline Legislativo](assets/images/figure_1_legislative_pipeline_observability_dashboard.png)
+
+*Dashboard enterprise de observabilidade operacional para workloads legislativos em streaming.*
+
+![Monitoramento de Volume Legislativo](assets/images/figure_2_legislative_volume_monitoring.png)
+
+*Indicadores de throughput streaming e monitoramento operacional legislativo.*
+
+Detalhes técnicos adicionais:
+
+[`docs/streaming_sla_observability.pt-BR.md`](docs/streaming_sla_observability.pt-BR.md)
+---
 
 Documentação detalhada disponível em:
 
@@ -435,6 +485,7 @@ docs/
 | [final_challenge_adherence_matrix.pt-BR.md](docs/final_challenge_adherence_matrix.pt-BR.md) | Matriz de aderência ao desafio final |
 | [runbook.pt-BR.md](docs/runbook.pt-BR.md) | Procedimentos operacionais |
 | [notebooks_catalog.pt-BR.md](docs/notebooks_catalog.pt-BR.md) | Catálogo de notebooks e responsabilidades |
+| [streaming_sla_observability.pt-BR.md](docs/streaming_sla_observability.pt-BR.md) | Arquitetura de observabilidade operacional, monitoramento de SLA streaming e dashboard operacional |
 
 ---
 
