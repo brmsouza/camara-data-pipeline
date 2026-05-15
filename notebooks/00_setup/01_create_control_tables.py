@@ -47,8 +47,11 @@
 # MAGIC     target_table STRING,
 # MAGIC     records_read BIGINT,
 # MAGIC     records_written BIGINT,
+# MAGIC     records_discarded BIGINT,
 # MAGIC     started_at TIMESTAMP,
 # MAGIC     finished_at TIMESTAMP,
-# MAGIC     error_message STRING
+# MAGIC     duration_seconds DOUBLE,
+# MAGIC     error_message STRING,
+# MAGIC     created_at TIMESTAMP
 # MAGIC )
 # MAGIC USING DELTA;

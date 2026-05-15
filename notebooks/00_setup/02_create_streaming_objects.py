@@ -69,20 +69,3 @@
 # MAGIC     bronze_tx_record_hash STRING
 # MAGIC )
 # MAGIC USING DELTA;
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC CREATE TABLE IF NOT EXISTS monitoring.pipeline_log (
-# MAGIC
-# MAGIC     pipeline_name STRING,
-# MAGIC     batch_id STRING,
-# MAGIC     started_at TIMESTAMP,
-# MAGIC     finished_at TIMESTAMP,
-# MAGIC     status STRING,
-# MAGIC     records_read BIGINT,
-# MAGIC     records_written BIGINT,
-# MAGIC     records_discarded BIGINT,
-# MAGIC     error_message STRING
-# MAGIC )
-# MAGIC USING DELTA;
