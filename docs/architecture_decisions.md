@@ -290,20 +290,6 @@ The README should be GitHub-friendly and recruiter-friendly, while technical dep
 
 ---
 
-# Documentation Strategy
-
-| Document | Purpose |
-|---|---|
-| `README.md` | Executive overview |
-| `streaming_architecture.md` | Streaming/DLT/CDC details |
-| `governance_and_lineage.md` | Governance and lineage |
-| `replay_strategy.md` | Replay and recovery |
-| `parliamentary_intelligence.md` | Analytical architecture |
-| `runbook.md` | Operational recovery |
-| `challenge_matrix.md` | Challenge adherence |
-
----
-
 # Conclusion
 
 The architecture decisions adopted in `camara-data-pipeline` were designed to demonstrate enterprise-style Data Engineering practices using Databricks, PySpark, Spark SQL, Delta Lake and Medallion Architecture.
