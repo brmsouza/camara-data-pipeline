@@ -65,13 +65,13 @@ Analytical granularity defined by the dimensional model.
 
 ---
 
-# `dm_tempo`
+# `dm_data`
 
 ## Type
 Dimension
 
 ## Notebook
-`notebooks/03_gold/01_build_dm_tempo.py`
+`notebooks/03_gold/01_build_dm_data.py`
 
 ## Description
 Builds the conformed date dimension for the Gold Star Schema.
@@ -91,7 +91,7 @@ Analytical granularity defined by the dimensional model.
 
 | Column | Description |
 |---|---|
-| `sk_tempo` | Surrogate key of the date dimension used to relate Gold fact tables. |
+| `sk_data` | Surrogate key of the date dimension used to relate Gold fact tables. |
 | `dt_data` | Reference calendar date of the date dimension. Represents the calendar day used in temporal analysis. |
 | `nr_ano` | Calendar year of the reference date. |
 | `nr_semestre` | Semester number of the year, enabling first-half and second-half aggregations. |

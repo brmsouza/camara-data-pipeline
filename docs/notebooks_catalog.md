@@ -108,7 +108,7 @@ for CDC/SCD2, streaming micro-batch, SLA monitoring and DLT pipelines.
 | `02_silver/02_curated/14_curated_fornecedores.py` | Silver Curated | `silver_curated.fornecedores` |
 | `02_silver/02_curated/15_curated_proposicoes_tramitacoes_scd.py` | Silver Curated CDC | `silver_cdc.proposicoes_tramitacoes_scd2` |
 | `03_gold/00_create_gold_schema.py` | Gold | `gold` |
-| `03_gold/01_build_dm_tempo.py` | Gold | `gold.dm_data` |
+| `03_gold/01_build_dm_data.py` | Gold | `gold.dm_data` |
 | `03_gold/02_build_dm_legislatura.py` | Gold | `gold.dm_legislatura` |
 | `03_gold/03_build_dm_partido.py` | Gold | `gold.dm_partido` |
 | `03_gold/04_build_dm_deputado.py` | Gold | `gold.dm_deputado` |
@@ -1909,9 +1909,9 @@ Dimensional modeling notebooks. This layer builds conformed dimensions and fact 
 
 ---
 
-### `01_build_dm_tempo.py`
+### `01_build_dm_data.py`
 
-**Location:** `03_gold/01_build_dm_tempo.py`
+**Location:** `03_gold/01_build_dm_data.py`
 
 **Layer:** Gold
 

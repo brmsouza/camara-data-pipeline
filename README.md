@@ -89,6 +89,26 @@ The project was designed to simulate real-world enterprise Data Engineering arch
 
 # Main Data Sources
 
+## Legislative Scope Configuration
+
+The project centralizes the legislative period filter through the `LEGISLATURA` variable defined in the `config.py` file.
+
+```python
+# Legislatura = 57  # 2023-2027
+# Legislatura = 56  # 2019-2023
+```
+
+This configuration controls the legislative scope used across ingestion, processing and analytical pipelines.
+
+| Legislature | Period |
+|---|---|
+| `57` | 2023–2027 |
+| `56` | 2019–2023 |
+
+The parameter is used to standardize API extraction scope, historical processing and analytical reproducibility across the platform.
+
+---
+
 ## Câmara dos Deputados Open Data API
 
 Official documentation:
@@ -134,11 +154,11 @@ Public Brazilian CNPJ datasets from the Brazilian Federal Revenue Service (Recei
 
 ### Data Source
 
-- Brazilian Federal Revenue Service (Receita Federal do Brasil)
-- Public CNPJ dataset:
-  https://dadosabertos.rfb.gov.br/CNPJ/
+- BrasilAPI
+- CNPJ endpoint:
+  https://brasilapi.com.br/api/cnpj/v1
 
-This enrichment layer simulates real-world enterprise master data integration patterns.
+The BrasilAPI CNPJ service consolidates public company registration information originally sourced from official Brazilian public datasets, including Receita Federal do Brasil data.
 
 ---
 
@@ -172,21 +192,7 @@ The platform combines:
 
 The platform follows a layered Lakehouse architecture with progressive data refinement and replayability.
 
-```text
-Bronze
-    │
-    ▼
-Silver Base
-    │
-    ▼
-Silver Curated
-    │
-    ▼
-Gold
-    │
-    ▼
-Analytics
-```
+![Arquitetura Lakehouse Corporativa](assets/images/enterprise_lakehouse_architecture.png)
 
 ---
 
@@ -207,7 +213,7 @@ The architecture was designed around the following principles:
 
 ## Architecture Diagram
 
-![Architecture](assets/images/camadamedalhao_camaradeputados.png)
+![Architecture](assets/images/camara_data_platform_architecture.png)
 
 ---
 
@@ -298,7 +304,7 @@ The Gold and Analytics layers implement advanced parliamentary intelligence anal
 
 ## Gold Dimensional Model
 
-![Gold Model](assets/images/modelo_camaradeputados.png)
+![Gold Model](assets/images/parliamentary_intelligence_gold_architecture.png)
 
 ---
 
@@ -347,7 +353,7 @@ The architecture preserves governance, lineage and replayability across all proc
 
 ## Governance Diagram
 
-![Governance](assets/images/pilares_analiticos.png)
+![Governance](assets/images/camara_analytics_governance_framework.png)
 
 ---
 

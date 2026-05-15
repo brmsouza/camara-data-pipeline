@@ -130,7 +130,7 @@ A arquitetura também inclui um pipeline Delta Live Tables para estruturar o flu
 ```text
 notebooks/05_dlt/01_dlt_votacoes_streaming.py
 ```
----
+cert---
 
 # Monitoramento SLA
 

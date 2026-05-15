@@ -65,13 +65,13 @@ Granularidade analítica definida pelo modelo dimensional.
 
 ---
 
-# `dm_tempo`
+# `dm_data`
 
 ## Tipo
 Dimensão
 
 ## Notebook
-`notebooks/03_gold/01_build_dm_tempo.py`
+`notebooks/03_gold/01_build_dm_data.py`
 
 ## Descrição
 # Builds the conformed date dimension for the Gold Star Schema.
@@ -91,7 +91,7 @@ Granularidade analítica definida pelo modelo dimensional.
 
 | Coluna | Descrição |
 |---|---|
-| `sk_tempo` | Chave substituta da dimensão de tempo, utilizada para relacionamento com tabelas fato da camada Gold. |
+| `sk_data` | Chave substituta da dimensão de tempo, utilizada para relacionamento com tabelas fato da camada Gold. |
 | `dt_data` | Data de referência da dimensão calendário. Representa o dia calendário utilizado nas análises temporais. |
 | `nr_ano` | Ano calendário da data de referência. |
 | `nr_semestre` | Número do semestre do ano, permitindo análises agregadas por primeiro ou segundo semestre. |

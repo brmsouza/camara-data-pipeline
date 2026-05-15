@@ -89,6 +89,26 @@ O projeto foi desenhado para simular padrões reais de Engenharia de Dados corpo
 
 # Principais Fontes de Dados
 
+## Configuração do Escopo Legislativo
+
+O projeto centraliza o filtro de período legislativo através da variável `LEGISLATURA` definida no arquivo `config.py`.
+
+```python
+# Legislatura = 57  # 2023-2027
+# Legislatura = 56  # 2019-2023
+```
+
+Essa configuração controla o escopo legislativo utilizado em todos os pipelines de ingestão, processamento e análises da plataforma.
+
+| Legislatura | Período |
+|---|---|
+| `57` | 2023–2027 |
+| `56` | 2019–2023 |
+
+O parâmetro é utilizado para padronizar o escopo de extração da API, o processamento histórico e a reprodutibilidade analítica em toda a plataforma.
+
+---
+
 ## API Dados Abertos Câmara dos Deputados
 
 Documentação oficial:
@@ -134,9 +154,12 @@ Datasets públicos de CNPJ da Receita Federal do Brasil são utilizados para:
 
 ### Fonte de Dados
 
-- Receita Federal do Brasil
-- Dataset público de CNPJ:
-  https://dadosabertos.rfb.gov.br/CNPJ/
+- BrasilAPI
+- Endpoint de CNPJ:
+  https://brasilapi.com.br/api/cnpj/v1
+
+O serviço de CNPJ da BrasilAPI consolida informações públicas de cadastro empresarial originalmente derivadas de bases oficiais brasileiras, incluindo dados da Receita Federal do Brasil.
+
 
 Esta camada de enriquecimento simula padrões reais de integração enterprise com dados mestres.
 
@@ -172,21 +195,7 @@ A plataforma combina:
 
 A plataforma segue uma arquitetura Lakehouse em camadas com refinamento progressivo e replayabilidade.
 
-```text
-Bronze
-    │
-    ▼
-Silver Base
-    │
-    ▼
-Silver Curated
-    │
-    ▼
-Gold
-    │
-    ▼
-Analytics
-```
+![Arquitetura Lakehouse Corporativa](assets/images/enterprise_lakehouse_architecture.pt-BR.png)
 
 ---
 
@@ -207,7 +216,7 @@ A arquitetura foi construída sobre os seguintes princípios:
 
 ## Diagrama da Arquitetura
 
-![Architecture](assets/images/camadamedalhao_camaradeputados.png)
+![Architecture](assets/images/camadamedalhao_camaradeputados.pt-BR.png)
 
 ---
 
@@ -326,7 +335,7 @@ As camadas Gold e Analytics implementam marts analíticos avançados de intelig�
 
 ## Modelo Dimensional Gold
 
-![Gold Model](assets/images/modelo_camaradeputados.png)
+![Gold Model](assets/images/parliamentary_intelligence_gold_architecture.pt-BR.png)
 
 ---
 
@@ -375,7 +384,7 @@ A arquitetura preserva governança, lineage e replayabilidade em todas as camada
 
 ## Diagrama de Governança
 
-![Governance](assets/images/pilares_analiticos.png)
+![Governance](assets/images/camara_analytics_governance_framework.pt-BR.png)
 
 ---
 
