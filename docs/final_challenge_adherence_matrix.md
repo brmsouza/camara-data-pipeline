@@ -260,22 +260,30 @@ The Silver Curated layer focuses on:
 
 ### Enterprise Architecture
 
-- [Parliamentary Lakehouse Architecture](assets/images/parliamentary_lakehouse_architecture.png)
-- [Camara Data Platform Architecture](assets/images/camara_data_platform_architecture.png)
+| Diagram | Description |
+|---|---|
+| [Parliamentary Lakehouse Architecture](../assets/images/parliamentary_lakehouse_architecture.png) | Enterprise Medallion Lakehouse architecture |
+| [Camara Data Platform Architecture](../assets/images/camara_data_platform_architecture.png) | End-to-end analytical platform architecture |
 
 ### Gold Dimensional & Analytical Architecture
 
-- [Parliamentary Intelligence Gold Architecture](assets/images/parliamentary_intelligence_gold_architecture.png)
+| Diagram | Description |
+|---|---|
+| [Parliamentary Intelligence Gold Architecture](../assets/images/parliamentary_intelligence_gold_architecture.png) | Gold dimensional model and analytical architecture |
 
 ### Streaming Architecture
 
-- [Voting Streaming Microbatch Architecture](assets/images/job_votacoes_streaming_microbatch.png)
-- [DLT Voting Streaming Pipeline](assets/images/dlt_votacoes_streaming.png)
+| Diagram | Description |
+|---|---|
+| [Voting Streaming Microbatch Architecture](../assets/images/job_votacoes_streaming_microbatch.png) | Streaming orchestration and micro-batch workflow |
+| [DLT Voting Streaming Pipeline](../assets/images/dlt_votacoes_streaming.png) | Delta Live Tables streaming architecture |
 
 ### Governance & Observability
 
-- [Legislative Pipeline Observability Dashboard](assets/images/figure_1_legislative_pipeline_observability_dashboard.png)
-- [Legislative Volume Monitoring Dashboard](assets/images/figure_2_legislative_volume_monitoring.png)
+| Diagram | Description |
+|---|---|
+| [Legislative Pipeline Observability Dashboard](../assets/images/figure_1_legislative_pipeline_observability_dashboard.png) | Operational SLA and observability dashboard |
+| [Legislative Volume Monitoring Dashboard](../assets/images/figure_2_legislative_volume_monitoring.png) | Streaming throughput and operational monitoring |
 
 ---
 

@@ -263,23 +263,30 @@ A camada Silver Curated concentra:
 
 ### Arquitetura Enterprise
 
-- [Arquitetura Lakehouse Parlamentar](assets/images/parliamentary_lakehouse_architecture.png)
-- [Arquitetura da Plataforma de Dados da Câmara](assets/images/camara_data_platform_architecture.png)
+| Diagrama | Descrição |
+|---|---|
+| [Arquitetura Lakehouse Parlamentar](../assets/images/parliamentary_lakehouse_architecture.png) | Arquitetura enterprise Medallion Lakehouse |
+| [Arquitetura da Plataforma de Dados da Câmara](../assets/images/camara_data_platform_architecture.png) | Arquitetura analítica end-to-end da plataforma |
 
 ### Arquitetura Dimensional e Analítica Gold
 
-- [Arquitetura Gold de Parliamentary Intelligence](assets/images/parliamentary_intelligence_gold_architecture.png)
+| Diagrama | Descrição |
+|---|---|
+| [Arquitetura Gold de Parliamentary Intelligence](../assets/images/parliamentary_intelligence_gold_architecture.png) | Modelo dimensional Gold e arquitetura analítica |
 
 ### Arquitetura Streaming
 
-- [Arquitetura Microbatch de Streaming de Votações](assets/images/job_votacoes_streaming_microbatch.png)
-- [Pipeline Streaming DLT de Votações](assets/images/dlt_votacoes_streaming.png)
+| Diagrama | Descrição |
+|---|---|
+| [Arquitetura Streaming Microbatch de Votações](../assets/images/job_votacoes_streaming_microbatch.png) | Orquestração streaming e workflow micro-batch |
+| [Pipeline Streaming DLT de Votações](../assets/images/dlt_votacoes_streaming.png) | Arquitetura streaming com Delta Live Tables |
 
 ### Governança e Observabilidade
 
-- [Dashboard de Observabilidade do Pipeline Legislativo](assets/images/figure_1_legislative_pipeline_observability_dashboard.png)
-- [Dashboard de Monitoramento de Volume Legislativo](assets/images/figure_2_legislative_volume_monitoring.png)
-
+| Diagrama | Descrição |
+|---|---|
+| [Dashboard de Observabilidade do Pipeline Legislativo](../assets/images/figure_1_legislative_pipeline_observability_dashboard.png) | Dashboard operacional de SLA e observabilidade |
+| [Dashboard de Monitoramento de Volume Legislativo](../assets/images/figure_2_legislative_volume_monitoring.png) | Monitoramento operacional e throughput streaming |
 ---
 
 ## Status Geral das Entregas
