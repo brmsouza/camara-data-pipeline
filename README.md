@@ -124,13 +124,19 @@ The project also integrates external public datasets for analytical enrichment.
 
 ### Supplier Enrichment
 
-Public Brazilian CNPJ datasets are used to:
+Public Brazilian CNPJ datasets from the Brazilian Federal Revenue Service (Receita Federal do Brasil) are used to:
 
-* validate suppliers;
-* classify CPF/CNPJ entities;
-* identify active/inactive suppliers;
-* support anomaly detection;
-* improve CEAP expenditure analytics.
+- validate suppliers;
+- classify CPF/CNPJ entities;
+- identify active/inactive suppliers;
+- support anomaly detection;
+- improve CEAP expenditure analytics.
+
+### Data Source
+
+- Brazilian Federal Revenue Service (Receita Federal do Brasil)
+- Public CNPJ dataset:
+  https://dadosabertos.rfb.gov.br/CNPJ/
 
 This enrichment layer simulates real-world enterprise master data integration patterns.
 

@@ -124,15 +124,21 @@ O projeto também integra datasets públicos externos para enriquecimento analí
 
 ### Enriquecimento de Fornecedores
 
-Datasets públicos brasileiros de CNPJ são utilizados para:
+Datasets públicos de CNPJ da Receita Federal do Brasil são utilizados para:
 
-* validação de fornecedores;
-* classificação CPF/CNPJ;
-* identificação de fornecedores ativos/inativos;
-* apoio à detecção de anomalias;
-* melhoria dos analytics financeiros CEAP.
+- validar fornecedores;
+- classificar entidades CPF/CNPJ;
+- identificar fornecedores ativos/inativos;
+- apoiar detecção de anomalias;
+- melhorar análises de despesas CEAP.
 
-Essa camada simula integrações reais de master data utilizadas em ambientes corporativos.
+### Fonte de Dados
+
+- Receita Federal do Brasil
+- Dataset público de CNPJ:
+  https://dadosabertos.rfb.gov.br/CNPJ/
+
+Esta camada de enriquecimento simula padrões reais de integração enterprise com dados mestres.
 
 ---
 
