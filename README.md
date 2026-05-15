@@ -10,7 +10,7 @@ Enterprise-style Lakehouse Data Engineering platform fully implemented natively 
   <img src="https://img.shields.io/badge/architecture-medallion-6A1B9A?style=flat-square" />
   <img src="https://img.shields.io/badge/streaming-DLT%20%2B%20CDC-00897B?style=flat-square" />
   <img src="https://img.shields.io/badge/analytics-parliamentary-2E7D32?style=flat-square" />
-  <img src="https://img.shields.io/badge/release-v1.0.0-1976D2?style=flat-square" />
+  <img src="https://img.shields.io/badge/release-v1.1.0-1976D2?style=flat-square" />
 </p>
 
 🇧🇷 Portuguese version: [README.pt-BR.md](README.pt-BR.md)
