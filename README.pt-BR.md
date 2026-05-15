@@ -41,7 +41,7 @@ Diferente de projetos tradicionais de portfólio focados apenas em ETL, esta sol
 * Delta Live Tables (DLT);
 * monitoramento de SLA e observabilidade operacional;
 * enriquecimento de fornecedores utilizando datasets públicos de CNPJ;
-* marts analíticos de inteligência parlamentar;
+* produtos analíticos de inteligência parlamentar;
 * detecção de anomalias e analytics comportamentais;
 * estratégia de replay e recuperação orientada à governança;
 * documentação técnica em padrão enterprise.
@@ -62,7 +62,7 @@ O projeto foi desenhado para simular padrões reais de Engenharia de Dados corpo
 | Governança | Controle de batch e hashes determinísticos |
 | SLA Monitoring | Métricas operacionais streaming |
 | Enriquecimento de fornecedores | Datasets públicos de CNPJ |
-| Inteligência parlamentar | Marts analíticos Gold |
+| Inteligência parlamentar | produtos analíticos Gold |
 | Detecção de anomalias | Análise z-score |
 | Orquestração | Databricks Workflows |
 | Observabilidade | Tabelas de monitoramento e logs |
@@ -290,7 +290,7 @@ A solução fornece:
 
 # Analytics de Inteligência Parlamentar
 
-As camadas Gold e Analytics implementam marts analíticos avançados de inteligência parlamentar.
+As camadas Gold e Analytics implementam produtos analíticos avançados de inteligência parlamentar.
 
 ## Principais Domínios Analíticos
 

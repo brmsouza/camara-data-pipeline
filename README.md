@@ -41,7 +41,7 @@ Unlike traditional portfolio ETL projects, this solution implements:
 * Delta Live Tables (DLT);
 * SLA monitoring and operational observability;
 * supplier enrichment using public CNPJ datasets;
-* parliamentary intelligence analytical marts;
+* parliamentary intelligence analytical analytical products;
 * anomaly detection and behavioral analytics;
 * governance-oriented replay and recovery strategy;
 * enterprise-style technical documentation.
@@ -62,7 +62,7 @@ The project was designed to simulate real-world enterprise Data Engineering arch
 | Governance | Batch tracking and deterministic hashes |
 | SLA Monitoring | Streaming operational metrics |
 | Supplier enrichment | Public Brazilian CNPJ datasets |
-| Parliamentary intelligence | Analytical Gold marts |
+| Parliamentary intelligence | Analytical Gold analytical products |
 | Anomaly detection | Z-score expenditure analysis |
 | Workflow orchestration | Databricks Workflows |
 | Observability | Monitoring tables and execution logs |
@@ -192,7 +192,7 @@ The platform combines:
 
 The platform follows a layered Lakehouse architecture with progressive data refinement and replayability.
 
-![Arquitetura Lakehouse Corporativa](assets/images/parliamentary_lakehouse_architecture.png)
+![Enterprise Lakehouse Architecture](assets/images/parliamentary_lakehouse_architecture.png)
 
 ---
 
@@ -285,7 +285,7 @@ The solution provides:
 
 # Parliamentary Intelligence Analytics
 
-The Gold and Analytics layers implement advanced parliamentary intelligence analytical marts.
+The Gold and Analytics layers implement advanced parliamentary intelligence analytical analytical products.
 
 ## Main Analytical Domains
 
