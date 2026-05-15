@@ -10,7 +10,7 @@ Plataforma Lakehouse de Engenharia de Dados em padrão enterprise totalmente imp
   <img src="https://img.shields.io/badge/architecture-medallion-6A1B9A?style=flat-square" />
   <img src="https://img.shields.io/badge/streaming-DLT%20%2B%20CDC-00897B?style=flat-square" />
   <img src="https://img.shields.io/badge/analytics-parliamentary-2E7D32?style=flat-square" />
-  <img src="https://img.shields.io/badge/release-v1.1.0-1976D2?style=flat-square" />
+  <img src="https://img.shields.io/badge/release-v1.2.0-1976D2?style=flat-square" />
 </p>
 
 🇺🇸 English version: [README.md](README.md)
@@ -254,32 +254,6 @@ O projeto também implementa capacidades modernas avançadas de Engenharia de Da
 
 ![DLT](assets/images/dlt_votacoes_streaming.png)
 
----
-## Observabilidade em Tempo Real do Pipeline Legislativo
-
-O projeto implementa um dashboard enterprise de observabilidade operacional para pipelines legislativos em streaming executados no Databricks.
-
-A solução fornece:
-
-- monitoramento de SLA ponta a ponta;
-- monitoramento de throughput;
-- rastreamento de taxa de erro das execuções;
-- classificação de saúde operacional;
-- observabilidade de pipelines streaming.
-
-### Visão Geral do Dashboard
-
-![Dashboard de Observabilidade do Pipeline Legislativo](assets/images/figure_1_legislative_pipeline_observability_dashboard.png)
-
-*Dashboard enterprise de observabilidade operacional para workloads legislativos em streaming.*
-
-![Monitoramento de Volume Legislativo](assets/images/figure_2_legislative_volume_monitoring.png)
-
-*Indicadores de throughput streaming e monitoramento operacional legislativo.*
-
-Detalhes técnicos adicionais:
-
-[`docs/streaming_sla_observability.pt-BR.md`](docs/streaming_sla_observability.pt-BR.md)
 
 ## Observabilidade em Tempo Real do Pipeline Legislativo
 
@@ -355,11 +329,12 @@ As camadas Gold e Analytics implementam marts analíticos avançados de intelig�
 
 ---
 
-Documentação analítica detalhada disponível em:
+Documentação analítica detalhada:
 
-[parliamentary_intelligence.pt-BR.md](docs/parliamentary_intelligence.pt-BR.md)
-
-[gold_layer_enterprise_data_dictionary.pt-BR.md](docs/gold_layer_enterprise_data_dictionary.pt-BR.md)
+| Documento | Descrição |
+|---|---|
+| [Parliamentary Intelligence](docs/parliamentary_intelligence.pt-BR.md) | Camada analítica e inteligência parlamentar |
+| [Gold Layer Enterprise Data Dictionary](docs/gold_layer_enterprise_data_dictionary.pt-BR.md) | Dicionário dimensional enterprise e modelo semântico da camada Gold |
 
 ---
 
@@ -388,13 +363,13 @@ A arquitetura preserva governança, lineage e replayabilidade em todas as camada
 
 ---
 
-Documentação detalhada disponível em:
+Documentação detalhada de governança e operação:
 
-[governance_and_lineage.pt-BR.md](docs/governance_and_lineage.pt-BR.md)
-
-[replay_strategy.pt-BR.md](docs/replay_strategy.pt-BR.md)
-
-[runbook.pt-BR.md](docs/runbook.pt-BR.md)
+| Documento | Descrição |
+|---|---|
+| [Governance and Lineage](docs/governance_and_lineage.pt-BR.md) | Governança, lineage e observabilidade operacional |
+| [Replay Strategy](docs/replay_strategy.pt-BR.md) | Estratégias de replay, recuperação e reprocessamento |
+| [Runbook](docs/runbook.pt-BR.md) | Procedimentos operacionais, troubleshooting e recuperação |
 
 ---
 
@@ -403,7 +378,6 @@ Documentação detalhada disponível em:
 ```text
 camara-data-pipeline/
 │
-├── README.md
 ├── README.pt-BR.md
 │
 ├── docs/
@@ -415,7 +389,6 @@ camara-data-pipeline/
 │   ├── parliamentary_intelligence.pt-BR.md
 │   ├── notebooks_catalog.pt-BR.md
 │   ├── architecture_decisions.pt-BR.md
-│   ├── challenge_matrix.pt-BR.md
 │   ├── analytical_data_products.pt-BR.md
 │   ├── final_challenge_adherence_matrix.pt-BR.md
 │   ├── notebook_engineering_standards.pt-BR.md
@@ -455,9 +428,7 @@ camara-data-pipeline/
 
 O repositório também inclui exports analíticos em CSV gerados a partir das views Gold e datasets de Parliamentary Intelligence para reprodutibilidade e evidência de entrega.
 
-A documentação detalhada dos exports analíticos está disponível em:
-
-[analytical_data_products.pt-BR.md](docs/analytical_data_products.pt-BR.md)
+A documentação detalhada dos exports analíticos está disponível em: [analytical_data_products.pt-BR.md](docs/analytical_data_products.pt-BR.md)
 
 ---
 
@@ -474,9 +445,7 @@ O projeto adota um modelo padronizado de construção de notebooks definindo:
 * padrões CDC/SCD2;
 * estrutura de notebooks streaming.
 
-A documentação detalhada de construção dos notebooks está disponível em:
-
-[notebook_engineering_standards.pt-BR.md](docs/notebook_engineering_standards.pt-BR.md)
+A documentação detalhada de construção dos notebooks está disponível em:[notebook_engineering_standards.pt-BR.md](docs/notebook_engineering_standards.pt-BR.md)
 
 ---
 
@@ -496,7 +465,6 @@ docs/
 | [parliamentary_intelligence.pt-BR.md](docs/parliamentary_intelligence.pt-BR.md) | Analytics e inteligência parlamentar |
 | [gold_layer_enterprise_data_dictionary.pt-BR.md](docs/gold_layer_enterprise_data_dictionary.pt-BR.md) | Dicionário dimensional enterprise da camada Gold |
 | [architecture_decisions.pt-BR.md](docs/architecture_decisions.pt-BR.md) | Decisões arquiteturais e modelagem |
-| [challenge_matrix.pt-BR.md](docs/challenge_matrix.pt-BR.md) | Matriz de aderência ao desafio |
 | [analytical_data_products.pt-BR.md](docs/analytical_data_products.pt-BR.md) | Catálogo de exports analíticos CSV |
 | [notebook_engineering_standards.pt-BR.md](docs/notebook_engineering_standards.pt-BR.md) | Padrões de construção de notebooks |
 | [final_challenge_adherence_matrix.pt-BR.md](docs/final_challenge_adherence_matrix.pt-BR.md) | Matriz de aderência ao desafio final |
@@ -526,9 +494,10 @@ A matriz fornece:
 - validação de streaming e DLT;
 - validação das funcionalidades de Parliamentary Intelligence.
 
-### Documento Principal de Validação
 
-[Matriz Final de Aderência ao Desafio](docs/final_challenge_adherence_matrix.pt-BR.md)
+> ## Documento Principal de Validação  
+> ### **[Matriz Final de Aderência ao Desafio](docs/final_challenge_adherence_matrix.pt-BR.md)**
+
 
 ## Áreas Cobertas
 
