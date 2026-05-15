@@ -488,8 +488,10 @@ The matrix provides:
 - streaming and DLT validation;
 - Parliamentary Intelligence feature validation.
 
+
 > ## Main Validation Document  
 > ### **[Final Challenge Adherence Matrix](docs/final_challenge_adherence_matrix.md)**
+
 
 ## Covered Areas
 
