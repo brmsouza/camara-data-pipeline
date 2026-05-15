@@ -216,7 +216,7 @@ A arquitetura foi construída sobre os seguintes princípios:
 
 ## Diagrama da Arquitetura
 
-![Architecture](assets/images/camara_data_platform_architecture.pt-BR.png)
+![Arquitetura](assets/images/camara_data_platform_architecture.pt-BR.png)
 
 ---
 
@@ -309,7 +309,7 @@ As camadas Gold e Analytics implementam produtos analíticos avançados de intel
 
 ## Modelo Dimensional Gold
 
-![Gold Model](assets/images/parliamentary_intelligence_gold_architecture.pt-BR.png)
+![Modelo Gold](assets/images/parliamentary_intelligence_gold_architecture.pt-BR.png)
 
 ---
 
@@ -333,8 +333,8 @@ Documentação analítica detalhada:
 
 | Documento | Descrição |
 |---|---|
-| [Parliamentary Intelligence](docs/parliamentary_intelligence.pt-BR.md) | Camada analítica e inteligência parlamentar |
-| [Gold Layer Enterprise Data Dictionary](docs/gold_layer_enterprise_data_dictionary.pt-BR.md) | Dicionário dimensional enterprise e modelo semântico da camada Gold |
+| [Inteligência Parlamentar](docs/parliamentary_intelligence.pt-BR.md) | Camada analítica e inteligência parlamentar |
+| [Dicionário Enterprise da Camada Gold](docs/gold_layer_enterprise_data_dictionary.pt-BR.md) | Dicionário dimensional enterprise e modelo semântico da camada Gold |
 
 ---
 
@@ -359,7 +359,7 @@ A arquitetura preserva governança, lineage e replayabilidade em todas as camada
 
 ## Diagrama de Governança
 
-![Governance](assets/images/parliamentary_lakehouse_architecture.pt-BR.png)
+![Governança](assets/images/parliamentary_lakehouse_architecture.pt-BR.png)
 
 ---
 
@@ -367,9 +367,9 @@ Documentação detalhada de governança e operação:
 
 | Documento | Descrição |
 |---|---|
-| [Governance and Lineage](docs/governance_and_lineage.pt-BR.md) | Governança, lineage e observabilidade operacional |
-| [Replay Strategy](docs/replay_strategy.pt-BR.md) | Estratégias de replay, recuperação e reprocessamento |
-| [Runbook](docs/runbook.pt-BR.md) | Procedimentos operacionais, troubleshooting e recuperação |
+| [Governança e Linhagen](docs/governance_and_lineage.pt-BR.md) | Governança, lineage e observabilidade operacional |
+| [Estratégia de Replay](docs/replay_strategy.pt-BR.md) | Estratégias de replay, recuperação e reprocessamento |
+| [Procedimentos Operacionais](docs/runbook.pt-BR.md) | Procedimentos operacionais, troubleshooting e recuperação |
 
 ---
 
@@ -445,7 +445,7 @@ O projeto adota um modelo padronizado de construção de notebooks definindo:
 * padrões CDC/SCD2;
 * estrutura de notebooks streaming.
 
-A documentação detalhada de construção dos notebooks está disponível em:[notebook_engineering_standards.pt-BR.md](docs/notebook_engineering_standards.pt-BR.md)
+A documentação detalhada de construção dos notebooks está disponível em: [notebook_engineering_standards.pt-BR.md](docs/notebook_engineering_standards.pt-BR.md)
 
 ---
 

@@ -44,7 +44,6 @@ The following documents represent the primary technical validation artifacts for
 | `parliamentary_intelligence.md` | Parliamentary analytics and intelligence layer |
 | `gold_layer_enterprise_data_dictionary.md` | Enterprise Gold layer data dictionary |
 | `analytical_data_products.md` | Analytical datasets and data products |
-| `analytical_data_products.pt-BR.md` | Portuguese analytical datasets documentation |
 | `notebooks_catalog.md` | Notebook catalog and responsibilities |
 | `architecture_decisions.md` | Architectural and modeling decisions |
 | `runbook.md` | Operational incident procedures |
