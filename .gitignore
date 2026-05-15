@@ -19,7 +19,6 @@ Thumbs.db
 *.log
 
 # Data / temp
-data/
 tmp/
 *.csv
 *.parquet
