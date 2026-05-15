@@ -40,24 +40,29 @@ A camada Bronze preserva ingestão bruta e metadados para permitir reconstruçã
 
 # Arquitetura de Replay
 
+
 ```text
-API de Origem
-    │
-    ▼
-Camada Bronze Raw
-    │
-    │ origem de replay
-    ▼
+Source APIs / Files
+        │
+        ▼
+Bronze Raw Layer
+(raw payloads + metadata)
+        │
+        │ replay source
+        ▼
 Silver Base
-    │
-    ▼
+(parsing + quality)
+        │
+        ▼
 Silver Curated
-    │
-    ▼
-Camada Gold
-    │
-    ▼
-Analytics / Dashboards
+(curated entities)
+        │
+        ▼
+Gold Layer
+(dimensions + facts + views)
+        │
+        ▼
+Analytics / Dashboards / Monitoring
 ```
 
 ---
@@ -195,16 +200,19 @@ Cada execução recebe um identificador único de batch.
 batch_id
     │
     ▼
-Bronze
+Bronze Raw Layer
     │
     ▼
-Silver
+Silver Base
     │
     ▼
-Gold
+Silver Curated
     │
     ▼
-Monitoring
+Gold Layer
+    │
+    ▼
+Analytics / Monitoring
 ```
 
 ---
@@ -292,21 +300,21 @@ O projeto implementa suporte a replay CDC/SCD Type 2.
 
 ```text
 Identificar problema
-    │
-    ▼
-Validar logs
-    │
-    ▼
+        │
+        ▼
+Validar logs e métricas
+        │
+        ▼
 Determinar camada afetada
-    │
-    ▼
+        │
+        ▼
 Executar replay da camada origem
-    │
-    ▼
+        │
+        ▼
 Reconstruir camadas downstream
-    │
-    ▼
-Validar saídas
+        │
+        ▼
+Validar tabelas e saídas analíticas
 ```
 
 ---

@@ -33,19 +33,19 @@ This runbook covers:
 # Operational Layers
 
 ```text
-Bronze
-    │
-    ▼
+Bronze Raw Layer
+        │
+        ▼
 Silver Base
-    │
-    ▼
+        │
+        ▼
 Silver Curated
-    │
-    ▼
-Gold
-    │
-    ▼
-Analytics
+        │
+        ▼
+Gold Layer
+        │
+        ▼
+Analytics / Monitoring
 ```
 
 ---
@@ -54,24 +54,24 @@ Analytics
 
 ```text
 Detect issue
-    │
-    ▼
+        │
+        ▼
 Identify affected pipeline
-    │
-    ▼
+        │
+        ▼
 Check monitoring logs
-    │
-    ▼
+        │
+        ▼
 Validate source and target tables
-    │
-    ▼
+        │
+        ▼
 Apply recovery action
-    │
-    ▼
+        │
+        ▼
 Reprocess affected layer
-    │
-    ▼
-Validate output
+        │
+        ▼
+Validate outputs
 ```
 
 ---

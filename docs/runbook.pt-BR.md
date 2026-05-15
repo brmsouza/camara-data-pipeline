@@ -33,19 +33,19 @@ Este runbook cobre:
 # Camadas Operacionais
 
 ```text
-Bronze
-    │
-    ▼
+Bronze Raw Layer
+        │
+        ▼
 Silver Base
-    │
-    ▼
+        │
+        ▼
 Silver Curated
-    │
-    ▼
-Gold
-    │
-    ▼
-Analytics
+        │
+        ▼
+Gold Layer
+        │
+        ▼
+Analytics / Monitoring
 ```
 
 ---
@@ -54,24 +54,24 @@ Analytics
 
 ```text
 Detectar problema
-    │
-    ▼
+        │
+        ▼
 Identificar pipeline afetado
-    │
-    ▼
+        │
+        ▼
 Verificar logs de monitoramento
-    │
-    ▼
+        │
+        ▼
 Validar tabelas de origem e destino
-    │
-    ▼
+        │
+        ▼
 Aplicar ação de recuperação
-    │
-    ▼
+        │
+        ▼
 Reprocessar camada afetada
-    │
-    ▼
-Validar saída
+        │
+        ▼
+Validar saídas
 ```
 
 ---

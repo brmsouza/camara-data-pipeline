@@ -41,23 +41,27 @@ The Bronze layer preserves raw ingestion and metadata to allow downstream recons
 # Replay Architecture
 
 ```text
-Source API
-    │
-    ▼
+Source APIs / Files
+        │
+        ▼
 Bronze Raw Layer
-    │
-    │ replay source
-    ▼
+(raw payloads + metadata)
+        │
+        │ replay source
+        ▼
 Silver Base
-    │
-    ▼
+(parsing + quality)
+        │
+        ▼
 Silver Curated
-    │
-    ▼
+(curated entities)
+        │
+        ▼
 Gold Layer
-    │
-    ▼
-Analytics / Dashboards
+(dimensions + facts + views)
+        │
+        ▼
+Analytics / Dashboards / Monitoring
 ```
 
 ---
@@ -195,16 +199,19 @@ Every execution receives a unique batch identifier.
 batch_id
     │
     ▼
-Bronze
+Bronze Raw Layer
     │
     ▼
-Silver
+Silver Base
     │
     ▼
-Gold
+Silver Curated
     │
     ▼
-Monitoring
+Gold Layer
+    │
+    ▼
+Analytics / Monitoring
 ```
 
 ---
@@ -292,21 +299,21 @@ The project implements CDC/SCD Type 2 replay support.
 
 ```text
 Identify issue
-    │
-    ▼
-Validate logs
-    │
-    ▼
+        │
+        ▼
+Validate logs and metrics
+        │
+        ▼
 Determine affected layer
-    │
-    ▼
-Replay source layer
-    │
-    ▼
+        │
+        ▼
+Execute source layer replay
+        │
+        ▼
 Rebuild downstream layers
-    │
-    ▼
-Validate outputs
+        │
+        ▼
+Validate tables and analytical outputs
 ```
 
 ---
