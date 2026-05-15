@@ -30,9 +30,7 @@ The following documents represent the primary technical validation artifacts for
 | Document | Description |
 |---|---|
 | `final_challenge_adherence_matrix.md` | Main technical validation and challenge adherence document |
-| `final_challenge_adherence_matrix.pt-BR.md` | Portuguese version of the challenge adherence matrix |
 | `README.md` | Executive project overview |
-| `README.pt-BR.md` | Portuguese executive project overview |
 
 ---
 
@@ -41,17 +39,13 @@ The following documents represent the primary technical validation artifacts for
 | Document | Description |
 |---|---|
 | `streaming_architecture.md` | Streaming, CDC, DLT and SLA architecture |
-| `streaming_architecture.pt-BR.md` | Portuguese streaming architecture documentation |
 | `governance_and_lineage.md` | Governance, lineage and observability |
 | `replay_strategy.md` | Replay, recovery and reprocessing strategy |
 | `parliamentary_intelligence.md` | Parliamentary analytics and intelligence layer |
-| `parliamentary_intelligence.pt-BR.md` | Portuguese Parliamentary Intelligence documentation |
 | `gold_layer_enterprise_data_dictionary.md` | Enterprise Gold layer data dictionary |
-| `gold_layer_enterprise_data_dictionary.pt-BR.md` | Portuguese Gold layer data dictionary |
 | `analytical_data_products.md` | Analytical datasets and data products |
 | `analytical_data_products.pt-BR.md` | Portuguese analytical datasets documentation |
 | `notebooks_catalog.md` | Notebook catalog and responsibilities |
-| `notebooks_catalog.pt-BR.md` | Portuguese notebook catalog |
 | `architecture_decisions.md` | Architectural and modeling decisions |
 | `runbook.md` | Operational incident procedures |
 
@@ -136,7 +130,6 @@ The analytical layer includes:
 camara-data-pipeline/
 │
 ├── README.md
-├── README.pt-BR.md
 │
 ├── docs/
 │   ├── index.md
