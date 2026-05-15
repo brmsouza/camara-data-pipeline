@@ -397,6 +397,10 @@ These exports provide reproducible analytical evidence for:
 - CDC/SCD2 analytical history
 - streaming SLA monitoring
 
+Detailed analytical export documentation is available at:
+
+[analytical_data_products.md](docs/analytical_data_products.md)
+
 ### Data Structure
 
 ```text

@@ -395,6 +395,10 @@ Esses exports fornecem evidências analíticas reproduzíveis para:
 - histórico analítico CDC/SCD2
 - monitoramento de SLA streaming
 
+A documentação detalhada dos exports analíticos está disponível em:
+
+[analytical_data_products.pt-BR.md](docs/analytical_data_products.pt-BR.md)
+
 ### Estrutura de Dados
 
 ```text
