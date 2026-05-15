@@ -512,13 +512,23 @@ O projeto foi desenvolvido para simular padrões enterprise de Engenharia de Dad
 
 ---
 
-# Matriz de Aderência ao Desafio Final
+## Matriz Final de Aderência ao Desafio
 
-O projeto inclui uma matriz completa de aderência mapeando os requisitos do desafio final Databricks para os pipelines implementados, produtos analíticos, modelagem dimensional Gold, arquitetura streaming e capacidades de Parliamentary Intelligence.
+Este documento representa o principal artefato de validação das entregas do Desafio Final Databricks.
 
-## Documento
+Nele estão mapeados todos os requisitos do desafio em relação aos pipelines implementados, notebooks desenvolvidos, arquitetura streaming, modelos analíticos da camada Gold, produtos de Parliamentary Intelligence, pipelines CDC/SCD2 e capacidades operacionais construídas no projeto.
 
-[Matriz de Aderência ao Desafio Final](docs/final_challenge_adherence_matrix.pt-BR.md)
+A matriz fornece:
+- rastreabilidade requisito por requisito;
+- evidências de implementação;
+- mapeamento arquitetural;
+- cobertura dos produtos analíticos;
+- validação de streaming e DLT;
+- validação das funcionalidades de Parliamentary Intelligence.
+
+### Documento Principal de Validação
+
+[Matriz Final de Aderência ao Desafio](docs/final_challenge_adherence_matrix.pt-BR.md)
 
 ## Áreas Cobertas
 

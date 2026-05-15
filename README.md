@@ -481,11 +481,21 @@ The project was designed to simulate enterprise-grade Data Engineering architect
 
 ---
 
-# Final Challenge Adherence Matrix
+## Final Challenge Adherence Matrix
 
-The project includes a complete adherence matrix mapping the Databricks final challenge requirements to the implemented pipelines, analytical products, Gold dimensional models, streaming architecture and Parliamentary Intelligence capabilities.
+This document represents the primary delivery validation artifact for the Databricks Final Challenge.
 
-## Document
+It maps every challenge requirement to the implemented pipelines, notebooks, streaming architecture, Gold analytical models, Parliamentary Intelligence products, CDC/SCD2 pipelines and operational capabilities developed in this project.
+
+The matrix provides:
+- requirement-by-requirement traceability;
+- implementation evidence;
+- architectural mapping;
+- analytical product coverage;
+- streaming and DLT validation;
+- Parliamentary Intelligence feature validation.
+
+### Main Validation Document
 
 [Final Challenge Adherence Matrix](docs/final_challenge_adherence_matrix.md)
 
