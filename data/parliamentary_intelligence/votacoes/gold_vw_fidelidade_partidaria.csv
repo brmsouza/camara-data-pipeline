@@ -1,0 +1,869 @@
+id_deputado,dept_tx_nome_parlamentar,part_sg_partido,uf_sg_uf,qt_votacoes,qt_presencas_votacao,qt_votos_sim,qt_votos_nao,qt_abstencoes,qt_obstrucoes,pc_participacao_decisiva,tx_faixa_fidelidade_partidaria
+178863,Uldurico Junior,MDB,BA,294,294,169,125,0,0,100.0,Alta participação em votações
+68720,Fábio Henrique,UNIÃO,SE,566,566,317,248,0,1,99.82,Alta participação em votações
+204479,Nicoletti,PL,RR,1432,1431,773,658,0,0,100.0,Alta participação em votações
+209189,Joseildo Ramos,PT,BA,1290,1289,749,510,3,27,97.67,Alta participação em votações
+204390,Professor Alcides,PSDB,GO,1274,1273,695,524,4,50,95.76,Alta participação em votações
+204358,Beto Pereira,REPUBLICANOS,MS,1170,1169,720,446,2,1,99.74,Alta participação em votações
+81055,Márcio Jerry,PCDOB,MA,1252,1251,744,494,0,13,98.96,Alta participação em votações
+204538,Paulo Bengtson,PTB,PA,269,269,158,111,0,0,100.0,Alta participação em votações
+178996,Giovani Feltes,MDB,RS,416,416,245,169,0,2,99.52,Alta participação em votações
+171617,Paulão,PT,AL,1392,1391,797,562,6,26,97.7,Alta participação em votações
+141459,João Maia,PP,RN,1307,1306,791,511,4,0,99.69,Alta participação em votações
+204547,Léo Motta,REPUBLICANOS,MG,266,266,132,90,44,0,83.46,Alta participação em votações
+204533,Idilvan Alencar,PSB,CE,1022,1022,611,404,0,7,99.32,Alta participação em votações
+204508,Igor Timo,UNIÃO,MG,1185,1184,771,413,0,0,100.0,Alta participação em votações
+198783,Emanuel Pinheiro Neto,PSD,MT,1063,1063,636,425,2,0,99.81,Alta participação em votações
+204413,Alcides Rodrigues,PATRIOTA,GO,400,400,234,166,0,0,100.0,Alta participação em votações
+218741,Patrick Dorneles,PSD,PB,107,107,59,47,1,0,99.07,Alta participação em votações
+204392,Francisco Jr.,PSD,GO,446,446,264,182,0,0,100.0,Alta participação em votações
+178972,Alex Manente,CIDADANIA,SP,705,704,465,239,0,0,100.0,Alta participação em votações
+205476,Charles Fernandes,PSD,BA,1316,1316,794,516,2,0,99.54,Alta participação em votações
+74537,Claudio Cajado,PP,BA,1319,1318,780,536,2,0,99.85,Alta participação em votações
+204438,Sergio Toledo,PV,AL,191,191,108,82,0,1,99.48,Alta participação em votações
+160510,Luis Tibé,AVANTE,MG,686,685,453,232,0,0,100.0,Alta participação em votações
+204394,Gervásio Maia,PCDOB,PB,1567,1566,906,643,0,17,98.91,Alta participação em votações
+204418,Luizão Goulart,SOLIDARIEDADE,PR,424,424,242,181,1,0,99.76,Alta participação em votações
+204372,Julio Cesar Ribeiro,REPUBLICANOS,DF,1179,1178,700,478,0,0,100.0,Alta participação em votações
+178939,Clarissa Garotinho,UNIÃO,RJ,359,359,203,156,0,0,100.0,Alta participação em votações
+74317,Júlio Cesar,PSD,PI,1134,1133,700,432,1,0,99.91,Alta participação em votações
+178952,Walter Alves,MDB,RN,262,262,157,104,0,1,99.62,Alta participação em votações
+204459,Daniela Do Waguinho,REPUBLICANOS,RJ,1249,1249,732,516,0,1,99.92,Alta participação em votações
+122974,Pedro Lucas Fernandes,UNIÃO,MA,1155,1154,719,434,0,0,99.91,Alta participação em votações
+178860,Paulo Azi,UNIÃO,BA,1125,1124,662,461,1,0,99.91,Alta participação em votações
+204489,Robério Monteiro,PSB,CE,1119,1118,667,443,0,8,99.28,Alta participação em votações
+132504,Enio Verri,PT,PR,464,464,265,174,0,25,94.61,Alta participação em votações
+204505,Vavá Martins,REPUBLICANOS,PA,345,345,183,162,0,0,100.0,Alta participação em votações
+178983,Marcio Alvino,PL,SP,1455,1455,727,655,0,73,94.98,Alta participação em votações
+152605,Glauber Braga,PSOL,RJ,1263,1262,605,583,41,33,94.14,Alta participação em votações
+74366,João Campos,REPUBLICANOS,GO,375,375,228,146,1,0,99.73,Alta participação em votações
+74057,Alice Portugal,PCDOB,BA,1550,1549,906,620,1,22,98.52,Alta participação em votações
+73441,Celso Russomanno,REPUBLICANOS,SP,1202,1201,735,456,3,0,99.17,Alta participação em votações
+92172,Milton Coelho,PSB,PE,296,296,176,105,0,15,94.93,Alta participação em votações
+204453,Natália Bonavides,PT,RN,1346,1345,746,565,3,31,97.47,Alta participação em votações
+204551,Bosco Saraiva,SOLIDARIEDADE,AM,252,252,152,100,0,0,100.0,Alta participação em votações
+204484,General Peternelli,UNIÃO,SP,513,513,252,238,0,0,95.52,Alta participação em votações
+160591,Vinicius Gurgel,PL,AP,916,916,535,342,7,32,95.74,Alta participação em votações
+197438,Tito,AVANTE,BA,484,484,276,208,0,0,100.0,Alta participação em votações
+204466,Tereza Nelma,PSD,AL,346,346,204,142,0,0,100.0,Alta participação em votações
+178843,Marx Beltrão,UNIÃO,AL,1181,1180,700,480,0,0,100.0,Alta participação em votações
+204421,Edna Henrique,REPUBLICANOS,PB,268,268,164,104,0,0,100.0,Alta participação em votações
+160599,Dimas Fabiano,PP,MG,1320,1319,815,498,5,1,99.55,Alta participação em votações
+178916,Daniel Coelho,CIDADANIA,PE,370,370,203,162,1,4,98.65,Alta participação em votações
+204403,Marlon Santos,PL,RS,253,253,144,109,0,0,100.0,Alta participação em votações
+141434,Flaviano Melo,MDB,AC,399,399,237,162,0,0,100.0,Alta participação em votações
+141431,Fernando Coelho Filho,UNIÃO,PE,1156,1155,695,452,8,0,99.31,Alta participação em votações
+72442,Felipe Carreras,PSB,PE,1238,1237,749,482,0,6,99.51,Alta participação em votações
+204485,Luiz Carlos Motta,PL,SP,1320,1320,759,529,1,30,97.58,Alta participação em votações
+178839,Jéssica Sales,MDB,AC,158,158,94,64,0,0,100.0,Alta participação em votações
+204468,Joenia Wapichana,REDE,RR,453,453,253,190,0,10,97.79,Alta participação em votações
+204499,Cássio Andrade,PSB,PA,219,219,144,70,1,4,97.72,Alta participação em votações
+204422,Ossesio Silva,REPUBLICANOS,PE,1336,1335,809,526,0,0,100.0,Alta participação em votações
+204553,Pastor Sargento Isidório,AVANTE,BA,1498,1498,886,595,17,0,98.87,Alta participação em votações
+178959,Hiran Gonçalves,PP,RR,332,332,194,138,0,0,100.0,Alta participação em votações
+93083,Cacá Leão,PP,BA,332,332,198,133,0,0,99.7,Alta participação em votações
+143632,Domingos Neto,PSD,CE,869,868,526,341,1,0,99.88,Alta participação em votações
+204520,Junio Amaral,PL,MG,1328,1327,676,615,0,35,97.29,Alta participação em votações
+220560,Thiago De Joaldo,REPUBLICANOS,SE,803,802,471,330,1,0,99.88,Alta participação em votações
+227433,Douglas Viegas,UNIÃO,SP,649,648,354,294,0,0,100.0,Alta participação em votações
+223128,Rodrigo Estacho,PSD,PR,876,875,499,376,0,0,100.0,Alta participação em votações
+229432,Luiz Fernando Vampiro,MDB,SC,417,416,233,182,1,0,99.76,Alta participação em votações
+220568,Gustavo Gayer,PL,GO,961,960,454,445,1,60,93.65,Alta participação em votações
+220672,Henderson Pinto,UNIÃO,PA,862,861,544,317,0,0,100.0,Alta participação em votações
+160548,Jonas Donizette,PSB,SP,978,977,606,369,1,1,99.8,Alta participação em votações
+160629,Romero Rodrigues,PODE,PB,1009,1008,639,351,18,0,98.21,Alta participação em votações
+220662,Lucas Ramos,PSB,PE,991,990,591,399,0,0,100.0,Alta participação em votações
+234253,Lucas Abrahao,REDE,AP,87,87,48,36,0,3,96.55,Alta participação em votações
+161440,Pezenti,MDB,SC,995,994,541,453,0,0,100.0,Alta participação em votações
+230764,Ivan Junior,UNIÃO,MA,26,26,20,6,0,0,100.0,Alta participação em votações
+220540,Duda Ramos,PODE,RR,690,689,444,245,0,0,100.0,Alta participação em votações
+74374,Geraldo Resende,UNIÃO,MS,947,946,580,366,0,0,100.0,Alta participação em votações
+178905,Fabio Garcia,UNIÃO,MT,96,96,61,35,0,0,100.0,Alta participação em votações
+220609,Maurício Carvalho,UNIÃO,RO,896,895,514,381,0,0,100.0,Alta participação em votações
+220542,Alexandre Guimarães,MDB,TO,799,798,519,279,0,0,100.0,Alta participação em votações
+220697,Jadyel Alencar,REPUBLICANOS,PI,755,754,488,265,0,1,99.87,Alta participação em votações
+74171,Chico Alencar,PSOL,RJ,1151,1150,617,523,2,8,99.13,Alta participação em votações
+220557,Daniela Reinehr,PL,SC,928,927,466,399,0,62,93.31,Alta participação em votações
+220640,Juliana Cardoso,PT,SP,873,873,530,341,2,0,99.77,Alta participação em votações
+220547,Marcos Pollon,PL,MS,1171,1170,576,534,3,57,94.87,Alta participação em votações
+80815,Leo Prates,REPUBLICANOS,BA,923,922,567,354,1,0,99.89,Alta participação em votações
+220528,Dr. Victor Linhalis,PODE,ES,893,892,536,356,0,0,100.0,Alta participação em votações
+220645,Erika Hilton,PSOL,SP,792,792,422,367,1,2,99.62,Alta participação em votações
+138286,Luciano Alves,PSD,PR,700,699,434,265,0,0,100.0,Alta participação em votações
+220631,Samuel Viana,UNIÃO,MG,924,923,591,329,0,3,99.67,Alta participação em votações
+74041,Luiz Couto,PT,PB,1288,1287,712,572,0,3,99.77,Alta participação em votações
+220531,Gilvan Maximo,REPUBLICANOS,DF,623,623,380,243,0,0,100.0,Alta participação em votações
+220685,Paulo Litro,UNIÃO,PR,938,937,577,360,0,0,100.0,Alta participação em votações
+141533,Rodrigo Rollemberg,PSB,DF,275,274,163,111,0,0,100.0,Alta participação em votações
+226179,Gisela Simona,UNIÃO,MT,1147,1146,609,535,0,0,99.83,Alta participação em votações
+220690,Capitão Alden,PL,BA,1067,1066,522,475,4,65,93.53,Alta participação em votações
+73806,Roseana Sarney,MDB,MA,270,270,166,104,0,0,100.0,Alta participação em votações
+227275,Mariana Carvalho,REPUBLICANOS,MA,87,87,59,28,0,0,100.0,Alta participação em votações
+89536,Prof. Paulo Fernando,REPUBLICANOS,DF,259,259,149,106,0,0,98.46,Alta participação em votações
+212625,Dr. Gonçalo,PODE,MA,71,71,43,28,0,0,100.0,Alta participação em votações
+129618,Gorete Pereira,MDB,CE,29,29,19,10,0,0,100.0,Alta participação em votações
+235800,Jorge Araújo,PP,BA,11,11,7,4,0,0,100.0,Alta participação em votações
+204475,Ottaci Nascimento,SOLIDARIEDADE,RR,349,349,210,139,0,0,100.0,Alta participação em votações
+204371,Felipe Rigoni,UNIÃO,ES,407,407,218,187,2,0,99.51,Alta participação em votações
+204537,Enrico Misasi,MDB,SP,428,428,218,209,0,1,99.77,Alta participação em votações
+204546,Joice Hasselmann,PSDB,SP,459,459,239,220,0,0,100.0,Alta participação em votações
+204511,David Soares,PODE,SP,852,852,462,373,17,0,98.0,Alta participação em votações
+178933,Sergio Souza,MDB,PR,1254,1253,767,482,1,3,99.68,Alta participação em votações
+164360,Carmen Zanotto,CIDADANIA,SC,585,585,314,255,7,2,97.26,Alta participação em votações
+74439,Wolney Queiroz,PDT,PE,306,306,188,112,0,6,98.04,Alta participação em votações
+204362,Ricardo Guidi,PL,SC,1042,1041,563,474,0,4,99.62,Alta participação em votações
+178951,Rafael Motta,PSB,RN,355,355,208,141,0,6,98.31,Alta participação em votações
+178896,Newton Cardoso Jr,MDB,MG,836,836,525,296,12,3,98.21,Alta participação em votações
+204423,André Ferreira,PL,PE,933,933,554,362,4,13,98.18,Alta participação em votações
+141478,Laerte Bessa,PL,DF,121,121,69,51,1,0,99.17,Alta participação em votações
+133968,Paulo Ramos,PDT,RJ,398,398,241,150,0,7,98.24,Alta participação em votações
+204400,Aline Sleutjes,PROS,PR,425,425,224,201,0,0,100.0,Alta participação em votações
+204515,André Janones,REDE,MG,1303,1302,759,542,1,0,99.92,Alta participação em votações
+204460,Carlos Jordy,PL,RJ,1446,1445,717,678,0,50,96.54,Alta participação em votações
+160598,Flávia Morais,MDB,GO,1199,1198,754,437,0,7,99.42,Alta participação em votações
+160651,Rogério Peninha Mendonça,MDB,SC,413,413,219,194,0,0,100.0,Alta participação em votações
+178866,Luizianne Lins,REDE,CE,1282,1281,760,487,11,23,97.35,Alta participação em votações
+141470,José Guimarães,PT,CE,1506,1505,866,607,4,28,97.87,Alta participação em votações
+204412,Dr. Zacharias Calil,MDB,GO,1399,1399,806,591,0,0,99.86,Alta participação em votações
+204389,Elias Vaz,PSB,GO,418,418,237,167,0,14,96.65,Alta participação em votações
+178975,Baleia Rossi,MDB,SP,925,925,569,355,1,0,99.89,Alta participação em votações
+204437,Severino Pessoa,MDB,AL,275,275,159,108,8,0,97.09,Alta participação em votações
+204510,Franco Cartafina,PP,MG,381,381,207,174,0,0,100.0,Alta participação em votações
+204570,Pastor Gil,PL,MA,976,975,595,367,0,13,98.67,Alta participação em votações
+141458,João Carlos Bacelar,PL,BA,890,889,558,330,1,0,99.89,Alta participação em votações
+196358,Lourival Gomes,PP,RJ,404,404,224,180,0,0,100.0,Alta participação em votações
+105534,Alexandre Figueiredo,PSD,SE,97,97,57,40,0,0,100.0,Alta participação em votações
+146788,Marcelo Aro,PP,MG,222,222,132,89,1,0,99.55,Alta participação em votações
+204526,Luiz Philippe De Orleans E Bragança,PL,SP,1298,1297,605,642,5,45,96.14,Alta participação em votações
+220008,Eliza Virgínia,PP,PB,163,163,83,75,5,0,96.93,Alta participação em votações
+204476,Chiquinho Brazão,S.PART.,RJ,652,652,389,263,0,0,100.0,Alta participação em votações
+204387,Sargento Fahur,PL,PR,1589,1588,814,773,1,0,99.94,Alta participação em votações
+178884,Hildo Rocha,MDB,MA,1026,1025,611,406,3,1,99.22,Alta participação em votações
+204406,Pedro Westphalen,PP,RS,1348,1347,752,595,0,0,100.0,Alta participação em votações
+179000,Marcelo Álvaro Antônio,PL,MG,1131,1131,614,469,1,47,95.76,Alta participação em votações
+141405,Celso Maldaner,MDB,SC,336,336,186,150,0,0,100.0,Alta participação em votações
+74075,Elcione Barbalho,MDB,PA,893,893,553,337,1,2,99.66,Alta participação em votações
+141450,Hugo Leal,PSD,RJ,1131,1130,671,459,0,0,100.0,Alta participação em votações
+178920,Ricardo Teobaldo,PODE,PE,319,319,185,134,0,0,100.0,Alta participação em votações
+213274,Ricardo Silva,PSD,SP,598,598,337,261,0,0,100.0,Alta participação em votações
+204451,Delegado Antônio Furtado,UNIÃO,RJ,479,479,273,201,5,0,98.96,Alta participação em votações
+204554,Abílio Santana,PSC,BA,321,321,174,147,0,0,100.0,Alta participação em votações
+160655,Ricardo Izar,REPUBLICANOS,SP,284,284,169,114,1,0,99.65,Alta participação em votações
+160545,Alexandre Leite,UNIÃO,SP,760,760,458,298,4,0,99.47,Alta participação em votações
+205865,Reinhold Stephanes,PL,PR,898,898,507,389,2,0,99.78,Alta participação em votações
+73486,Pompeo De Mattos,PDT,RS,1413,1412,884,503,0,9,98.23,Alta participação em votações
+74161,Reginaldo Lopes,PT,MG,942,941,556,361,1,23,97.45,Alta participação em votações
+156190,Marcel Van Hattem,NOVO,RS,1604,1603,723,769,0,107,93.08,Alta participação em votações
+219599,Sargento Alexandre,PODE,SP,96,96,58,38,0,0,100.0,Alta participação em votações
+216544,Paulo Vicente Caleffi,PSD,RS,110,110,58,52,0,0,100.0,Alta participação em votações
+204497,Júnior Ferrari,PSD,PA,1317,1316,760,550,5,1,99.54,Alta participação em votações
+160575,Erika Kokay,PT,DF,1650,1649,920,702,0,25,98.36,Alta participação em votações
+74158,Mário Heringer,PDT,MG,1165,1164,711,438,6,9,98.71,Alta participação em votações
+73604,Rui Falcão,PT,SP,1454,1453,809,607,7,30,97.45,Alta participação em votações
+204503,Alexandre Padilha,PT,SP,454,454,270,157,1,26,94.05,Alta participação em votações
+204435,Jesus Sérgio,PDT,AC,406,406,241,159,0,6,98.52,Alta participação em votações
+204556,Marcelo Ramos,PSD,AM,219,219,108,55,1,0,74.43,Participação moderada em votações
+198197,Greyce Elias,PL,MG,1053,1052,631,421,0,0,100.0,Alta participação em votações
+141531,Rodrigo De Castro,UNIÃO,MG,1288,1288,780,505,3,0,99.77,Alta participação em votações
+160642,Pastor Eurico,PSDB,PE,1337,1336,701,586,0,49,96.33,Alta participação em votações
+204436,Isnaldo Bulhões Jr.,MDB,AL,496,495,321,172,0,1,99.6,Alta participação em votações
+204514,Coronel Tadeu,PL,SP,515,515,269,246,0,0,100.0,Alta participação em votações
+178930,Roman,PP,PR,123,123,72,51,0,0,100.0,Alta participação em votações
+74319,Paes Landim,UNIÃO,PI,91,91,50,41,0,0,100.0,Alta participação em votações
+92346,Eduardo Bolsonaro,PL,SP,830,830,432,357,0,41,95.06,Alta participação em votações
+178993,Carlos Henrique Gaguim,UNIÃO,TO,1399,1398,885,510,3,0,99.79,Alta participação em votações
+215042,Ricardo Da Karol,PDT,RJ,421,421,269,147,1,4,98.81,Alta participação em votações
+160535,Marcon,PT,RS,1351,1350,766,552,4,28,97.63,Alta participação em votações
+74554,José Rocha,UNIÃO,BA,1135,1134,697,437,0,0,100.0,Alta participação em votações
+220606,Reimont,PT,RJ,959,958,572,384,2,0,99.79,Alta participação em votações
+220570,Dr. Ismael Alexandrino,PSD,GO,789,788,473,313,2,0,99.75,Alta participação em votações
+220706,Padovani,PP,PR,531,530,317,213,0,0,100.0,Alta participação em votações
+224333,Welter,PT,PR,933,932,546,384,1,1,99.79,Alta participação em votações
+220569,Silvye Alves,UNIÃO,GO,826,825,462,363,0,0,100.0,Alta participação em votações
+74856,Laura Carneiro,PSD,RJ,1048,1047,612,430,2,0,99.52,Alta participação em votações
+220653,Fábio Teruel,MDB,SP,965,964,535,427,2,0,99.79,Alta participação em votações
+210989,Bruno Farias,REPUBLICANOS,MG,850,849,549,295,5,0,99.41,Alta participação em votações
+220677,Keniston Braga,MDB,PA,836,836,537,299,0,0,100.0,Alta participação em votações
+74428,Mendonça Filho,PL,PE,967,966,602,338,26,0,97.31,Alta participação em votações
+220556,Ana Paula Lima,PT,SC,961,960,574,383,0,3,99.69,Alta participação em votações
+227660,Nitinho,PSD,SE,335,335,211,124,0,0,100.0,Alta participação em votações
+220599,Marcelo Crivella,REPUBLICANOS,RJ,997,996,624,370,2,0,99.8,Alta participação em votações
+220683,Beto Richa,PSDB,PR,1025,1024,646,377,1,0,99.9,Alta participação em votações
+220669,Lula Da Fonte,PP,PE,878,877,526,322,0,0,96.69,Alta participação em votações
+220708,Gabriel Nunes,PSD,BA,1024,1023,638,385,0,0,100.0,Alta participação em votações
+220615,Pastor Henrique Vieira,PSOL,RJ,1079,1079,567,500,5,7,98.89,Alta participação em votações
+220533,Prof. Reginaldo Veras,PV,DF,973,972,569,403,0,0,100.0,Alta participação em votações
+220682,Tadeu Veneri,PT,PR,953,952,560,391,1,0,99.89,Alta participação em votações
+220635,Bruno Ganem,PODE,SP,1004,1003,621,381,1,0,99.9,Alta participação em votações
+220558,Zé Trovão,PL,SC,985,984,472,446,0,66,93.29,Alta participação em votações
+165470,Rodrigo Valadares,PL,SE,936,935,499,435,1,0,99.89,Alta participação em votações
+220559,Julia Zanatta,PL,SC,1029,1028,488,484,0,56,94.55,Alta participação em votações
+230768,Zé Adriano,PP,AC,461,460,286,174,0,0,100.0,Alta participação em votações
+227323,Luciano Galego,PL,MA,85,85,40,24,0,21,75.29,Participação moderada em votações
+227401,Dr Fabio Rueda,UNIÃO,AC,83,83,56,27,0,0,100.0,Alta participação em votações
+227310,Silvio Antonio,PL,MA,184,184,97,59,2,26,84.78,Alta participação em votações
+220634,Marcelo Lima,PSB,SP,206,206,128,75,3,0,98.54,Alta participação em votações
+228797,Júlio Oliveira,PP,TO,87,87,53,34,0,0,100.0,Alta participação em votações
+235776,Sérgio Turra,PP,RS,19,19,13,6,0,0,100.0,Alta participação em votações
+204534,Tabata Amaral,PSB,SP,1491,1491,835,642,0,14,99.06,Alta participação em votações
+204477,Felício Laterça,PP,RJ,480,480,262,218,0,0,100.0,Alta participação em votações
+204574,Junior Lourenço,MDB,MA,778,777,488,289,0,0,100.0,Alta participação em votações
+141523,Raul Henry,MDB,PE,425,425,269,155,0,1,99.76,Alta participação em votações
+204464,Talíria Petrone,PSOL,RJ,1031,1030,554,461,0,15,98.54,Alta participação em votações
+74090,Átila Lins,PSD,AM,1046,1045,659,385,1,0,99.9,Alta participação em votações
+74200,Gastão Vieira,PROS,MA,108,108,65,43,0,0,100.0,Alta participação em votações
+92776,Stefano Aguiar,PSD,MG,1033,1032,593,408,31,0,97.0,Alta participação em votações
+74371,Rubens Otoni,PT,GO,1084,1083,626,439,0,18,98.34,Alta participação em votações
+141480,Lázaro Botelho,PP,TO,833,833,505,327,1,0,99.88,Alta participação em votações
+164359,Delegado Waldir,UNIÃO,GO,407,407,243,164,0,0,100.0,Alta participação em votações
+73788,Ricardo Barros,PP,PR,721,720,414,306,0,0,100.0,Alta participação em votações
+178948,Beto Rosado,PP,RN,372,372,210,162,0,0,100.0,Alta participação em votações
+204576,João Roma,PL,BA,257,257,145,112,0,0,100.0,Alta participação em votações
+178835,Afonso Motta,PDT,RS,1476,1475,895,569,3,8,99.25,Alta participação em votações
+204544,Alexandre Frota,PROS,SP,353,353,197,154,2,0,99.43,Alta participação em votações
+160674,Hugo Motta,REPUBLICANOS,PB,931,930,429,243,0,0,72.26,Participação moderada em votações
+178946,Soraya Santos,PL,RJ,1245,1244,674,509,0,60,95.1,Alta participação em votações
+204548,Heitor Freire,UNIÃO,CE,375,375,218,157,0,0,100.0,Alta participação em votações
+92102,Leur Lomanto Júnior,UNIÃO,BA,1097,1096,715,380,1,0,99.91,Alta participação em votações
+160666,Félix Mendonça Júnior,PDT,BA,1400,1399,860,528,4,7,99.21,Alta participação em votações
+178889,Zé Carlos,PT,MA,429,429,241,162,0,26,93.94,Alta participação em votações
+178895,Misael Varella,PSD,MG,1144,1143,699,442,2,0,99.83,Alta participação em votações
+74253,Julio Lopes,PP,RJ,824,823,519,303,1,0,99.88,Alta participação em votações
+204482,Euclydes Pettersen,REPUBLICANOS,MG,744,743,473,270,0,0,100.0,Alta participação em votações
+204495,Airton Faleiro,PT,PA,1291,1290,747,519,0,24,98.14,Alta participação em votações
+178997,Moses Rodrigues,UNIÃO,CE,1112,1111,717,394,0,0,100.0,Alta participação em votações
+178943,Marcos Soares,PSDB,RJ,715,714,405,306,3,0,99.58,Alta participação em votações
+204439,Dr. Leonardo,REPUBLICANOS,MT,471,471,254,216,1,0,99.79,Alta participação em votações
+160527,Aguinaldo Ribeiro,PP,PB,943,942,598,341,0,0,99.68,Alta participação em votações
+207176,Bia Cavassa,PSDB,MS,125,125,72,53,0,0,100.0,Alta participação em votações
+154178,Milton Vieira,REPUBLICANOS,SP,434,434,257,177,0,0,100.0,Alta participação em votações
+204420,Julian Lemos,UNIÃO,PB,388,388,232,156,0,0,100.0,Alta participação em votações
+178954,Lucio Mosquini,PL,RO,886,885,504,362,2,0,97.85,Alta participação em votações
+205863,Marcelo Brum,REPUBLICANOS,RS,114,114,65,49,0,0,100.0,Alta participação em votações
+204541,Eduardo Bismarck,PV,CE,1015,1015,589,405,1,9,97.93,Alta participação em votações
+204473,General Girão,PL,RN,1392,1391,729,591,2,69,94.9,Alta participação em votações
+178929,Diego Garcia,UNIÃO,PR,1406,1405,777,625,3,0,99.79,Alta participação em votações
+204380,Celina Leão,PP,DF,238,238,155,81,2,0,99.16,Alta participação em votações
+215043,Josivaldo Jp,UNIÃO,MA,1275,1275,773,499,3,0,99.76,Alta participação em votações
+122195,Leonardo Gadelha,PODE,PB,292,292,174,118,0,0,100.0,Alta participação em votações
+204525,Rosana Valle,PL,SP,1398,1398,778,560,0,60,95.71,Alta participação em votações
+204492,Paulo Guedes,PT,MG,1415,1414,829,557,0,28,98.02,Alta participação em votações
+160559,Alceu Moreira,MDB,RS,1246,1245,733,512,0,0,100.0,Alta participação em votações
+141391,Arnaldo Jardim,CIDADANIA,SP,1091,1090,649,436,2,3,99.54,Alta participação em votações
+160641,Professora Marcivania,PCDOB,AP,744,743,440,278,0,25,96.64,Alta participação em votações
+160588,Diego Andrade,PSD,MG,816,815,532,283,0,0,100.0,Alta participação em votações
+178935,Rossoni,PSDB,PR,150,150,93,56,1,0,99.33,Alta participação em votações
+204523,Lucas Gonzalez,NOVO,MG,456,456,207,244,0,5,98.9,Alta participação em votações
+74459,Átila Lira,PP,PI,389,389,229,160,0,0,100.0,Alta participação em votações
+215045,Pedro Augusto Palareti,PP,RJ,327,327,200,126,1,0,99.69,Alta participação em votações
+204521,Abou Anni,UNIÃO,SP,420,420,246,174,0,0,100.0,Alta participação em votações
+204449,Nelson Barbudo,PODE,MT,726,726,401,306,0,19,97.38,Alta participação em votações
+204500,Eduardo Costa,PSD,PA,357,357,218,139,0,0,100.0,Alta participação em votações
+178886,Juscelino Filho,PSDB,MA,719,718,446,272,0,0,100.0,Alta participação em votações
+160569,Waldenor Pereira,PT,BA,1201,1200,698,482,0,20,98.33,Alta participação em votações
+204486,Mauro Benevides Filho,UNIÃO,CE,1461,1461,888,562,2,9,99.25,Alta participação em votações
+74356,Silas Câmara,REPUBLICANOS,AM,881,880,581,299,0,0,100.0,Alta participação em votações
+66828,Fausto Pinato,UNIÃO,SP,1281,1280,770,497,13,0,98.98,Alta participação em votações
+73460,Gustavo Fruet,PDT,PR,389,389,235,150,0,4,98.97,Alta participação em votações
+204571,Alex Santana,REPUBLICANOS,BA,1012,1011,660,345,6,0,99.41,Alta participação em votações
+220649,Delegado Da Cunha,UNIÃO,SP,781,781,462,319,0,0,100.0,Alta participação em votações
+220630,Pedro Aihara,PP,MG,924,923,536,387,0,0,100.0,Alta participação em votações
+220651,Simone Marquetto,PP,SP,726,725,485,240,0,0,100.0,Alta participação em votações
+220532,Rafael Prudente,MDB,DF,776,775,510,261,1,0,99.48,Alta participação em votações
+220659,Dayany Bittencourt,UNIÃO,CE,927,926,506,420,0,0,100.0,Alta participação em votações
+220618,Sargento Portugal,PODE,RJ,964,963,594,369,0,0,100.0,Alta participação em votações
+209787,Nikolas Ferreira,PL,MG,1042,1041,505,473,0,63,93.95,Alta participação em votações
+74084,Raimundo Santos,PSD,PA,1026,1025,632,392,1,0,99.9,Alta participação em votações
+220594,Coronel Assis,PL,MT,1041,1040,547,491,2,0,99.81,Alta participação em votações
+220604,Marcos Tavares,PDT,RJ,877,876,529,347,0,0,100.0,Alta participação em votações
+233598,Samuel Santos,PODE,GO,173,172,120,52,0,0,100.0,Alta participação em votações
+220704,Carol Dartora,PT,PR,719,719,438,281,0,0,100.0,Alta participação em votações
+220691,Diego Coronel,REPUBLICANOS,BA,1041,1040,631,407,2,0,99.81,Alta participação em votações
+220534,Fred Linhares,REPUBLICANOS,DF,944,943,592,351,0,0,100.0,Alta participação em votações
+220663,Eriberto Medeiros,PSB,PE,910,909,560,349,0,0,100.0,Alta participação em votações
+77003,Sergio Santos Rodrigues,PODE,MG,91,91,60,31,0,0,100.0,Alta participação em votações
+220689,Detinha,PL,MA,546,545,338,195,1,11,97.8,Alta participação em votações
+220684,Tião Medeiros,PP,PR,814,813,474,336,3,0,99.63,Alta participação em votações
+220600,Lebrão,UNIÃO,RO,555,555,344,209,2,0,99.64,Alta participação em votações
+220658,Luiz Gastão,PSD,CE,851,850,522,327,1,0,99.88,Alta participação em votações
+220605,Bandeira De Mello,PV,RJ,1008,1007,577,430,0,0,100.0,Alta participação em votações
+230765,Enfermeira Rejane,PCDOB,RJ,440,439,247,192,0,0,100.0,Alta participação em votações
+220576,Alfredo Gaspar,PL,AL,1095,1095,590,502,3,0,99.73,Alta participação em votações
+234788,Heloísa Helena,REDE,RJ,77,77,45,31,1,0,98.7,Alta participação em votações
+220650,Paulo Alexandre Barbosa,PSDB,SP,932,931,544,386,1,0,99.89,Alta participação em votações
+107970,Ana Paula Leão,PP,MG,918,917,527,390,0,0,100.0,Alta participação em votações
+220607,Max Lemos,PDT,RJ,995,994,616,378,0,0,100.0,Alta participação em votações
+220620,Rosângela Reis,PL,MG,1006,1006,586,383,0,37,96.32,Alta participação em votações
+220686,Duarte Jr.,AVANTE,MA,1019,1018,597,417,0,2,99.61,Alta participação em votações
+143942,Caio Vianna,PSD,RJ,601,600,373,227,0,0,100.0,Alta participação em votações
+74065,Fatima Pelaes,REPUBLICANOS,AP,153,152,99,53,0,0,100.0,Alta participação em votações
+220617,Murillo Gouvea,PSDB,RJ,956,955,603,351,1,0,99.9,Alta participação em votações
+220700,Florentino Neto,PT,PI,911,910,540,367,0,3,99.67,Alta participação em votações
+160161,Marcelo Queiroz,PSDB,RJ,789,789,468,308,13,0,98.35,Alta participação em votações
+220553,Denise Pessôa,PT,RS,973,972,565,403,2,2,99.59,Alta participação em votações
+220595,Coronel Fernanda,PL,MT,1079,1078,563,441,1,73,93.14,Alta participação em votações
+171786,Miguel Ângelo,PT,MG,856,855,500,354,0,1,99.88,Alta participação em votações
+104552,Socorro Neri,PP,AC,894,893,528,365,0,0,100.0,Alta participação em votações
+226075,Priscila Costa,PL,CE,141,141,65,55,0,21,85.11,Alta participação em votações
+220593,Abilio Brunini,PL,MT,414,414,193,164,12,45,86.23,Alta participação em votações
+227324,Henrique Júnior,PL,MA,92,92,64,24,1,3,95.65,Alta participação em votações
+228042,Naumi Amorim,PSD,CE,26,26,19,7,0,0,100.0,Alta participação em votações
+228941,Daniel José,PODE,SP,70,70,40,29,1,0,98.57,Alta participação em votações
+228272,Délio Pinheiro,PDT,MG,57,57,41,16,0,0,100.0,Alta participação em votações
+229585,Elisangela Araujo,PT,BA,103,103,53,50,0,0,100.0,Alta participação em votações
+136811,Afonso Hamm,PP,RS,1142,1141,646,495,0,0,100.0,Alta participação em votações
+178888,Victor Mendes,MDB,MA,171,171,109,58,4,0,97.66,Alta participação em votações
+141411,Dagoberto Nogueira,PP,MS,1410,1409,850,550,4,5,99.36,Alta participação em votações
+66179,Norma Ayub,PP,ES,394,394,213,181,0,0,100.0,Alta participação em votações
+139285,Lídice Da Mata,PSB,BA,1352,1351,790,546,0,15,98.89,Alta participação em votações
+141513,Bilac Pinto,UNIÃO,MG,355,355,193,162,0,0,100.0,Alta participação em votações
+204432,Marina Santos,REPUBLICANOS,PI,436,436,252,184,0,0,100.0,Alta participação em votações
+160640,Eros Biondini,PL,MG,1410,1410,740,601,0,69,95.11,Alta participação em votações
+204540,Maria Rosas,REPUBLICANOS,SP,1311,1311,800,511,0,0,100.0,Alta participação em votações
+74848,Jandira Feghali,PCDOB,RJ,1501,1500,878,598,1,23,98.4,Alta participação em votações
+107283,Gleisi Hoffmann,PT,PR,644,644,394,233,0,17,97.36,Alta participação em votações
+178921,Sebastião Oliveira,AVANTE,PE,265,265,160,105,0,0,100.0,Alta participação em votações
+141555,Vinicius Carvalho,PL,SP,988,988,626,362,0,0,100.0,Alta participação em votações
+160669,Genecias Noronha,PL,CE,260,260,148,112,0,0,100.0,Alta participação em votações
+204452,Márcio Labre,PL,RJ,446,446,249,195,2,0,99.55,Alta participação em votações
+121948,Adriano Do Baldy,PP,GO,1384,1383,858,525,0,0,100.0,Alta participação em votações
+160976,Tiririca,PSD,SP,1207,1207,728,460,1,18,98.43,Alta participação em votações
+141408,Cleber Verde,MDB,MA,1400,1399,863,535,1,0,99.93,Alta participação em votações
+150418,Márcio Marinho,REPUBLICANOS,BA,1206,1205,763,441,1,0,99.92,Alta participação em votações
+178909,Hélio Leite,UNIÃO,PA,631,631,383,248,0,0,100.0,Alta participação em votações
+213762,Carla Dickson,PL,RN,929,928,531,397,0,0,100.0,Alta participação em votações
+204351,Dr. Luiz Ovando,PP,MS,1377,1376,761,614,1,0,99.93,Alta participação em votações
+74254,Leonardo Picciani,MDB,RJ,105,105,60,38,6,1,93.33,Alta participação em votações
+141427,Fábio Ramalho,MDB,MG,352,352,218,128,3,3,98.3,Alta participação em votações
+204355,Da Vitoria,PP,ES,1420,1419,838,580,1,0,99.93,Alta participação em votações
+195866,Vaidon Oliveira,UNIÃO,CE,231,231,132,99,0,0,100.0,Alta participação em votações
+162332,Luiz Nishimori,PSD,PR,1132,1131,675,454,2,0,99.82,Alta participação em votações
+74052,Bosco Costa,PL,SE,492,492,286,206,0,0,100.0,Alta participação em votações
+67138,Iracema Portella,PP,PI,125,125,74,51,0,0,100.0,Alta participação em votações
+160610,Valmir Assunção,PT,BA,1269,1269,747,494,1,27,97.79,Alta participação em votações
+141417,Edio Lopes,PL,RR,318,318,195,123,0,0,100.0,Alta participação em votações
+160667,Guilherme Mussi,PP,SP,244,244,141,103,0,0,100.0,Alta participação em votações
+204529,Policial Katia Sastre,PL,SP,447,447,252,195,0,0,100.0,Alta participação em votações
+178956,Mariana Carvalho,REPUBLICANOS,RO,274,274,156,118,0,0,100.0,Alta participação em votações
+160621,Sandro Alex,PSD,PR,334,334,192,142,0,0,100.0,Alta participação em votações
+178990,Samuel Moreira,PSDB,SP,461,461,251,210,0,0,100.0,Alta participação em votações
+204442,Gurgel,PL,RJ,473,473,265,208,0,0,100.0,Alta participação em votações
+74160,Patrus Ananias,PT,MG,1519,1518,864,633,0,21,98.62,Alta participação em votações
+204405,Liziane Bayer,REPUBLICANOS,RS,488,488,273,215,0,0,100.0,Alta participação em votações
+151208,Laercio Oliveira,PP,SE,386,386,228,158,0,0,100.0,Alta participação em votações
+137070,Vicentinho Júnior,PSDB,TO,1109,1108,676,432,0,0,100.0,Alta participação em votações
+204483,Vilson Da Fetaemg,PSB,MG,448,448,251,177,0,20,95.54,Alta participação em votações
+160632,Zé Silva,UNIÃO,MG,1172,1171,739,432,0,0,100.0,Alta participação em votações
+74478,Luciano Bivar,MDB,PE,420,419,278,139,2,0,99.52,Alta participação em votações
+178992,Vitor Lippi,PSD,SP,1297,1296,781,504,10,0,99.15,Alta participação em votações
+73692,Osmar Terra,PL,RS,1212,1211,657,535,18,1,98.43,Alta participação em votações
+178887,Rubens Pereira Júnior,PT,MA,1563,1562,909,635,1,17,98.85,Alta participação em votações
+160592,Zeca Dirceu,PT,PR,1292,1291,747,515,4,25,97.75,Alta participação em votações
+204527,Geninho Zuliani,UNIÃO,SP,113,113,70,43,0,0,100.0,Alta participação em votações
+74585,Lincoln Portela,PL,MG,1315,1315,694,512,35,45,91.71,Alta participação em votações
+218086,Ely Santos,REPUBLICANOS,SP,1000,999,635,362,2,0,99.8,Alta participação em votações
+204441,Otoni De Paula,PSD,RJ,957,956,571,378,7,0,99.27,Alta participação em votações
+204419,Glaustin Da Fokus,PODE,GO,959,959,574,376,9,0,99.06,Alta participação em votações
+178925,Rejane Dias,PT,PI,457,457,263,166,0,28,93.87,Alta participação em votações
+76874,Marcelo Freixo,PSB,RJ,438,438,248,172,0,18,95.89,Alta participação em votações
+204411,Filipe Barros,PL,PR,998,997,520,432,6,39,95.49,Alta participação em votações
+133439,André Figueiredo,PDT,CE,1357,1356,818,525,0,13,99.04,Alta participação em votações
+204517,Zé Vitor,PL,MG,709,709,436,251,0,22,96.9,Alta participação em votações
+204388,Bibo Nunes,PL,RS,1508,1507,799,640,4,64,95.49,Alta participação em votações
+74283,Vicentinho,PT,SP,1369,1368,783,561,1,23,98.25,Alta participação em votações
+160512,Aureo Ribeiro,SOLIDARIEDADE,RJ,1201,1200,771,425,4,0,99.67,Alta participação em votações
+74398,Maria Do Rosário,PT,RS,1249,1248,728,474,1,26,96.31,Alta participação em votações
+204488,Célio Studart,PSD,CE,1025,1025,580,444,0,1,99.9,Alta participação em votações
+74299,Leônidas Cristino,PDT,CE,1203,1202,720,470,0,12,99.0,Alta participação em votações
+178984,Miguel Haddad,PSDB,SP,75,75,36,39,0,0,100.0,Alta participação em votações
+213854,Dr. Agripino Magalhães,UNIÃO,CE,115,115,59,56,0,0,100.0,Alta participação em votações
+178844,Pedro Vilela,PSDB,AL,371,371,221,150,0,0,100.0,Alta participação em votações
+217480,Jones Moura,PSD,RJ,622,622,354,265,3,0,99.52,Alta participação em votações
+204513,Guiga Peixoto,PSC,SP,494,494,262,232,0,0,100.0,Alta participação em votações
+204430,Margarete Coelho,PP,PI,381,381,229,152,0,0,100.0,Alta participação em votações
+204487,Capitão Wagner,UNIÃO,CE,180,180,111,69,0,0,100.0,Alta participação em votações
+206231,Ted Conti,PSB,ES,120,120,63,54,0,3,97.5,Alta participação em votações
+91228,Waldemar Oliveira,AVANTE,PE,1171,1170,712,456,2,0,99.83,Alta participação em votações
+220707,Amanda Gentil,PP,MA,670,669,414,253,0,0,99.7,Alta participação em votações
+220687,Márcio Honaiser,SOLIDARIEDADE,MA,818,817,498,301,18,0,97.8,Alta participação em votações
+220537,Helena Lima,PSD,RR,645,645,422,220,3,0,99.53,Alta participação em votações
+88256,Clodoaldo Magalhães,PV,PE,902,901,530,369,0,2,99.78,Alta participação em votações
+220578,Josenildo,PDT,AP,1059,1058,635,421,2,0,99.81,Alta participação em votações
+74454,Eunício Oliveira,MDB,CE,647,646,380,202,64,0,90.09,Alta participação em votações
+233592,Paulo Lemos,PT,AP,155,154,94,60,0,0,100.0,Alta participação em votações
+220644,Rosangela Moro,PL,SP,1003,1003,527,474,2,0,99.8,Alta participação em votações
+220546,Rodolfo Nogueira,PL,MS,1075,1074,530,465,0,79,92.64,Alta participação em votações
+220588,Roberto Duarte,REPUBLICANOS,AC,1286,1285,686,599,0,0,100.0,Alta participação em votações
+220591,Meire Serafim,UNIÃO,AC,895,894,571,322,1,0,99.89,Alta participação em votações
+220657,André Fernandes,PL,CE,812,811,408,368,0,35,95.68,Alta participação em votações
+220622,Nely Aquino,PODE,MG,821,820,522,296,2,0,99.76,Alta participação em votações
+220577,Augusto Puppio,MDB,AP,669,669,410,259,0,0,100.0,Alta participação em votações
+220701,Delegado Matheus Laiola,UNIÃO,PR,1044,1043,630,413,0,0,100.0,Alta participação em votações
+220702,Geraldo Mendes,UNIÃO,PR,673,672,424,247,0,1,99.85,Alta participação em votações
+220656,Fernanda Pessoa,PSD,CE,1009,1008,578,430,0,0,100.0,Alta participação em votações
+220584,Murilo Galdino,REPUBLICANOS,PB,927,926,566,360,0,0,100.0,Alta participação em votações
+220564,Yandra Moura,UNIÃO,SE,675,674,401,273,0,0,100.0,Alta participação em votações
+220673,Delegado Caveira,PL,PA,938,937,468,413,0,56,94.02,Alta participação em votações
+220536,Zé Haroldo Cathedral,UNIÃO,RR,1055,1054,623,430,1,0,99.91,Alta participação em votações
+220695,Rogéria Santos,REPUBLICANOS,BA,892,892,580,310,2,0,99.78,Alta participação em votações
+98148,Cobalchini,MDB,SC,1021,1020,565,448,7,0,99.31,Alta participação em votações
+220592,Zezinho Barbary,PP,AC,837,836,520,316,0,0,100.0,Alta participação em votações
+220551,Franciane Bayer,REPUBLICANOS,RS,985,984,572,412,0,0,100.0,Alta participação em votações
+226837,Saulo Pedroso,PSD,SP,674,673,407,266,0,0,100.0,Alta participação em votações
+100689,Hildo Do Candango,REPUBLICANOS,GO,106,106,75,31,0,0,100.0,Alta participação em votações
+220698,Beto Preto,PSD,PR,118,118,73,43,2,0,98.31,Alta participação em votações
+228837,Juliana Kolankiewicz,MDB,MT,90,90,47,43,0,0,100.0,Alta participação em votações
+171139,Loreny,SOLIDARIEDADE,SP,44,44,28,16,0,0,100.0,Alta participação em votações
+235620,Ilacir Bicalho,REPUBLICANOS,MG,18,18,15,3,0,0,100.0,Alta participação em votações
+204363,Osires Damaso,PSC,TO,333,333,179,154,0,0,100.0,Alta participação em votações
+204471,Mara Rocha,MDB,AC,415,415,241,174,0,0,100.0,Alta participação em votações
+204428,Marília Arraes,SOLIDARIEDADE,PE,330,330,190,129,0,11,96.67,Alta participação em votações
+204455,Luiz Lima,NOVO,RJ,1574,1573,750,721,0,93,93.52,Alta participação em votações
+204530,Rodrigo Agostinho,PSB,SP,486,486,270,203,1,12,97.33,Alta participação em votações
+204575,Gil Cutrim,REPUBLICANOS,MA,432,432,247,185,0,0,100.0,Alta participação em votações
+141488,Paulo Teixeira,PT,SP,449,449,248,179,0,22,95.1,Alta participação em votações
+73808,Sérgio Brito,PSD,BA,452,452,281,170,1,0,99.78,Alta participação em votações
+204414,Aroldo Martins,REPUBLICANOS,PR,344,344,199,145,0,0,100.0,Alta participação em votações
+160508,Afonso Florence,PT,BA,391,391,212,160,0,19,95.14,Alta participação em votações
+204454,Daniel Silveira,PTB,RJ,509,509,271,238,0,0,100.0,Alta participação em votações
+204379,Acácio Favacho,MDB,AP,1138,1137,720,416,1,0,99.91,Alta participação em votações
+81297,Dra. Soraya Manato,PTB,ES,510,510,282,228,0,0,100.0,Alta participação em votações
+204395,Pedro Lupion,REPUBLICANOS,PR,1060,1059,593,466,0,0,100.0,Alta participação em votações
+166402,Magda Mofatto,PL,GO,1281,1280,723,554,1,2,99.77,Alta participação em votações
+204434,Dra. Vanda Milani,PROS,AC,359,359,200,159,0,0,100.0,Alta participação em votações
+204524,Pinheirinho,PP,MG,677,677,437,239,1,0,99.85,Alta participação em votações
+178963,Covatti Filho,PP,RS,1283,1282,715,565,1,1,99.84,Alta participação em votações
+141335,Beto Faro,PT,PA,433,433,241,162,1,29,93.07,Alta participação em votações
+74079,José Priante,MDB,PA,794,793,493,300,0,0,100.0,Alta participação em votações
+178901,Tereza Cristina,PP,MS,307,307,177,130,0,0,100.0,Alta participação em votações
+204366,Rodrigo Coelho,PODE,SC,459,459,248,211,0,0,100.0,Alta participação em votações
+178857,Jorge Solla,PT,BA,1281,1280,748,501,3,28,97.58,Alta participação em votações
+92699,Fernando Monteiro,PSD,PE,1258,1258,770,487,0,1,99.92,Alta participação em votações
+178879,Lucas Vergilio,SOLIDARIEDADE,GO,126,126,79,47,0,0,100.0,Alta participação em votações
+143084,Tiago Dimas,PODE,TO,718,717,447,269,0,0,99.86,Alta participação em votações
+188097,Merlong Solano,PT,PI,1536,1535,901,611,3,20,98.5,Alta participação em votações
+74165,Neucimar Fraga,PP,ES,346,346,196,149,0,0,99.71,Alta participação em votações
+178928,Christiane De Souza Yared,PP,PR,443,443,253,190,0,0,100.0,Alta participação em votações
+178854,Elmar Nascimento,UNIÃO,BA,462,462,300,156,1,0,98.7,Alta participação em votações
+178964,Heitor Schuch,PSD,RS,941,941,536,377,14,14,97.02,Alta participação em votações
+219568,Tiago Andrino,PSB,TO,99,99,55,35,0,9,90.91,Alta participação em votações
+204545,Alê Silva,REPUBLICANOS,MG,427,427,238,189,0,0,100.0,Alta participação em votações
+204480,Rogério Correia,PT,MG,1415,1414,837,547,3,27,97.88,Alta participação em votações
+178871,Evair Vieira De Melo,REPUBLICANOS,ES,1363,1362,727,635,0,0,100.0,Alta participação em votações
+73772,Hermes Parcianello,MDB,PR,243,243,155,87,0,1,99.59,Alta participação em votações
+178858,Mário Negromonte Jr.,PSB,BA,1228,1227,747,480,0,0,100.0,Alta participação em votações
+152610,Roberto Alves,REPUBLICANOS,SP,389,389,224,165,0,0,100.0,Alta participação em votações
+204398,Felipe Francischini,PODE,PR,1474,1473,843,630,0,0,100.0,Alta participação em votações
+179587,Major Vitor Hugo,PL,GO,453,453,245,208,0,0,100.0,Alta participação em votações
+160552,Danrlei De Deus Hinterholz,PSD,RS,684,684,398,286,0,0,100.0,Alta participação em votações
+122466,Ronaldo Martins,REPUBLICANOS,CE,38,38,23,15,0,0,100.0,Alta participação em votações
+74655,Eduardo Barbosa,PSDB,MG,484,484,292,191,1,0,99.79,Alta participação em votações
+204356,Amaro Neto,PP,ES,1509,1508,923,585,0,0,100.0,Alta participação em votações
+74156,Leonardo Monteiro,PT,MG,1306,1305,794,486,1,24,98.08,Alta participação em votações
+204494,Fred Costa,PRD,MG,630,630,423,205,2,0,99.68,Alta participação em votações
+214477,Rrenato Queiroz,PSD,RR,208,208,100,108,0,0,100.0,Alta participação em votações
+141401,Carlos Bezerra,MDB,MT,167,167,105,62,0,0,100.0,Alta participação em votações
+178953,Expedito Netto,PSD,RO,437,437,256,181,0,0,100.0,Alta participação em votações
+160653,Roberto De Lucena,REPUBLICANOS,SP,408,408,223,185,0,0,100.0,Alta participação em votações
+204507,Carla Zambelli,PL,SP,1019,1019,497,462,0,60,94.11,Alta participação em votações
+204518,Dr. Frederico,PRD,MG,1116,1116,648,468,0,0,100.0,Alta participação em votações
+204490,Charlles Evangelista,PP,MG,391,391,221,170,0,0,100.0,Alta participação em votações
+204539,Hercílio Coelho Diniz,MDB,MG,1076,1075,674,401,0,0,100.0,Alta participação em votações
+74352,Nilson Pinto,PSDB,PA,317,317,191,126,0,0,100.0,Alta participação em votações
+160528,Danilo Cabral,PSB,PE,375,375,218,149,0,8,97.87,Alta participação em votações
+74270,Gilberto Nascimento,PODE,SP,461,460,272,137,3,0,88.91,Alta participação em votações
+74159,Odair Cunha,PT,MG,1393,1392,823,537,4,23,97.7,Alta participação em votações
+146307,Neri Geller,PP,MT,185,185,124,61,0,0,100.0,Alta participação em votações
+74646,Aécio Neves,PSDB,MG,840,839,547,292,0,0,100.0,Alta participação em votações
+204381,Luis Miranda,REPUBLICANOS,DF,443,443,248,193,2,0,99.55,Alta participação em votações
+160604,Pedro Uczai,PT,SC,1339,1338,777,534,2,25,97.98,Alta participação em votações
+160639,Professora Dorinha Seabra Rezende,UNIÃO,TO,294,294,185,109,0,0,100.0,Alta participação em votações
+204572,Capitão Alberto Neto,PL,AM,1416,1416,746,613,0,57,95.97,Alta participação em votações
+160673,Giovani Cherini,PL,RS,1428,1427,766,599,2,60,95.66,Alta participação em votações
+204559,Zé Neto,PT,BA,1177,1176,692,462,5,17,98.13,Alta participação em votações
+204416,Sanderson,PL,RS,1432,1431,738,628,0,64,95.46,Alta participação em votações
+160665,Augusto Coutinho,REPUBLICANOS,PE,1347,1346,830,514,2,0,99.85,Alta participação em votações
+178962,Carlos Gomes,REPUBLICANOS,RS,714,714,421,293,0,0,100.0,Alta participação em votações
+204558,Marcelo Nilo,REPUBLICANOS,BA,442,442,256,185,0,1,99.77,Alta participação em votações
+178986,Nilto Tatto,PT,SP,1492,1491,855,605,2,29,97.92,Alta participação em votações
+204501,Alencar Santana,PT,SP,1421,1420,809,592,1,18,98.66,Alta participação em votações
+204384,Ney Leprevost,UNIÃO,PR,256,256,146,108,2,0,99.22,Alta participação em votações
+160561,Missionário José Olimpio,PL,SP,271,271,145,126,0,0,100.0,Alta participação em votações
+220688,Dr. Francisco,PT,PI,984,983,585,396,0,2,99.8,Alta participação em votações
+220696,Ivoneide Caetano,PT,BA,964,963,569,393,0,1,99.9,Alta participação em votações
+220589,Eduardo Velloso,SOLIDARIEDADE,AC,829,828,489,335,4,0,99.52,Alta participação em votações
+220529,Gilson Daniel,PODE,ES,1100,1099,668,430,1,0,99.91,Alta participação em votações
+220703,Neto Carletto,AVANTE,BA,939,938,589,349,0,0,100.0,Alta participação em votações
+220715,Amom Mandel,REPUBLICANOS,AM,737,736,453,283,0,0,100.0,Alta participação em votações
+220676,Andreia Siqueira,PSB,PA,788,788,507,281,0,0,100.0,Alta participação em votações
+73768,Dilceu Sperafico,PP,PR,1021,1020,600,418,2,0,99.8,Alta participação em votações
+141456,Jilmar Tatto,PT,SP,837,836,520,316,0,0,100.0,Alta participação em votações
+220548,Camila Jara,PT,MS,924,923,555,365,0,3,99.67,Alta participação em votações
+234388,Fabiano Cazeca,PRD,MG,66,66,41,25,0,0,100.0,Alta participação em votações
+220544,Antonio Andrade,PSDB,TO,1014,1013,630,380,3,0,99.7,Alta participação em votações
+220585,Mersinho Lucena,PSD,PB,735,735,468,267,0,0,100.0,Alta participação em votações
+220681,Fábio Macedo,PODE,MA,715,714,457,252,5,0,99.3,Alta participação em votações
+66385,Julio Arcoverde,PP,PI,754,753,467,285,1,0,99.87,Alta participação em votações
+220614,Dr. Daniel Soranz,PSD,RJ,191,191,112,79,0,0,100.0,Alta participação em votações
+220638,Antonio Carlos Rodrigues,PL,SP,1006,1005,579,370,13,42,94.43,Alta participação em votações
+220582,Daniel Barbosa,PP,AL,776,775,478,296,1,0,99.87,Alta participação em votações
+220699,Castro Neto,MDB,PI,878,877,546,331,0,0,100.0,Alta participação em votações
+220624,Robinson Faria,PP,RN,1100,1099,704,395,0,0,100.0,Alta participação em votações
+221328,Adilson Barroso,PL,SP,917,916,487,352,5,72,91.59,Alta participação em votações
+220655,Mario Frias,PL,SP,826,826,386,369,1,70,91.4,Alta participação em votações
+153423,Renilce Nicodemos,MDB,PA,701,700,434,266,0,0,100.0,Alta participação em votações
+123086,Átila Lira,PP,PI,1066,1065,608,457,0,0,100.0,Alta participação em votações
+220642,Delegado Bruno Lima,PODE,SP,608,607,317,288,2,0,99.67,Alta participação em votações
+175765,Ribamar Silva,PODE,SP,401,400,243,157,0,0,100.0,Alta participação em votações
+141487,Luiz Fernando Faria,UNIÃO,MG,843,842,538,303,1,0,99.88,Alta participação em votações
+220625,Delegada Ione,AVANTE,MG,843,842,496,345,1,0,99.88,Alta participação em votações
+220596,Amália Barros,PL,MT,339,339,165,134,0,40,88.2,Alta participação em votações
+220601,Washington Quaquá,PT,RJ,313,313,200,113,0,0,100.0,Alta participação em votações
+225386,Renan Ferreirinha,PSD,RJ,79,79,55,24,0,0,100.0,Alta participação em votações
+226410,Márcio Correa,MDB,GO,111,111,71,38,2,0,98.2,Alta participação em votações
+220587,Gerlen Diniz,PP,AC,589,589,323,266,0,0,100.0,Alta participação em votações
+229225,Missionária Michele Collins,PP,PE,72,72,37,35,0,0,100.0,Alta participação em votações
+229259,Pedro Tourinho,PT,SP,81,81,45,36,0,0,100.0,Alta participação em votações
+230088,Dra. Mayra Pinheiro,PL,CE,83,83,33,47,0,3,96.39,Alta participação em votações
+229333,Gláucia Santiago,PL,MG,88,88,36,32,0,20,77.27,Participação moderada em votações
+234840,Cristiano Furlan,REDE,AP,22,22,10,12,0,0,100.0,Alta participação em votações
+235088,Ribeiro Neto,SOLIDARIEDADE,MA,78,78,45,29,4,0,94.87,Alta participação em votações
+204369,Caroline De Toni,PL,SC,1540,1540,751,743,0,46,97.01,Alta participação em votações
+108338,Jaqueline Cassol,PP,RO,409,409,225,184,0,0,100.0,Alta participação em votações
+160570,Jerônimo Goergen,PP,RS,284,284,166,117,1,0,99.65,Alta participação em votações
+62881,Danilo Forte,PP,CE,1112,1111,679,430,2,0,99.82,Alta participação em votações
+204367,Daniel Freitas,PL,SC,1369,1368,682,631,0,55,95.98,Alta participação em votações
+178989,Renata Abreu,PODE,SP,946,945,594,350,1,0,99.89,Alta participação em votações
+178981,Herculano Passos,REPUBLICANOS,SP,467,467,268,194,2,3,98.93,Alta participação em votações
+112437,João Marcelo Souza,MDB,MA,221,221,130,90,0,1,99.55,Alta participação em votações
+204357,Rose Modesto,UNIÃO,MS,307,307,201,106,0,0,100.0,Alta participação em votações
+204502,Bozzella,UNIÃO,SP,416,416,245,171,0,0,100.0,Alta participação em votações
+73701,Benedita Da Silva,PT,RJ,1118,1117,667,438,0,9,98.93,Alta participação em votações
+157130,Túlio Gadêlha,PSD,PE,1290,1289,704,569,1,15,98.76,Alta participação em votações
+74273,Jefferson Campos,PL,SP,1421,1420,750,594,8,68,94.65,Alta participação em votações
+204353,Aline Gurgel,UNIÃO,AP,380,380,229,151,0,0,100.0,Alta participação em votações
+179001,Márcio Biolchi,MDB,RS,1126,1125,703,420,0,2,99.82,Alta participação em votações
+218245,Jorielson,PL,AP,148,148,87,61,0,0,100.0,Alta participação em votações
+160635,Ruy Carneiro,PODE,PB,1112,1111,651,459,0,0,99.91,Alta participação em votações
+204375,Leda Sadala,PP,AP,297,297,180,117,0,0,100.0,Alta participação em votações
+204407,Fernanda Melchionna,PSOL,RS,1394,1393,712,631,24,26,96.41,Alta participação em votações
+204519,Tiago Mitraud,NOVO,MG,513,513,229,279,0,5,99.03,Alta participação em votações
+178945,Rosangela Gomes,REPUBLICANOS,RJ,365,365,209,118,0,0,89.59,Alta participação em votações
+204462,Chris Tonietto,PL,RJ,1511,1511,756,696,9,50,96.1,Alta participação em votações
+204504,Cezinha De Madureira,PL,SP,1377,1376,820,556,0,0,100.0,Alta participação em votações
+123756,Antônia Lúcia,MDB,AC,844,843,536,306,1,0,99.88,Alta participação em votações
+109429,Benes Leocádio,UNIÃO,RN,1455,1454,901,550,3,0,99.79,Alta participação em votações
+178977,Eduardo Cury,PSDB,SP,433,433,217,211,4,1,98.85,Alta participação em votações
+74060,Daniel Almeida,PCDOB,BA,1343,1342,798,527,1,16,98.73,Alta participação em votações
+160517,Paulo Folletto,PSB,ES,1075,1074,653,406,2,9,98.6,Alta participação em votações
+204359,Léo Moraes,PODE,RO,446,446,256,190,0,0,100.0,Alta participação em votações
+160601,Pr. Marco Feliciano,PL,SP,1444,1443,759,635,2,47,96.6,Alta participação em votações
+204396,Vermelho,PL,PR,974,973,573,370,1,29,96.92,Alta participação em votações
+204425,Silvio Costa Filho,REPUBLICANOS,PE,519,519,336,183,0,0,100.0,Alta participação em votações
+73433,Arlindo Chinaglia,PT,SP,1428,1427,835,561,3,28,97.83,Alta participação em votações
+178912,Pedro Cunha Lima,PSDB,PB,178,178,91,87,0,0,100.0,Alta participação em votações
+178832,Leandre,PSD,PR,355,355,203,152,0,0,100.0,Alta participação em votações
+204465,Haroldo Cathedral,PSD,RR,180,180,102,78,0,0,100.0,Alta participação em votações
+160589,Bruna Furlan,PSDB,SP,148,148,85,53,10,0,93.24,Alta participação em votações
+74399,Onyx Lorenzoni,PL,RS,218,218,113,105,0,0,100.0,Alta participação em votações
+204378,Coronel Chrisóstomo,PL,RO,1418,1417,751,593,0,73,94.85,Alta participação em votações
+74467,Damião Feliciano,UNIÃO,PB,1158,1158,710,443,2,3,99.57,Alta participação em votações
+204450,Doutor Luizinho,PP,RJ,547,546,344,201,1,0,99.82,Alta participação em votações
+178934,Toninho Wandscheer,PP,PR,1413,1412,835,577,0,0,100.0,Alta participação em votações
+73463,Osmar Serraglio,PP,PR,450,450,261,189,0,0,100.0,Alta participação em votações
+178922,Tadeu Alencar,PSB,PE,406,406,219,169,0,18,95.57,Alta participação em votações
+204481,Dr. Jaziel,PL,CE,1235,1234,623,562,0,49,96.03,Alta participação em votações
+75431,Maurício Dziedricki,PODE,RS,469,469,265,204,0,0,100.0,Alta participação em votações
+74262,Carlos Sampaio,PSD,SP,1368,1367,802,562,3,0,99.78,Alta participação em votações
+160600,Arthur Oliveira Maia,UNIÃO,BA,1014,1013,624,381,8,0,99.21,Alta participação em votações
+115746,Gelson Azevedo,PL,RJ,478,478,272,206,0,0,100.0,Alta participação em votações
+116379,Darci De Matos,PSD,SC,669,669,400,269,0,0,100.0,Alta participação em votações
+177282,Subtenente Gonzaga,PSD,MG,388,388,224,162,0,2,99.48,Alta participação em votações
+178994,Dulce Miranda,MDB,TO,447,447,284,162,0,1,99.78,Alta participação em votações
+154919,Eleuses Paiva,PSD,SP,187,187,103,84,0,0,100.0,Alta participação em votações
+178970,João Daniel,PT,SE,1265,1264,732,505,6,21,97.86,Alta participação em votações
+204410,Luisa Canziani,UNIÃO,PR,754,754,458,296,0,0,100.0,Alta participação em votações
+160511,Alessandro Molon,PSB,RJ,414,414,236,160,0,18,95.65,Alta participação em votações
+204542,Denis Bezerra,PSB,CE,445,445,246,184,1,14,96.63,Alta participação em votações
+193726,Paulo Eduardo Martins,PL,PR,421,421,215,206,0,0,100.0,Alta participação em votações
+74749,Mauro Lopes,PP,MG,366,366,214,151,1,0,99.73,Alta participação em votações
+73531,Ivan Valente,PSOL,SP,1412,1411,733,648,1,29,97.87,Alta participação em votações
+74574,Paulo Magalhães,PSD,BA,1276,1275,786,486,3,0,99.76,Alta participação em votações
+204360,Silvia Cristina,PP,RO,1410,1409,760,607,0,42,97.02,Alta participação em votações
+204448,Luiz Antonio Corrêa,PP,RJ,789,788,479,309,0,0,100.0,Alta participação em votações
+178831,André Abdon,PP,AP,613,613,387,226,0,0,100.0,Alta participação em votações
+178910,Joaquim Passarinho,PL,PA,1502,1501,800,628,3,70,95.14,Alta participação em votações
+122158,Pedro Paulo,PSD,RJ,830,830,529,301,0,0,100.0,Alta participação em votações
+204385,Valdevan Noventa,PL,SE,163,163,97,66,0,0,100.0,Alta participação em votações
+204532,Vinicius Poit,NOVO,SP,464,464,217,244,0,3,99.35,Alta participação em votações
+204461,Paulo Ganime,NOVO,RJ,476,476,215,258,0,3,99.37,Alta participação em votações
+141508,Mauro Nazif,PSB,RO,448,448,266,176,0,6,98.66,Alta participação em votações
+205535,Patricia Ferraz,PL,AP,73,73,48,25,0,0,100.0,Alta participação em votações
+74095,Pauderney Avelino,UNIÃO,AM,537,536,327,206,3,0,99.44,Alta participação em votações
+220579,Silvia Waiãpi,PL,AP,556,556,256,247,0,53,90.47,Alta participação em votações
+204445,Fernando Mineiro,PT,RN,904,904,521,379,2,2,99.56,Alta participação em votações
+220574,Cabo Gilberto Silva,PL,PB,1081,1080,531,492,2,50,94.72,Alta participação em votações
+221329,Ricardo Abrão,PSDB,RJ,453,452,296,156,0,0,100.0,Alta participação em votações
+220660,Yury Do Paredão,MDB,CE,686,685,440,245,0,0,100.0,Alta participação em votações
+220666,Coronel Meira,PL,PE,1109,1108,573,467,1,67,93.86,Alta participação em votações
+225730,Enfermeira Ana Paula,PODE,CE,322,321,205,112,4,0,98.75,Alta participação em votações
+220527,Jack Rocha,PT,ES,1040,1039,612,422,1,3,99.52,Alta participação em votações
+220549,Any Ortiz,PP,RS,933,932,533,399,0,0,100.0,Alta participação em votações
+220671,Dilvanda Faro,PT,PA,996,995,591,399,2,3,99.5,Alta participação em votações
+220633,Ricardo Salles,NOVO,SP,739,738,314,359,14,51,91.19,Alta participação em votações
+220664,Guilherme Uchoa,PSD,PE,934,933,585,348,0,0,100.0,Alta participação em votações
+220613,Roberto Monteiro Pai,PL,RJ,973,973,522,375,6,70,92.19,Alta participação em votações
+220611,General Pazuello,PL,RJ,1012,1011,528,408,0,75,92.58,Alta participação em votações
+220623,Duda Salabert,PSOL,MG,905,904,492,403,6,3,99.0,Alta participação em votações
+220565,Delegada Adriana Accorsi,PT,GO,792,792,480,311,1,0,99.87,Alta participação em votações
+220575,Sonize Barbosa,PL,AP,442,442,224,164,1,53,87.78,Alta participação em votações
+206018,Célia Xakriabá,PSOL,MG,847,846,464,378,0,4,99.53,Alta participação em votações
+220581,Luciano Amaral,PSD,AL,983,982,602,380,0,0,100.0,Alta participação em votações
+220554,Alexandre Lindenmeyer,PT,RS,850,850,499,348,0,3,99.65,Alta participação em votações
+220667,Pedro Campos,PSB,PE,1020,1019,609,407,1,2,99.71,Alta participação em votações
+74550,João Leão,PP,BA,836,835,504,327,4,0,99.52,Alta participação em votações
+231911,Lenir De Assis,PT,PR,418,417,232,182,1,2,99.28,Alta participação em votações
+230767,Rodrigo Da Zaeli,PL,MT,474,473,251,214,5,3,98.31,Alta participação em votações
+220646,Felipe Becari,PODE,SP,687,686,398,288,0,0,100.0,Alta participação em votações
+234673,Vanderlan Alves,SOLIDARIEDADE,CE,118,118,74,44,0,0,100.0,Alta participação em votações
+220714,Adail Filho,MDB,AM,1003,1002,631,371,0,0,100.0,Alta participação em votações
+230762,Pastor Claudio Mariano,UNIÃO,PA,277,277,175,102,0,0,100.0,Alta participação em votações
+220626,Rafael Simoes,UNIÃO,MG,955,955,571,382,2,0,99.79,Alta participação em votações
+220632,Ana Pimentel,PT,MG,978,978,565,409,1,3,99.59,Alta participação em votações
+234406,Elmano Férrer,PP,PI,79,79,56,23,0,0,100.0,Alta participação em votações
+74696,Alberto Mourão,MDB,SP,305,305,194,110,1,0,99.67,Alta participação em votações
+229106,Carla Ayres,PT,SC,76,76,44,32,0,0,100.0,Alta participação em votações
+229939,Newton Bonin,UNIÃO,PR,128,128,77,51,0,0,100.0,Alta participação em votações
+227800,Duarte Gonçalves Jr,REPUBLICANOS,MG,71,71,48,23,0,0,100.0,Alta participação em votações
+178829,Capitão Augusto,PL,SP,1409,1409,749,592,11,57,95.17,Alta participação em votações
+204472,José Medeiros,PL,MT,1340,1339,700,589,1,49,96.27,Alta participação em votações
+204415,Nereu Crispim,PSD,RS,409,409,234,175,0,0,100.0,Alta participação em votações
+204365,Gilson Marques,NOVO,SC,1679,1678,765,805,0,108,93.56,Alta participação em votações
+204427,Fernando Rodolfo,PRD,PE,1190,1190,667,449,34,40,93.78,Alta participação em votações
+204446,Professor Joziel,PATRIOTA,RJ,408,408,223,185,0,0,100.0,Alta participação em votações
+73466,Rubens Bueno,CIDADANIA,PR,514,514,288,224,0,2,99.61,Alta participação em votações
+141552,Valtenir Pereira,MDB,MT,209,209,129,79,0,1,99.52,Alta participação em votações
+204408,Gustinho Ribeiro,PP,SE,1363,1362,846,516,0,0,100.0,Alta participação em votações
+141464,José Airton Félix Cirilo,PT,CE,1117,1116,662,430,3,21,97.85,Alta participação em votações
+73943,Perpétua Almeida,PCDOB,AC,452,452,258,171,4,19,94.91,Alta participação em votações
+204444,Helio Lopes,PL,RJ,1243,1243,685,512,1,45,96.3,Alta participação em votações
+178931,Luciano Ducci,PSB,PR,1313,1312,825,486,0,1,99.92,Alta participação em votações
+204549,Aj Albuquerque,PP,CE,1156,1155,710,442,2,1,99.74,Alta participação em votações
+204567,Raimundo Costa,PSD,BA,1099,1099,718,380,1,0,99.91,Alta participação em votações
+204377,Paula Belmonte,CIDADANIA,DF,406,406,225,175,0,6,98.52,Alta participação em votações
+204509,Áurea Carolina,PSOL,MG,374,374,185,175,0,14,96.26,Alta participação em votações
+204368,Fabio Schiochet,UNIÃO,SC,1436,1435,807,628,0,0,100.0,Alta participação em votações
+160541,Arthur Lira,PP,AL,707,707,99,21,0,0,16.97,Baixa participação em votações
+160645,Luiz Carlos,PSDB,AP,235,235,140,95,0,0,100.0,Alta participação em votações
+160758,Domingos Sávio,PL,MG,1327,1326,737,543,1,45,96.53,Alta participação em votações
+191923,Flávio Nogueira,PT,PI,1610,1609,930,650,0,29,98.2,Alta participação em votações
+74400,Paulo Pimenta,PT,RS,878,877,500,347,2,28,96.58,Alta participação em votações
+141372,Aelton Freitas,PP,MG,359,359,197,162,0,0,100.0,Alta participação em votações
+141422,Efraim Filho,UNIÃO,PB,123,123,86,37,0,0,100.0,Alta participação em votações
+204364,Eli Borges,REPUBLICANOS,TO,1186,1186,681,451,14,40,95.45,Alta participação em votações
+160538,Bohn Gass,PT,RS,1442,1441,829,581,1,30,97.85,Alta participação em votações
+204374,Bia Kicis,PL,DF,1559,1559,782,715,1,59,96.02,Alta participação em votações
+204474,Juarez Costa,REPUBLICANOS,MT,1173,1172,644,527,1,0,99.91,Alta participação em votações
+204352,Camilo Capiberibe,PSB,AP,432,432,255,162,0,15,96.53,Alta participação em votações
+215044,Vivi Reis,PSOL,PA,488,488,244,223,0,21,95.7,Alta participação em votações
+204528,Adriana Ventura,NOVO,SP,1514,1513,667,733,0,109,92.53,Alta participação em votações
+204565,Professora Dayane Pimentel,UNIÃO,BA,315,315,188,127,0,0,100.0,Alta participação em votações
+204457,Juninho Do Pneu,PSDB,RJ,1430,1429,881,548,0,0,100.0,Alta participação em votações
+204376,Coronel Armando,PP,SC,619,619,338,281,0,0,100.0,Alta participação em votações
+74693,Rodrigo Maia,PSDB,RJ,23,23,10,10,3,0,86.96,Alta participação em votações
+128760,Paulo Marinho Jr,PL,MA,320,320,168,148,0,4,98.75,Alta participação em votações
+205550,Jorge Braz,REPUBLICANOS,RJ,1455,1454,884,570,0,0,100.0,Alta participação em votações
+178947,Sóstenes Cavalcante,PL,RJ,874,874,448,340,1,25,90.16,Alta participação em votações
+160556,Padre João,PT,MG,1459,1458,850,577,0,31,97.87,Alta participação em votações
+204512,Delegado Marcelo Freitas,UNIÃO,MG,1632,1631,915,716,0,0,100.0,Alta participação em votações
+118594,Marcelo Squassoni,REPUBLICANOS,SP,121,121,69,52,0,0,100.0,Alta participação em votações
+74419,Gonzaga Patriota,PSB,PE,406,406,218,168,5,15,95.07,Alta participação em votações
+178985,Miguel Lombardi,PL,SP,1449,1448,797,581,4,66,95.17,Alta participação em votações
+204431,Marcos Aurélio Sampaio,MDB,PI,1300,1299,786,513,0,0,100.0,Alta participação em votações
+205548,David Miranda,PDT,RJ,316,316,179,130,0,7,97.78,Alta participação em votações
+160553,Antonio Brito,PSD,BA,655,654,449,205,0,0,100.0,Alta participação em votações
+204557,Sidney Leite,PSD,AM,1196,1195,681,502,12,0,99.0,Alta participação em votações
+178825,Leo De Brito,PT,AC,445,445,247,170,0,28,93.71,Alta participação em votações
+141518,Paulinho Da Força,SOLIDARIEDADE,SP,571,570,370,199,1,0,99.82,Alta participação em votações
+204522,Marco Bertaiolli,PSD,SP,518,518,298,219,1,0,99.81,Alta participação em votações
+74376,Vander Loubet,PT,MS,1368,1368,794,543,15,16,97.73,Alta participação em votações
+204550,Júnior Mano,PSB,CE,596,596,400,191,0,5,99.16,Alta participação em votações
+204516,Alexis Fonteyne,NOVO,SP,470,470,213,253,0,4,99.15,Alta participação em votações
+90201,Pedro Augusto Bezerra,PDT,CE,380,380,231,147,0,2,99.47,Alta participação em votações
+178937,Altineu Côrtes,PL,RJ,655,655,346,230,0,19,87.94,Alta participação em votações
+73696,Angela Amin,PP,SC,450,450,245,199,6,0,98.67,Alta participação em votações
+160587,Fábio Trad,PSD,MS,422,422,236,186,0,0,100.0,Alta participação em votações
+214865,Joceval Rodrigues,CIDADANIA,BA,65,65,37,28,0,0,100.0,Alta participação em votações
+178924,Capitão Fábio Abreu,PSD,PI,443,443,255,188,0,0,100.0,Alta participação em votações
+160531,Jhonatan De Jesus,REPUBLICANOS,RR,414,414,238,174,0,0,99.52,Alta participação em votações
+233594,Rafael Fera,PODE,RO,240,239,151,88,0,0,100.0,Alta participação em votações
+220590,Coronel Ulysses,UNIÃO,AC,969,968,537,431,0,0,100.0,Alta participação em votações
+98615,Ismael,PL,SC,899,898,522,358,18,0,98.0,Alta participação em votações
+234310,Ricardo Galvão,REDE,SP,148,148,79,60,6,3,93.92,Alta participação em votações
+220629,Dandara,PT,MG,779,778,468,310,0,0,100.0,Alta participação em votações
+221338,Professora Luciene Cavalcante,PSOL,SP,1004,1004,521,480,0,3,99.7,Alta participação em votações
+220628,Mauricio Do Vôlei,PL,MG,931,930,475,391,0,64,93.12,Alta participação em votações
+220598,Tarcísio Motta,PSOL,RJ,1110,1109,565,535,1,8,99.19,Alta participação em votações
+220612,Bebeto,PP,RJ,1075,1074,666,406,2,0,99.81,Alta participação em votações
+220654,Delegado Paulo Bilynskyj,PL,SP,1212,1211,587,550,0,74,93.89,Alta participação em votações
+221148,Alfredinho,PT,SP,1039,1038,618,417,1,2,99.71,Alta participação em votações
+220652,Delegado Palumbo,PODE,SP,1090,1089,573,515,1,0,99.91,Alta participação em votações
+220619,Delegado Ramagem,PL,RJ,1044,1043,501,476,0,66,93.67,Alta participação em votações
+220538,Albuquerque,REPUBLICANOS,RR,899,898,576,322,0,0,100.0,Alta participação em votações
+162067,Kiko Celeguim,PT,SP,925,924,554,365,2,3,99.46,Alta participação em votações
+220550,Mauricio Marcon,PL,RS,1133,1132,578,551,3,0,99.73,Alta participação em votações
+220566,Lêda Borges,REPUBLICANOS,GO,753,752,477,274,1,0,99.87,Alta participação em votações
+220545,Filipe Martins,PL,TO,1001,1000,534,396,0,70,93.0,Alta participação em votações
+220647,Mauricio Neves,PP,SP,617,616,379,237,0,0,100.0,Alta participação em votações
+163321,Ronaldo Nogueira,REPUBLICANOS,RS,687,686,424,262,0,0,100.0,Alta participação em votações
+220571,Daniel Agrobom,PSD,GO,1066,1065,608,432,3,22,97.65,Alta participação em votações
+220603,Dani Cunha,PL,RJ,879,878,538,340,0,0,100.0,Alta participação em votações
+141485,Luiz Carlos Busato,UNIÃO,RS,941,940,576,364,0,0,100.0,Alta participação em votações
+220526,Gilvan Da Federal,PL,ES,861,860,408,376,0,76,91.16,Alta participação em votações
+220692,Dal Barreto,UNIÃO,BA,816,815,510,298,7,0,99.14,Alta participação em votações
+220567,Jeferson Rodrigues,PSDB,GO,775,774,487,286,1,0,99.87,Alta participação em votações
+208297,Katia Dias,REPUBLICANOS,MG,110,110,60,50,0,0,100.0,Alta participação em votações
+180214,Pastor Diniz,UNIÃO,RR,907,906,488,417,1,0,99.89,Alta participação em votações
+220661,Matheus Noronha,PL,CE,784,784,490,285,1,8,98.85,Alta participação em votações
+220627,Paulinho Freire,UNIÃO,RN,442,442,274,162,6,0,98.64,Alta participação em votações
+225727,Flavinha,MDB,MT,117,117,56,61,0,0,100.0,Alta participação em votações
+221378,Reginete Bispo,PT,RS,491,491,301,190,0,0,100.0,Alta participação em votações
+226553,Eliane Braz,PSD,CE,87,87,46,41,0,0,100.0,Alta participação em votações
+103758,Luciano Azevedo,PSD,RS,376,376,230,146,0,0,100.0,Alta participação em votações
+221339,Dr. Benjamim,UNIÃO,MA,451,451,289,162,0,0,100.0,Alta participação em votações
+220705,Deltan Dallagnol,PODE,PR,80,80,43,37,0,0,100.0,Alta participação em votações
+229069,Capitão Samuel,PP,SE,58,58,34,14,10,0,82.76,Alta participação em votações
+229112,Pedro Jr,PL,TO,82,82,32,28,0,22,73.17,Participação moderada em votações
+227991,Dr Flávio,PL,RJ,164,164,98,66,0,0,100.0,Alta participação em votações
+74295,Inácio Arruda,PCDOB,CE,12,12,7,5,0,0,100.0,Alta participação em votações
+204555,José Ricardo,PT,AM,421,421,237,166,0,18,95.72,Alta participação em votações
+178908,Delegado Éder Mauro,PL,PA,1170,1169,622,502,1,44,96.15,Alta participação em votações
+74141,Josias Gomes,PT,BA,1136,1135,675,452,1,7,99.3,Alta participação em votações
+204383,Professor Israel Batista,PSB,DF,466,466,273,176,0,17,96.35,Alta participação em votações
+204535,Sâmia Bomfim,PSOL,SP,1328,1328,648,626,25,29,95.93,Alta participação em votações
+204354,Flávia Arruda,PL,DF,223,223,129,94,0,0,100.0,Alta participação em votações
+178873,Helder Salomão,PT,ES,1629,1628,918,679,1,28,98.1,Alta participação em votações
+135054,Cristiano Vale,PP,PA,369,369,211,158,0,0,100.0,Alta participação em votações
+204498,Olival Marques,PODE,PA,1305,1304,764,539,1,0,99.92,Alta participação em votações
+178966,Geovania De Sá,REPUBLICANOS,SC,1150,1149,638,488,5,1,98.0,Alta participação em votações
+204456,Gutemberg Reis,MDB,RJ,1409,1408,909,497,1,1,99.86,Alta participação em votações
+204382,Loester Trutis,PL,MS,339,339,194,139,6,0,98.23,Alta participação em votações
+160532,Eli Corrêa Filho,UNIÃO,SP,451,451,252,199,0,0,100.0,Alta participação em votações
+178836,Alan Rick,UNIÃO,AC,369,369,218,151,0,0,100.0,Alta participação em votações
+204393,Frei Anastacio Ribeiro,PT,PB,456,456,249,178,0,29,93.64,Alta participação em votações
+204467,Professora Rosa Neide,PT,MT,455,455,266,166,0,23,94.95,Alta participação em votações
+160619,José Nunes,PSD,BA,199,199,121,78,0,0,100.0,Alta participação em votações
+178876,Célio Silveira,MDB,GO,1163,1163,711,451,1,0,99.91,Alta participação em votações
+73482,Henrique Fontana,PT,RS,440,440,243,172,1,24,94.32,Alta participação em votações
+178961,Shéridan,PSDB,RR,271,271,154,117,0,0,100.0,Alta participação em votações
+73801,Renildo Calheiros,PCDOB,PE,1423,1422,840,570,0,12,99.16,Alta participação em votações
+178969,Fábio Mitidieri,PSD,SE,219,219,132,87,0,0,100.0,Alta participação em votações
+204569,Delegado Pablo,UNIÃO,AM,342,342,195,147,0,0,100.0,Alta participação em votações
+219585,Marco Brasil,PP,PR,612,612,366,245,1,0,99.84,Alta participação em votações
+178882,André Fufuca,PP,MA,248,248,161,87,0,0,100.0,Alta participação em votações
+69871,Bacelar,PV,BA,1537,1536,904,624,1,7,99.48,Alta participação em votações
+204391,José Nelto,UNIÃO,GO,889,888,532,354,2,0,99.77,Alta participação em votações
+161550,Emidinho Madeira,PL,MG,1073,1072,627,396,8,41,95.43,Alta participação em votações
+204564,Igor Kannário,UNIÃO,BA,233,233,134,99,0,0,100.0,Alta participação em votações
+204531,Guilherme Derrite,PP,SP,509,509,263,246,0,0,100.0,Alta participação em votações
+141516,Paulo Abi-ackel,PSDB,MG,990,989,618,371,0,0,100.0,Alta participação em votações
+204433,Marcelo Calero,PSD,RJ,356,356,235,121,0,0,100.0,Alta participação em votações
+204386,Jose Mario Schreiner,MDB,GO,461,461,262,199,0,0,100.0,Alta participação em votações
+141553,Vanderlei Macris,PSDB,SP,392,392,224,167,1,0,99.74,Alta participação em votações
+160518,Weliton Prado,SOLIDARIEDADE,MG,1265,1264,762,478,24,0,98.1,Alta participação em votações
+204563,Josimar Maranhãozinho,PL,MA,708,707,429,266,1,11,98.3,Alta participação em votações
+141421,Eduardo Da Fonte,PP,PE,1267,1266,779,485,2,0,99.84,Alta participação em votações
+171623,Fabio Reis,PSD,SE,835,835,507,327,0,1,99.88,Alta participação em votações
+219592,Lucas Follador,PSC,RO,97,97,57,40,0,0,100.0,Alta participação em votações
+133810,Marcelo Moraes,PL,RS,1166,1166,596,509,0,61,94.77,Alta participação em votações
+204361,Carlos Chiodini,MDB,SC,671,671,437,232,0,2,99.7,Alta participação em votações
+204536,Kim Kataguiri,MISSÃO,SP,1373,1372,676,689,6,1,99.49,Alta participação em votações
+218879,Nelho Bezerra,UNIÃO,CE,216,216,123,93,0,0,100.0,Alta participação em votações
+141398,Carlos Zarattini,PT,SP,1384,1383,814,541,2,26,97.98,Alta participação em votações
+74044,Wilson Santiago,REPUBLICANOS,PB,1104,1103,686,416,0,0,99.91,Alta participação em votações
+74043,Wellington Roberto,PSD,PB,910,910,521,334,0,55,93.96,Alta participação em votações
+204560,Adolfo Viana,PSDB,BA,902,901,583,318,0,0,100.0,Alta participação em votações
+204491,Gilberto Abramo,REPUBLICANOS,MG,1203,1202,749,453,0,0,100.0,Alta participação em votações
+160534,Lauriete,PSC,ES,475,475,275,200,0,0,100.0,Alta participação em votações
+204478,Vinicius Farah,UNIÃO,RJ,190,190,111,79,0,0,100.0,Alta participação em votações
+178862,Tia Eron,REPUBLICANOS,BA,125,125,69,56,0,0,100.0,Alta participação em votações
+204458,Major Fabiana,PL,RJ,384,384,209,175,0,0,100.0,Alta participação em votações
+160542,Márcio Macêdo,PT,SE,233,233,139,86,1,7,96.57,Alta participação em votações
+204426,Carlos Veras,PT,PE,1491,1490,842,582,1,22,95.57,Alta participação em votações
+73586,Júlio Delgado,PV,MG,476,476,266,197,1,12,97.27,Alta participação em votações
+178927,Aliel Machado,PV,PR,862,861,517,338,0,6,99.3,Alta participação em votações
+217330,Pedro Dalua,PSC,AP,91,91,52,38,1,0,98.9,Alta participação em votações
+204409,Daniel Trzeciak,PSDB,RS,1297,1296,731,564,0,1,99.92,Alta participação em votações
+178881,Aluisio Mendes,REPUBLICANOS,MA,1352,1351,789,562,0,0,100.0,Alta participação em votações
+204496,Celso Sabino,PDT,PA,423,423,269,154,0,0,100.0,Alta participação em votações
+204370,Célio Moura,PT,TO,482,482,271,178,0,33,93.15,Alta participação em votações
+204440,Christino Aureo,PP,RJ,424,424,236,188,0,0,100.0,Alta participação em votações
+194260,Nivaldo Albuquerque,REPUBLICANOS,AL,273,273,166,107,0,0,100.0,Alta participação em votações
+74383,Giacobo,PSD,PR,805,805,445,316,6,38,94.53,Alta participação em votações
+204573,Otto Alencar Filho,PSD,BA,1236,1235,752,483,0,0,100.0,Alta participação em votações
+204404,Lucas Redecker,PSD,RS,1650,1649,886,763,0,0,100.0,Alta participação em votações
+74784,Luiza Erundina,PSOL,SP,1250,1250,669,557,0,24,98.08,Alta participação em votações
+178861,Ronaldo Carletto,PP,BA,442,442,253,189,0,0,100.0,Alta participação em votações
+178987,Orlando Silva,PCDOB,SP,1331,1330,794,516,4,16,98.5,Alta participação em votações
+204566,Marreca Filho,PRD,MA,897,896,548,345,3,0,99.67,Alta participação em votações
+204373,Hélio Costa,PSD,SC,419,419,238,181,0,0,100.0,Alta participação em votações
+141439,Chico D'angelo,PDT,RJ,411,411,248,156,1,6,98.3,Alta participação em votações
+98057,Lafayette De Andrada,PL,MG,1085,1085,620,460,2,0,99.54,Alta participação em votações
+204561,Bira Do Pindaré,PSB,MA,405,405,226,160,0,19,95.31,Alta participação em votações
+74471,André De Paula,PSD,PE,332,332,192,140,0,0,100.0,Alta participação em votações
+141515,Otavio Leite,PSDB,RJ,84,84,40,44,0,0,100.0,Alta participação em votações
+204562,Edilázio Júnior,PSD,MA,355,355,196,159,0,0,100.0,Alta participação em votações
+204506,Marcos Pereira,REPUBLICANOS,SP,1020,1019,600,372,0,0,95.39,Alta participação em votações
+160558,Paulo Freire Costa,PL,SP,1362,1361,729,560,6,66,94.71,Alta participação em votações
+220675,Antônio Doido,MDB,PA,909,908,574,334,0,0,100.0,Alta participação em votações
+226708,Allan Garcês,PP,MA,758,757,427,330,0,0,100.0,Alta participação em votações
+220610,Dr. Fernando Máximo,PL,RO,869,868,488,380,0,0,100.0,Alta participação em votações
+220597,Thiago Flores,UNIÃO,RO,902,901,536,365,0,0,100.0,Alta participação em votações
+220713,Saullo Vianna,MDB,AM,516,516,331,185,0,0,100.0,Alta participação em votações
+220694,Ricardo Maia,MDB,BA,877,876,551,325,0,0,100.0,Alta participação em votações
+220693,Roberta Roma,PL,BA,779,778,419,324,0,35,95.5,Alta participação em votações
+220573,Dorinaldo Malafaia,PDT,AP,820,819,480,336,1,2,99.63,Alta participação em votações
+220641,Rodrigo Gambale,PODE,SP,992,991,626,364,1,0,99.9,Alta participação em votações
+220543,Ricardo Ayres,REPUBLICANOS,TO,1225,1224,706,518,0,0,100.0,Alta participação em votações
+220674,Dra. Alessandra Haber,PODE,PA,644,643,430,213,0,0,100.0,Alta participação em votações
+220563,Icaro De Valmir,REPUBLICANOS,SE,842,842,541,295,1,0,99.29,Alta participação em votações
+220608,Cristiane Lopes,PODE,RO,981,980,563,417,0,0,100.0,Alta participação em votações
+220621,Sargento Gonçalves,PL,RN,1068,1067,516,460,12,79,91.47,Alta participação em votações
+220530,Messias Donato,UNIÃO,ES,1015,1015,561,452,2,0,99.8,Alta participação em votações
+220539,Defensor Stélio Dener,UNIÃO,RR,1074,1073,674,399,0,0,100.0,Alta participação em votações
+220670,Iza Arruda,MDB,PE,835,834,527,307,0,0,100.0,Alta participação em votações
+220602,Dimas Gadelha,PT,RJ,904,903,554,349,0,0,100.0,Alta participação em votações
+73579,Alberto Fraga,PL,DF,1032,1032,556,423,1,43,94.86,Alta participação em votações
+220586,Rafael Brito,MDB,AL,903,902,556,345,1,0,99.89,Alta participação em votações
+73778,Luiz Carlos Hauly,PODE,PR,768,767,475,288,3,0,99.48,Alta participação em votações
+220580,Professora Goreth,PDT,AP,545,545,321,224,0,0,100.0,Alta participação em votações
+230957,João Cury,MDB,SP,360,359,227,132,0,0,100.0,Alta participação em votações
+222429,Luis Carlos Gomes,REPUBLICANOS,RJ,908,907,576,330,1,0,99.89,Alta participação em votações
+220555,Daiana Santos,PCDOB,RS,926,926,531,393,2,0,99.78,Alta participação em votações
+220561,Delegada Katarina,PSD,SE,1034,1033,623,405,1,0,99.52,Alta participação em votações
+220639,Guilherme Boulos,PSOL,SP,720,720,366,350,1,3,99.44,Alta participação em votações
+220583,Delegado Fabio Costa,PP,AL,1085,1084,606,477,1,0,99.91,Alta participação em votações
+233218,Nelinho Freitas,MDB,CE,102,102,63,39,0,0,100.0,Alta participação em votações
+214694,Jorge Goetten,REPUBLICANOS,SC,919,918,560,332,3,23,97.17,Alta participação em votações
+220572,Marussa Boldrin,REPUBLICANOS,GO,617,616,413,203,0,0,100.0,Alta participação em votações
+220712,Fausto Jr.,UNIÃO,AM,726,725,459,266,0,0,100.0,Alta participação em votações
+220665,Clarissa Tércio,PP,PE,879,878,492,386,0,0,100.0,Alta participação em votações
+74858,Lindbergh Farias,PT,RJ,1014,1013,604,406,0,3,99.7,Alta participação em votações
+220648,Marangoni,PODE,SP,798,797,467,330,0,0,100.0,Alta participação em votações
+220552,Zucco,PL,RS,1157,1156,611,521,1,23,97.92,Alta participação em votações
+220616,Luciano Vieira,PSDB,RJ,829,828,513,306,4,5,98.91,Alta participação em votações
+220668,Maria Arraes,PSB,PE,1050,1049,603,445,1,0,99.9,Alta participação em votações
+224117,Gabriel Mota,UNIÃO,RR,1003,1002,630,372,0,0,100.0,Alta participação em votações
+222142,Coronel Telhada,PP,SP,377,377,202,175,0,0,100.0,Alta participação em votações
+227370,Felipe Saliba,PRD,MG,95,95,54,41,0,0,100.0,Alta participação em votações
+182146,Wolmer Araújo,SOLIDARIEDADE,MA,68,68,45,22,1,0,98.53,Alta participação em votações
+223398,Ulisses Guimarães,MDB,MG,78,78,48,30,0,0,100.0,Alta participação em votações
+230177,Tadeu Oliveira,PL,CE,83,83,49,32,0,2,97.59,Alta participação em votações
+115200,Raniery Paulino,REPUBLICANOS,PB,72,72,46,25,1,0,98.61,Alta participação em votações
+228616,Dr. Remy Soares,PP,MA,67,67,41,26,0,0,100.0,Alta participação em votações
+229082,Lucyana Genésio,PDT,MA,57,57,35,22,0,0,100.0,Alta participação em votações
+220637,Marina Silva,REDE,SP,14,14,10,4,0,0,100.0,Alta participação em votações
+222565,Soldado Noelio,UNIÃO,CE,40,40,22,18,0,0,100.0,Alta participação em votações
+235869,João Carlos,REPUBLICANOS,AM,12,12,8,4,0,0,100.0,Alta participação em votações
+235712,Vavá,AVANTE,MG,18,18,12,6,0,0,100.0,Alta participação em votações
+220643,Sônia Guajajara,PSOL,SP,19,19,12,7,0,0,100.0,Alta participação em votações

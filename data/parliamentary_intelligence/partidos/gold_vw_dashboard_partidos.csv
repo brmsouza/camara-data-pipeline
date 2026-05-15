@@ -1,0 +1,27 @@
+part_sg_partido,qt_deputados,qt_despesas,vl_total_liquido,qt_votacoes,qt_frentes,qt_presidentes_frente,qt_coordenadores_frente,qt_vice_frente,vl_media_eficiencia,pc_media_documentacao,pc_media_participacao_decisiva,score_medio_engajamento,tx_classificacao_engajamento,tx_classificacao_participacao
+SOLIDARIEDADE,15,6471,11130522.21,6473,1917,0,4,0,2.10,65.13,98.91,38.46,Partido pouco engajado,Alta participação decisiva
+PROS,6,857,1603437.51,1245,840,0,0,0,6.18,65.87,99.86,24.96,Partido pouco engajado,Alta participação decisiva
+PSC,6,1940,1712080.55,1811,495,0,0,0,3.48,63.38,99.82,33.78,Partido pouco engajado,Alta participação decisiva
+PRD,6,6248,8415041.66,3994,1510,0,4,0,1.77,81.0,98.86,52.03,Partido moderadamente engajado,Alta participação decisiva
+PDT,24,18461,25215137.17,15874,4412,0,12,0,2.38,67.67,99.14,48.52,Partido moderadamente engajado,Alta participação decisiva
+PT,94,142994,132716182.63,85514,17042,0,44,0,2.03,75.99,98.03,58.04,Partido moderadamente engajado,Alta participação decisiva
+AVANTE,10,7760,9822817.73,6923,1336,0,3,0,6.07,75.73,99.8,48.21,Partido moderadamente engajado,Alta participação decisiva
+MDB,71,51100,75577231.25,43485,9291,0,20,0,1.99,69.14,99.47,46.14,Partido moderadamente engajado,Alta participação decisiva
+PL,134,151550,176522597.66,117868,22177,0,54,0,2.26,71.57,95.8,57.19,Partido moderadamente engajado,Alta participação decisiva
+PV,8,9224,10976776.28,6964,1701,0,4,0,2.26,78.94,99.16,59.01,Partido moderadamente engajado,Alta participação decisiva
+REPUBLICANOS,83,62327,87649698.97,55811,13995,0,29,0,2.90,72.11,99.01,49.46,Partido moderadamente engajado,Alta participação decisiva
+MISSÃO,1,737,910248.96,1373,364,0,1,0,5.52,12.21,99.49,82.43,Partido altamente engajado,Alta participação decisiva
+NOVO,10,7579,6447405.97,9489,1302,0,7,0,6.86,71.82,95.97,59.29,Partido moderadamente engajado,Alta participação decisiva
+CIDADANIA,7,4817,4939573.55,3736,1012,0,3,0,2.85,62.89,99.08,44.21,Partido moderadamente engajado,Alta participação decisiva
+PSB,41,29107,34843870.72,23328,6286,0,16,0,3.56,73.52,97.83,42.68,Partido moderadamente engajado,Alta participação decisiva
+REDE,8,3325,5234945.72,3386,560,0,2,0,1549.78,79.6,98.03,37.79,Partido pouco engajado,Alta participação decisiva
+PSOL,18,23934,22764377.99,16167,2134,0,7,0,1.54,69.91,98.08,56.35,Partido moderadamente engajado,Alta participação decisiva
+PATRIOTA,2,780,941991.24,808,360,0,1,0,4.69,90.6,100.0,40.29,Partido moderadamente engajado,Alta participação decisiva
+PTB,5,1111,1502024.75,1288,685,0,2,0,3.27,49.74,100.0,25.51,Partido pouco engajado,Alta participação decisiva
+PSD,86,78385,96870347.87,57511,14061,0,31,0,2.45,68.42,99.27,48.80,Partido moderadamente engajado,Alta participação decisiva
+PP,97,81169,101426794.68,61909,13103,0,32,0,12.76,70.92,98.72,47.12,Partido moderadamente engajado,Alta participação decisiva
+PCDOB,13,12037,17633826.97,12541,2197,0,4,0,1.81,69.91,98.54,59.89,Partido moderadamente engajado,Alta participação decisiva
+PODE,44,27194,44418617.91,25846,5000,0,9,0,3.95,72.22,99.39,43.28,Partido moderadamente engajado,Alta participação decisiva
+PSDB,38,23057,33459428.70,21592,4091,0,10,0,2.37,68.77,99.0,42.49,Partido moderadamente engajado,Alta participação decisiva
+S.PART.,1,325,837924.75,652,449,0,0,0,6.14,72.31,100.0,56.82,Partido moderadamente engajado,Alta participação decisiva
+UNIÃO,94,73326,109500727.76,63535,13931,0,32,0,3.66,69.52,99.79,48.88,Partido moderadamente engajado,Alta participação decisiva
