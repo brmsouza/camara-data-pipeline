@@ -324,9 +324,9 @@ Os principais destaques arquiteturais incluem:
 
 ## Conclusão Executiva
 
-O projeto `camara-data-pipeline` evoluiu além de uma entrega acadêmica tradicional e se tornou uma plataforma analítica parlamentar enterprise construída sobre princípios modernos de arquitetura Databricks Lakehouse.
+O projeto `camara-data-pipeline` é uma plataforma analítica parlamentar construída sobre arquitetura moderna Databricks Lakehouse, desenvolvida para ingestão, processamento, governança e análise de dados da Câmara dos Deputados.
 
-A solução combina:
+O projeto contempla:
 
 - Arquitetura Medalhão escalável;
 - Modelagem dimensional analítica;
@@ -336,17 +336,15 @@ A solução combina:
 - Estratégias de replay e reprocessamento;
 - Observabilidade operacional;
 - Validação de qualidade orientada a metadata;
-- Produtos avançados de Parliamentary Intelligence.
+- Produtos analíticos de Parliamentary Intelligence.
 
-A implementação prioriza:
+A implementação mantém foco em:
 
 - manutenibilidade;
 - replayabilidade;
 - escalabilidade analítica;
 - resiliência operacional;
 - governança;
-- documentação enterprise;
+- documentação técnica;
 - lineage ponta a ponta;
 - consistência semântica.
-
-O projeto atende fortemente aos requisitos do Desafio Final Databricks e também implementa capacidades adicionais de nível enterprise que expandem significativamente o escopo original do desafio.
