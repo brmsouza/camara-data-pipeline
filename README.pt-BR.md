@@ -432,8 +432,28 @@ docs/
 | [challenge_matrix.pt-BR.md](docs/challenge_matrix.pt-BR.md) | Matriz de aderência ao desafio |
 | [runbook.pt-BR.md](docs/runbook.pt-BR.md) | Procedimentos operacionais |
 | [notebooks_catalog.pt-BR.md](docs/notebooks_catalog.pt-BR.md) | Catálogo de notebooks |
+
 ---
 
+## Padrões de Construção de Notebooks
+
+O projeto adota um modelo padronizado de construção de notebooks definindo:
+- estrutura dos notebooks
+- organização das células
+- estrutura de logging
+- registro de linhagem
+- fluxo de validação
+- fluxo de persistência Delta
+- padrão de métricas operacionais
+- tratamento de registros rejeitados
+- estrutura de notebooks CDC/SCD2
+- estrutura de notebooks streaming
+
+A documentação detalhada de construção dos notebooks está disponível em:
+
+- [notebook_engineering_standards.pt-BR.md](docs/notebook_engineering_standards.pt-BR.md)
+
+---
 # Objetivos de Engenharia
 
 O projeto foi desenvolvido para demonstrar:

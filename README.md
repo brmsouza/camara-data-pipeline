@@ -436,6 +436,25 @@ docs/
 | [runbook.md](docs/runbook.md) | Operational incident procedures |
 | [notebooks_catalog.md](docs/notebooks_catalog.md) | Notebook catalog and responsibilities |
 
+
+## Notebook Engineering Standards
+
+The project adopts standardized enterprise notebook engineering practices
+covering:
+- notebook structure
+- operational logging
+- lineage
+- observability
+- data quality
+- Delta persistence
+- CDC/SCD2 patterns
+- streaming engineering
+- governance conventions
+
+Detailed notebook engineering documentation is available at:
+
+- [notebook_engineering_standards.md](docs/notebook_engineering_standards.md)
+
 ---
 
 # Engineering Goals
