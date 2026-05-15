@@ -278,6 +278,8 @@ A solução fornece:
 - classificação de saúde operacional;
 - observabilidade de pipelines streaming.
 
+---
+
 ### Visão Geral do Dashboard
 
 ![Dashboard de Observabilidade do Pipeline Legislativo](assets/images/figure_1_legislative_pipeline_observability_dashboard.png)
@@ -288,15 +290,12 @@ A solução fornece:
 
 *Indicadores de throughput streaming e monitoramento operacional legislativo.*
 
-Detalhes técnicos adicionais:
+### Documentação Adicional
 
-[`docs/streaming_sla_observability.pt-BR.md`](docs/streaming_sla_observability.pt-BR.md)
-
----
-
-Documentação detalhada disponível em:
-
-[streaming_architecture.pt-BR.md](docs/streaming_architecture.pt-BR.md)
+| Documento | Descrição |
+|---|---|
+| [streaming_sla_observability.pt-BR.md](docs/streaming_sla_observability.pt-BR.md) | Monitoramento de SLA e observabilidade operacional |
+| [streaming_architecture.pt-BR.md](docs/streaming_architecture.pt-BR.md) | Arquitetura streaming e orquestração DLT |
 
 ---
 

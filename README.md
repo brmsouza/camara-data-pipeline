@@ -262,15 +262,12 @@ The solution provides:
 
 *Streaming throughput and legislative operational monitoring indicators.*
 
-Additional technical details:
+### Additional Documentation
 
-[`docs/streaming_sla_observability.md`](docs/streaming_sla_observability.md)
-
----
-
-Detailed streaming documentation is available at:
-
-[streaming_architecture.md](docs/streaming_architecture.md)
+| Document | Description |
+|---|---|
+| [streaming_sla_observability.md](docs/streaming_sla_observability.md) | SLA monitoring and operational observability |
+| [streaming_architecture.md](docs/streaming_architecture.md) | Streaming architecture and DLT orchestration |
 
 ---
 
